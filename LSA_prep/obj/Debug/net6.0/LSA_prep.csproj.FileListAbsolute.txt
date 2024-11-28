@@ -1,0 +1,17 @@
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\LSA_prep.exe
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\LSA_prep.deps.json
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\LSA_prep.runtimeconfig.json
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\LSA_prep.dll
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\ref\LSA_prep.dll
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\LSA_prep.pdb
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.csproj.AssemblyReference.cache
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.AssemblyInfoInputs.cache
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.AssemblyInfo.cs
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.csproj.CoreCompileInputs.cache
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.dll
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\ref\LSA_prep.dll
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.pdb
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.genruntimeconfig.cache
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\bin\Debug\net6.0\MathNet.Numerics.dll
+C:\Users\denis\Desktop\C#_Projects\LSA_prep\LSA_prep\obj\Debug\net6.0\LSA_prep.csproj.CopyComplete
