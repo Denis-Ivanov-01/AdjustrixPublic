@@ -201,7 +201,10 @@
                     //Console.WriteLine("Checking: ");
                     //NetworkAnalyzer<RelativeMeasurement>.PrintTraverse(traverse2);
                     if (traverse == traverse2) { continue; }
-                    if (traverse.ToHashSet().IsSupersetOf(traverse2))
+                    //if (traverse.ToHashSet().IsSupersetOf(traverse2))
+                    // TEST!
+                    //if (IsSupersetOneType(traverse, traverse2))
+                    if (traverse.ToHashSet().IsSupersetOf(traverse2) && CanBeSupersetOf(traverse, traverse2))
                     {
                         //Console.WriteLine("Removing...");
                         //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(new List<List<PointBase>> { traverse });
@@ -215,6 +218,50 @@
                 if (supersetFound) { break; }
             }
             return traverses;
+        }
+
+        //private static bool IsSupersetOneType(List<PointBase> traverse, List<PointBase> traverse1)
+        //{
+        //    for (int i = 0; i < traverse.Count - 1; i++)
+        //    {
+        //        PointBase p1 = traverse[i];
+        //        PointBase p2 = traverse[i + 1];
+        //        List<PointBase> straightPair = new() { p1, p2 };
+        //        List<PointBase> reversePair = new() { p2, p1 };
+        //        for (int j = 0; j < traverse1.Count; j++)
+        //        {
+        //            PointBase point1 = traverse1[j];
+        //            PointBase point2 = traverse1[j + 1];
+        //            List<PointBase> pair = new() { point1, point2 };
+        //            //List<PointBase> reverse = new() { point2, point1 };
+        //            if (!((straightPair[0] == pair[0] && straightPair[1] == pair[1]) ||
+        //                (reversePair[0] == pair[0] && reversePair[1] == pair[1])))
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    return true;
+        ////}
+        
+        /// <summary>
+        /// Checks if traverse and traverse1 are linked traverses that are 
+        /// a result of the break down of the same closed traverse.
+        /// E.g: 3 4 5 3 -> 4 5; 5 3 4
+        /// </summary>
+        /// <param name="traverse"></param>
+        /// <param name="traverse1"></param>
+        /// <returns></returns>
+        private static bool CanBeSupersetOf(List<PointBase> traverse, List<PointBase> traverse1)
+        { //TODO: Rename this
+            foreach(List<List<PointBase>> resultFromBreakdown in NetworkAnalyzer<RelativeMeasurement>.traversesFromBreakDown)
+            {
+                if (resultFromBreakdown.Contains(traverse) && resultFromBreakdown.Contains(traverse1))
+                {// returns false if they were in the same closed traverse
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

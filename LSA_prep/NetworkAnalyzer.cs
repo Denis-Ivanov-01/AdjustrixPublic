@@ -28,6 +28,7 @@
         private readonly Dictionary<PointBase, List<TEdge>> graphData = new();
         private readonly List<PointBase> traversedPoints = new();
         private List<List<PointBase>> linkedTraverseFromBreakdown = new();
+        public static List<List<List<PointBase>>> traversesFromBreakDown = new();
         
         public NetworkAnalyzer()
         {
@@ -371,7 +372,6 @@
             //Console.WriteLine("After removing supersets");
             //PrintTraverses(allClosedTravs);
             //Console.WriteLine("Bug here...");
-            //todo: see why here we get incorrect polygons... The mistake appears around this line
             Console.WriteLine("Before breaking:");
             PrintTraverses(allClosedTravs);
             allClosedTravs = BreakClosedTraversesToContained(allClosedTravs);
@@ -380,6 +380,7 @@
             allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
             Console.WriteLine("Traverses after removing two types:");
             PrintTraverses(allClosedTravs);
+            //todo: Check why 10 3 5 isn't removed
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
             Console.WriteLine("CLOSED PATHS BEFORE RETURN");
             PrintTraverses(allClosedTravs);
@@ -574,6 +575,10 @@
                 // Getting all the Points except the last one, because it is the same as the first one
                 //List<PointBase> pathWithoutLastElement = path.GetRange(0, path.Count - 1);
                 List<List<PointBase>> brokenDownTrav = BreakClosedTravToContainedTravs(t);
+                if (brokenDownTrav.Count > 1)
+                {
+                    traversesFromBreakDown.Add(brokenDownTrav);
+                }
                 
                 //PrintPaths(new List<List<PointBase>> { path });
                 brokenDownTravs.AddRange(brokenDownTrav);
