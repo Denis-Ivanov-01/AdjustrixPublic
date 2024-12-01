@@ -340,51 +340,30 @@
         {
 
             HashSet<List<PointBase>> hsallClosedTravs = new();
-            //PointBase firstNode = graphData.Keys.OrderBy(x => x.X).ThenBy(x => x.Y).First();
             PointBase firstNode = graphData.Keys.OrderBy(x => graphData[x].Count).First();
             List<PointBase> pointsToWalk = BreadthFirstSearch(firstNode);
-            //foreach (var node in graphData.Keys.OrderBy(x => x.X).ThenBy(x => x.Y))
             foreach (var node in pointsToWalk)
             {
-                //if (graphData[node].Count <= 1)
-                //{
-                //    Console.WriteLine("WTF");
-                //    continue;
-                //}
                 if (graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() <= 1)
                 {
                     traversedPoints.Add(node);
-                    //Console.WriteLine($"{node.Number} is traversed");
                     continue;
                 }
-                //Console.WriteLine($"Finding closest paths to {node.Number}");
                 List<List<PointBase>> closedPathsToNode = FindShortestPathToSelf(node);
-                //PrintPaths(closedPath);
-                //closedPath.Insert(0, closedPath[^1]);
                 hsallClosedTravs.UnionWith(closedPathsToNode);
-                //allClosedTravs.AddRange(closedPathsToNode);
                 traversedPoints.Add(node);
             }
-            //Console.WriteLine("CLOSED PATHS BEFORE RETURN");
             List<List<PointBase>> allClosedTravs = hsallClosedTravs.Distinct(new PointListComparer<PointBase>()).OrderByDescending(x => x.Count).ToList();
-            //PrintTraverses(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
-            //Console.WriteLine("After removing supersets");
-            //PrintTraverses(allClosedTravs);
-            //Console.WriteLine("Bug here...");
-            Console.WriteLine("Before breaking:");
-            PrintTraverses(allClosedTravs);
+            
+            //this was added so that complex closed traverses would be eliminated.
+            //otherwise, the algorithm finds huge closed traverses that encapsulate multiple smaller ones.
+            //it should work fine, but test it using multiple configurations!
+            allClosedTravs = SupersetRemover.RemoveCompositeSupersets(allClosedTravs, new List<List<PointBase>>());
+            
             allClosedTravs = BreakClosedTraversesToContained(allClosedTravs);
-            Console.WriteLine("After breaking:");
-            PrintTraverses(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
-            Console.WriteLine("Traverses after removing two types:");
-            PrintTraverses(allClosedTravs);
-            //todo: Check why 10 3 5 isn't removed
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
-            Console.WriteLine("CLOSED PATHS BEFORE RETURN");
-            PrintTraverses(allClosedTravs);
-            Console.WriteLine();
             traversedPoints.Clear();
             return allClosedTravs;
         }
@@ -418,15 +397,9 @@
             foreach (var edge in graphData[node].OrderBy(x => x.Length))
             {
                 //todo: make sure this shit is correct. What is the purpose of this?
-                //Console.WriteLine($"Current neighbor {edge.ToPoint.Number}");
-                //if ((edge.ToPoint.Number == "10" || edge.ToPoint.Number == "7") && node.Number == "1")
-                //{
-                //    Console.WriteLine("yea");
-                //}
                 if (!graphData[edge.ToPoint].Where(e => !traversedPoints.Contains(e.ToPoint) && e.ToPoint != node).Any()
                     || traversedPoints.Contains(edge.ToPoint))
                 {
-                    Console.WriteLine($"Not finding the shortest path using {edge.ToPoint.Number}");
                     continue;
                 }
                 //todo: remove after ensuring this is obsolete
@@ -468,19 +441,6 @@
         {
             if (startIndex == endIndex) { throw new InvalidDataException("Cannot get section with the same start and end index!"); }
             List<PointBase> section = new();
-            //List<PointBase> section2 = new();
-            //if (startIndex <= endIndex)
-            //{
-            //    // Non-circular range
-            //    section2 = traverse.GetRange(startIndex, endIndex - startIndex + 1);
-            //}
-            //else
-            //{
-            //    // Circular range
-            //    section2.AddRange(traverse.GetRange(startIndex, traverse.Count - (startIndex + 1)));
-            //    section2.AddRange(traverse.GetRange(0, endIndex)); // Adjusted to include endIndex
-            //}
-            //todo: ensure the bellow is obsolete through testing
             #region iterative get range
             if (startIndex < endIndex)
             {
@@ -500,10 +460,6 @@
                     section.Add(traverse[i]);
                 }
             }
-            //if (section.Select(x => x.Number) != section.Select(x => x.Number))
-            //{
-            //    Console.WriteLine("");
-            //}
             #endregion
             return section;
         }
@@ -532,7 +488,6 @@
         #region Determining simplest contained polygons
         private List<List<PointBase>> FindAllLinkedTraverses(List<List<PointBase>> closedTraverses)
         {
-            Console.WriteLine("Contained paths begin...");
             List<List<PointBase>> containedTraverses = new();
             ContainedPathsFinder finder = new(closedTraverses);
             List<Tuple<PointBase, PointBase>> containedPathsPoints = finder.FindKnownPointsToConnect();

@@ -20,17 +20,11 @@
         public static List<List<PointBase>> RemoveCompositeSupersets(List<List<PointBase>> traverses, List<List<PointBase>> containedtraversesFromBreakdown)
         {
             traverses = traverses.OrderByDescending(item => item.Count).ToList();
-            //Console.WriteLine("Traverses ordered before composite removal...");
-            //Graph.PrintTraverses(traverses);
-            //Console.WriteLine("Linked traverses...");
-            //Graph.PrintTraverses(containedtraversesFromBreakdown);
             bool supersetFound = true;
             while (supersetFound)
             {
                 traverses = traverses.OrderByDescending(item => item.Count).ToList();
                 traverses = RemoveCompositeSuperset(traverses, ref supersetFound, containedtraversesFromBreakdown);
-                //Console.WriteLine("After removing composite superset...");
-                //Graph.PrintTraverses(traverses);
             }
             return traverses;
         }
@@ -39,7 +33,7 @@
             ref bool supersetFound, 
             List<List<PointBase>> containedtraversesFromBreakdown)
         {
-            supersetFound = false;   
+            supersetFound = false;
             for (int i = 0; i < traverses.Count; i++)
             {
                 List<PointBase> currtraverse = traverses[i];
@@ -47,10 +41,7 @@
                 List<List<PointBase>> traversesToCompare = new();
                 traversesToCompare.AddRange(containedtraversesFromBreakdown);
                 traversesToCompare.AddRange(traverses.Where(item => item.Count < currtraverse.Count));
-                //Console.WriteLine("Traverses to compare");
-                //Graph.PrintTraverses(traversesToCompare);
-                if (CheckIfCurrtraverseIsSubsetOf(currtraverse, traverses, traversesToCompare))
-                //if (CheckIfCurrtraverseIsSubset(currtraverse, traverses, containedtraversesFromBreakdown))
+                if (CheckIfCurrtraverseIsSubsetOf(currtraverse, traversesToCompare))
                 {
                     supersetFound = true;
                     traverses.RemoveAt(i);
@@ -61,7 +52,6 @@
         }
 
         public static bool CheckIfCurrtraverseIsSubsetOf(List<PointBase> currTraverse, 
-            List<List<PointBase>> traversesSorted,
             List<List<PointBase>> traversesToCompare)
         { // todo: refactor this
             List<Tuple<PointBase, PointBase>> currPairs = new();
@@ -178,12 +168,8 @@
             while (supersetFound)
             {
                 traverses = traverses.OrderByDescending(item => item.Count).ToList();
-                //Console.WriteLine("======");
-                //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(traverses);
                 traverses = RemoveSupersetOneType(traverses, ref supersetFound);
             }
-            //Console.WriteLine("Closed traverses before returning...");
-            //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(traverses);
             return traverses;
         }
 
@@ -192,25 +178,15 @@
             supersetFound = false;
             foreach(List<PointBase> traverse in traverses)
             {
-                //if(traverse.Any(x => x.Number == "5") && traverse.Any(x => x.Number == "4") && traverse.Any(x => x.Number == "3"))
-                //{
-                //    Console.WriteLine("YEA");
-                //}
                 foreach(List<PointBase> traverse2 in traverses)
                 {
-                    //Console.WriteLine("Checking: ");
-                    //NetworkAnalyzer<RelativeMeasurement>.PrintTraverse(traverse2);
                     if (traverse == traverse2) { continue; }
                     //if (traverse.ToHashSet().IsSupersetOf(traverse2))
                     // TEST!
                     //if (IsSupersetOneType(traverse, traverse2))
                     if (traverse.ToHashSet().IsSupersetOf(traverse2) && CanBeSupersetOf(traverse, traverse2))
                     {
-                        //Console.WriteLine("Removing...");
-                        //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(new List<List<PointBase>> { traverse });
                         supersetFound = true;
-                        //Console.WriteLine("Removing superset one type: ");
-                        //NetworkAnalyzer<RelativeMeasurement>.PrintTraverse(traverse);
                         traverses.Remove(traverse);
                         break;
                     }
