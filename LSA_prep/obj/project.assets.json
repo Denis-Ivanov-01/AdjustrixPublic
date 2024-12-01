@@ -49,11 +49,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\denis\\Desktop\\C#_Projects\\LSA_prep\\LSA_prep\\LSA_Base.csproj",
+      "projectUniqueName": "C:\\Users\\denis\\source\\repos\\Adjustrix\\LSA_prep\\LSA_Base.csproj",
       "projectName": "LSA_Base",
-      "projectPath": "C:\\Users\\denis\\Desktop\\C#_Projects\\LSA_prep\\LSA_prep\\LSA_Base.csproj",
+      "projectPath": "C:\\Users\\denis\\source\\repos\\Adjustrix\\LSA_prep\\LSA_Base.csproj",
       "packagesPath": "C:\\Users\\denis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\denis\\Desktop\\C#_Projects\\LSA_prep\\LSA_prep\\obj\\",
+      "outputPath": "C:\\Users\\denis\\source\\repos\\Adjustrix\\LSA_prep\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

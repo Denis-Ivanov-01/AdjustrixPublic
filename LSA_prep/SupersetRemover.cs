@@ -178,10 +178,12 @@
             while (supersetFound)
             {
                 traverses = traverses.OrderByDescending(item => item.Count).ToList();
+                //Console.WriteLine("======");
+                //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(traverses);
                 traverses = RemoveSupersetOneType(traverses, ref supersetFound);
             }
             //Console.WriteLine("Closed traverses before returning...");
-            //NetworkAnalyzer<MeasurementBase>.PrintTraverses(traverses);
+            //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(traverses);
             return traverses;
         }
 
@@ -190,14 +192,22 @@
             supersetFound = false;
             foreach(List<PointBase> traverse in traverses)
             {
+                //if(traverse.Any(x => x.Number == "5") && traverse.Any(x => x.Number == "4") && traverse.Any(x => x.Number == "3"))
+                //{
+                //    Console.WriteLine("YEA");
+                //}
                 foreach(List<PointBase> traverse2 in traverses)
                 {
+                    //Console.WriteLine("Checking: ");
+                    //NetworkAnalyzer<RelativeMeasurement>.PrintTraverse(traverse2);
                     if (traverse == traverse2) { continue; }
                     if (traverse.ToHashSet().IsSupersetOf(traverse2))
                     {
                         //Console.WriteLine("Removing...");
-                        //Graph.PrintTraverses(new List<List<PointBase>> { traverse }) ;
+                        //NetworkAnalyzer<RelativeMeasurement>.PrintTraverses(new List<List<PointBase>> { traverse });
                         supersetFound = true;
+                        //Console.WriteLine("Removing superset one type: ");
+                        //NetworkAnalyzer<RelativeMeasurement>.PrintTraverse(traverse);
                         traverses.Remove(traverse);
                         break;
                     }

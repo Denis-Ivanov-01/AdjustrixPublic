@@ -285,6 +285,7 @@
         {
             var result = new List<List<PointBase>>();
             GetAllCombinationsRecursive(inputList, 0, new List<PointBase>(), result);
+            result.Add(new List<PointBase>());
             return result;
         }
 
@@ -337,7 +338,7 @@
         private List<List<PointBase>> FindAllClosedTraverses()
         {
 
-            var allClosedTravs = new List<List<PointBase>>();
+            HashSet<List<PointBase>> hsallClosedTravs = new();
             //PointBase firstNode = graphData.Keys.OrderBy(x => x.X).ThenBy(x => x.Y).First();
             PointBase firstNode = graphData.Keys.OrderBy(x => graphData[x].Count).First();
             List<PointBase> pointsToWalk = BreadthFirstSearch(firstNode);
@@ -352,22 +353,33 @@
                 if (graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() <= 1)
                 {
                     traversedPoints.Add(node);
+                    //Console.WriteLine($"{node.Number} is traversed");
                     continue;
                 }
+                //Console.WriteLine($"Finding closest paths to {node.Number}");
                 List<List<PointBase>> closedPathsToNode = FindShortestPathToSelf(node);
                 //PrintPaths(closedPath);
                 //closedPath.Insert(0, closedPath[^1]);
-                allClosedTravs.AddRange(closedPathsToNode);
+                hsallClosedTravs.UnionWith(closedPathsToNode);
+                //allClosedTravs.AddRange(closedPathsToNode);
                 traversedPoints.Add(node);
             }
             //Console.WriteLine("CLOSED PATHS BEFORE RETURN");
-            PrintTraverses(allClosedTravs);
+            List<List<PointBase>> allClosedTravs = hsallClosedTravs.Distinct(new PointListComparer<PointBase>()).OrderByDescending(x => x.Count).ToList();
+            //PrintTraverses(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
-            Console.WriteLine("After removing supersets");
-            PrintTraverses(allClosedTravs);
-            Console.WriteLine("Bug here...");
+            //Console.WriteLine("After removing supersets");
+            //PrintTraverses(allClosedTravs);
+            //Console.WriteLine("Bug here...");
             //todo: see why here we get incorrect polygons... The mistake appears around this line
+            Console.WriteLine("Before breaking:");
+            PrintTraverses(allClosedTravs);
             allClosedTravs = BreakClosedTraversesToContained(allClosedTravs);
+            Console.WriteLine("After breaking:");
+            PrintTraverses(allClosedTravs);
+            allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
+            Console.WriteLine("Traverses after removing two types:");
+            PrintTraverses(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
             Console.WriteLine("CLOSED PATHS BEFORE RETURN");
             PrintTraverses(allClosedTravs);
@@ -405,9 +417,15 @@
             foreach (var edge in graphData[node].OrderBy(x => x.Length))
             {
                 //todo: make sure this shit is correct. What is the purpose of this?
+                //Console.WriteLine($"Current neighbor {edge.ToPoint.Number}");
+                //if ((edge.ToPoint.Number == "10" || edge.ToPoint.Number == "7") && node.Number == "1")
+                //{
+                //    Console.WriteLine("yea");
+                //}
                 if (!graphData[edge.ToPoint].Where(e => !traversedPoints.Contains(e.ToPoint) && e.ToPoint != node).Any()
                     || traversedPoints.Contains(edge.ToPoint))
                 {
+                    Console.WriteLine($"Not finding the shortest path using {edge.ToPoint.Number}");
                     continue;
                 }
                 //todo: remove after ensuring this is obsolete

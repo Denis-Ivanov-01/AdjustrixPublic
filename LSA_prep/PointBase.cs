@@ -11,7 +11,7 @@
         public double Value { get; set; }
     }
 
-    public abstract class PointBase: INode
+    public abstract class PointBase: INode, IEquatable<PointBase>
     {
         public string Number { get; set; }
         public double? X;
@@ -22,6 +22,12 @@
             Number = number;
             X = x;
             Y = y;
+        }
+
+        public bool Equals(PointBase? other)
+        {
+            if (other == null) return false;
+            return Number == other.Number && X == other.X && Y == other.Y;
         }
     }
 
