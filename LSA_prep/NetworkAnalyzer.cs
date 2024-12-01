@@ -41,10 +41,18 @@
         public List<List<PointBase>> FindAllDistinctTraverses()
         {
             MakeGraphTwoSided();
+            //TODO: check why same edge appears twice in graph data for some keys
+            Console.WriteLine("graph data before...");
+            PrintGraphData();   
             List<List<PointBase>> distinctTravs = new();
             List<List<PointBase>> closedTravs = FindAllClosedTraverses();
+            Console.WriteLine("closed travs...");
             PrintTraverses(closedTravs);
+            Console.WriteLine("graph data before linked travs");
+            PrintGraphData();
             List<List<PointBase>> linkedTravs = FindAllLinkedTraverses(closedTravs);
+            Console.WriteLine("linked travs...");
+            PrintTraverses(linkedTravs);
             //List<HashSet<PointBase>> unorderedPaths = new();
             distinctTravs.AddRange(linkedTravs);
             distinctTravs.AddRange(closedTravs);
@@ -239,7 +247,8 @@
                     reverseEdge.ToPoint = edge.FromPoint;
                     reverseEdge.Length = edge.Length;
                     //reverseEdge.IsReversed = true;
-                    if (!graphData[edge.ToPoint].Contains(reverseEdge))
+                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint == reverseEdge.FromPoint && e.ToPoint == reverseEdge.ToPoint))
+                    //if (!graphData[edge.ToPoint].Contains(reverseEdge))
                     {
                         graphData[edge.ToPoint].Add(reverseEdge);
                     }
@@ -336,12 +345,24 @@
             List<PointBase> pointsToWalk = BreadthFirstSearch(firstNode);
             foreach (var node in pointsToWalk)
             {
+                Console.WriteLine($"node: {node.Number}");
+                PrintGraphData();
+                if (node.Number == "7")
+                {
+                    Console.WriteLine();
+                }
                 if (graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() <= 1)
                 {
                     traversedPoints.Add(node);
                     continue;
                 }
+                Console.WriteLine($"node: {node.Number}");
                 List<List<PointBase>> closedPathsToNode = FindShortestPathToSelf(node);
+                if (graphData.Keys.Any(k => graphData[k].Count() <= 1))
+                {
+                    Console.WriteLine($"PROBLEM with node {node.Number}");
+                    PrintGraphData();
+                }
                 hsallClosedTravs.UnionWith(closedPathsToNode);
                 traversedPoints.Add(node);
             }
@@ -401,30 +422,45 @@
                 //}
                 //todo: replace this with a RemoveEdgeByPoints?? Think about a solution
                 RemoveEdgeIfExists(edge.ToPoint, node);
+                int initialEdges = graphData[edge.ToPoint].Count();
                 List<List<PointBase>> neighborCombinations = GetAllPointCombinations(graphData[edge.ToPoint]);
-                foreach(List<PointBase> possibleCombination in neighborCombinations)
+                Console.WriteLine("neighbor combos:");
+                PrintTraverses(neighborCombinations);
+                try 
                 {
-                    RemoveMultipleEdges(edge.ToPoint, possibleCombination);
-                    try
-                    { //todo: maybe at the end try to remove this try-catch-finally shit
-                        List<PointBase> res = AStar(edge.ToPoint, node);
-                        res.Insert(0, res[^1]);
-                        if (res.Distinct().Count() <= 2)
+                    foreach (List<PointBase> possibleCombination in neighborCombinations)
+                    {
+                        RemoveMultipleEdges(edge.ToPoint, possibleCombination);
+                        try
+                        { //todo: maybe at the end try to remove this try-catch-finally shit
+                            List<PointBase> res = AStar(edge.ToPoint, node);
+                            res.Insert(0, res[^1]);
+                            if (res.Distinct().Count() <= 2)
+                            {
+                                continue;
+                            }
+                            paths.Add(res);
+                        }
+                        catch (Exception)
                         {
-                            continue;
-                        } 
-                        paths.Add(res);
+
+                        }
+                        finally
+                        {
+                            InsertMultipleEdges(edge.ToPoint, possibleCombination);
+                        }
                     }
-                    catch (Exception)
-                    {
-                                                
-                    }
-                    finally
-                    {
-                        InsertMultipleEdges(edge.ToPoint, possibleCombination);
-                    }
+
                 }
-                InsertEdge(edge);
+                finally
+                {
+                    InsertEdge(edge);
+                }
+                int finalCount = graphData[edge.ToPoint].Count();
+                if (finalCount != initialEdges)
+                {
+                    Console.WriteLine($"The problem appeared with edge {edge.FromPoint.Number} {edge.ToPoint.Number}");
+                }
             }
             return paths.OrderBy(p => p.Count).ToList();
         }
@@ -578,6 +614,22 @@
             return result;
         }
         #endregion
+
+        private void PrintGraphData()
+        {
+            foreach(KeyValuePair<PointBase, List<TEdge>> kvp in graphData)
+            {
+                PointBase key = kvp.Key;
+                List<TEdge> edges = kvp.Value;
+                Console.Write($"key {key.Number}: ");
+                foreach (TEdge edge in edges)
+                {
+                    Console.Write($"{edge.ToPoint.Number} ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+        }
     }
 
     internal class Pathfinder<TNode, TEdge>

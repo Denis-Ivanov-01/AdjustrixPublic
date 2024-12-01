@@ -27,7 +27,11 @@
         public bool Equals(PointBase? other)
         {
             if (other == null) return false;
-            return Number == other.Number && X == other.X && Y == other.Y;
+
+            // Only the number should be compared.
+            // The program should check for duplicate points by number and by coordinates
+            // when the data is received.
+            return Number == other.Number /*&& X == other.X && Y == other.Y*/;
         }
     }
 
