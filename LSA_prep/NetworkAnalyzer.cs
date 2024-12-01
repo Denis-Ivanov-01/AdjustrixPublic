@@ -57,7 +57,7 @@
         }
 
         private void ValidateResult(List<List<PointBase>> distinctTraverses)
-        {
+        {//todo: move one outside this class. Should be done in the class that calls this one!
             int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
             int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
             int redundancy = measurementsCount - unknownPointsCount;
@@ -66,7 +66,6 @@
             {
                 throw new IncorrectGeometryAnalysis("The number of distinct traverses is not equal to the redundancy!");
             }
-
         }
 
         public void MeasurementsToEdge(List<TEdge> measurements)
