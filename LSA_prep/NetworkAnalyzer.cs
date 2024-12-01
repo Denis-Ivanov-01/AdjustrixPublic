@@ -25,6 +25,7 @@
     public class NetworkAnalyzer<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {
+        private int measurementsCount = 0;
         private readonly Dictionary<PointBase, List<TEdge>> graphData = new();
         private readonly List<PointBase> traversedPoints = new();
         private List<List<PointBase>> linkedTraverseFromBreakdown = new();
@@ -47,34 +48,25 @@
             //List<HashSet<PointBase>> unorderedPaths = new();
             distinctTravs.AddRange(linkedTravs);
             distinctTravs.AddRange(closedTravs);
-
-            //Console.WriteLine("Closed paths");
-            //PrintTraverses(closedTravs);
-            //Console.WriteLine("Contained paths");
-            //PrintTraverses(linkedTravs);
-
-            //foreach (List<PointBase> path in closedPaths.OrderBy(x => x.Count))
-            //{
-            //    HashSet<PointBase> currPathUnordered = new HashSet<PointBase>(path);
-            //    if (!unorderedPaths.Any(set => set.SetEquals(currPathUnordered)))
-            //    {
-            //        distinctPaths.Add(path);
-            //        unorderedPaths.Add(currPathUnordered);
-            //    }
-            //}
-            //foreach (List<PointBase> cp in containedPaths)
-            //{
-            //    distinctPaths.Add(cp);
-            //}
-            //Console.WriteLine("Distinct paths beforeeeee");
-            //PrintTraverses(distinctTravs);
             distinctTravs = SupersetRemover.RemoveSupersetsTwoTypes(distinctTravs);
-            //Console.WriteLine("Distinct paths before");
-            //PrintTraverses(distinctTravs);
             distinctTravs = SupersetRemover.RemoveCompositeSupersets(distinctTravs, linkedTraverseFromBreakdown);
             Console.WriteLine("Distinct Paths");
             PrintTraverses(distinctTravs);
+            ValidateResult(distinctTravs);
             return distinctTravs;
+        }
+
+        private void ValidateResult(List<List<PointBase>> distinctTraverses)
+        {
+            int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
+            int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
+            int redundancy = measurementsCount - unknownPointsCount;
+            int distinctTravsCount = distinctTraverses.Count;
+            if (redundancy != distinctTravsCount)
+            {
+                throw new IncorrectGeometryAnalysis("The number of distinct traverses is not equal to the redundancy!");
+            }
+
         }
 
         public void MeasurementsToEdge(List<TEdge> measurements)
@@ -88,6 +80,7 @@
 
         public void MeasurementToEdge(TEdge measurement)
         { //todo: make private or even remove after testing is complete
+            measurementsCount += 1;
             InsertEdge(measurement);
         }
         #endregion
