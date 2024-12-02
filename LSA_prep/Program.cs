@@ -26,7 +26,7 @@ class Program
         KnownGravimetricPoint gp8 = new("8", 27404.4680, 340280.8549, 8.5);
         KnownGravimetricPoint gp9 = new("9", 27133.3325, 341704.3286, 9.5);
         KnownGravimetricPoint gp10 = new("10", 27736.1762, 340572.0287, 10);
-        //NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
+        NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
 
         RelativeMeasurement m1 = new(gp4, gp1, 0.052);
         RelativeMeasurement m2 = new(gp1, gp2, -0.022);
@@ -46,8 +46,8 @@ class Program
         RelativeMeasurement m16 = new(gp7, gp10, 1);
         RelativeMeasurement m17 = new(gp1, gp10, 0.94);
         RelativeMeasurement m18 = new(gp10, gp3, -1);
-        //RelativeMeasurement m19 = new(gp3, gp11, -0.38);
-        //RelativeMeasurement m20 = new(gp11, gp8, -0.52);
+        RelativeMeasurement m19 = new(gp3, gp11, -0.38);
+        RelativeMeasurement m20 = new(gp11, gp8, -0.52);
 
         //NewGravimetricPoint gp2 = new("2", 27448.6326, 340661.0996);
         //NewGravimetricPoint gp3 = new("3", 27343.8182, 340696.2238);
@@ -73,7 +73,6 @@ class Program
         //RelativeMeasurement m12 = new(gp5, gp8, 0.24);
         //RelativeMeasurement m13 = new(gp6, gp8, -0.23);
         //RelativeMeasurement m14 = new(gp7, gp8, 0.11);
-        //todo: figure out how to fix this -> cs0311
         var graph = new NetworkAnalyzer<RelativeMeasurement>();
         graph.MeasurementToEdge(m2);
         graph.MeasurementToEdge(m3);
@@ -93,8 +92,8 @@ class Program
         graph.MeasurementToEdge(m16);
         graph.MeasurementToEdge(m17);
         graph.MeasurementToEdge(m18);
-        //graph.MeasurementToEdge(m19);
-        //graph.MeasurementToEdge(m20);
+        graph.MeasurementToEdge(m19);
+        graph.MeasurementToEdge(m20);
 
         List<List<PointBase>> distinctPaths = graph.FindAllDistinctTraverses();
         //foreach(var key in distinctPaths.Keys)
@@ -110,7 +109,7 @@ class Program
         //    Console.WriteLine(String.Join(" -> ", pathNumbers));
         //}
 
-        List<RelativeMeasurement> meas = new() { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18/*, m19, m20*/};
+        List<RelativeMeasurement> meas = new() { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20 };
 
         GravimetricAdjustment adjustment = new(distinctPaths, meas);
         Matrix<double> confM = adjustment.CreateConfigurationMatrix();

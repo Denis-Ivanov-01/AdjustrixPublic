@@ -41,8 +41,7 @@
         public List<List<PointBase>> FindAllDistinctTraverses()
         {
             MakeGraphTwoSided();
-            //TODO: check why same edge appears twice in graph data for some keys
-            //TODO: check why edges disappear in FindClosestPathToSelf  
+            //TODO: Figure out why there is one extra distinct traverse!
             List<List<PointBase>> distinctTravs = new();
             List<List<PointBase>> closedTravs = FindAllClosedTraverses();
             Console.WriteLine("closed travs...");
@@ -351,12 +350,6 @@
             PointBase firstNode = graphData.Keys.OrderBy(x => graphData[x].Count).First();
             List<PointBase> pointsToWalk = BreadthFirstSearch(firstNode);
 
-            List<int> initialCounts = new();
-            foreach (PointBase key in graphData.Keys)
-            {
-                initialCounts.Add(graphData[key].Count);
-            }
-
             foreach (var node in pointsToWalk)
             {
                 if (graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() <= 1)
@@ -369,16 +362,32 @@
                 traversedPoints.Add(node);
             }
             List<List<PointBase>> allClosedTravs = hsallClosedTravs.Distinct(new PointListComparer<PointBase>()).OrderByDescending(x => x.Count).ToList();
+            PrintGraphData();
+            Console.WriteLine("all closed travs");
+            PrintTraverses(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
-            
+            Console.WriteLine("after one type remove");
+            PrintTraverses(allClosedTravs);
+
             //this was added so that complex closed traverses would be eliminated.
             //otherwise, the algorithm finds huge closed traverses that encapsulate multiple smaller ones.
             //it should work fine, but test it using multiple configurations!
             allClosedTravs = SupersetRemover.RemoveCompositeSupersets(allClosedTravs, new List<List<PointBase>>());
-            
+            Console.WriteLine("after composite rmeove");
+            PrintTraverses(allClosedTravs);
+
             allClosedTravs = BreakClosedTraversesToContained(allClosedTravs);
+            Console.WriteLine("after breaking");
+            PrintTraverses(allClosedTravs);
+
             allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
+            Console.WriteLine("two type remove");
+            PrintTraverses(allClosedTravs);
+
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
+            Console.WriteLine("one type remove");
+            PrintTraverses(allClosedTravs);
+
             traversedPoints.Clear();
             return allClosedTravs;
         }

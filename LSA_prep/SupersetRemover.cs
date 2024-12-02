@@ -186,6 +186,10 @@
                     //if (IsSupersetOneType(traverse, traverse2))
                     if (traverse.ToHashSet().IsSupersetOf(traverse2) && CanBeSupersetOf(traverse, traverse2))
                     {
+                        if (traverse.Any(x => x.Number == "11"))
+                        {
+                            Console.WriteLine(CanBeSupersetOf(traverse, traverse2));
+                        }
                         supersetFound = true;
                         traverses.Remove(traverse);
                         break;
@@ -232,7 +236,16 @@
         { //TODO: Rename this
             foreach(List<List<PointBase>> resultFromBreakdown in NetworkAnalyzer<RelativeMeasurement>.traversesFromBreakDown)
             {
-                if (resultFromBreakdown.Contains(traverse) && resultFromBreakdown.Contains(traverse1))
+                List<PointBase> traverseReversed = new List<PointBase>(traverse);
+                traverseReversed.Reverse();
+                List<PointBase> traverse1Reversed = new(traverse1);
+                traverse1Reversed.Reverse();
+                
+                if ((resultFromBreakdown.Any(item => item.SequenceEqual(traverse)) || 
+                    resultFromBreakdown.Any(item => item.SequenceEqual(traverseReversed))) && 
+                    (resultFromBreakdown.Any(item => item.SequenceEqual(traverse1)) ||
+                    resultFromBreakdown.Any(item => item.SequenceEqual(traverse1Reversed))))
+                //if (resultFromBreakdown.Contains(traverse) && resultFromBreakdown.Contains(traverse1))
                 {// returns false if they were in the same closed traverse
                     return false;
                 }
