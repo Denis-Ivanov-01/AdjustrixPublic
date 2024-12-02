@@ -42,8 +42,7 @@
         {
             MakeGraphTwoSided();
             //TODO: check why same edge appears twice in graph data for some keys
-            Console.WriteLine("graph data before...");
-            PrintGraphData();   
+            //TODO: check why edges disappear in FindClosestPathToSelf  
             List<List<PointBase>> distinctTravs = new();
             List<List<PointBase>> closedTravs = FindAllClosedTraverses();
             Console.WriteLine("closed travs...");
@@ -206,14 +205,22 @@
             //TEdge edge = new();
             //edge.FromPoint = startNode;
             //edge.ToPoint = endNode;
-            if (graphData.ContainsKey(edge.FromPoint))
+            if (!graphData.ContainsKey(edge.FromPoint))
+            {
+                graphData[edge.FromPoint] = new List<TEdge>();
+            }
+            if (!graphData[edge.FromPoint].Any(e => e.FromPoint == edge.FromPoint && e.ToPoint == edge.ToPoint))
             {
                 graphData[edge.FromPoint].Add(edge);
             }
-            else
-            {
-                graphData[edge.FromPoint] = new List<TEdge> { edge };
-            }
+            //if (graphData.ContainsKey(edge.FromPoint))
+            //{
+            //    graphData[edge.FromPoint].Add(edge);
+            //}
+            //else
+            //{
+            //    graphData[edge.FromPoint] = new List<TEdge> { edge };
+            //}
         }
 
         private void RemoveEdgeByPoint(PointBase starPointBase, PointBase endNode)
@@ -343,26 +350,21 @@
             HashSet<List<PointBase>> hsallClosedTravs = new();
             PointBase firstNode = graphData.Keys.OrderBy(x => graphData[x].Count).First();
             List<PointBase> pointsToWalk = BreadthFirstSearch(firstNode);
+
+            List<int> initialCounts = new();
+            foreach (PointBase key in graphData.Keys)
+            {
+                initialCounts.Add(graphData[key].Count);
+            }
+
             foreach (var node in pointsToWalk)
             {
-                Console.WriteLine($"node: {node.Number}");
-                PrintGraphData();
-                if (node.Number == "7")
-                {
-                    Console.WriteLine();
-                }
                 if (graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() <= 1)
                 {
                     traversedPoints.Add(node);
                     continue;
                 }
-                Console.WriteLine($"node: {node.Number}");
                 List<List<PointBase>> closedPathsToNode = FindShortestPathToSelf(node);
-                if (graphData.Keys.Any(k => graphData[k].Count() <= 1))
-                {
-                    Console.WriteLine($"PROBLEM with node {node.Number}");
-                    PrintGraphData();
-                }
                 hsallClosedTravs.UnionWith(closedPathsToNode);
                 traversedPoints.Add(node);
             }
@@ -422,10 +424,7 @@
                 //}
                 //todo: replace this with a RemoveEdgeByPoints?? Think about a solution
                 RemoveEdgeIfExists(edge.ToPoint, node);
-                int initialEdges = graphData[edge.ToPoint].Count();
                 List<List<PointBase>> neighborCombinations = GetAllPointCombinations(graphData[edge.ToPoint]);
-                Console.WriteLine("neighbor combos:");
-                PrintTraverses(neighborCombinations);
                 try 
                 {
                     foreach (List<PointBase> possibleCombination in neighborCombinations)
@@ -450,16 +449,14 @@
                             InsertMultipleEdges(edge.ToPoint, possibleCombination);
                         }
                     }
-
                 }
                 finally
                 {
-                    InsertEdge(edge);
-                }
-                int finalCount = graphData[edge.ToPoint].Count();
-                if (finalCount != initialEdges)
-                {
-                    Console.WriteLine($"The problem appeared with edge {edge.FromPoint.Number} {edge.ToPoint.Number}");
+                    //InsertEdge(edge);
+                    
+                    // adding the reverse because we were iterating the neighbors and removing the edge
+                    // from the neighbor to the node, not from the node to the neighbor
+                    InsertEdge(edge.Reverse());
                 }
             }
             return paths.OrderBy(p => p.Count).ToList();
