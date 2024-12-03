@@ -7,7 +7,7 @@ class Program
     // Затворен ход - Closed Traverse
     // TODO: UNIT TESTING -> Add automated testing mechanisms and prepare automated tests
     // TODO: Look to apply the SOLID principles - especially the S, I principles. Ensure the code is clean!
-    //simo e gotin :)
+    //simo e gotin :) :)
     static void Main(string[] args)
     {
         //HashSet<int> set1 = new HashSet<int>();
@@ -27,7 +27,7 @@ class Program
         KnownGravimetricPoint gp8 = new("8", 27404.4680, 340280.8549, 8.5);
         KnownGravimetricPoint gp9 = new("9", 27133.3325, 341704.3286, 9.5);
         KnownGravimetricPoint gp10 = new("10", 27736.1762, 340572.0287, 10);
-        //NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
+        NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
 
         RelativeMeasurement m1 = new(gp4, gp1, 0.052);
         RelativeMeasurement m2 = new(gp1, gp2, -0.022);
@@ -42,13 +42,13 @@ class Program
         RelativeMeasurement m11 = new(gp2, gp9, 0.5);
         RelativeMeasurement m12 = new(gp9, gp3, -0.5);
         RelativeMeasurement m13 = new(gp4, gp2, 0.033);
-        RelativeMeasurement m14 = new(gp8, gp9, 1);
+        //RelativeMeasurement m14 = new(gp8, gp9, 1);
         RelativeMeasurement m15 = new(gp3, gp5, -1.05);
         RelativeMeasurement m16 = new(gp7, gp10, 1);
         RelativeMeasurement m17 = new(gp1, gp10, 0.94);
         RelativeMeasurement m18 = new(gp10, gp3, -1);
-        //RelativeMeasurement m19 = new(gp3, gp11, -0.38);
-        //RelativeMeasurement m20 = new(gp11, gp8, -0.52);
+        RelativeMeasurement m19 = new(gp3, gp11, -0.38);
+        RelativeMeasurement m20 = new(gp11, gp8, -0.52);
 
         //NewGravimetricPoint gp2 = new("2", 27448.6326, 340661.0996);
         //NewGravimetricPoint gp3 = new("3", 27343.8182, 340696.2238);
@@ -88,13 +88,13 @@ class Program
         graph.MeasurementToEdge(m11);
         graph.MeasurementToEdge(m12);
         graph.MeasurementToEdge(m13);
-        graph.MeasurementToEdge(m14);
+        //graph.MeasurementToEdge(m14);
         graph.MeasurementToEdge(m15);
         graph.MeasurementToEdge(m16);
         graph.MeasurementToEdge(m17);
         graph.MeasurementToEdge(m18);
-        //graph.MeasurementToEdge(m19);
-        //graph.MeasurementToEdge(m20);
+        graph.MeasurementToEdge(m19);
+        graph.MeasurementToEdge(m20);
 
         List<List<PointBase>> distinctPaths = graph.FindAllDistinctTraverses();
         //foreach(var key in distinctPaths.Keys)
@@ -110,7 +110,7 @@ class Program
         //    Console.WriteLine(String.Join(" -> ", pathNumbers));
         //}
 
-        List<RelativeMeasurement> meas = new() { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18/*, m19, m20*/ };
+        List<RelativeMeasurement> meas = new() { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13/*, m14*/, m15, m16, m17, m18, m19, m20 };
 
         GravimetricAdjustment adjustment = new(distinctPaths, meas);
         Matrix<double> confM = adjustment.CreateConfigurationMatrix();

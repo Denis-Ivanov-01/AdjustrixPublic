@@ -36,6 +36,11 @@
 
         }
 
+        public NetworkAnalyzer(List<TEdge> measurements)
+        {
+            MeasurementsToEdge(measurements);
+        }
+
         #region Public methods
         //Entry point the the library
         public List<List<PointBase>> FindAllDistinctTraverses()
@@ -69,7 +74,8 @@
             int redundancy = measurementsCount - unknownPointsCount;
             int distinctTravsCount = distinctTraverses.Count;
             if (redundancy != distinctTravsCount)
-            {
+            {//todo: in that case, the user should be informed of the problem in the geometry
+                //maybe such a complex network should be considered sub-optimal
                 throw new IncorrectGeometryAnalysis("The number of distinct traverses is not equal to the redundancy!");
             }
         }

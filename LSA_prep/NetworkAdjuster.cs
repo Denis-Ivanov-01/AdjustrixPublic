@@ -1,0 +1,27 @@
+﻿namespace LSA_Base
+{
+    public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
+        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
+        where TAdjustment : Adjustment<TMeasurement, PointBase>
+    {
+        private readonly List<TMeasurement> _measurements;
+        
+        public NetworkAdjuster(List<TMeasurement> measurements)
+        {
+            _measurements = measurements;
+        }
+
+        private void PerformAdjustment()
+        {
+            NetworkAnalyzer<TMeasurement> networkAnalyzer = new(_measurements);
+            List<List<PointBase>> distinctTraverses = networkAnalyzer.FindAllDistinctTraverses();
+            
+            // Using reflection to conform with the Open/Closed principle.
+            // IMO the pros outweight the cons in this case :)
+            object[] args = new object[] { distinctTraverses, _measurements };
+            TAdjustment adjustment = (TAdjustment)Activator.CreateInstance(typeof(TAdjustment), args)!;
+            //todo: figure out what should be included in the reports and then figure out how to create
+            // these reports in the most efficient way - in which class should that happen?
+        }
+    }
+}
