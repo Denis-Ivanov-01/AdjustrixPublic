@@ -5,10 +5,10 @@ namespace LSA_Base
     public class GravimetricAdjustment : Adjustment<RelativeMeasurement, AdjustedGravimetricPoint>
     {
         private const int decimalPrecision = 12;
-        protected override int RequiredDecimalPrecision { get { return decimalPrecision; } } 
+        protected override int RequiredDecimalPrecision { get { return decimalPrecision; } }
 
         public GravimetricAdjustment(List<List<PointBase>> distinctTraverses, List<RelativeMeasurement> measurements)
-            :base(distinctTraverses, measurements)
+            : base(distinctTraverses, measurements)
         {
 
         }

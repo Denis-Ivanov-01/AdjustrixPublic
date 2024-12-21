@@ -3,8 +3,8 @@
 
     public enum TraverseType
     {
-        Closed=0,
-        Linked=1
+        Closed = 0,
+        Linked = 1
     }
 
     internal static class SupersetRemover
@@ -29,8 +29,8 @@
             return traverses;
         }
 
-        public static List<List<PointBase>> RemoveCompositeSuperset(List<List<PointBase>> traverses, 
-            ref bool supersetFound, 
+        public static List<List<PointBase>> RemoveCompositeSuperset(List<List<PointBase>> traverses,
+            ref bool supersetFound,
             List<List<PointBase>> containedtraversesFromBreakdown)
         {
             supersetFound = false;
@@ -51,29 +51,13 @@
             return traverses;
         }
 
-        public static bool CheckIfCurrtraverseIsSubsetOf(List<PointBase> currTraverse, 
+        public static bool CheckIfCurrtraverseIsSubsetOf(List<PointBase> currTraverse,
             List<List<PointBase>> traversesToCompare)
         { // todo: refactor this
-            List<Tuple<PointBase, PointBase>> currPairs = new();
-            for (int j = 0; j < currTraverse.Count - 1; j++)
-            {
-                currPairs.Add(new Tuple<PointBase, PointBase>(currTraverse[j], currTraverse[j + 1]));
-            }
+            List<Tuple<PointBase, PointBase>> currPairs = GetPointPairs(currTraverse);
             int initialPairsCount = currPairs.Count;
             int pairsFoundInOtherTraverses = 0;
 
-            //todo: double check if this needs to be commented - most likely yes. If so, remove the fucker
-            //int index1 = traversesSorted.Where(p => p.Count > currTraverse.Count).Count();
-            //int currtraverseIndex = traversesSorted.IndexOf(currTraverse);
-            //traversesSorted.RemoveAt(currtraverseIndex);
-            //int targetIndex = traversesSorted.Where(p => p.Count > currTraverse.Count).Count();
-            //// I have no fucking idea why the following line works, but it does...
-            //// TODO: Figure out why the fuck I need to do this so that the algorithm doesn't remove
-            //// traverses that shouldn't be removed.
-            //// Notes: This is the last time in this method where traversesSorted is used.
-            //// I don't understand why it changes the logic :/
-            //traversesSorted.Insert(targetIndex, currTraverse);
-            //for (int i = targetIndex + 1; i < traversesToCompare.Count; i++)
 
             for (int i = 0; i < traversesToCompare.Count; i++)
             {
@@ -82,25 +66,43 @@
 
                 //if (linkedTraversesFromBreakdown.Contains(traverseToCompare)) { continue; }
 
-                List<int> indicesToRemove = new();
+                List<int> indicesToRemove = GetIndicesToRemove(currPairs, ref pairsFoundInOtherTraverses, traverseToCompare);
 
-                foreach (Tuple<PointBase, PointBase> pair in currPairs)
-                {
-                    Tuple<PointBase, PointBase> pairReverse = new(pair.Item2, pair.Item1);
-                    if (ContainsTupleInOrder(traverseToCompare, pair) ||
-                        ContainsTupleInOrder(traverseToCompare, pairReverse))
-                    {
-                        pairsFoundInOtherTraverses += 1;
-                        indicesToRemove.Add(currPairs.IndexOf(pair));
-                    }
-                }
-
-                foreach(int index in indicesToRemove.OrderByDescending(x => x))
+                foreach (int index in indicesToRemove.OrderByDescending(x => x))
                 {
                     currPairs.RemoveAt(index);
                 }
             }
             return pairsFoundInOtherTraverses == initialPairsCount; //True means that all pairs exist in other traverses
+        }
+
+        private static List<int> GetIndicesToRemove(List<Tuple<PointBase, PointBase>> currPairs, ref int pairsFoundInOtherTraverses, List<PointBase> traverseToCompare)
+        {
+            List<int> indicesToRemove = new();
+
+            foreach (Tuple<PointBase, PointBase> pair in currPairs)
+            {
+                Tuple<PointBase, PointBase> pairReverse = new(pair.Item2, pair.Item1);
+                if (ContainsTupleInOrder(traverseToCompare, pair) ||
+                    ContainsTupleInOrder(traverseToCompare, pairReverse))
+                {
+                    pairsFoundInOtherTraverses += 1;
+                    indicesToRemove.Add(currPairs.IndexOf(pair));
+                }
+            }
+
+            return indicesToRemove;
+        }
+
+        private static List<Tuple<PointBase, PointBase>> GetPointPairs(List<PointBase> currTraverse)
+        {
+            List<Tuple<PointBase, PointBase>> currPairs = new();
+            for (int j = 0; j < currTraverse.Count - 1; j++)
+            {
+                currPairs.Add(new Tuple<PointBase, PointBase>(currTraverse[j], currTraverse[j + 1]));
+            }
+
+            return currPairs;
         }
 
         public static bool ContainsTupleInOrder<T>(List<T> list, Tuple<T, T> tuple)
@@ -133,7 +135,6 @@
         private static List<List<PointBase>> RemoveSupersetTwoTypes(List<List<PointBase>> traverses, ref bool supersetFound)
         {
             supersetFound = false;
-            //foreach (List<PointBase> traverse in traverses)
             for (int i = 0; i < traverses.Count; i++)
             {
                 List<PointBase> traverse = traverses[i];
@@ -155,7 +156,11 @@
 
         private static TraverseType GettraverseType(List<PointBase> traverse)
         {
-            if (traverse[0].Number == traverse[^1].Number) return TraverseType.Closed;
+            if (traverse[0].Number == traverse[^1].Number)
+            {
+                return TraverseType.Closed;
+            }
+
             return TraverseType.Linked;
         }
 
@@ -176,9 +181,9 @@
         private static List<List<PointBase>> RemoveSupersetOneType(List<List<PointBase>> traverses, ref bool supersetFound)
         {
             supersetFound = false;
-            foreach(List<PointBase> traverse in traverses)
+            foreach (List<PointBase> traverse in traverses)
             {
-                foreach(List<PointBase> traverse2 in traverses)
+                foreach (List<PointBase> traverse2 in traverses)
                 {
                     if (traverse == traverse2) { continue; }
                     //if (traverse.ToHashSet().IsSupersetOf(traverse2))
@@ -186,10 +191,6 @@
                     //if (IsSupersetOneType(traverse, traverse2))
                     if (traverse.ToHashSet().IsSupersetOf(traverse2) && CanBeSupersetOf(traverse, traverse2))
                     {
-                        if (traverse.Any(x => x.Number == "11"))
-                        {
-                            Console.WriteLine(CanBeSupersetOf(traverse, traverse2));
-                        }
                         supersetFound = true;
                         traverses.Remove(traverse);
                         break;
@@ -223,29 +224,25 @@
         //    }
         //    return true;
         ////}
-        
+
         /// <summary>
         /// Checks if traverse and traverse1 are linked traverses that are 
         /// a result of the break down of the same closed traverse.
-        /// E.g: 3 4 5 3 -> 4 5; 5 3 4
+        /// E.g: 3 4 5 3 -> 4 5; 5 3 4 -> false
         /// </summary>
-        /// <param name="traverse"></param>
-        /// <param name="traverse1"></param>
-        /// <returns></returns>
         private static bool CanBeSupersetOf(List<PointBase> traverse, List<PointBase> traverse1)
         { //TODO: Rename this
-            foreach(List<List<PointBase>> resultFromBreakdown in NetworkAnalyzer<RelativeMeasurement>.traversesFromBreakDown)
+            foreach (List<List<PointBase>> resultFromBreakdown in NetworkAnalyzer<RelativeMeasurement>.traversesFromBreakDown)
             {
-                List<PointBase> traverseReversed = new List<PointBase>(traverse);
+                List<PointBase> traverseReversed = new(traverse);
                 traverseReversed.Reverse();
                 List<PointBase> traverse1Reversed = new(traverse1);
                 traverse1Reversed.Reverse();
-                
-                if ((resultFromBreakdown.Any(item => item.SequenceEqual(traverse)) || 
-                    resultFromBreakdown.Any(item => item.SequenceEqual(traverseReversed))) && 
+
+                if ((resultFromBreakdown.Any(item => item.SequenceEqual(traverse)) ||
+                    resultFromBreakdown.Any(item => item.SequenceEqual(traverseReversed))) &&
                     (resultFromBreakdown.Any(item => item.SequenceEqual(traverse1)) ||
                     resultFromBreakdown.Any(item => item.SequenceEqual(traverse1Reversed))))
-                //if (resultFromBreakdown.Contains(traverse) && resultFromBreakdown.Contains(traverse1))
                 {// returns false if they were in the same closed traverse
                     return false;
                 }

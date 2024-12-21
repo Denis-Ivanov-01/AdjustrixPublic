@@ -26,7 +26,7 @@ namespace LSA_Base
 
         public AdjustmentResult<TMeasurement, TAdjustedPoint> AdjustNetwork()
         {
-            
+
             Matrix<double> configurationMatrix = CreateConfigurationMatrix();
             Matrix<double> weightMatrix = CreateWeightMatrix();
             Matrix<double> normalMatrix = CalculateNormalMatrix(configurationMatrix, weightMatrix);
@@ -131,7 +131,7 @@ namespace LSA_Base
 
         public int GetMeasurementIndex(TMeasurement meas)
         {
-            foreach(int key in MeasurementIndices.Keys)
+            foreach (int key in MeasurementIndices.Keys)
             {
                 if (IsCorrespondingAlias(key, meas))
                 {
@@ -190,7 +190,7 @@ namespace LSA_Base
             HashSet<PointBase> set = new();
             foreach (List<PointBase> t in DistinctTraverses)
             {
-                foreach(PointBase point in t)
+                foreach (PointBase point in t)
                 {
                     set.Add(point);
                 }
@@ -206,7 +206,7 @@ namespace LSA_Base
 
         private void ValidateAdjustmentResult(Vector<double> adjustedInaccuracies)
         {
-            foreach(double currValue in adjustedInaccuracies)
+            foreach (double currValue in adjustedInaccuracies)
             {
                 if (Math.Round(currValue, RequiredDecimalPrecision) > 0)
                 {
@@ -226,8 +226,8 @@ namespace LSA_Base
 
         Vector<double> AdjustedCorrections { get; set; }
 
-        public AdjustmentResult(List<TAdjustedPoint> adjustedPoints, 
-            List<TMeasurement> adjustedMeasurements, 
+        public AdjustmentResult(List<TAdjustedPoint> adjustedPoints,
+            List<TMeasurement> adjustedMeasurements,
             Vector<double> adjustedCorrections)
         {
             AdjustedPoints = adjustedPoints;

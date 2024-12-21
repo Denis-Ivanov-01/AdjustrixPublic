@@ -120,11 +120,6 @@ class Program
         Vector<double> kMatrix = adjustment.CalculateK(normalMatrix, inaccuracies);
         Vector<double> pvMatrix = adjustment.CalculatePV(kMatrix, confM);
         Vector<double> correction = adjustment.CalculateCorrections(pvMatrix, weightMatrix);
-        //Console.WriteLine("Measurements");
-        //foreach (RelativeMeasurement ms in adjustment.Measurements)
-        //{
-        //    Console.WriteLine(ms.PotentialDelta);
-        //}
         List<RelativeMeasurement> adjustedMeas = adjustment.CalculateAdjustedMeasurements(correction);
         List<List<RelativeMeasurement>> assignedAdjustedMeas = adjustment.AsignMeasurementsToTraverses(adjustedMeas);
         Vector<double> adjustedInaccuracies = adjustment.CalculateInnacuraciesVector(assignedAdjustedMeas);

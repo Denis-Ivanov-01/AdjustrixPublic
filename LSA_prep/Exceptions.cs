@@ -1,13 +1,13 @@
 ﻿namespace LSA_Base
 {
 
-    public class IncorrectGeometryAnalysis: Exception
+    public class IncorrectGeometryAnalysis : Exception
     {
         public IncorrectGeometryAnalysis() { }
 
         public IncorrectGeometryAnalysis(string message) : base(message) { }
 
-        public IncorrectGeometryAnalysis(string message, Exception inner): base(message, inner) { }
+        public IncorrectGeometryAnalysis(string message, Exception inner) : base(message, inner) { }
     }
 
     public class IncorrectAdjustmentResultException : Exception

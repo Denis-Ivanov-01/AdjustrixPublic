@@ -5,7 +5,7 @@
         where TAdjustment : Adjustment<TMeasurement, PointBase>
     {
         private readonly List<TMeasurement> _measurements;
-        
+
         public NetworkAdjuster(List<TMeasurement> measurements)
         {
             _measurements = measurements;
@@ -15,7 +15,7 @@
         {
             NetworkAnalyzer<TMeasurement> networkAnalyzer = new(_measurements);
             List<List<PointBase>> distinctTraverses = networkAnalyzer.FindAllDistinctTraverses();
-            
+
             // Using reflection to conform with the Open/Closed principle.
             // IMO the pros outweight the cons in this case :)
             object[] args = new object[] { distinctTraverses, _measurements };

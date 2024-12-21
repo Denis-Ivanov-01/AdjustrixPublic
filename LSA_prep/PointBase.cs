@@ -11,13 +11,13 @@
         public double Value { get; set; }
     }
 
-    public abstract class PointBase: INode, IEquatable<PointBase>
+    public abstract class PointBase : INode, IEquatable<PointBase>
     {
         public string Number { get; set; }
         public double? X;
         public double? Y;
 
-        public PointBase(string number, double? x=null, double? y = null)
+        public PointBase(string number, double? x = null, double? y = null)
         {
             Number = number;
             X = x;
@@ -26,7 +26,10 @@
 
         public bool Equals(PointBase? other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
 
             // Only the number should be compared.
             // The program should check for duplicate points by number and by coordinates

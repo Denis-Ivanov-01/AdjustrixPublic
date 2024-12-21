@@ -14,7 +14,7 @@
     {
         public double GravitationalPotential { get; set; }
 
-        public KnownGravimetricPoint(string number, double? x, double? y , double value) : base(number, x, y)
+        public KnownGravimetricPoint(string number, double? x, double? y, double value) : base(number, x, y)
         {
             GravitationalPotential = value;
         }
@@ -24,7 +24,7 @@
     {
         public NewGravimetricPoint(string number, double? x, double? y) : base(number, x, y)
         {
-            
+
         }
     }
 

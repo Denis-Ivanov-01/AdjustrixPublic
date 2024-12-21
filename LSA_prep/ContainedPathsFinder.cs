@@ -40,7 +40,7 @@
             }
             return indices;
         }
-        
+
         public static bool IsKnownPoint(PointBase p)
         {
             return p is KnownPointNoCoordsBase;

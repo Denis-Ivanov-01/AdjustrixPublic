@@ -5,16 +5,25 @@
     {
         public bool Equals(List<TPoint>? x, List<TPoint>? y)
         {
-            if (x == null || y == null) return x == y;
+            if (x == null || y == null)
+            {
+                return x == y;
+            }
 
-            if (x.Count != y.Count) return false;
+            if (x.Count != y.Count)
+            {
+                return false;
+            }
 
             return x.SequenceEqual(y);
         }
 
         public int GetHashCode(List<TPoint> obj)
         {
-            if (obj == null) return 0;
+            if (obj == null)
+            {
+                return 0;
+            }
 
             unchecked
             {

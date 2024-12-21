@@ -10,7 +10,7 @@
     //    public PointBase FromPoint { get; set; }
 
     //    public PointBase ToPoint { get; set; }
-        
+
     //    public double Length { get; set; }
 
 
@@ -28,10 +28,10 @@
         private int measurementsCount = 0;
         private readonly Dictionary<PointBase, List<TEdge>> graphData = new();
         private readonly List<PointBase> traversedPoints = new();
-        private List<List<PointBase>> linkedTraverseFromBreakdown = new();
+        private readonly List<List<PointBase>> linkedTraverseFromBreakdown = new();
         public static List<List<List<PointBase>>> traversesFromBreakDown = new();
         private readonly List<TEdge> initialMeasurements;
-        
+
         public NetworkAnalyzer()
         {
             initialMeasurements = new();
@@ -48,59 +48,61 @@
         public List<List<PointBase>> FindAllDistinctTraverses()
         {
             MakeGraphTwoSided();
-            //TODO: Figure out why there is one extra distinct traverse!
             List<List<PointBase>> distinctTravs = new();
             List<List<PointBase>> closedTravs = FindAllClosedTraverses();
-            Console.WriteLine("closed travs...");
-            PrintTraverses(closedTravs);
-            Console.WriteLine("graph data before linked travs");
-            PrintGraphData();
+            //Console.WriteLine("closed travs...");
+            //PrintTraverses(closedTravs);
+            //Console.WriteLine("graph data before linked travs");
+            //PrintGraphData();
             List<List<PointBase>> linkedTravs = FindAllLinkedTraverses(closedTravs);
-            Console.WriteLine("linked travs...");
-            PrintTraverses(linkedTravs);
+            //Console.WriteLine("linked travs...");
+            //PrintTraverses(linkedTravs);
             //List<HashSet<PointBase>> unorderedPaths = new();
             distinctTravs.AddRange(linkedTravs);
             distinctTravs.AddRange(closedTravs);
             distinctTravs = SupersetRemover.RemoveSupersetsTwoTypes(distinctTravs);
             distinctTravs = SupersetRemover.RemoveCompositeSupersets(distinctTravs, linkedTraverseFromBreakdown);
-            Console.WriteLine("Distinct Paths before removing");
-            PrintTraverses(distinctTravs);
+            //Console.WriteLine("Distinct Paths before removing");
+            //PrintTraverses(distinctTravs);
             distinctTravs = RemoveRedundantTraverses(distinctTravs);
-            Console.WriteLine("Distinct Paths after removing");
-            PrintTraverses(distinctTravs);
+            //Console.WriteLine("Distinct Paths after removing");
+            //PrintTraverses(distinctTravs);
             ValidateResult(distinctTravs);
             return distinctTravs;
         }
 
-        private void ValidateResult(List<List<PointBase>> distinctTraverses)
-        {//todo: move one outside this class. Should be done in the class that calls this one!
+        private int CalculateRedundancy(List<List<PointBase>> distinctTraverses)
+        {
             int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
             int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
-            int redundancy = measurementsCount - unknownPointsCount;
+            return measurementsCount - unknownPointsCount;
+        }
+
+        private void ValidateResult(List<List<PointBase>> distinctTraverses)
+        {//todo: move one outside this class. Should be done in the class that calls this one!
+            int redundancy = CalculateRedundancy(distinctTraverses);
             int distinctTravsCount = distinctTraverses.Count;
             if (redundancy != distinctTravsCount)
             {//todo: in that case, the user should be informed of the problem in the geometry
-                //maybe such a complex network should be considered sub-optimal
 
-                // ANOTHER OPTION: If more traverses are found, find which one to exclude
-                // We can remove traverses until we find a configuration in which all measurements are included
                 throw new IncorrectGeometryAnalysis("The number of distinct traverses is not equal to the redundancy!");
             }
         }
 
+        /// <summary>
+        /// If there are more distinct traverses than the redundancy, it removes the unnecessary ones. 
+        /// </summary>
         private List<List<PointBase>> RemoveRedundantTraverses(List<List<PointBase>> distinctTraverses)
         {
-            int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
-            int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
-            int redundancy = measurementsCount - unknownPointsCount;
+            int redundancy = CalculateRedundancy(distinctTraverses);
             int distinctTravsCount = distinctTraverses.Count;
-            if (redundancy > distinctTravsCount) 
-            { 
+            if (redundancy > distinctTravsCount)
+            {
                 throw new IncorrectGeometryAnalysis("Not enough distinct traverses were found! " +
-                    "Contact the developer"); 
+                    "Contact the developer");
             }
             if (redundancy == distinctTravsCount) { return distinctTraverses; }
-            while (distinctTravsCount > redundancy)
+            while (distinctTravsCount != redundancy)
             {
                 distinctTraverses = RemoveRedundantTraverse(distinctTraverses);
                 distinctTravsCount--;
@@ -126,7 +128,7 @@
 
         private bool IncludeAllMeasurements(List<List<PointBase>> distinctTraverses)
         {
-            HashSet<(PointBase, PointBase)> measurementsInTraverses = new(); 
+            HashSet<(PointBase, PointBase)> measurementsInTraverses = new();
             foreach (List<PointBase> trav in distinctTraverses)
             {
                 measurementsInTraverses = measurementsInTraverses.Union(MeasurementsFromTraverse(trav)).ToHashSet();
@@ -239,8 +241,8 @@
 
             try
             {
-            List<PointBase> shortestTraverse = completePaths.OrderBy(p => p.Item2).First().Item1;
-            return shortestTraverse;
+                List<PointBase> shortestTraverse = completePaths.OrderBy(p => p.Item2).First().Item1;
+                return shortestTraverse;
             }
             catch (Exception)
             {
@@ -429,7 +431,7 @@
 
             foreach (var node in pointsToWalk)
             {
-                if (graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() <= 1)
+                if (!HasAvailableNeighbors(node))
                 {
                     traversedPoints.Add(node);
                     continue;
@@ -469,37 +471,18 @@
             return allClosedTravs;
         }
 
-        //private List<List<PointBase>> FindShortestPathToSelf(PointBase node)
-        //{ //todo: remove after ensuring its obsolete
-        //    var paths = new List<List<PointBase>>();
-        //    foreach (var edge in graphData[node].OrderBy(x => MathFunctions.CalcDistBetweenPoints(x.NeighborPoint, node)))
-        //    {
-        //        if (graphData[edge.NeighborPoint].Where(e => !traversedPoints.Contains(e.NeighborPoint) && e.NeighborPoint != node ).Count() <= 0)
-        //        {
-        //            continue;
-        //        }
-        //        RemoveEdgeByPoint(edge.NeighborPoint, node);
-        //        if (graphData[edge.NeighborPoint].Count == 0 || traversedPoints.Contains(edge.NeighborPoint))
-        //        {
-        //            continue;
-        //        }
-        //        //closedPath.Insert(0, closedPath[^1]);
-        //        List<PointBase> res = AStar(edge.NeighborPoint, node);
-        //        res.Insert(0, res[^1]);
-        //        paths.Add(res);
-        //        InsertEdge(edge.NeighborPoint, node);
-        //    }
-        //    return paths.OrderBy(p => p.Count).ToList();
-        //}
+        private bool HasAvailableNeighbors(PointBase node)
+        {
+            return graphData[node].Where(p => !traversedPoints.Contains(p.ToPoint)).Count() > 1;
+        }
 
         private List<List<PointBase>> FindShortestPathToSelf(PointBase node)
         { //todo: Refactor this piece of shit!
-            var paths = new HashSet<List<PointBase>>();
+            HashSet<List<PointBase>> paths = new();
             foreach (var edge in graphData[node].OrderBy(x => x.Length))
             {
                 //todo: make sure this shit is correct. What is the purpose of this?
-                if (!graphData[edge.ToPoint].Where(e => !traversedPoints.Contains(e.ToPoint) && e.ToPoint != node).Any()
-                    || traversedPoints.Contains(edge.ToPoint))
+                if (!HasTraversableNeighbor(node, edge) || traversedPoints.Contains(edge.ToPoint))
                 {
                     continue;
                 }
@@ -511,35 +494,15 @@
                 //todo: replace this with a RemoveEdgeByPoints?? Think about a solution
                 RemoveEdgeIfExists(edge.ToPoint, node);
                 List<List<PointBase>> neighborCombinations = GetAllPointCombinations(graphData[edge.ToPoint]);
-                try 
+                try
                 {
-                    foreach (List<PointBase> possibleCombination in neighborCombinations)
-                    {
-                        RemoveMultipleEdges(edge.ToPoint, possibleCombination);
-                        try
-                        { //todo: maybe at the end try to remove this try-catch-finally shit
-                            List<PointBase> res = AStar(edge.ToPoint, node);
-                            res.Insert(0, res[^1]);
-                            if (res.Distinct().Count() <= 2)
-                            {
-                                continue;
-                            }
-                            paths.Add(res);
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                        finally
-                        {
-                            InsertMultipleEdges(edge.ToPoint, possibleCombination);
-                        }
-                    }
+                    HashSet<List<PointBase>> currPaths = FindPossiblePaths(node, edge, neighborCombinations);
+                    paths.UnionWith(currPaths);
                 }
                 finally
                 {
                     //InsertEdge(edge);
-                    
+
                     // adding the reverse because we were iterating the neighbors and removing the edge
                     // from the neighbor to the node, not from the node to the neighbor
                     InsertEdge(edge.Reverse());
@@ -548,11 +511,44 @@
             return paths.OrderBy(p => p.Count).ToList();
         }
 
+        private HashSet<List<PointBase>> FindPossiblePaths(PointBase node, TEdge edge, List<List<PointBase>> neighborCombinations)
+        {
+            HashSet<List<PointBase>> currPaths = new();
+            foreach (List<PointBase> possibleCombination in neighborCombinations)
+            {
+                RemoveMultipleEdges(edge.ToPoint, possibleCombination);
+                try
+                { //todo: maybe at the end try to remove this try-catch-finally shit
+                    List<PointBase> res = AStar(edge.ToPoint, node);
+                    res.Insert(0, res[^1]);
+                    if (res.Distinct().Count() <= 2)
+                    {
+                        continue;
+                    }
+                    currPaths.Add(res);
+                }
+                catch (Exception)
+                {
+
+                }
+                finally
+                {
+                    InsertMultipleEdges(edge.ToPoint, possibleCombination);
+                }
+            }
+
+            return currPaths;
+        }
+
+        private bool HasTraversableNeighbor(PointBase node, TEdge edge)
+        {
+            return graphData[edge.ToPoint].Where(e => !traversedPoints.Contains(e.ToPoint) && e.ToPoint != node).Any();
+        }
+
         private static List<PointBase> GetClosedTraverseSection(List<PointBase> traverse, int startIndex, int endIndex)
         {
             if (startIndex == endIndex) { throw new InvalidDataException("Cannot get section with the same start and end index!"); }
             List<PointBase> section = new();
-            #region iterative get range
             if (startIndex < endIndex)
             {
                 for (int i = startIndex; i <= endIndex; i++)
@@ -571,10 +567,9 @@
                     section.Add(traverse[i]);
                 }
             }
-            #endregion
             return section;
         }
-        
+
         private static List<int> GetPointsIndices(List<PointBase> points, List<PointBase> traverse)
         {
             List<int> indices = new();
@@ -584,8 +579,8 @@
                 {
                     PointBase pointInPath = traverse[i];
                     if (indices.Contains(i)) { continue; }
-                    if (point == pointInPath) 
-                    { 
+                    if (point == pointInPath)
+                    {
                         indices.Add(i);
                         break;
                     }
@@ -645,7 +640,7 @@
                 {
                     traversesFromBreakDown.Add(brokenDownTrav);
                 }
-                
+
                 //PrintPaths(new List<List<PointBase>> { path });
                 brokenDownTravs.AddRange(brokenDownTrav);
             }
@@ -654,7 +649,7 @@
 
         private List<List<PointBase>> BreakClosedTravToContainedTravs(List<PointBase> traverse)
         {//todo: find the mistake in the logic -> 3453 is not returned, but lost
-            
+
             List<List<PointBase>> result = new();
             //List<PointBase> knownPoints = path.Where(p => p.GetType() is KnownPointNoCoordsBase)).ToList();
             List<KnownPointNoCoordsBase> knownPoints = traverse.OfType<KnownPointNoCoordsBase>().ToList();
@@ -690,7 +685,7 @@
                     {
                         linkedTraverseFromBreakdown.Add(section);
                     }
-                    
+
                     result.Add(section);
                 }
             }
@@ -700,7 +695,7 @@
 
         private void PrintGraphData()
         {
-            foreach(KeyValuePair<PointBase, List<TEdge>> kvp in graphData)
+            foreach (KeyValuePair<PointBase, List<TEdge>> kvp in graphData)
             {
                 PointBase key = kvp.Key;
                 List<TEdge> edges = kvp.Value;
@@ -716,12 +711,12 @@
     }
 
     internal class Pathfinder<TNode, TEdge>
-        where TNode: INode
-        where TEdge: IEdge<TNode, TEdge>, new()
+        where TNode : INode
+        where TEdge : IEdge<TNode, TEdge>, new()
     {
         private readonly Dictionary<TNode, List<TEdge>> graphData = new();
         private readonly List<TNode> traversedNodes = new();
-        
+
         public Pathfinder()
         {
 
