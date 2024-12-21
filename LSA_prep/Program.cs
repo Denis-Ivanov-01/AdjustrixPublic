@@ -42,7 +42,7 @@ class Program
         RelativeMeasurement m11 = new(gp2, gp9, 0.5);
         RelativeMeasurement m12 = new(gp9, gp3, -0.5);
         RelativeMeasurement m13 = new(gp4, gp2, 0.033);
-        //RelativeMeasurement m14 = new(gp8, gp9, 1);
+        RelativeMeasurement m14 = new(gp8, gp9, 1);
         RelativeMeasurement m15 = new(gp3, gp5, -1.05);
         RelativeMeasurement m16 = new(gp7, gp10, 1);
         RelativeMeasurement m17 = new(gp1, gp10, 0.94);
@@ -88,7 +88,7 @@ class Program
         graph.MeasurementToEdge(m11);
         graph.MeasurementToEdge(m12);
         graph.MeasurementToEdge(m13);
-        //graph.MeasurementToEdge(m14);
+        graph.MeasurementToEdge(m14);
         graph.MeasurementToEdge(m15);
         graph.MeasurementToEdge(m16);
         graph.MeasurementToEdge(m17);
@@ -110,7 +110,7 @@ class Program
         //    Console.WriteLine(String.Join(" -> ", pathNumbers));
         //}
 
-        List<RelativeMeasurement> meas = new() { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13/*, m14*/, m15, m16, m17, m18, m19, m20 };
+        List<RelativeMeasurement> meas = new() { m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16, m17, m18, m19, m20 };
 
         GravimetricAdjustment adjustment = new(distinctPaths, meas);
         Matrix<double> confM = adjustment.CreateConfigurationMatrix();
@@ -136,7 +136,7 @@ class Program
         //    Console.WriteLine(v);
         //}
         //Console.WriteLine("---");
-        
+
         //Console.WriteLine("Configuration matrix");
         //for (int i = 0; i < confM.RowCount; i++)
         //{
@@ -155,7 +155,7 @@ class Program
         ////Console.WriteLine(inaccuracies);
         //for (int i = 0; i<inaccuracies.Count; i++)
         //{
-            
+
         //    Console.Write($"{inaccuracies[i]} ");
         //    Console.WriteLine();
         //}

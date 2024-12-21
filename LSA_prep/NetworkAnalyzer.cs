@@ -30,15 +30,17 @@
         private readonly List<PointBase> traversedPoints = new();
         private List<List<PointBase>> linkedTraverseFromBreakdown = new();
         public static List<List<List<PointBase>>> traversesFromBreakDown = new();
+        private readonly List<TEdge> initialMeasurements;
         
         public NetworkAnalyzer()
         {
-
+            initialMeasurements = new();
         }
 
         public NetworkAnalyzer(List<TEdge> measurements)
         {
             MeasurementsToEdge(measurements);
+            initialMeasurements = measurements;
         }
 
         #region Public methods
@@ -61,7 +63,10 @@
             distinctTravs.AddRange(closedTravs);
             distinctTravs = SupersetRemover.RemoveSupersetsTwoTypes(distinctTravs);
             distinctTravs = SupersetRemover.RemoveCompositeSupersets(distinctTravs, linkedTraverseFromBreakdown);
-            Console.WriteLine("Distinct Paths");
+            Console.WriteLine("Distinct Paths before removing");
+            PrintTraverses(distinctTravs);
+            distinctTravs = RemoveRedundantTraverses(distinctTravs);
+            Console.WriteLine("Distinct Paths after removing");
             PrintTraverses(distinctTravs);
             ValidateResult(distinctTravs);
             return distinctTravs;
@@ -76,8 +81,74 @@
             if (redundancy != distinctTravsCount)
             {//todo: in that case, the user should be informed of the problem in the geometry
                 //maybe such a complex network should be considered sub-optimal
+
+                // ANOTHER OPTION: If more traverses are found, find which one to exclude
+                // We can remove traverses until we find a configuration in which all measurements are included
                 throw new IncorrectGeometryAnalysis("The number of distinct traverses is not equal to the redundancy!");
             }
+        }
+
+        private List<List<PointBase>> RemoveRedundantTraverses(List<List<PointBase>> distinctTraverses)
+        {
+            int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
+            int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
+            int redundancy = measurementsCount - unknownPointsCount;
+            int distinctTravsCount = distinctTraverses.Count;
+            if (redundancy > distinctTravsCount) 
+            { 
+                throw new IncorrectGeometryAnalysis("Not enough distinct traverses were found! " +
+                    "Contact the developer"); 
+            }
+            if (redundancy == distinctTravsCount) { return distinctTraverses; }
+            while (distinctTravsCount > redundancy)
+            {
+                distinctTraverses = RemoveRedundantTraverse(distinctTraverses);
+                distinctTravsCount--;
+            }
+            return distinctTraverses;
+        }
+
+        private List<List<PointBase>> RemoveRedundantTraverse(List<List<PointBase>> distinctTraverses)
+        { // todo: This should be able to remove more than one traverse at a time
+            // The idea is to remove N traverses, so that we reach the needed amount (redundancy = traverses)
+            // Then we check if all measurments are included
+            // or maybe this works as well :/
+            distinctTraverses = distinctTraverses.OrderByDescending(x => x.Count).ToList();
+            for (int i = 0; i < distinctTraverses.Count; i++)
+            {
+                List<PointBase> currTrav = distinctTraverses[i];
+                distinctTraverses.RemoveAt(i);
+                if (IncludeAllMeasurements(distinctTraverses)) { return distinctTraverses; }
+                distinctTraverses.Insert(i, currTrav);
+            }
+            throw new IncorrectGeometryAnalysis("No traverse can be removed :/ your network is fucked");
+        }
+
+        private bool IncludeAllMeasurements(List<List<PointBase>> distinctTraverses)
+        {
+            HashSet<(PointBase, PointBase)> measurementsInTraverses = new(); 
+            foreach (List<PointBase> trav in distinctTraverses)
+            {
+                measurementsInTraverses = measurementsInTraverses.Union(MeasurementsFromTraverse(trav)).ToHashSet();
+            }
+            HashSet<(PointBase, PointBase)> measurements = new();
+            foreach (TEdge meas in initialMeasurements)
+            {
+                measurements.Add((meas.FromPoint, meas.ToPoint));
+            }
+
+            return measurements.All(x => measurementsInTraverses.Contains(x));
+        }
+
+        private static HashSet<(PointBase, PointBase)> MeasurementsFromTraverse(List<PointBase> traverse)
+        {
+            HashSet<(PointBase, PointBase)> measurementsInTraverse = new();
+            for (int i = 0; i < traverse.Count - 1; i++)
+            {
+                measurementsInTraverse.Add((traverse[i], traverse[i + 1]));
+                measurementsInTraverse.Add((traverse[i + 1], traverse[i]));
+            }
+            return measurementsInTraverse;
         }
 
         public void MeasurementsToEdge(List<TEdge> measurements)
