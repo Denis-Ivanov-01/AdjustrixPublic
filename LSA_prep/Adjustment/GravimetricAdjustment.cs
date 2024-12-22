@@ -46,13 +46,13 @@ namespace LSA_Base
             return weightMatrix;
         }
 
-        protected override Vector<double> CalculateInnacuraciesVector(List<List<RelativeMeasurement>> assignedMeasurements)
+        protected override Vector<double> CalculateResidualsVector(List<List<RelativeMeasurement>> assignedMeasurements)
         {
             Vector<double> innacuracies = vectorBuilder.Dense(assignedMeasurements.Count);
             foreach (List<RelativeMeasurement> trav in assignedMeasurements)
             {
                 int travIndex = assignedMeasurements.IndexOf(trav);
-                innacuracies[travIndex] = CalculateInaccuracy(trav);
+                innacuracies[travIndex] = CalculateResidual(trav);
             }
             return innacuracies;
         }
@@ -100,23 +100,23 @@ namespace LSA_Base
             return adjustedMeasurements;
         }
 
-        private double CalculateInaccuracy(List<RelativeMeasurement> trav)
+        private double CalculateResidual(List<RelativeMeasurement> trav)
         {
             if (IsLinkedTraverse(trav))
             {
-                return CalculateLinkedTraverseInaccuracy(trav);
+                return CalculateLinkedTraverseResidual(trav);
             }
-            return CalculateClosedTraverseInaccuracy(trav);
+            return CalculateClosedTraverseResidual(trav);
         }
 
-        private static double CalculateClosedTraverseInaccuracy(List<RelativeMeasurement> trav)
+        private static double CalculateClosedTraverseResidual(List<RelativeMeasurement> trav)
         {
-            double currInaccuracy = 0;
+            double currResidual = 0;
             foreach (RelativeMeasurement measurement in trav)
             {
-                currInaccuracy += measurement.Value;
+                currResidual += measurement.Value;
             }
-            return currInaccuracy;
+            return currResidual;
         }
 
         private static int GetMeasurementConfigurationIndex(RelativeMeasurement meas)
@@ -128,14 +128,14 @@ namespace LSA_Base
             return 1;
         }
 
-        private double CalculateLinkedTraverseInaccuracy(List<RelativeMeasurement> trav)
+        private double CalculateLinkedTraverseResidual(List<RelativeMeasurement> trav)
         {
             (PointBase startP, PointBase toP) = GetTravStartEndPoint(trav);
             KnownGravimetricPoint startPoint = (KnownGravimetricPoint)startP;
             KnownGravimetricPoint toPoint = (KnownGravimetricPoint)toP;
-            double currInaccuracy = trav.Sum(meas => meas.Value);
+            double currResidual = trav.Sum(meas => meas.Value);
             double betweenPointsValue = toPoint.Value - startPoint.Value;
-            double result = currInaccuracy - betweenPointsValue;
+            double result = currResidual - betweenPointsValue;
             return result;
         }
     }

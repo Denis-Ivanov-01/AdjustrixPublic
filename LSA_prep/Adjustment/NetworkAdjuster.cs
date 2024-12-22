@@ -19,7 +19,7 @@
             List<List<PointBase>> distinctTraverses = networkAnalyzer.FindAllDistinctTraverses();
 
             // Using reflection to conform with the Open/Closed principle.
-            // IMO the pros outweight the cons in this case :)
+            // IMO the pros outweigh the cons in this case :)
             object[] args = new object[] { distinctTraverses, _measurements };
             TAdjustment adjustment = (TAdjustment)Activator.CreateInstance(typeof(TAdjustment), args)!;
             adjustment.AdjustNetwork();

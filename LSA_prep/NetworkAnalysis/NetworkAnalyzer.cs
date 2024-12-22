@@ -28,7 +28,7 @@
             pathfinder = new(graphData);
         }
 
-        //Entry point the the library
+        //Entry point the library
         public List<List<PointBase>> FindAllDistinctTraverses()
         {
             MakeGraphTwoSided();
@@ -188,7 +188,7 @@
             //otherwise, the algorithm can find huge closed traverses that encapsulate multiple smaller ones.
             //it should work fine, but test it using multiple configurations!
             allClosedTravs = SupersetRemover.RemoveCompositeSupersets(allClosedTravs, new List<List<PointBase>>());
-            allClosedTravs = BreakClosedTraversesToContained(allClosedTravs);
+            allClosedTravs = BreakClosedTraversesToLinked(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs, traversesFromBreakdown);
             traversedPoints.Clear();
@@ -313,36 +313,34 @@
         #region Determining simplest linked polygons
         private List<List<PointBase>> FindAllLinkedTraverses(List<List<PointBase>> closedTraverses)
         {
-            List<List<PointBase>> containedTraverses = new();
-            ContainedPathsFinder<TEdge> finder = new(closedTraverses, pathfinder);
-            List<Tuple<PointBase, PointBase>> containedPathsPoints = finder.FindKnownPointsToConnect();
-            foreach (Tuple<PointBase, PointBase> gpTuple in containedPathsPoints)
+            List<List<PointBase>> linkedTraverses = new();
+            LinkedTraverseFinder<TEdge> finder = new(closedTraverses, pathfinder);
+            List<Tuple<PointBase, PointBase>> linkedTraversesPoints = finder.FindKnownPointsToConnect();
+            foreach (Tuple<PointBase, PointBase> gpTuple in linkedTraversesPoints)
             {
-                containedTraverses.Add(pathfinder.AStar(gpTuple.Item1, gpTuple.Item2));
+                linkedTraverses.Add(pathfinder.AStar(gpTuple.Item1, gpTuple.Item2));
             }
-            return containedTraverses;
+            return linkedTraverses;
         }
 
-        private List<List<PointBase>> BreakClosedTraversesToContained(List<List<PointBase>> traverses)
+        private List<List<PointBase>> BreakClosedTraversesToLinked(List<List<PointBase>> traverses)
         {
             List<List<PointBase>> brokenDownTravs = new();
             foreach (List<PointBase> t in traverses)
             {
                 // Getting all the Points except the last one, because it is the same as the first one
-                //List<PointBase> pathWithoutLastElement = path.GetRange(0, path.Count - 1);
-                List<List<PointBase>> brokenDownTrav = BreakClosedTravToContainedTravs(t);
+                List<List<PointBase>> brokenDownTrav = BreakClosedTravToLinkedTravs(t);
                 if (brokenDownTrav.Count > 1)
                 {
                     traversesFromBreakdown.Add(brokenDownTrav);
                 }
 
-                //PrintPaths(new List<List<PointBase>> { path });
                 brokenDownTravs.AddRange(brokenDownTrav);
             }
             return brokenDownTravs;
         }
 
-        private List<List<PointBase>> BreakClosedTravToContainedTravs(List<PointBase> traverse)
+        private List<List<PointBase>> BreakClosedTravToLinkedTravs(List<PointBase> traverse)
         {
 
             List<List<PointBase>> result = new();

@@ -1,7 +1,7 @@
 ﻿namespace LSA_Base
 {
     /// <summary>
-    /// A cluster of known poins with the following properties:
+    /// A cluster of known points with the following properties:
     /// 1) A cluster can have one or more points inside and the paths that they are a part of
     /// 2) The distance between two clusters is equal to the shortest distance between
     ///     a point from cluster A and a point from cluster B.
@@ -58,21 +58,21 @@
     }
 
 
-    internal class ContainedPathsFinder<TEdge>
+    internal class LinkedTraverseFinder<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, new()
     {
         private readonly List<List<PointBase>> closedPaths;
         private readonly List<KnownPointsCluster> knownPointsClusters;
         private readonly Pathfinder<PointBase, TEdge> _pathfinder;
 
-        public ContainedPathsFinder(List<List<PointBase>> closedP, Pathfinder<PointBase, TEdge> pathfinder)
+        public LinkedTraverseFinder(List<List<PointBase>> closedP, Pathfinder<PointBase, TEdge> pathfinder)
         {
             closedPaths = closedP;
             knownPointsClusters = DefineClustersOnInit();
             _pathfinder = pathfinder;
         }
 
-        public static bool IsContainedPath(List<PointBase> path)
+        public static bool IsLinkedTraverse(List<PointBase> path)
         {
             return path[0] != path[^1] && path[0] is KnownPointNoCoordsBase && path[^1] is KnownPointNoCoordsBase;
         }
@@ -117,24 +117,24 @@
         /// Looks for a pair of paths that connect two Known Points. If such path is found, it is added to the cluster.
         /// </summary>
         /// <param name="path">A path with a Known Point in it.</param>
-        /// <param name="containedPaths">Contained paths with KnownPoints in them</param>
+        /// <param name="linkedTraverses">Linked traverses with KnownPoints in them</param>
         /// <returns></returns>
-        private static (KnownPointsCluster, List<List<PointBase>>) DefineClusterFromPaths(List<PointBase> path, List<List<PointBase>> containedPaths)
+        private static (KnownPointsCluster, List<List<PointBase>>) DefineClusterFromPaths(List<PointBase> path, List<List<PointBase>> linkedTraverses)
         { //todo: refactor this cuz I wanna hang myself when I look at it ... disgusting
             KnownPointsCluster cluster = new();
             cluster.AddPath(path);
-            containedPaths.Remove(path);
+            linkedTraverses.Remove(path);
             while (true)
             {
                 bool connectedPointsFound = false;
-                foreach (List<PointBase> currPath in containedPaths)
+                foreach (List<PointBase> currPath in linkedTraverses)
                 {
                     int[] knownPIndicex = KnownPointsCluster.GetKnownPointIndices(currPath);
                     List<PointBase> knownPoints = KnownPointsCluster.GetKnownPointByIndices(currPath, knownPIndicex);
                     if (cluster._points.Any(x => knownPoints.Any(kp => kp.Number == x.Number)))
                     {
                         cluster.AddPath(currPath);
-                        containedPaths.Remove(currPath);
+                        linkedTraverses.Remove(currPath);
                         connectedPointsFound = true;
                         break;
                     }
@@ -144,17 +144,17 @@
                     break;
                 }
             }
-            return (cluster, containedPaths);
+            return (cluster, linkedTraverses);
         }
 
         /// <summary>
-        /// Find the combinations of Known Points that must be connected in order to achieve linear independancy.
+        /// Find the combinations of Known Points that must be connected in order to achieve linear independency.
         /// </summary>
         /// <returns></returns>
         public List<Tuple<PointBase, PointBase>> FindKnownPointsToConnect()
         {
             // Generating a list of all gravimetric points that are to be connected
-            List<Tuple<PointBase, PointBase>> containedPathsPoints = new();
+            List<Tuple<PointBase, PointBase>> linkedTraversesPoints = new();
             while (true)
             {
                 if (knownPointsClusters.Count <= 1)
@@ -177,10 +177,10 @@
                 Tuple<KnownPointsCluster, KnownPointsCluster, PointBase, PointBase, double> t = clustersCombos.First();
                 PointBase p1 = t.Item3;
                 PointBase p2 = t.Item4;
-                containedPathsPoints.Add(Tuple.Create(p1, p2));
+                linkedTraversesPoints.Add(Tuple.Create(p1, p2));
                 CombineClusters(t.Item1, t.Item2);
             }
-            return containedPathsPoints;
+            return linkedTraversesPoints;
         }
 
         private void CombineClusters(KnownPointsCluster c1, KnownPointsCluster c2)

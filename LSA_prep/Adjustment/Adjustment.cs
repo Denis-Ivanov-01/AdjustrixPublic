@@ -30,13 +30,13 @@ namespace LSA_Base
             Matrix<double> configurationMatrix = CreateConfigurationMatrix();
             Matrix<double> weightMatrix = CreateWeightMatrix();
             Matrix<double> normalMatrix = CalculateNormalMatrix(configurationMatrix, weightMatrix);
-            Vector<double> initialInaccuracies = CalculateInnacuraciesVector(AssignedApproxMeasurements);
-            Vector<double> kVector = CalculateK(normalMatrix, initialInaccuracies);
+            Vector<double> initialResiduals = CalculateResidualsVector(AssignedApproxMeasurements);
+            Vector<double> kVector = CalculateK(normalMatrix, initialResiduals);
             Vector<double> pvVector = CalculatePV(kVector, configurationMatrix);
             Vector<double> corrections = CalculateCorrections(pvVector, weightMatrix);
             List<TMeasurement> adjustedMeasurements = CalculateAdjustedMeasurements(corrections);
-            Vector<double> adjustedInaccuracies = CalculateInnacuraciesVector(AsignMeasurementsToTraverses(adjustedMeasurements));
-            ValidateAdjustmentResult(adjustedInaccuracies);
+            Vector<double> adjustedResiduals = CalculateResidualsVector(AsignMeasurementsToTraverses(adjustedMeasurements));
+            ValidateAdjustmentResult(adjustedResiduals);
             List<TAdjustedPoint> adjustedPoints = CalculateUnknownPoints(adjustedMeasurements);
             AdjustmentResult<TMeasurement, TAdjustedPoint> result = new(adjustedPoints, adjustedMeasurements, corrections);
             return result;
@@ -48,7 +48,7 @@ namespace LSA_Base
 
         protected abstract Matrix<double> CreateWeightMatrix();
 
-        protected abstract Vector<double> CalculateInnacuraciesVector(List<List<TMeasurement>> assignedMeasurements);
+        protected abstract Vector<double> CalculateResidualsVector(List<List<TMeasurement>> assignedMeasurements);
 
         protected abstract Vector<double> CalculateCorrections(Vector<double> pvVector, Matrix<double> weightMatrix);
 
@@ -61,9 +61,9 @@ namespace LSA_Base
             return (configMatrix.Transpose().Multiply(weightMatrix)).Multiply(configMatrix);
         }
 
-        protected Vector<double> CalculateK(Matrix<double> normalMatrix, Vector<double> inaccuracies)
+        protected Vector<double> CalculateK(Matrix<double> normalMatrix, Vector<double> residuals)
         {// Using PseudoInverse in case of determinants approaching 0 -> numerically unstable inverse
-            return -normalMatrix.PseudoInverse().Multiply(inaccuracies);
+            return -normalMatrix.PseudoInverse().Multiply(residuals);
         }
 
         protected Vector<double> CalculatePV(Vector<double> kVector, Matrix<double> confMatrix)
@@ -201,9 +201,9 @@ namespace LSA_Base
                     MeasurementIndices[key].ToPoint == meas.ToPoint;
         }
 
-        protected void ValidateAdjustmentResult(Vector<double> adjustedInaccuracies)
+        protected void ValidateAdjustmentResult(Vector<double> adjustedResiduals)
         {
-            foreach (double currValue in adjustedInaccuracies)
+            foreach (double currValue in adjustedResiduals)
             {
                 if (Math.Round(currValue, RequiredDecimalPrecision) > 0)
                 {

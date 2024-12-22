@@ -13,33 +13,33 @@
         /// Removes supersets if the parts of a traverse are found in the other traverses.
         /// </summary>
         /// <param name="traverses">All distinct traverses</param>
-        /// <param name="containedtraverseFromBreakdown">The contained traverses that are result of breaking down closed traverses.
+        /// <param name="linkedtraverseFromBreakdown">The linked traverses that are result of breaking down closed traverses.
         /// They are the only ones that are being tested for being composite supersets. 
         /// They are not compared to other such traverses.</param>
         /// <returns></returns>
-        public static List<List<PointBase>> RemoveCompositeSupersets(List<List<PointBase>> traverses, List<List<PointBase>> containedtraversesFromBreakdown)
+        public static List<List<PointBase>> RemoveCompositeSupersets(List<List<PointBase>> traverses, List<List<PointBase>> linkedtraversesFromBreakdown)
         {
             traverses = traverses.OrderByDescending(item => item.Count).ToList();
             bool supersetFound = true;
             while (supersetFound)
             {
                 traverses = traverses.OrderByDescending(item => item.Count).ToList();
-                traverses = RemoveCompositeSuperset(traverses, ref supersetFound, containedtraversesFromBreakdown);
+                traverses = RemoveCompositeSuperset(traverses, ref supersetFound, linkedtraversesFromBreakdown);
             }
             return traverses;
         }
 
         public static List<List<PointBase>> RemoveCompositeSuperset(List<List<PointBase>> traverses,
             ref bool supersetFound,
-            List<List<PointBase>> containedtraversesFromBreakdown)
+            List<List<PointBase>> linkedTraversesFromBreakdown)
         {
             supersetFound = false;
             for (int i = 0; i < traverses.Count; i++)
             {
                 List<PointBase> currtraverse = traverses[i];
-                if (containedtraversesFromBreakdown.Contains(currtraverse)) { continue; }
+                if (linkedTraversesFromBreakdown.Contains(currtraverse)) { continue; }
                 List<List<PointBase>> traversesToCompare = new();
-                traversesToCompare.AddRange(containedtraversesFromBreakdown);
+                traversesToCompare.AddRange(linkedTraversesFromBreakdown);
                 traversesToCompare.AddRange(traverses.Where(item => item.Count < currtraverse.Count));
                 if (CheckIfCurrtraverseIsSubsetOf(currtraverse, traversesToCompare))
                 {
@@ -114,7 +114,7 @@
         }
 
         /// <summary>
-        /// Removes the supersets in a list containing both closed and contained polygons.
+        /// Removes the supersets in a list containing both closed and linked traverses.
         /// </summary>
         public static List<List<PointBase>> RemoveSupersetsTwoTypes(List<List<PointBase>> traverses)
         {
