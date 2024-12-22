@@ -5,7 +5,7 @@ namespace LSA_Base
     public abstract class Adjustment<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
         where TAdjustedPoint : AdjustedPoint
-    {//todo: make all public methods except AdjustNetwork protected after testing!
+    {
         public readonly MatrixBuilder<double> matrixBuilder = Matrix<double>.Build;
         public readonly VectorBuilder<double> vectorBuilder = Vector<double>.Build;
         public readonly HashSet<PointBase> Points;
@@ -42,26 +42,26 @@ namespace LSA_Base
             return result;
         }
 
-        public abstract TMeasurement CreateNegativeMeasurement(TMeasurement meas);
+        protected abstract TMeasurement CreateNegativeMeasurement(TMeasurement meas);
 
-        public abstract Matrix<double> CreateConfigurationMatrix();
+        protected abstract Matrix<double> CreateConfigurationMatrix();
 
-        public abstract Matrix<double> CreateWeightMatrix();
+        protected abstract Matrix<double> CreateWeightMatrix();
 
-        public abstract Vector<double> CalculateInnacuraciesVector(List<List<TMeasurement>> assignedMeasurements);
+        protected abstract Vector<double> CalculateInnacuraciesVector(List<List<TMeasurement>> assignedMeasurements);
 
-        public abstract Vector<double> CalculateCorrections(Vector<double> pvVector, Matrix<double> weightMatrix);
+        protected abstract Vector<double> CalculateCorrections(Vector<double> pvVector, Matrix<double> weightMatrix);
 
-        public abstract List<TMeasurement> CalculateAdjustedMeasurements(Vector<double> corrections);
+        protected abstract List<TMeasurement> CalculateAdjustedMeasurements(Vector<double> corrections);
 
-        public abstract List<TAdjustedPoint> CalculateUnknownPoints(List<TMeasurement> adjustedMeasurements);
+        protected abstract List<TAdjustedPoint> CalculateUnknownPoints(List<TMeasurement> adjustedMeasurements);
 
-        public Matrix<double> CalculateNormalMatrix(Matrix<double> configMatrix, Matrix<double> weightMatrix)
+        protected Matrix<double> CalculateNormalMatrix(Matrix<double> configMatrix, Matrix<double> weightMatrix)
         {
             return (configMatrix.Transpose().Multiply(weightMatrix)).Multiply(configMatrix);
         }
 
-        public Vector<double> CalculateK(Matrix<double> normalMatrix, Vector<double> inaccuracies)
+        protected Vector<double> CalculateK(Matrix<double> normalMatrix, Vector<double> inaccuracies)
         {// Using PseudoInverse in case of determinants approaching 0 -> numerically unstable inverse
             //Console.WriteLine("=========================");
             //Console.WriteLine($"Condition number: {normalMatrix.ConditionNumber()}");
@@ -69,7 +69,7 @@ namespace LSA_Base
             return -normalMatrix.PseudoInverse().Multiply(inaccuracies);
         }
 
-        public Vector<double> CalculatePV(Vector<double> kVector, Matrix<double> confMatrix)
+        protected Vector<double> CalculatePV(Vector<double> kVector, Matrix<double> confMatrix)
         {
             Vector<double> pvMatrix = vectorBuilder.Dense(Measurements.Count);
             foreach (TMeasurement meas in Measurements)
@@ -81,7 +81,7 @@ namespace LSA_Base
             return pvMatrix;
         }
 
-        public List<List<TMeasurement>> AsignMeasurementsToTraverses(List<TMeasurement> measurements)
+        protected List<List<TMeasurement>> AsignMeasurementsToTraverses(List<TMeasurement> measurements)
         {
             List<List<TMeasurement>> assignedMeasurements = new();
             foreach (List<PointBase> t in DistinctTraverses)
@@ -99,7 +99,7 @@ namespace LSA_Base
         /// <param name="traverse">A list with the points in a linearly independent path</param>
         /// <param name="measurements">A list containing all the measurements</param>
         /// <returns></returns>
-        public List<TMeasurement> AssignMeasurementsToTraverse(List<PointBase> traverse, List<TMeasurement> measurements)
+        protected List<TMeasurement> AssignMeasurementsToTraverse(List<PointBase> traverse, List<TMeasurement> measurements)
         {
             List<TMeasurement> processedTraverse = new();
             for (int index = 0; index < traverse.Count - 1; index++)
@@ -113,7 +113,7 @@ namespace LSA_Base
             return processedTraverse;
         }
 
-        public TMeasurement FindMeasurementByPoints(PointBase p1, PointBase p2, List<TMeasurement> measurements)
+        protected TMeasurement FindMeasurementByPoints(PointBase p1, PointBase p2, List<TMeasurement> measurements)
         {
             IEnumerable<TMeasurement> positiveMeas = measurements.Where(m => m.FromPoint == p1 && m.ToPoint == p2);
             IEnumerable<TMeasurement> negativeMeas = measurements.Where(m => m.FromPoint == p2 && m.ToPoint == p1);
@@ -129,7 +129,7 @@ namespace LSA_Base
             throw new InvalidDataException($"Measurement between points {p1.Number} and {p2.Number} not found!");
         }
 
-        public int GetMeasurementIndex(TMeasurement meas)
+        protected int GetMeasurementIndex(TMeasurement meas)
         {
             foreach (int key in MeasurementIndices.Keys)
             {
@@ -141,13 +141,13 @@ namespace LSA_Base
             throw new InvalidDataException($"Couldn't find the alias for the measurement between {meas.FromPoint.Number} and {meas.ToPoint.Number}");
         }
 
-        public bool IsLinkedTraverse(List<TMeasurement> traverse)
+        protected bool IsLinkedTraverse(List<TMeasurement> traverse)
         {
             (PointBase startP, PointBase endP) = GetTravStartEndPoint(traverse);
             return startP.Number != endP.Number && KnownPointsCluster.IsKnownPoint(startP) && KnownPointsCluster.IsKnownPoint(endP);
         }
 
-        public (PointBase, PointBase) GetTravStartEndPoint(List<TMeasurement> traverse)
+        protected (PointBase, PointBase) GetTravStartEndPoint(List<TMeasurement> traverse)
         {
             TMeasurement firstMeas = traverse[0];
             TMeasurement lastMeas = traverse[^1];
@@ -176,7 +176,7 @@ namespace LSA_Base
         /// <summary>
         /// Assigns an index to every measurement. Ensuring robust indexing system.
         /// </summary>
-        private void AsignMeasurementsIndices()
+        protected void AsignMeasurementsIndices()
         {
             foreach (TMeasurement meas in Measurements)
             {
@@ -185,7 +185,7 @@ namespace LSA_Base
             }
         }
 
-        private HashSet<PointBase> GetPoinsSet()
+        protected HashSet<PointBase> GetPoinsSet()
         {
             HashSet<PointBase> set = new();
             foreach (List<PointBase> t in DistinctTraverses)
@@ -198,13 +198,13 @@ namespace LSA_Base
             return set;
         }
 
-        private bool IsCorrespondingAlias(int key, TMeasurement meas)
+        protected bool IsCorrespondingAlias(int key, TMeasurement meas)
         {
             return MeasurementIndices[key].FromPoint == meas.FromPoint &&
                     MeasurementIndices[key].ToPoint == meas.ToPoint;
         }
 
-        private void ValidateAdjustmentResult(Vector<double> adjustedInaccuracies)
+        protected void ValidateAdjustmentResult(Vector<double> adjustedInaccuracies)
         {
             foreach (double currValue in adjustedInaccuracies)
             {
@@ -218,7 +218,7 @@ namespace LSA_Base
 
     public class AdjustmentResult<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>
-        where TAdjustedPoint : PointBase
+        where TAdjustedPoint : AdjustedPoint
     {
         List<TAdjustedPoint> AdjustedPoints { get; set; }
 

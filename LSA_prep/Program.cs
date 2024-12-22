@@ -1,13 +1,7 @@
 ﻿using LSA_Base;
-using MathNet.Numerics.LinearAlgebra;
 
 class Program
-{//TODO: Refactor using the accurate terminology:
-    // Включен ход - Linked Traverse
-    // Затворен ход - Closed Traverse
-    // TODO: UNIT TESTING -> Add automated testing mechanisms and prepare automated tests
-    // TODO: Look to apply the SOLID principles - especially the S, I principles. Ensure the code is clean!
-    //simo e gotin :) :)
+{
     static void Main(string[] args)
     {
         //HashSet<int> set1 = new HashSet<int>();

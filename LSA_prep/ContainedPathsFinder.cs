@@ -58,15 +58,18 @@
     }
 
 
-    internal class ContainedPathsFinder
-    { //todo: fix the logic -> probably should initialize clusters with only 1 known point first
+    internal class ContainedPathsFinder<TEdge>
+        where TEdge : IEdge<PointBase, TEdge>, new()
+    {
         private readonly List<List<PointBase>> closedPaths;
         private readonly List<KnownPointsCluster> knownPointsClusters;
+        private readonly Pathfinder<PointBase, TEdge> _pathfinder;
 
-        public ContainedPathsFinder(List<List<PointBase>> closedP)
+        public ContainedPathsFinder(List<List<PointBase>> closedP, Pathfinder<PointBase, TEdge> pathfinder)
         {
             closedPaths = closedP;
             knownPointsClusters = DefineClustersOnInit();
+            _pathfinder = pathfinder;
         }
 
         public static bool IsContainedPath(List<PointBase> path)
@@ -80,13 +83,13 @@
         }
 
         private Tuple<PointBase, PointBase, double> CalcDistBetweenClusters(KnownPointsCluster k1, KnownPointsCluster k2)
-        {//todo: maybe cluster method?
+        {
             List<Tuple<PointBase, PointBase, double>> distances = new();
             foreach (PointBase k1Point in k1._points)
             {
                 foreach (PointBase k2Point in k2._points)
                 {
-                    double dist = MathFunctions.CalcDistBetweenPoints(k1Point, k2Point);
+                    double dist = _pathfinder.GetMinDistanceBetween(k1Point, k2Point);
                     distances.Add(Tuple.Create(k1Point, k2Point, dist));
                 }
             }

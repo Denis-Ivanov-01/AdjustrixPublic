@@ -14,12 +14,12 @@ namespace LSA_Base
 
         }
 
-        public override RelativeMeasurement CreateNegativeMeasurement(RelativeMeasurement meas)
+        protected override RelativeMeasurement CreateNegativeMeasurement(RelativeMeasurement meas)
         {
             return new RelativeMeasurement(meas.FromPoint, meas.ToPoint, -meas.Value, meas.Length, true);
         }
 
-        public override Matrix<double> CreateConfigurationMatrix()
+        protected override Matrix<double> CreateConfigurationMatrix()
         {
             Matrix<double> confMatrix = matrixBuilder.Dense(Measurements.Count, DistinctTraverses.Count);
             foreach (List<RelativeMeasurement> traverse in AssignedApproxMeasurements)
@@ -34,7 +34,7 @@ namespace LSA_Base
             return confMatrix;
         }
 
-        public override Matrix<double> CreateWeightMatrix()
+        protected override Matrix<double> CreateWeightMatrix()
         {
             int matrixSize = Measurements.Count;
             Matrix<double> weightMatrix = matrixBuilder.Dense(matrixSize, matrixSize);
@@ -46,7 +46,7 @@ namespace LSA_Base
             return weightMatrix;
         }
 
-        public override Vector<double> CalculateInnacuraciesVector(List<List<RelativeMeasurement>> assignedMeasurements)
+        protected override Vector<double> CalculateInnacuraciesVector(List<List<RelativeMeasurement>> assignedMeasurements)
         {
             Vector<double> innacuracies = vectorBuilder.Dense(assignedMeasurements.Count);
             foreach (List<RelativeMeasurement> trav in assignedMeasurements)
@@ -57,7 +57,7 @@ namespace LSA_Base
             return innacuracies;
         }
 
-        public override Vector<double> CalculateCorrections(Vector<double> pvMatrix, Matrix<double> weightMatrix)
+        protected override Vector<double> CalculateCorrections(Vector<double> pvMatrix, Matrix<double> weightMatrix)
         {
             Vector<double> corrections = vectorBuilder.Dense(Measurements.Count);
             foreach (RelativeMeasurement meas in Measurements)
@@ -68,18 +68,19 @@ namespace LSA_Base
             return corrections;
         }
 
-        public override List<AdjustedPoint> CalculateUnknownPoints(List<RelativeMeasurement> adjustedMeasurements)
+        protected override List<AdjustedPoint> CalculateUnknownPoints(List<RelativeMeasurement> adjustedMeasurements)
         {
-            NetworkAnalyzer<RelativeMeasurement> graph = new NetworkAnalyzer<RelativeMeasurement>();
-            graph.MeasurementsToEdge(adjustedMeasurements.Cast<RelativeMeasurement>().ToList());
+            List<RelativeMeasurement> meas = adjustedMeasurements.Cast<RelativeMeasurement>().ToList();
+            Pathfinder<PointBase, RelativeMeasurement> pathfinder = new(meas);
+            
             List<NewGravimetricPoint> newPoints = Points
                 .Where(p => p is not KnownGravimetricPoint).Cast<NewGravimetricPoint>().ToList();
             List<AdjustedPoint> adjustedPoints = new();
             KnownGravimetricPoint kp = (KnownGravimetricPoint)Points.Where(x => x is KnownGravimetricPoint).First();
             foreach (NewGravimetricPoint newPoint in newPoints)
             {
-                List<PointBase> trav = graph.AStar(kp, newPoint);
-                graph.ClearTraversePoints();
+                List<PointBase> trav = pathfinder.AStar(kp, newPoint);
+                pathfinder.ClearTraversedPoints();
                 List<RelativeMeasurement> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<RelativeMeasurement>().ToList();
                 double value = kp.Value + measurements.Sum(meas => meas.Value);
                 adjustedPoints.Add(new AdjustedPoint(newPoint.Number, value, newPoint.X, newPoint.Y));
@@ -87,7 +88,7 @@ namespace LSA_Base
             return adjustedPoints;
         }
 
-        public override List<RelativeMeasurement> CalculateAdjustedMeasurements(Vector<double> corrections)
+        protected override List<RelativeMeasurement> CalculateAdjustedMeasurements(Vector<double> corrections)
         {
             List<RelativeMeasurement> adjustedMeasurements = new();
             foreach (RelativeMeasurement meas in Measurements)

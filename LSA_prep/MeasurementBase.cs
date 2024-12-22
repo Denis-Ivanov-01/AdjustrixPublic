@@ -11,7 +11,6 @@
 
         public double Length { get; set; }
 
-        //todo: check how to do this shit
         public TEdge Reverse();
     }
 
@@ -28,7 +27,6 @@
     public abstract class MeasurementBase<TNode, TEdge> : IEdge<TNode, TEdge>, IDirectedMeasurement
         where TNode : INode
         where TEdge : IEdge<TNode, TEdge>, new()
-
     {
         public abstract TNode FromPoint { get; set; }
 

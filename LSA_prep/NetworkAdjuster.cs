@@ -5,12 +5,10 @@
         where TAdjustment : Adjustment<TMeasurement, AdjustedPoint>
     {
         private readonly List<TMeasurement> _measurements;
-        //private readonly List<PointBase> _points;
-
+        
         public NetworkAdjuster(List<TMeasurement> measurements)
         {
             _measurements = measurements;
-            //_points = points;
         }
 
         public abstract void GeneratePDFReport();
