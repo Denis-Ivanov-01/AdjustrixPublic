@@ -63,9 +63,6 @@ namespace LSA_Base
 
         protected Vector<double> CalculateK(Matrix<double> normalMatrix, Vector<double> inaccuracies)
         {// Using PseudoInverse in case of determinants approaching 0 -> numerically unstable inverse
-            //Console.WriteLine("=========================");
-            //Console.WriteLine($"Condition number: {normalMatrix.ConditionNumber()}");
-            //Console.WriteLine("=========================");
             return -normalMatrix.PseudoInverse().Multiply(inaccuracies);
         }
 
@@ -219,7 +216,7 @@ namespace LSA_Base
     public class AdjustmentResult<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>
         where TAdjustedPoint : AdjustedPoint
-    {
+    { // todo: figure out if this will be used
         List<TAdjustedPoint> AdjustedPoints { get; set; }
 
         List<TMeasurement> AdjustedMeasurements { get; set; }

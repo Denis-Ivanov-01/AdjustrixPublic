@@ -135,7 +135,6 @@ namespace LSA_Base
             KnownGravimetricPoint toPoint = (KnownGravimetricPoint)toP;
             double currInaccuracy = trav.Sum(meas => meas.Value);
             double betweenPointsValue = toPoint.Value - startPoint.Value;
-            //Console.WriteLine($"Between points {betweenPointsValue}");
             double result = currInaccuracy - betweenPointsValue;
             return result;
         }

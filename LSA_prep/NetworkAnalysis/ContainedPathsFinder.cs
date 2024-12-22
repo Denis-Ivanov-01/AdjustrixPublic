@@ -120,7 +120,7 @@
         /// <param name="containedPaths">Contained paths with KnownPoints in them</param>
         /// <returns></returns>
         private static (KnownPointsCluster, List<List<PointBase>>) DefineClusterFromPaths(List<PointBase> path, List<List<PointBase>> containedPaths)
-        {
+        { //todo: refactor this cuz I wanna hang myself when I look at it ... disgusting
             KnownPointsCluster cluster = new();
             cluster.AddPath(path);
             containedPaths.Remove(path);

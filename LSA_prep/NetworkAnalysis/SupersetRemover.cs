@@ -162,18 +162,21 @@
         /// <summary>
         /// Removes the supersets in a list with only closed traverses.
         /// </summary>
-        public static List<List<PointBase>> RemoveSupersetsOneType(List<List<PointBase>> traverses)
+        public static List<List<PointBase>> RemoveSupersetsOneType(List<List<PointBase>> traverses, 
+            List<List<List<PointBase>>> traversesFromBreakdown)
         {
             bool supersetFound = true;
             while (supersetFound)
             {
                 traverses = traverses.OrderByDescending(item => item.Count).ToList();
-                traverses = RemoveSupersetOneType(traverses, ref supersetFound);
+                traverses = RemoveSupersetOneType(traverses, ref supersetFound, traversesFromBreakdown);
             }
             return traverses;
         }
 
-        private static List<List<PointBase>> RemoveSupersetOneType(List<List<PointBase>> traverses, ref bool supersetFound)
+        private static List<List<PointBase>> RemoveSupersetOneType(List<List<PointBase>> traverses, 
+            ref bool supersetFound, 
+            List<List<List<PointBase>>> traversesFromBreakdown)
         {
             supersetFound = false;
             foreach (List<PointBase> traverse in traverses)
@@ -181,7 +184,7 @@
                 foreach (List<PointBase> traverse2 in traverses)
                 {
                     if (traverse == traverse2) { continue; }
-                    if (traverse.ToHashSet().IsSupersetOf(traverse2) && CanBeSupersetOf(traverse, traverse2))
+                    if (traverse.ToHashSet().IsSupersetOf(traverse2) && CanBeSupersetOf(traverse, traverse2, traversesFromBreakdown))
                     {
                         supersetFound = true;
                         traverses.Remove(traverse);
@@ -198,9 +201,9 @@
         /// a result of the break down of the same closed traverse.
         /// E.g: 3 4 5 3 -> 4 5; 5 3 4 -> false
         /// </summary>
-        private static bool CanBeSupersetOf(List<PointBase> traverse, List<PointBase> traverse1)
+        private static bool CanBeSupersetOf(List<PointBase> traverse, List<PointBase> traverse1, List<List<List<PointBase>>> traversesFromBreakdown)
         {
-            foreach (List<List<PointBase>> resultFromBreakdown in NetworkAnalyzer<RelativeMeasurement>.traversesFromBreakDown)
+            foreach (List<List<PointBase>> resultFromBreakdown in traversesFromBreakdown)
             {
                 List<PointBase> traverseReversed = new(traverse);
                 traverseReversed.Reverse();

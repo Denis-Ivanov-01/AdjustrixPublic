@@ -5,23 +5,6 @@
     using System.Linq;
 
 
-    //internal struct Edge: IEdge<PointBase>
-    //{
-    //    public PointBase FromPoint { get; set; }
-
-    //    public PointBase ToPoint { get; set; }
-
-    //    public double Length { get; set; }
-
-
-    //    public Edge(PointBase neighborPoint, double distance)
-    //    {
-    //        ToPoint = neighborPoint;
-    //        Length = distance;
-    //    }
-    //}
-
-
     public class NetworkAnalyzer<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {
@@ -29,7 +12,7 @@
         private readonly Dictionary<PointBase, List<TEdge>> graphData = new();
         private readonly List<PointBase> traversedPoints = new();
         private readonly List<List<PointBase>> linkedTraverseFromBreakdown = new();
-        public static List<List<List<PointBase>>> traversesFromBreakDown = new();
+        private List<List<List<PointBase>>> traversesFromBreakdown = new();
         private readonly List<TEdge> initialMeasurements;
         private readonly Pathfinder<PointBase, TEdge> pathfinder;
 
@@ -45,7 +28,6 @@
             pathfinder = new(graphData);
         }
 
-        #region Public methods
         //Entry point the the library
         public List<List<PointBase>> FindAllDistinctTraverses()
         {
@@ -61,6 +43,7 @@
             return distinctTravs;
         }
 
+        #region Common
         private int CalculateRedundancy()
         {
             int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
@@ -117,120 +100,6 @@
             }
 
             return measurements.All(x => measurementsInTraverses.Contains(x));
-        }
-
-        private static HashSet<(PointBase, PointBase)> MeasurementsFromTraverse(List<PointBase> traverse)
-        {
-            HashSet<(PointBase, PointBase)> measurementsInTraverse = new();
-            for (int i = 0; i < traverse.Count - 1; i++)
-            {
-                measurementsInTraverse.Add((traverse[i], traverse[i + 1]));
-                measurementsInTraverse.Add((traverse[i + 1], traverse[i]));
-            }
-            return measurementsInTraverse;
-        }
-
-        public void MeasurementsToEdge(List<TEdge> measurements)
-        {
-            foreach (TEdge measurement in measurements)
-            {
-                MeasurementToEdge(measurement);
-            }
-            MakeGraphTwoSided();
-        }
-
-        public void MeasurementToEdge(TEdge measurement)
-        {
-            measurementsCount += 1;
-            InsertEdge(measurement);
-        }
-        #endregion
-
-        #region Common
-
-        public static void PrintTraverses(List<List<PointBase>> traverses)
-        {
-            foreach (List<PointBase> t in traverses)
-            {
-                foreach (PointBase point in t)
-                {
-                    Console.Write(point.Number + " ");
-                }
-                Console.WriteLine();
-            }
-        }
-
-        public static void PrintTraverse(List<PointBase> traverse)
-        {
-            foreach (PointBase point in traverse)
-            {
-                Console.Write(point.Number + " ");
-            }
-            Console.WriteLine();
-        }
-
-        private void InsertEdge(TEdge edge)
-        {
-            //TEdge edge = new(endNode, MathFunctions.CalcDistBetweenPoints(starPointBase, endNode));
-            //TEdge edge = new();
-            //edge.FromPoint = startNode;
-            //edge.ToPoint = endNode;
-            if (!graphData.ContainsKey(edge.FromPoint))
-            {
-                graphData[edge.FromPoint] = new List<TEdge>();
-            }
-            if (!graphData[edge.FromPoint].Any(e => e.FromPoint == edge.FromPoint && e.ToPoint == edge.ToPoint))
-            {
-                graphData[edge.FromPoint].Add(edge);
-            }
-            //if (graphData.ContainsKey(edge.FromPoint))
-            //{
-            //    graphData[edge.FromPoint].Add(edge);
-            //}
-            //else
-            //{
-            //    graphData[edge.FromPoint] = new List<TEdge> { edge };
-            //}
-        }
-
-        private void RemoveEdgeByPoint(PointBase starPointBase, PointBase endNode)
-        {
-            TEdge edge = graphData[starPointBase].Where(x => x.ToPoint == endNode).First();
-            int index = graphData[starPointBase].IndexOf(edge);
-            graphData[starPointBase].RemoveAt(index);
-        }
-
-        private void RemoveEdgeIfExists(PointBase starPointBase, PointBase endNode)
-        {
-            if (graphData[starPointBase].Where(x => x.ToPoint == endNode).Count() > 0/*Contains(endNode)*/)
-            {
-                RemoveEdgeByPoint(starPointBase, endNode);
-            }
-        }
-
-        private void MakeGraphTwoSided()
-        {
-            foreach (PointBase key in graphData.Keys.ToList())
-            {
-                foreach (TEdge edge in graphData[key])
-                {
-                    if (!graphData.ContainsKey(edge.ToPoint))
-                    {
-                        graphData[edge.ToPoint] = new List<TEdge>();
-                    }
-                    //TEdge reverseEdge = new(key, edge.Length);
-                    TEdge reverseEdge = edge.Reverse();
-                    reverseEdge.FromPoint = edge.ToPoint;
-                    reverseEdge.ToPoint = edge.FromPoint;
-                    reverseEdge.Length = edge.Length;
-                    //reverseEdge.IsReversed = true;
-                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint == reverseEdge.FromPoint && e.ToPoint == reverseEdge.ToPoint))
-                    //if (!graphData[edge.ToPoint].Contains(reverseEdge))
-                    {
-                        graphData[edge.ToPoint].Add(reverseEdge);
-                    }
-                }
-            }
         }
 
         private List<PointBase> BreadthFirstSearch(PointBase start)
@@ -290,26 +159,6 @@
             }
         }
 
-        private void RemoveMultipleEdges(PointBase starPointBase, List<PointBase> endNodes)
-        {
-            foreach (PointBase endNode in endNodes)
-            {
-                RemoveEdgeIfExists(starPointBase, endNode);
-            }
-        }
-
-        private void InsertMultipleEdges(PointBase starPoint, List<PointBase> endNodes)
-        {
-            foreach (PointBase endNode in endNodes)
-            {
-                //todo: replace this with a IEdgeFactory?
-                TEdge edge = new();
-                edge.FromPoint = starPoint;
-                edge.ToPoint = endNode;
-                edge.Length = MathFunctions.CalcDistBetweenPoints(starPoint, endNode);
-                InsertEdge(edge);
-            }
-        }
         #endregion
 
         #region Determining simplest closed traverses
@@ -333,32 +182,15 @@
                 traversedPoints.Add(node);
             }
             List<List<PointBase>> allClosedTravs = hsallClosedTravs.Distinct(new PointListComparer<PointBase>()).OrderByDescending(x => x.Count).ToList();
-            PrintGraphData();
-            Console.WriteLine("all closed travs");
-            PrintTraverses(allClosedTravs);
-            allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
-            Console.WriteLine("after one type remove");
-            PrintTraverses(allClosedTravs);
+            allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs, traversesFromBreakdown);
 
             //this was added so that complex closed traverses would be eliminated.
-            //otherwise, the algorithm finds huge closed traverses that encapsulate multiple smaller ones.
+            //otherwise, the algorithm can find huge closed traverses that encapsulate multiple smaller ones.
             //it should work fine, but test it using multiple configurations!
             allClosedTravs = SupersetRemover.RemoveCompositeSupersets(allClosedTravs, new List<List<PointBase>>());
-            Console.WriteLine("after composite rmeove");
-            PrintTraverses(allClosedTravs);
-
             allClosedTravs = BreakClosedTraversesToContained(allClosedTravs);
-            Console.WriteLine("after breaking");
-            PrintTraverses(allClosedTravs);
-
             allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
-            Console.WriteLine("two type remove");
-            PrintTraverses(allClosedTravs);
-
-            allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs);
-            Console.WriteLine("one type remove");
-            PrintTraverses(allClosedTravs);
-
+            allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs, traversesFromBreakdown);
             traversedPoints.Clear();
             return allClosedTravs;
         }
@@ -402,7 +234,8 @@
             HashSet<List<PointBase>> currPaths = new();
             foreach (List<PointBase> possibleCombination in neighborCombinations)
             {
-                RemoveMultipleEdges(edge.ToPoint, possibleCombination);
+                List<TEdge> edgesToRemove = graphData[edge.ToPoint].Where(e => possibleCombination.Contains(e.ToPoint)).ToList();
+                RemoveMultipleEdges(edgesToRemove);
                 try
                 { //todo: maybe at the end try to remove this try-catch-finally shit
                     List<PointBase> res = pathfinder.AStar(edge.ToPoint, node);
@@ -419,7 +252,7 @@
                 }
                 finally
                 {
-                    InsertMultipleEdges(edge.ToPoint, possibleCombination);
+                    InsertMultipleEdges(edgesToRemove);
                 }
             }
 
@@ -477,7 +310,7 @@
 
         #endregion
 
-        #region Determining simplest contained polygons
+        #region Determining simplest linked polygons
         private List<List<PointBase>> FindAllLinkedTraverses(List<List<PointBase>> closedTraverses)
         {
             List<List<PointBase>> containedTraverses = new();
@@ -487,31 +320,7 @@
             {
                 containedTraverses.Add(pathfinder.AStar(gpTuple.Item1, gpTuple.Item2));
             }
-            Console.WriteLine("Contained paths end!");
             return containedTraverses;
-            #region ProbablyObsolete
-            //List<PointBase> knownPoints = graphData.Keys.Where(node => node.GetType() == typeof(KnownPointBase)).ToList();
-            //if (knownPoints.Count < 2)
-            //{
-            //    return containedPaths;
-            //}
-            //List<Tuple<PointBase, PointBase>> knownPointsCombinations = new();
-            //for (int firstPointIndex = 0; firstPointIndex < knownPoints.Count - 1; firstPointIndex++)
-            //{//Iterating through all known points in the outer loop
-            //    for (int secondPointIndex = firstPointIndex  + 1; secondPointIndex < knownPoints.Count; secondPointIndex++)
-            //    {// In the inner loop we iterate through all the known points starting at the current outer known point
-            //        // so that we don't get repeated combinations
-            //        Tuple<PointBase, PointBase> currTuple = Tuple.Create(knownPoints[firstPointIndex], knownPoints[secondPointIndex]);
-            //        knownPointsCombinations.Add(currTuple);
-            //    }
-            //}
-            //foreach(Tuple<PointBase, PointBase> knownPointsTuple in knownPointsCombinations)
-            //{
-            //    containedPaths.Add(AStar(knownPointsTuple.Item1, knownPointsTuple.Item2));
-            //}
-            //SupersetRemover sr = new();
-            //containedPaths = sr.RemoveSupersetsOneType(containedPaths);
-            #endregion
         }
 
         private List<List<PointBase>> BreakClosedTraversesToContained(List<List<PointBase>> traverses)
@@ -524,7 +333,7 @@
                 List<List<PointBase>> brokenDownTrav = BreakClosedTravToContainedTravs(t);
                 if (brokenDownTrav.Count > 1)
                 {
-                    traversesFromBreakDown.Add(brokenDownTrav);
+                    traversesFromBreakdown.Add(brokenDownTrav);
                 }
 
                 //PrintPaths(new List<List<PointBase>> { path });
@@ -578,186 +387,98 @@
         }
         #endregion
 
-        private void PrintGraphData()
+        #region Utils
+        private static HashSet<(PointBase, PointBase)> MeasurementsFromTraverse(List<PointBase> traverse)
         {
-            foreach (KeyValuePair<PointBase, List<TEdge>> kvp in graphData)
+            HashSet<(PointBase, PointBase)> measurementsInTraverse = new();
+            for (int i = 0; i < traverse.Count - 1; i++)
             {
-                PointBase key = kvp.Key;
-                List<TEdge> edges = kvp.Value;
-                Console.Write($"key {key.Number}: ");
-                foreach (TEdge edge in edges)
-                {
-                    Console.Write($"{edge.ToPoint.Number} ");
-                }
-                Console.WriteLine();
+                measurementsInTraverse.Add((traverse[i], traverse[i + 1]));
+                measurementsInTraverse.Add((traverse[i + 1], traverse[i]));
             }
-            Console.WriteLine();
-        }
-    }
-
-    internal class Pathfinder<TNode, TEdge>
-        where TNode : INode
-        where TEdge : IEdge<TNode, TEdge>, new()
-    {
-        private readonly Dictionary<TNode, List<TEdge>> _graphData;
-        private readonly List<TNode> traversedNodes = new();
-
-        public Pathfinder()
-        {
-            _graphData = new();
+            return measurementsInTraverse;
         }
 
-        public Pathfinder(List<TEdge> paths)
+        public void MeasurementsToEdge(List<TEdge> measurements)
         {
-            _graphData = new();
-            PathsToEdge(paths);
-        }
-
-        public Pathfinder(Dictionary<TNode, List<TEdge>> graphData)
-        {
-            _graphData = graphData;
-        }
-
-        public void PathsToEdge(List<TEdge> edges)
-        {
-            foreach (TEdge edge in edges)
+            foreach (TEdge measurement in measurements)
             {
-                PathToEdge(edge);
+                MeasurementToEdge(measurement);
             }
             MakeGraphTwoSided();
         }
 
-        public void PathToEdge(TEdge edge)
+        public void MeasurementToEdge(TEdge measurement)
         {
-            InsertEdge(edge);
+            measurementsCount += 1;
+            InsertEdge(measurement);
         }
 
         private void InsertEdge(TEdge edge)
         {
-            if (_graphData.ContainsKey(edge.FromPoint))
+            if (!graphData.ContainsKey(edge.FromPoint))
             {
-                _graphData[edge.FromPoint].Add(edge);
+                graphData[edge.FromPoint] = new List<TEdge>();
             }
-            else
+            if (!graphData[edge.FromPoint].Any(e => e.FromPoint == edge.FromPoint && e.ToPoint == edge.ToPoint))
             {
-                _graphData[edge.FromPoint] = new List<TEdge> { edge };
+                graphData[edge.FromPoint].Add(edge);
+            }
+        }
+
+        private void RemoveEdgeByPoint(PointBase starPointBase, PointBase endNode)
+        {
+            TEdge edge = graphData[starPointBase].Where(x => x.ToPoint == endNode).First();
+            int index = graphData[starPointBase].IndexOf(edge);
+            graphData[starPointBase].RemoveAt(index);
+        }
+
+        private void RemoveEdgeIfExists(PointBase starPointBase, PointBase endNode)
+        {
+            if (graphData[starPointBase].Where(x => x.ToPoint == endNode).Count() > 0)
+            {
+                RemoveEdgeByPoint(starPointBase, endNode);
             }
         }
 
         private void MakeGraphTwoSided()
         {
-            foreach (TNode key in _graphData.Keys.ToList())
+            foreach (PointBase key in graphData.Keys.ToList())
             {
-                foreach (TEdge edge in _graphData[key])
+                foreach (TEdge edge in graphData[key])
                 {
-                    if (!_graphData.ContainsKey(edge.ToPoint))
+                    if (!graphData.ContainsKey(edge.ToPoint))
                     {
-                        _graphData[edge.ToPoint] = new List<TEdge>();
+                        graphData[edge.ToPoint] = new List<TEdge>();
                     }
-                    //TEdge reverseEdge = new(key, edge.Length);
-                    TEdge reverseEdge = new();
-                    reverseEdge.FromPoint = edge.ToPoint;
-                    reverseEdge.ToPoint = edge.FromPoint;
-                    reverseEdge.Length = edge.Length;
-                    if (!_graphData[edge.ToPoint].Contains(reverseEdge))
+                    TEdge reverseEdge = edge.Reverse();
+                    //reverseEdge.FromPoint = edge.ToPoint;
+                    //reverseEdge.ToPoint = edge.FromPoint;
+                    //reverseEdge.Length = edge.Length;
+                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint == reverseEdge.FromPoint && e.ToPoint == reverseEdge.ToPoint))
                     {
-                        _graphData[edge.ToPoint].Add(reverseEdge);
+                        graphData[edge.ToPoint].Add(reverseEdge);
                     }
                 }
             }
         }
 
-        public List<TNode> AStar(TNode startNode, TNode targetNode)
+        private void RemoveMultipleEdges(List<TEdge> edges)
         {
-            // Sorted array for keeping the paths with possible shortest distance at the top
-            var heap = new SortedSet<Tuple<double, TNode>>();
-            var distances = _graphData.Keys.ToDictionary(node => node, _ => double.MaxValue);
-            distances[startNode] = 0;
-            var previous = new Dictionary<TNode, TNode>();
-            var completePaths = new List<Tuple<List<TNode>, double>>();
-
-            heap.Add(new Tuple<double, TNode>(0, startNode));
-
-            while (heap.Any())
+            foreach (TEdge e in edges)
             {
-                var (currentDistance, currentNode) = heap.First();
-                heap.Remove(heap.First());
-
-                if (currentDistance > distances[currentNode])
-                {
-                    continue;
-                }
-
-                if (!(currentDistance < distances[targetNode] || !completePaths.Any()))
-                {
-                    continue;
-                }
-
-                if (currentNode.Number == targetNode.Number)
-                {
-                    var node = targetNode;
-                    var path = new List<TNode>();
-                    while (node.Number != startNode.Number)
-                    {
-                        path.Add(node);
-                        node = previous[node];
-                    }
-                    path.Add(startNode);
-                    path.Reverse();
-                    completePaths.Add(new Tuple<List<TNode>, double>(path, distances[targetNode]));
-                    continue;
-                }
-
-                foreach (TEdge edge in _graphData[currentNode])
-                {
-
-                    if (previous.ContainsKey(currentNode) && previous[currentNode].Number == edge.ToPoint.Number)
-                    { // To prevent the algorithm to cover the same TEdge twice
-                        continue;
-                    }
-                    if (traversedNodes.Contains(edge.ToPoint))
-                    { // To make sure all TEdges are traversed regardless of whether they are too long
-                        continue;
-                    }
-
-                    double tentativeDistance = distances[currentNode] + edge.Length;
-                    if (tentativeDistance < distances[edge.ToPoint])
-                    {
-                        //Console.WriteLine($"Adding {tentativeDistance} distance and {neighbor.GetType()} {neighbor.Number}");
-                        heap.Add(new Tuple<double, TNode>(tentativeDistance, edge.ToPoint));
-                        distances[edge.ToPoint] = tentativeDistance;
-                        previous[edge.ToPoint] = currentNode;
-                    }
-                }
+                //RemoveEdgeIfExists(starPointBase, endNode);
+                graphData[e.FromPoint].Remove(e);
             }
-
-            try
-            {
-                List<TNode> shortestTraverse = completePaths.OrderBy(p => p.Item2).First().Item1;
-                return shortestTraverse;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            //return new ();
         }
 
-        public double GetMinDistanceBetween(TNode point1, TNode point2)
+        private void InsertMultipleEdges(List<TEdge> edges)
         {
-            double totalDistance = 0;
-            List<TNode> closestPath = AStar(point1, point2);
-            for (int i = 0; i < closestPath.Count - 1; i++)
+            foreach (TEdge e in edges)
             {
-                TEdge currentEdge = _graphData[closestPath[i]].Where(x => x.ToPoint.Number == closestPath[i+1].Number).First();
-                totalDistance += currentEdge.Length;
+                InsertEdge(e);
             }
-            return totalDistance;
         }
-
-        public void ClearTraversedPoints()
-        {
-            traversedNodes.Clear();
-        }
+        #endregion
     }
 }
