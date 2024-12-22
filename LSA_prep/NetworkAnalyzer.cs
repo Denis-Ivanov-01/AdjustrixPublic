@@ -64,14 +64,14 @@
             distinctTravs = SupersetRemover.RemoveCompositeSupersets(distinctTravs, linkedTraverseFromBreakdown);
             //Console.WriteLine("Distinct Paths before removing");
             //PrintTraverses(distinctTravs);
-            distinctTravs = RemoveRedundantTraverses(distinctTravs);
+            distinctTravs = EnsureCorrectResult(distinctTravs);
             //Console.WriteLine("Distinct Paths after removing");
             //PrintTraverses(distinctTravs);
             ValidateResult(distinctTravs);
             return distinctTravs;
         }
 
-        private int CalculateRedundancy(List<List<PointBase>> distinctTraverses)
+        private int CalculateRedundancy()
         {
             int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
             int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
@@ -80,7 +80,7 @@
 
         private void ValidateResult(List<List<PointBase>> distinctTraverses)
         {//todo: move one outside this class. Should be done in the class that calls this one!
-            int redundancy = CalculateRedundancy(distinctTraverses);
+            int redundancy = CalculateRedundancy();
             int distinctTravsCount = distinctTraverses.Count;
             if (redundancy != distinctTravsCount)
             {//todo: in that case, the user should be informed of the problem in the geometry
@@ -92,9 +92,9 @@
         /// <summary>
         /// If there are more distinct traverses than the redundancy, it removes the unnecessary ones. 
         /// </summary>
-        private List<List<PointBase>> RemoveRedundantTraverses(List<List<PointBase>> distinctTraverses)
+        private List<List<PointBase>> EnsureCorrectResult(List<List<PointBase>> distinctTraverses)
         {
-            int redundancy = CalculateRedundancy(distinctTraverses);
+            int redundancy = CalculateRedundancy();
             int distinctTravsCount = distinctTraverses.Count;
             if (redundancy > distinctTravsCount)
             {
@@ -102,7 +102,7 @@
                     "Contact the developer");
             }
             if (redundancy == distinctTravsCount) { return distinctTraverses; }
-            while (distinctTravsCount != redundancy)
+            while (distinctTravsCount > redundancy)
             {
                 distinctTraverses = RemoveRedundantTraverse(distinctTraverses);
                 distinctTravsCount--;
@@ -123,6 +123,7 @@
                 if (IncludeAllMeasurements(distinctTraverses)) { return distinctTraverses; }
                 distinctTraverses.Insert(i, currTrav);
             }
+            // should be unreachable, but who knows :/
             throw new IncorrectGeometryAnalysis("No traverse can be removed :/ your network is fucked");
         }
 
@@ -710,145 +711,145 @@
         }
     }
 
-    internal class Pathfinder<TNode, TEdge>
-        where TNode : INode
-        where TEdge : IEdge<TNode, TEdge>, new()
-    {
-        private readonly Dictionary<TNode, List<TEdge>> graphData = new();
-        private readonly List<TNode> traversedNodes = new();
+    //internal class Pathfinder<TNode, TEdge>
+    //    where TNode : INode
+    //    where TEdge : IEdge<TNode, TEdge>, new()
+    //{
+    //    private readonly Dictionary<TNode, List<TEdge>> graphData = new();
+    //    private readonly List<TNode> traversedNodes = new();
 
-        public Pathfinder()
-        {
+    //    public Pathfinder()
+    //    {
 
-        }
+    //    }
 
-        public void MeasurementsToEdge(List<TEdge> edges)
-        {
-            foreach (TEdge edge in edges)
-            {
-                MeasurementToEdge(edge);
-            }
-            MakeGraphTwoSided();
-        }
+    //    public void MeasurementsToEdge(List<TEdge> edges)
+    //    {
+    //        foreach (TEdge edge in edges)
+    //        {
+    //            MeasurementToEdge(edge);
+    //        }
+    //        MakeGraphTwoSided();
+    //    }
 
-        public void MeasurementToEdge(TEdge edge)
-        { //todo: make private or even remove after testing is complete
-            InsertEdge(edge);
-        }
+    //    public void MeasurementToEdge(TEdge edge)
+    //    { //todo: make private or even remove after testing is complete
+    //        InsertEdge(edge);
+    //    }
 
-        private void InsertEdge(TEdge edge)
-        {
-            if (graphData.ContainsKey(edge.FromPoint))
-            {
-                graphData[edge.FromPoint].Add(edge);
-            }
-            else
-            {
-                graphData[edge.FromPoint] = new List<TEdge> { edge };
-            }
-        }
+    //    private void InsertEdge(TEdge edge)
+    //    {
+    //        if (graphData.ContainsKey(edge.FromPoint))
+    //        {
+    //            graphData[edge.FromPoint].Add(edge);
+    //        }
+    //        else
+    //        {
+    //            graphData[edge.FromPoint] = new List<TEdge> { edge };
+    //        }
+    //    }
 
-        private void MakeGraphTwoSided()
-        {
-            foreach (TNode key in graphData.Keys.ToList())
-            {
-                foreach (TEdge edge in graphData[key])
-                {
-                    if (!graphData.ContainsKey(edge.ToPoint))
-                    {
-                        graphData[edge.ToPoint] = new List<TEdge>();
-                    }
-                    //TEdge reverseEdge = new(key, edge.Length);
-                    TEdge reverseEdge = new();
-                    reverseEdge.FromPoint = edge.ToPoint;
-                    reverseEdge.ToPoint = edge.FromPoint;
-                    reverseEdge.Length = edge.Length;
-                    if (!graphData[edge.ToPoint].Contains(reverseEdge))
-                    {
-                        graphData[edge.ToPoint].Add(reverseEdge);
-                    }
-                }
-            }
-        }
+    //    private void MakeGraphTwoSided()
+    //    {
+    //        foreach (TNode key in graphData.Keys.ToList())
+    //        {
+    //            foreach (TEdge edge in graphData[key])
+    //            {
+    //                if (!graphData.ContainsKey(edge.ToPoint))
+    //                {
+    //                    graphData[edge.ToPoint] = new List<TEdge>();
+    //                }
+    //                //TEdge reverseEdge = new(key, edge.Length);
+    //                TEdge reverseEdge = new();
+    //                reverseEdge.FromPoint = edge.ToPoint;
+    //                reverseEdge.ToPoint = edge.FromPoint;
+    //                reverseEdge.Length = edge.Length;
+    //                if (!graphData[edge.ToPoint].Contains(reverseEdge))
+    //                {
+    //                    graphData[edge.ToPoint].Add(reverseEdge);
+    //                }
+    //            }
+    //        }
+    //    }
 
-        public List<TNode> AStar(TNode startNode, TNode targetNode)
-        { // todo: move to a separate class?
+    //    public List<TNode> AStar(TNode startNode, TNode targetNode)
+    //    { // todo: move to a separate class?
 
-            //todo: instead of calculating the distances here using coords, they should be pre-calculated
-            // There should be an option to just pass the distances for each traverse as input data!
+    //        //todo: instead of calculating the distances here using coords, they should be pre-calculated
+    //        // There should be an option to just pass the distances for each traverse as input data!
 
-            // Sorted array for keeping the paths with possible shortest distance at the top
-            var heap = new SortedSet<Tuple<double, TNode>>();
-            var distances = graphData.Keys.ToDictionary(node => node, _ => double.MaxValue);
-            distances[startNode] = 0;
-            var previous = new Dictionary<TNode, TNode>();
-            var completePaths = new List<Tuple<List<TNode>, double>>();
+    //        // Sorted array for keeping the paths with possible shortest distance at the top
+    //        var heap = new SortedSet<Tuple<double, TNode>>();
+    //        var distances = graphData.Keys.ToDictionary(node => node, _ => double.MaxValue);
+    //        distances[startNode] = 0;
+    //        var previous = new Dictionary<TNode, TNode>();
+    //        var completePaths = new List<Tuple<List<TNode>, double>>();
 
-            heap.Add(new Tuple<double, TNode>(0, startNode));
+    //        heap.Add(new Tuple<double, TNode>(0, startNode));
 
-            while (heap.Any())
-            {
-                var (currentDistance, currentNode) = heap.First();
-                heap.Remove(heap.First());
+    //        while (heap.Any())
+    //        {
+    //            var (currentDistance, currentNode) = heap.First();
+    //            heap.Remove(heap.First());
 
-                if (currentDistance > distances[currentNode])
-                {
-                    continue;
-                }
+    //            if (currentDistance > distances[currentNode])
+    //            {
+    //                continue;
+    //            }
 
-                if (!(currentDistance < distances[targetNode] || !completePaths.Any()))
-                {
-                    continue;
-                }
+    //            if (!(currentDistance < distances[targetNode] || !completePaths.Any()))
+    //            {
+    //                continue;
+    //            }
 
-                if (currentNode.Number == targetNode.Number)
-                {
-                    var node = targetNode;
-                    var path = new List<TNode>();
-                    while (node.Number != startNode.Number)
-                    {
-                        path.Add(node);
-                        node = previous[node];
-                    }
-                    path.Add(startNode);
-                    path.Reverse();
-                    completePaths.Add(new Tuple<List<TNode>, double>(path, distances[targetNode]));
-                    continue;
-                }
+    //            if (currentNode.Number == targetNode.Number)
+    //            {
+    //                var node = targetNode;
+    //                var path = new List<TNode>();
+    //                while (node.Number != startNode.Number)
+    //                {
+    //                    path.Add(node);
+    //                    node = previous[node];
+    //                }
+    //                path.Add(startNode);
+    //                path.Reverse();
+    //                completePaths.Add(new Tuple<List<TNode>, double>(path, distances[targetNode]));
+    //                continue;
+    //            }
 
-                foreach (TEdge edge in graphData[currentNode])
-                {
+    //            foreach (TEdge edge in graphData[currentNode])
+    //            {
 
-                    if (previous.ContainsKey(currentNode) && previous[currentNode].Number == edge.ToPoint.Number)
-                    { // To prevent the algorithm to cover the same TEdge twice
-                        continue;
-                    }
-                    if (traversedNodes.Contains(edge.ToPoint))
-                    { // To make sure all TEdges are traversed regardless of whether they are too long
-                        continue;
-                    }
+    //                if (previous.ContainsKey(currentNode) && previous[currentNode].Number == edge.ToPoint.Number)
+    //                { // To prevent the algorithm to cover the same TEdge twice
+    //                    continue;
+    //                }
+    //                if (traversedNodes.Contains(edge.ToPoint))
+    //                { // To make sure all TEdges are traversed regardless of whether they are too long
+    //                    continue;
+    //                }
 
-                    double tentativeDistance = distances[currentNode] + edge.Length;
-                    if (tentativeDistance < distances[edge.ToPoint])
-                    {
-                        //Console.WriteLine($"Adding {tentativeDistance} distance and {neighbor.GetType()} {neighbor.Number}");
-                        heap.Add(new Tuple<double, TNode>(tentativeDistance, edge.ToPoint));
-                        distances[edge.ToPoint] = tentativeDistance;
-                        previous[edge.ToPoint] = currentNode;
-                    }
-                }
-            }
+    //                double tentativeDistance = distances[currentNode] + edge.Length;
+    //                if (tentativeDistance < distances[edge.ToPoint])
+    //                {
+    //                    //Console.WriteLine($"Adding {tentativeDistance} distance and {neighbor.GetType()} {neighbor.Number}");
+    //                    heap.Add(new Tuple<double, TNode>(tentativeDistance, edge.ToPoint));
+    //                    distances[edge.ToPoint] = tentativeDistance;
+    //                    previous[edge.ToPoint] = currentNode;
+    //                }
+    //            }
+    //        }
 
-            try
-            {
-                List<TNode> shortestTraverse = completePaths.OrderBy(p => p.Item2).First().Item1;
-                return shortestTraverse;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            //return new ();
-        }
-    }
+    //        try
+    //        {
+    //            List<TNode> shortestTraverse = completePaths.OrderBy(p => p.Item2).First().Item1;
+    //            return shortestTraverse;
+    //        }
+    //        catch (Exception)
+    //        {
+    //            throw;
+    //        }
+    //        //return new ();
+    //    }
+    //}
 }

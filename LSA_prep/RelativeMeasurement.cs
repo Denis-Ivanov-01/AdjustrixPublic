@@ -5,6 +5,7 @@
         public double Value { get; set; }
 
         public override PointBase FromPoint { get; set; }
+
         public override PointBase ToPoint { get; set; }
 
         public RelativeMeasurement(PointBase fromPoint, PointBase toPoint, double potentialDelta, double length, bool negative = false) : base(fromPoint, toPoint, length, negative)

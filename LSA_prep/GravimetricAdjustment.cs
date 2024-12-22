@@ -2,9 +2,10 @@
 
 namespace LSA_Base
 {
-    public class GravimetricAdjustment : Adjustment<RelativeMeasurement, AdjustedGravimetricPoint>
+    public class GravimetricAdjustment : Adjustment<RelativeMeasurement, AdjustedPoint>
     {
         private const int decimalPrecision = 12;
+
         protected override int RequiredDecimalPrecision { get { return decimalPrecision; } }
 
         public GravimetricAdjustment(List<List<PointBase>> distinctTraverses, List<RelativeMeasurement> measurements)
@@ -67,21 +68,21 @@ namespace LSA_Base
             return corrections;
         }
 
-        public override List<AdjustedGravimetricPoint> CalculateUnknownPoints(List<RelativeMeasurement> adjustedMeasurements)
+        public override List<AdjustedPoint> CalculateUnknownPoints(List<RelativeMeasurement> adjustedMeasurements)
         {
             NetworkAnalyzer<RelativeMeasurement> graph = new NetworkAnalyzer<RelativeMeasurement>();
             graph.MeasurementsToEdge(adjustedMeasurements.Cast<RelativeMeasurement>().ToList());
             List<NewGravimetricPoint> newPoints = Points
                 .Where(p => p is not KnownGravimetricPoint).Cast<NewGravimetricPoint>().ToList();
-            List<AdjustedGravimetricPoint> adjustedPoints = new();
+            List<AdjustedPoint> adjustedPoints = new();
             KnownGravimetricPoint kp = (KnownGravimetricPoint)Points.Where(x => x is KnownGravimetricPoint).First();
             foreach (NewGravimetricPoint newPoint in newPoints)
             {
                 List<PointBase> trav = graph.AStar(kp, newPoint);
                 graph.ClearTraversePoints();
                 List<RelativeMeasurement> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<RelativeMeasurement>().ToList();
-                double value = kp.GravitationalPotential + measurements.Sum(meas => meas.Value);
-                adjustedPoints.Add(new AdjustedGravimetricPoint(newPoint.Number, value, newPoint.X, newPoint.Y));
+                double value = kp.Value + measurements.Sum(meas => meas.Value);
+                adjustedPoints.Add(new AdjustedPoint(newPoint.Number, value, newPoint.X, newPoint.Y));
             }
             return adjustedPoints;
         }
@@ -132,7 +133,7 @@ namespace LSA_Base
             KnownGravimetricPoint startPoint = (KnownGravimetricPoint)startP;
             KnownGravimetricPoint toPoint = (KnownGravimetricPoint)toP;
             double currInaccuracy = trav.Sum(meas => meas.Value);
-            double betweenPointsValue = toPoint.GravitationalPotential - startPoint.GravitationalPotential;
+            double betweenPointsValue = toPoint.Value - startPoint.Value;
             //Console.WriteLine($"Between points {betweenPointsValue}");
             double result = currInaccuracy - betweenPointsValue;
             return result;

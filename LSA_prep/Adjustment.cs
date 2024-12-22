@@ -3,8 +3,8 @@
 namespace LSA_Base
 {
     public abstract class Adjustment<TMeasurement, TAdjustedPoint>
-        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement
-        where TAdjustedPoint : PointBase, INode
+        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
+        where TAdjustedPoint : AdjustedPoint
     {//todo: make all public methods except AdjustNetwork protected after testing!
         public readonly MatrixBuilder<double> matrixBuilder = Matrix<double>.Build;
         public readonly VectorBuilder<double> vectorBuilder = Vector<double>.Build;

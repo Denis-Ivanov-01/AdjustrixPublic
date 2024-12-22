@@ -10,17 +10,17 @@
         public double Value { get; set; }
     }
 
-    public class KnownGravimetricPoint : KnownPointNoCoordsBase
+    public class KnownGravimetricPoint : KnownPointNoCoordsBase, IOneDimPoint, INode
     {
-        public double GravitationalPotential { get; set; }
+        public double Value { get; set; }
 
         public KnownGravimetricPoint(string number, double? x, double? y, double value) : base(number, x, y)
         {
-            GravitationalPotential = value;
+            Value = value;
         }
     }
 
-    public class NewGravimetricPoint : PointBase
+    public class NewGravimetricPoint : PointBase, INode
     {
         public NewGravimetricPoint(string number, double? x, double? y) : base(number, x, y)
         {
@@ -28,13 +28,14 @@
         }
     }
 
-    public class AdjustedGravimetricPoint : PointBase
-    {
-        public readonly double GravitationalPotential;
+    public class AdjustedPoint : GravimetricPoint
+    { //TODO: figure out if this must be in the base file
+        // maybe branch out one dimensional adjustments (gravimetric, nivelation)
+        public double Value { get; set; }
 
-        public AdjustedGravimetricPoint(string number, double potential, double? x, double? y) : base(number, x, y)
+        public AdjustedPoint(string number, double value, double? x, double? y) : base(number, x, y)
         {
-            GravitationalPotential = potential;
+            Value = value;
         }
     }
 }
