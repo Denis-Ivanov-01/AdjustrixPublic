@@ -9,29 +9,29 @@
     internal class KnownPointsCluster
     {
         public HashSet<PointBase> _points;
-        public List<List<PointBase>> _paths;
+        public List<List<PointBase>> _traverses;
 
         public KnownPointsCluster()
         {
             _points = new();
-            _paths = new();
+            _traverses = new();
         }
 
-        public void AddPath(List<PointBase> path)
+        public void AddTravrse(List<PointBase> traverse)
         {
-            _paths.Add(path);
-            int[] knownPIndices = GetKnownPointIndices(path);
-            _points = GetKnownPointByIndices(path, knownPIndices).ToHashSet();
+            _traverses.Add(traverse);
+            int[] knownPIndices = GetKnownPointIndices(traverse);
+            _points = GetKnownPointByIndices(traverse, knownPIndices).ToHashSet();
         }
 
-        public static int[] GetKnownPointIndices(List<PointBase> path)
+        public static int[] GetKnownPointIndices(List<PointBase> traverse)
         {
-            int knownPointsCount = path.Where(x => IsKnownPoint(x)).Count();
+            int knownPointsCount = traverse.Where(x => IsKnownPoint(x)).Count();
             int[] indices = new int[knownPointsCount];
             int currIndex = 0;
-            for (int i = 0; i < path.Count; i++)
+            for (int i = 0; i < traverse.Count; i++)
             {
-                PointBase currP = path[i];
+                PointBase currP = traverse[i];
                 if (IsKnownPoint(currP))
                 {
                     indices[currIndex] = i;
@@ -46,12 +46,12 @@
             return p is KnownPointNoCoordsBase;
         }
 
-        public static List<PointBase> GetKnownPointByIndices(List<PointBase> path, int[] indices)
+        public static List<PointBase> GetKnownPointByIndices(List<PointBase> traverse, int[] indices)
         {
             List<PointBase> knownPoints = new();
             for (int i = 0; i < indices.Length; i++)
             {
-                knownPoints.Add(path[indices[i]]);
+                knownPoints.Add(traverse[indices[i]]);
             }
             return knownPoints;
         }
@@ -61,25 +61,25 @@
     internal class LinkedTraverseFinder<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, new()
     {
-        private readonly List<List<PointBase>> closedPaths;
+        private readonly List<List<PointBase>> closedTraverses;
         private readonly List<KnownPointsCluster> knownPointsClusters;
         private readonly Pathfinder<PointBase, TEdge> _pathfinder;
 
         public LinkedTraverseFinder(List<List<PointBase>> closedP, Pathfinder<PointBase, TEdge> pathfinder)
         {
-            closedPaths = closedP;
+            closedTraverses = closedP;
             knownPointsClusters = DefineClustersOnInit();
             _pathfinder = pathfinder;
         }
 
-        public static bool IsLinkedTraverse(List<PointBase> path)
+        public static bool IsLinkedTraverse(List<PointBase> traverse)
         {
-            return path[0] != path[^1] && path[0] is KnownPointNoCoordsBase && path[^1] is KnownPointNoCoordsBase;
+            return traverse[0] != traverse[^1] && traverse[0] is KnownPointNoCoordsBase && traverse[^1] is KnownPointNoCoordsBase;
         }
 
-        public static bool HasKnownPoint(List<PointBase> path)
+        public static bool HasKnownPoint(List<PointBase> traverse)
         {
-            return path.Where(x => x is KnownPointNoCoordsBase).Any();
+            return traverse.Where(x => x is KnownPointNoCoordsBase).Any();
         }
 
         private Tuple<PointBase, PointBase, double> CalcDistBetweenClusters(KnownPointsCluster k1, KnownPointsCluster k2)
@@ -98,16 +98,16 @@
 
         private List<KnownPointsCluster> DefineClustersOnInit()
         {
-            List<List<PointBase>> pathsWithKnownPoint = closedPaths.Where(x => HasKnownPoint(x)).ToList();
+            List<List<PointBase>> travsWithKnownPoint = closedTraverses.Where(x => HasKnownPoint(x)).ToList();
             List<KnownPointsCluster> clusters = new();
             while (true)
             {
-                if (pathsWithKnownPoint.Count == 0)
+                if (travsWithKnownPoint.Count == 0)
                 {
                     break;
                 }
-                List<PointBase> currPath = pathsWithKnownPoint.First();
-                (KnownPointsCluster currCluster, pathsWithKnownPoint) = DefineClusterFromPaths(currPath, pathsWithKnownPoint);
+                List<PointBase> currPath = travsWithKnownPoint.First();
+                (KnownPointsCluster currCluster, travsWithKnownPoint) = DefineClusterFromPaths(currPath, travsWithKnownPoint);
                 clusters.Add(currCluster);
             }
             return clusters;
@@ -116,25 +116,25 @@
         /// <summary>
         /// Looks for a pair of paths that connect two Known Points. If such path is found, it is added to the cluster.
         /// </summary>
-        /// <param name="path">A path with a Known Point in it.</param>
+        /// <param name="trav">A traverse with a Known Point in it.</param>
         /// <param name="linkedTraverses">Linked traverses with KnownPoints in them</param>
         /// <returns></returns>
-        private static (KnownPointsCluster, List<List<PointBase>>) DefineClusterFromPaths(List<PointBase> path, List<List<PointBase>> linkedTraverses)
+        private static (KnownPointsCluster, List<List<PointBase>>) DefineClusterFromPaths(List<PointBase> trav, List<List<PointBase>> linkedTraverses)
         { //todo: refactor this cuz I wanna hang myself when I look at it ... disgusting
             KnownPointsCluster cluster = new();
-            cluster.AddPath(path);
-            linkedTraverses.Remove(path);
+            cluster.AddTravrse(trav);
+            linkedTraverses.Remove(trav);
             while (true)
             {
                 bool connectedPointsFound = false;
-                foreach (List<PointBase> currPath in linkedTraverses)
+                foreach (List<PointBase> currTrav in linkedTraverses)
                 {
-                    int[] knownPIndicex = KnownPointsCluster.GetKnownPointIndices(currPath);
-                    List<PointBase> knownPoints = KnownPointsCluster.GetKnownPointByIndices(currPath, knownPIndicex);
+                    int[] knownPIndicex = KnownPointsCluster.GetKnownPointIndices(currTrav);
+                    List<PointBase> knownPoints = KnownPointsCluster.GetKnownPointByIndices(currTrav, knownPIndicex);
                     if (cluster._points.Any(x => knownPoints.Any(kp => kp.Number == x.Number)))
                     {
-                        cluster.AddPath(currPath);
-                        linkedTraverses.Remove(currPath);
+                        cluster.AddTravrse(currTrav);
+                        linkedTraverses.Remove(currTrav);
                         connectedPointsFound = true;
                         break;
                     }
@@ -187,8 +187,8 @@
         {
             KnownPointsCluster resultCluster = new();
             resultCluster._points = c1._points.Union(c2._points).ToHashSet();
-            resultCluster._paths.AddRange(c1._paths);
-            resultCluster._paths.AddRange(c2._paths);
+            resultCluster._traverses.AddRange(c1._traverses);
+            resultCluster._traverses.AddRange(c2._traverses);
             knownPointsClusters.Add(resultCluster);
             knownPointsClusters.Remove(c1);
             knownPointsClusters.Remove(c2);
