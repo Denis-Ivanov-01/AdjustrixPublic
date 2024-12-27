@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="View/Resources/DarkTheme.xaml"/>
                 <ResourceDictionary Source="View/Styles/TitleBarButton.xaml"/>
                 <ResourceDictionary Source="View/Styles/TabControl.xaml"/>
+                <ResourceDictionary Source="View/Styles/ComboBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -29,11 +29,24 @@
                                             Height="20"/>
                 </TabItem.Header>
                 <StackPanel Orientation="Horizontal">
-                    <Button Height="100" Width="100" Content="Test"
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center" 
-                        Style="{DynamicResource TitleBarButtonStyle}"
-                        Panel.ZIndex="100"/>
+                    <Border BorderBrush="{DynamicResource ForegroundBrush}"
+                            BorderThickness="0 0 1 0"
+                            Margin="5">
+                        <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                              Width="150">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50*"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+                            <ComboBox Height="20"
+                                      Margin="5 0 5 0"
+                                      Background="Transparent"
+                                      Foreground="Transparent"
+                                      Style="{StaticResource ComboBox}">
+                                
+                            </ComboBox>
+                        </Grid>
+                    </Border>
                 </StackPanel>
             </TabItem>
             <TabItem Style="{StaticResource TabItemStyle}">
@@ -54,6 +67,5 @@
             <Button Content="🗖" Style="{DynamicResource TitleBarButtonStyle}" Name="Restore" Click="Restore_Click"/>
             <Button Content="╳" Style="{DynamicResource TitleBarButtonStyle}" Name="Close" Click="Close_Click"/>
         </StackPanel>
-
     </Grid>
 </Window>
