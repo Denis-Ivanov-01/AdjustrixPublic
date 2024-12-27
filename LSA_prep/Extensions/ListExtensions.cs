@@ -19,8 +19,7 @@ namespace LSA_Base
             indices = indices
             .Distinct() // Remove duplicates
             .Where(index => index >= 0 && index < list.Count) // Filter invalid indices
-            .OrderByDescending(index => index)
-            .ToList();
+            .OrderByDescending(index => index);
 
             foreach (int i in indices)
             {

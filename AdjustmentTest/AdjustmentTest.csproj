@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LSA_prep\LSA_Base.csproj" />
+    <ProjectReference Include="..\LSA_prep\Adjustment.csproj" />
   </ItemGroup>
 
 </Project>

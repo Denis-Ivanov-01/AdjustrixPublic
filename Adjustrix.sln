@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LSA_Base", "LSA_prep\LSA_Base.csproj", "{B22D7343-51E3-45CE-A31D-B46EDC6F32B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adjustment", "LSA_prep\Adjustment.csproj", "{B22D7343-51E3-45CE-A31D-B46EDC6F32B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdjustmentTest", "AdjustmentTest\AdjustmentTest.csproj", "{765F27F9-78AF-4E0A-B315-2D5DAD9CC72B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustmentTest", "AdjustmentTest\AdjustmentTest.csproj", "{765F27F9-78AF-4E0A-B315-2D5DAD9CC72B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdjustrixWPF", "AdjustrixWPF\AdjustrixWPF.csproj", "{E6966B6A-9B8E-437B-979C-EA52F7B4A29C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{765F27F9-78AF-4E0A-B315-2D5DAD9CC72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{765F27F9-78AF-4E0A-B315-2D5DAD9CC72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{765F27F9-78AF-4E0A-B315-2D5DAD9CC72B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6966B6A-9B8E-437B-979C-EA52F7B4A29C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6966B6A-9B8E-437B-979C-EA52F7B4A29C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6966B6A-9B8E-437B-979C-EA52F7B4A29C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6966B6A-9B8E-437B-979C-EA52F7B4A29C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

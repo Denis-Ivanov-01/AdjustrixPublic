@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="Selected">#0f0e0f</Color>
+    <Color x:Key="Hovered">#363336</Color>
+    <Color x:Key="OutOfFocus">#474547</Color>
+    <Color x:Key="BackgroundColor">black</Color>
+    <Color x:Key="ForegrondColor">#ede6ed</Color>
+    <SolidColorBrush x:Key="BackgroundBrush">black</SolidColorBrush>
+    <SolidColorBrush x:Key="HoveredBrush">#363336</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectedBrush">#72657d</SolidColorBrush>
+    <SolidColorBrush x:Key="TabBackgroundBrush">#2d2633</SolidColorBrush>
+    <Brush x:Key="ForegroundBrush">#ede6ed</Brush>
+</ResourceDictionary>

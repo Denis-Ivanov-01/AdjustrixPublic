@@ -1,0 +1,119 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:userControls="clr-namespace:AdjustrixWPF.View.UserControls">
+
+    <Style TargetType="TabControl" x:Key="TabControlStyle">
+        <Setter Property="Background" Value="white"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid KeyboardNavigation.TabNavigation="Local">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <!-- Tab headers -->
+                            <RowDefinition Height="*"/>
+                            <!-- Tab content -->
+                        </Grid.RowDefinitions>
+
+                        <!-- TabPanel for headers -->
+                        <TabPanel x:Name="HeaderPanel"
+                              Grid.Row="0"
+                              Margin="0,0,0,0"
+                              IsItemsHost="True"
+                              KeyboardNavigation.TabIndex="1"
+                              Background="{TemplateBinding Background}"/>
+
+                        <!-- Border for tab content -->
+                        <Border Grid.Row="1"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            KeyboardNavigation.TabNavigation="Local"
+                            KeyboardNavigation.TabIndex="2"
+                            Background="{DynamicResource TabBackgroundBrush}">
+                            <!-- ContentPresenter to display the selected TabItem's content -->
+                            <ContentPresenter Margin="0" x:Name="PART_SelectedContentHost"
+                                          ContentSource="SelectedContent"
+                                          HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+    </Style>
+
+    <Style TargetType="userControls:TabHeader" x:Key="TabHeaderStyle">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="userControls:TabHeader">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{DynamicResource HoveredBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource SelectedBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TabItem" x:Key="TabItemStyle">
+        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid x:Name="Root">
+                        <!-- Border around the header -->
+                        <Border BorderThickness="{TemplateBinding BorderThickness}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            Background="{TemplateBinding Background}" 
+                            Margin="0">
+                            <!-- Header content -->
+                            <ContentPresenter x:Name="ContentSite"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"
+                                          ContentSource="Header"
+                                          Margin="0"
+                                          RecognizesAccessKey="True"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Panel.ZIndex" Value="100"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="BorderThickness" Value="1"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>
