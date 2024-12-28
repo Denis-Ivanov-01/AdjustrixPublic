@@ -2,9 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AdjustrixWPF"
+             xmlns:viewModels="clr-namespace:AdjustrixWPF.ViewModel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <viewModels:LanguagesConverter x:Key="LanguagesConverter"/>
+            <viewModels:ThemeConverter x:Key="ThemesConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="View/Resources/DarkTheme.xaml"/>
                 <ResourceDictionary Source="View/Styles/TitleBarButton.xaml"/>

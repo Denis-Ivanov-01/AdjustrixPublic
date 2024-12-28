@@ -22,8 +22,7 @@
             <TabItem Background="{DynamicResource BackgroundBrush}" 
                      Style="{StaticResource TabItemStyle}">
                 <TabItem.Header>
-                    <userControls:TabHeader DataContext="{Binding languageViewModel}"
-                        Text="File" 
+                    <userControls:TabHeader Text="{Binding languageViewModel.File}" 
                                             IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
                                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
                                             Style="{StaticResource TabHeaderStyle}"
@@ -34,11 +33,11 @@
                             BorderThickness="0 0 1 0"
                             Margin="5">
                         <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Width="300"
+                              Width="200"
                               x:Name="TabPanelGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="25*"/>
+                                <ColumnDefinition Width="15"/>
                             </Grid.ColumnDefinitions>
                             <Grid Height="{Binding ElementName=TabPanelGrid, Path=ActualHeight}">
                                 <Grid.RowDefinitions>
@@ -53,14 +52,14 @@
                                            Text="{Binding languageViewModel.Appearance, UpdateSourceTrigger=PropertyChanged}"
                                            Margin="0 0 0 3"/>
                                 <!-- =========================================================== -->
-                                <userControls:LabeledComboBox LabelText="Language"
-                                                              ComboBoxItemsSource="{Binding languageViewModel.Languages}"
-                                                              ComboBoxSelectedItem="{Binding languageViewModel.CurrentLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                <userControls:LabeledComboBox LabelText="{Binding languageViewModel.LanguageString}"
+                                                              ComboBoxItemsSource="{Binding languageViewModel.Languages, Converter={StaticResource LanguagesConverter}}"
+                                                              ComboBoxSelectedItem="{Binding languageViewModel.CurrentLanguage, Converter={StaticResource LanguagesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                               Grid.Row="1"
                                                               x:Name="LanguageBox"/>
-                                <userControls:LabeledComboBox LabelText="Theme"
-                                                              ComboBoxItemsSource="{Binding Path=themeViewModel.Themes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                              ComboBoxSelectedItem="{Binding Path=themeViewModel.SelectedTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                <userControls:LabeledComboBox LabelText="{Binding languageViewModel.ThemeString}"
+                                                              ComboBoxItemsSource="{Binding Path=languageViewModel.Themes, Converter={StaticResource ThemesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              ComboBoxSelectedItem="{Binding Path=languageViewModel.SelectedTheme, Converter={StaticResource ThemesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                               Grid.Row="2"
                                                               x:Name="ThemeBox"/>
                             </Grid>
@@ -70,7 +69,7 @@
             </TabItem>
             <TabItem Style="{StaticResource TabItemStyle}">
                 <TabItem.Header>
-                    <userControls:TabHeader Text="Data"
+                    <userControls:TabHeader Text="{Binding languageViewModel.Data}"
                                             IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
                                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
                                             Style="{StaticResource TabHeaderStyle}"

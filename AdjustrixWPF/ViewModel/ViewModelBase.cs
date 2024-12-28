@@ -9,7 +9,7 @@ namespace AdjustrixWPF.ViewModel
 
         public void OnPropertyChanged([CallerMemberName] string member = null)
         {
-            PropertyChanged?.Invoke(member, new PropertyChangedEventArgs(member));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(member));
         }
     }
 }
