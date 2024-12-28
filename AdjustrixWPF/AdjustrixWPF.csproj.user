@@ -13,6 +13,9 @@
     <Compile Update="View\UserControls\CloseButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\LabeledComboBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\MinimizeButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -33,6 +36,9 @@
     <Page Update="View\Resources\DarkTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Styles\Border.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Styles\ComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -42,10 +48,16 @@
     <Page Update="View\Styles\TabControl.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Styles\TitleBarButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\CloseButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\LabeledComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\MinimizeButton.xaml">

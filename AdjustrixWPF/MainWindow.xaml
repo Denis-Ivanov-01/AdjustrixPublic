@@ -22,7 +22,8 @@
             <TabItem Background="{DynamicResource BackgroundBrush}" 
                      Style="{StaticResource TabItemStyle}">
                 <TabItem.Header>
-                    <userControls:TabHeader Text="File" 
+                    <userControls:TabHeader DataContext="{Binding languageViewModel}"
+                        Text="File" 
                                             IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
                                             IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
                                             Style="{StaticResource TabHeaderStyle}"
@@ -33,18 +34,36 @@
                             BorderThickness="0 0 1 0"
                             Margin="5">
                         <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Width="150">
+                              Width="300"
+                              x:Name="TabPanelGrid">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="5*"/>
+                                <ColumnDefinition Width="25*"/>
                             </Grid.ColumnDefinitions>
-                            <ComboBox Height="20"
-                                      Margin="5 0 5 0"
-                                      Background="Transparent"
-                                      Foreground="Transparent"
-                                      Style="{StaticResource ComboBox}">
-                                
-                            </ComboBox>
+                            <Grid Height="{Binding ElementName=TabPanelGrid, Path=ActualHeight}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="10*"/>
+                                    <RowDefinition Height="45*"/>
+                                    <RowDefinition Height="45*"/>
+                                </Grid.RowDefinitions>
+                                <!-- =========================================================== -->
+                                <!-- This is the control I am currently experimenting with-->
+                                <TextBlock x:Name="AppearanceBlock"
+                                    Style="{StaticResource TextBlockTabPanel}"
+                                           Text="{Binding languageViewModel.Appearance, UpdateSourceTrigger=PropertyChanged}"
+                                           Margin="0 0 0 3"/>
+                                <!-- =========================================================== -->
+                                <userControls:LabeledComboBox LabelText="Language"
+                                                              ComboBoxItemsSource="{Binding languageViewModel.Languages}"
+                                                              ComboBoxSelectedItem="{Binding languageViewModel.CurrentLanguage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              Grid.Row="1"
+                                                              x:Name="LanguageBox"/>
+                                <userControls:LabeledComboBox LabelText="Theme"
+                                                              ComboBoxItemsSource="{Binding Path=themeViewModel.Themes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              ComboBoxSelectedItem="{Binding Path=themeViewModel.SelectedTheme, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                              Grid.Row="2"
+                                                              x:Name="ThemeBox"/>
+                            </Grid>
                         </Grid>
                     </Border>
                 </StackPanel>

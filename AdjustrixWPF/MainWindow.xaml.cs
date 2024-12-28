@@ -1,7 +1,5 @@
 ﻿using System.Windows;
-using AdjustrixWPF.View;
-using System;
-using System.Threading;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF
 {
@@ -10,22 +8,12 @@ namespace AdjustrixWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool isDarkTheme = true;
-
         public MainWindow()
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-        }
-
-        private void SetDarkTheme()
-        {
-            ThemeManager.SetCurrentThemeDictionary(this, new Uri(@"pack://application:,,,/View/Resources/DarkTheme.xaml"));
-        }
-
-        private void SetLightTheme()
-        {
-            ThemeManager.SetCurrentThemeDictionary(this, new Uri(@"pack://application:,,,/View/Resources/LightTheme.xaml"));
+            MainWindowViewModel mainWindowViewModel = new();
+            this.DataContext = mainWindowViewModel;
         }
 
         private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

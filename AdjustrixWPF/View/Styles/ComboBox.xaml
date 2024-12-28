@@ -12,7 +12,7 @@
                     Grid.ColumnSpan="2"
                 BorderBrush="{DynamicResource ForegroundBrush}"
                 BorderThickness="1"
-                Background="Transparent">
+                Background="{Binding Background, RelativeSource={RelativeSource AncestorType=ComboBox}}">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"/>
             </Border>
@@ -20,7 +20,7 @@
                 Grid.Column="1"
                 BorderBrush="{DynamicResource ForegroundBrush}"
                 BorderThickness="1"
-                Background="Transparent">
+                Background="{Binding Background, RelativeSource={RelativeSource AncestorType=ComboBox}}">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"/>
             </Border>
@@ -80,28 +80,40 @@
                           Margin="3,3,23,3"
                           VerticalAlignment="Stretch"
                           HorizontalAlignment="Left"/>
-
+                        <TextBox x:Name="PART_EditableTextBox"
+                                 Template="{StaticResource ComboBoxTextBox}"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Bottom"
+                                 Margin="3,3,23,3"
+                                 Focusable="True"
+                                 Background="Transparent"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}" />
                         <!-- Pop-up for drop-down items -->
                         <Popup x:Name="Popup"
-               Placement="Bottom"
-               IsOpen="{TemplateBinding IsDropDownOpen}"
-               AllowsTransparency="True"
-               Focusable="False"
-               PopupAnimation="Slide">
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
                             <Grid x:Name="DropDown"
-                  SnapsToDevicePixels="True"
-                  MinWidth="{TemplateBinding ActualWidth}"
-                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                        BorderThickness="1"
-                        BorderBrush="{DynamicResource ForegroundBrush}"
-                        Background="{DynamicResource ControlLightColor}">
-                                    <!-- ItemsPresenter to display drop-down items -->
-                                    <ScrollViewer Margin="4,6,4,6"
-                                  SnapsToDevicePixels="True">
-                                        <ItemsPresenter />
-                                    </ScrollViewer>
+                                        BorderThickness="1 0 1 1">
+                                    <Border.BorderBrush>
+                                        <SolidColorBrush Color="{DynamicResource ForegrondColor}" />
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <SolidColorBrush Color="{DynamicResource Hovered}" />
+                                    </Border.Background>
                                 </Border>
+                                <ScrollViewer Margin="4,6,4,6"
+                                              SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True"
+                                                KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                </ScrollViewer>
                             </Grid>
                         </Popup>
                     </Grid>
@@ -125,23 +137,28 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
                     <Border x:Name="Border"
-                        Padding="2"
+                        Padding="5"
                         SnapsToDevicePixels="true"
-                        Background="Transparent">
-                        <ContentPresenter />
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource ForegroundBrush}" 
+                        BorderThickness="1">
+                        <ContentPresenter HorizontalAlignment="Left"
+                                      VerticalAlignment="Center"
+                                      Content="{TemplateBinding Content}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="LightBlue"/>
+                            <Setter TargetName="Border" Property="Background" Value="LightBlue" />
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="LightGray"/>
+                            <Setter TargetName="Border" Property="Background" Value="LightGray" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
 
 
 </ResourceDictionary>

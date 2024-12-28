@@ -10,6 +10,8 @@
                 <ResourceDictionary Source="View/Styles/TitleBarButton.xaml"/>
                 <ResourceDictionary Source="View/Styles/TabControl.xaml"/>
                 <ResourceDictionary Source="View/Styles/ComboBox.xaml"/>
+                <ResourceDictionary Source="View/Styles/TextBlock.xaml"/>
+                <ResourceDictionary Source="View/Styles/Border.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
