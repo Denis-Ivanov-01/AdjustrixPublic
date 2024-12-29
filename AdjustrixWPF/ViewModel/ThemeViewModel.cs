@@ -11,23 +11,35 @@ namespace AdjustrixWPF.ViewModel
 {
     public class ThemeViewModel
     {
-        private string theme;
         private ObservableCollection<string> themes = EnumHelper.GetEnumStrings<Theme>();
+        private static ThemeViewModel instance;
+        
+        public static ThemeViewModel Singleton => GetInstance();
 
-        public ThemeViewModel()
+        private ThemeViewModel()
         {
-            theme = App.Theme.ToString();
+            // Must be set manually when creating the instance in order to replace the ResourceDictionary if needed
+            SelectedTheme = SystemFileManagement.Singleton.ThemeString;
+        }
+
+        private static ThemeViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new ThemeViewModel();
+            }
+            return instance;
         }
 
         public string SelectedTheme 
         { 
             get 
             {
-                return theme; 
+                return SystemFileManagement.Singleton.ThemeString; 
             } 
             set 
             { 
-                theme = value;
+                SystemFileManagement.Singleton.ThemeString = value;
                 if (value == Theme.Dark.ToString())
                 {
                     SetDarkTheme();

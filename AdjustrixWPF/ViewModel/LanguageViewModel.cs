@@ -33,9 +33,7 @@ namespace AdjustrixWPF.ViewModel
         private StringEntry appearance = new("Изглед", "Appearance");
         private StringEntry language = new("Език", "Language");
         private StringEntry theme = new("Тема", "Theme");
-        private StringEntry dark = new("Тъмна", "Dark");
-        private StringEntry light = new("Светла", "Light");
-
+        
         private string selectedTheme;
         private ObservableCollection<string> themes = EnumHelper.GetEnumStrings<Theme>();
 
@@ -48,8 +46,8 @@ namespace AdjustrixWPF.ViewModel
             Languages.Add("Bulgarian");
             Languages.Add("English");
             //todo: later load it from AppData/Local
-            currentLanguage = Language.English;
-            selectedTheme = Theme.Dark.ToString();
+            currentLanguage = ParseLanguageString(SystemFileManagement.Singleton.LanguageString);
+            selectedTheme = ThemeViewModel.Singleton.SelectedTheme;
         }
 
         public string CurrentLanguage
@@ -60,8 +58,8 @@ namespace AdjustrixWPF.ViewModel
             }
             set
             {
-                currentLanguage = Language.English.ToString() == value ? Language.English : Language.Bulgarian;
-
+                currentLanguage = ParseLanguageString(value);
+                SystemFileManagement.Singleton.LanguageString = value;
                 OnPropertiesChanged();
             }
         }
@@ -95,19 +93,11 @@ namespace AdjustrixWPF.ViewModel
         {
             get
             {
-                return selectedTheme;
+                return ThemeViewModel.Singleton.SelectedTheme;
             }
             set
             {
-                selectedTheme = value;
-                if (value == Theme.Dark.ToString())
-                {
-                    ThemeViewModel.SetDarkTheme();
-                }
-                else
-                {
-                    ThemeViewModel.SetLightTheme();
-                }
+                ThemeViewModel.Singleton.SelectedTheme = value;
                 OnPropertyChanged();
             }
         }
@@ -145,6 +135,15 @@ namespace AdjustrixWPF.ViewModel
                     OnPropertyChanged(prop);
                 }
             }
+        }
+
+        private Language ParseLanguageString(string language)
+        {
+            if (Enum.TryParse(language, out Language lang))
+            {
+                return lang;
+            }
+            throw new ArgumentException("Incorrect enum string value was passed!");
         }
     }
 }

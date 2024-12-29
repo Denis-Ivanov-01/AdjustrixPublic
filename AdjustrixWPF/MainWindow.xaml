@@ -7,7 +7,7 @@
         xmlns:userControls="clr-namespace:AdjustrixWPF.View.UserControls"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized" Height="650" Width="850" WindowStyle="None"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        MouseLeftButtonDown="OnAppWindowWindowOnMouseLeftButtonDown"
         Background="{DynamicResource BackgroundBrush}">
     <Grid Name="MainGrid"
           Margin="5">
@@ -17,8 +17,41 @@
             <RowDefinition Height="75*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
-                    HorizontalAlignment="Left" Grid.RowSpan="2" Background="{DynamicResource BackgroundBrush}" Style="{StaticResource TabControlStyle}">
+        <Border Height="45"
+                Width="45"
+                HorizontalAlignment="Left"
+                Panel.ZIndex="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="28"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" 
+                        Background="{DynamicResource BackgroundBrush}" 
+                        BorderThickness="0"/>
+                <Border Grid.Row="1" 
+                        Background="{DynamicResource TabBackgroundBrush}"
+                        BorderThickness="0"/>
+                <!-- TODO: change the borders so that there are no edges when building -->
+                <Image Source="C:\Users\denis\source\repos\Adjustrix\SampleLogoClipped.png"
+                       Width="40"
+                       Height="40"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Grid.Row="0"
+                       Grid.RowSpan="2"/>
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" 
+                Background="{DynamicResource TabBackgroundBrush}"
+                BorderThickness="0"/>
+        <TabControl Grid.Row="0" 
+                    Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
+                    HorizontalAlignment="Left" 
+                    Grid.RowSpan="2" 
+                    Background="{DynamicResource BackgroundBrush}" 
+                    Style="{StaticResource TabControlStyle}"
+                    Margin="0 3 0 0">
             <TabItem Background="{DynamicResource BackgroundBrush}" 
                      Style="{StaticResource TabItemStyle}">
                 <TabItem.Header>
@@ -76,7 +109,7 @@
                                             Height="20"/>
                 </TabItem.Header>
                 <StackPanel>
-
+                    
                 </StackPanel>
             </TabItem>
         </TabControl>

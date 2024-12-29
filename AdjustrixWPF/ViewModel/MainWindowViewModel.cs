@@ -9,7 +9,7 @@
 
         public MainWindowViewModel()
         {
-            themeViewModel = new ThemeViewModel();
+            themeViewModel = ThemeViewModel.Singleton;
             languageViewModel = new LanguageViewModel();
         }
     }

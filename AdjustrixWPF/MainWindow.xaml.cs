@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF
@@ -8,6 +11,9 @@ namespace AdjustrixWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private bool _mRestoreForDragMove;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -16,7 +22,7 @@ namespace AdjustrixWPF
             this.DataContext = mainWindowViewModel;
         }
 
-        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
         }
@@ -46,6 +52,71 @@ namespace AdjustrixWPF
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void OnAppWindowWindowOnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ClickCount == 2)
+            {
+                if (this.ResizeMode != ResizeMode.CanResize &&
+                    this.ResizeMode != ResizeMode.CanResizeWithGrip)
+                {
+                    return;
+                }
+
+                this.WindowState = this.WindowState == WindowState.Maximized
+                    ? WindowState.Normal
+                    : WindowState.Maximized;
+            }
+            else
+            {
+                _mRestoreForDragMove = this.WindowState == WindowState.Maximized;
+
+                SafeDragMoveCall(e);
+            }
+        }
+
+        private void SafeDragMoveCall(MouseEventArgs e)
+        {
+            Task.Delay(100).ContinueWith(_ =>
+            {
+                Dispatcher.BeginInvoke((Action)
+                    delegate
+                    {
+                        if (Mouse.LeftButton == MouseButtonState.Pressed)
+                        {
+                            this.DragMove();
+                            RaiseEvent(new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left)
+                            {
+                                RoutedEvent = MouseLeftButtonUpEvent
+                            });
+                        }
+                    });
+            });
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_mRestoreForDragMove)
+            {
+                _mRestoreForDragMove = false;
+
+                var point = PointToScreen(e.MouseDevice.GetPosition(this));
+
+                this.Left = point.X - (this.RestoreBounds.Width * 0.5);
+                this.Top = point.Y;
+
+                this.WindowState = WindowState.Normal;
+
+                this.DragMove();
+
+                SafeDragMoveCall(e);
+            }
+        }
+
+        private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            _mRestoreForDragMove = false;
         }
     }
 }
