@@ -20,7 +20,7 @@ namespace AdjustrixWPF
 
     public static class EnumHelper
     {
-        public static ObservableCollection<string> GetEnumStrings<T>() 
+        public static ObservableCollection<string> GetEnumStrings<T>()
             where T : Enum
         {
             var enumValues = Enum.GetNames(typeof(T));

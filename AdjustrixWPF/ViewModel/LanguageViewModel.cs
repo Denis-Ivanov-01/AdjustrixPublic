@@ -26,16 +26,13 @@ namespace AdjustrixWPF.ViewModel
 
     public class LanguageViewModel : ViewModelBase
     {
-        private string[] propertyNames;
+        private readonly string[] propertyNames;
 
-        private StringEntry file = new("Файл", "File");
-        private StringEntry data = new("Данни", "Data");
-        private StringEntry appearance = new("Изглед", "Appearance");
-        private StringEntry language = new("Език", "Language");
-        private StringEntry theme = new("Тема", "Theme");
-        
-        private string selectedTheme;
-        private ObservableCollection<string> themes = EnumHelper.GetEnumStrings<Theme>();
+        private readonly StringEntry file = new("Файл", "File");
+        private readonly StringEntry data = new("Данни", "Data");
+        private readonly StringEntry appearance = new("Изглед", "Appearance");
+        private readonly StringEntry language = new("Език", "Language");
+        private readonly StringEntry theme = new("Тема", "Theme");
 
         public static Language currentLanguage;
 
@@ -47,7 +44,6 @@ namespace AdjustrixWPF.ViewModel
             Languages.Add("English");
             //todo: later load it from AppData/Local
             currentLanguage = ParseLanguageString(SystemFileManagement.Singleton.LanguageString);
-            selectedTheme = ThemeViewModel.Singleton.SelectedTheme;
         }
 
         public string CurrentLanguage
@@ -86,7 +82,7 @@ namespace AdjustrixWPF.ViewModel
 
         public string ThemeString
         {
-            get { return theme.GetString(currentLanguage);}
+            get { return theme.GetString(currentLanguage); }
         }
 
         public string SelectedTheme
@@ -104,10 +100,13 @@ namespace AdjustrixWPF.ViewModel
 
         public ObservableCollection<string> Themes
         {
-            get { return themes; }
+            get 
+            { 
+                return ThemeViewModel.Singleton.Themes; 
+            }
             set
             {
-                themes = value;
+                ThemeViewModel.Singleton.Themes = value;
                 OnPropertyChanged();
             }
         }
@@ -119,7 +118,7 @@ namespace AdjustrixWPF.ViewModel
             Type type = typeof(LanguageViewModel);
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             string[] result = new string[properties.Length];
-            for (int i=0;i<properties.Length;i++)
+            for (int i = 0; i < properties.Length; i++)
             {
                 result[i] = properties[i].Name;
             }

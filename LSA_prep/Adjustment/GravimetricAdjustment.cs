@@ -72,7 +72,7 @@ namespace LSA_Base
         {
             List<RelativeMeasurement> meas = adjustedMeasurements.Cast<RelativeMeasurement>().ToList();
             Pathfinder<PointBase, RelativeMeasurement> pathfinder = new(meas);
-            
+
             List<NewGravimetricPoint> newPoints = Points
                 .Where(p => p is not KnownGravimetricPoint).Cast<NewGravimetricPoint>().ToList();
             List<AdjustedPoint> adjustedPoints = new();

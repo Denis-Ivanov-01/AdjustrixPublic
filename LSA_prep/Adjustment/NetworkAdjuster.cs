@@ -5,7 +5,7 @@
         where TAdjustment : Adjustment<TMeasurement, AdjustedPoint>
     {
         private readonly List<TMeasurement> _measurements;
-        
+
         public NetworkAdjuster(List<TMeasurement> measurements)
         {
             _measurements = measurements;

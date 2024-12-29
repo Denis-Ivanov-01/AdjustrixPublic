@@ -162,7 +162,7 @@
         /// <summary>
         /// Removes the supersets in a list with only closed traverses.
         /// </summary>
-        public static List<List<PointBase>> RemoveSupersetsOneType(List<List<PointBase>> traverses, 
+        public static List<List<PointBase>> RemoveSupersetsOneType(List<List<PointBase>> traverses,
             List<List<List<PointBase>>> traversesFromBreakdown)
         {
             bool supersetFound = true;
@@ -174,8 +174,8 @@
             return traverses;
         }
 
-        private static List<List<PointBase>> RemoveSupersetOneType(List<List<PointBase>> traverses, 
-            ref bool supersetFound, 
+        private static List<List<PointBase>> RemoveSupersetOneType(List<List<PointBase>> traverses,
+            ref bool supersetFound,
             List<List<List<PointBase>>> traversesFromBreakdown)
         {
             supersetFound = false;

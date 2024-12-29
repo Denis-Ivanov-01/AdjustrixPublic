@@ -5,17 +5,17 @@ namespace AdjustrixWPF.ViewModel
 {
     public class SystemFileManagement
     {
-        private static string programFiles = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
-        private static string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
+        private static readonly string programFiles = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
+        private static readonly string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
             .Replace("Roaming", "Local");
         private const string adjustrixFolder = "Adjustrix";
 
-        private static string adjustrixPFfolder = Path.Combine(programFiles, adjustrixFolder);
+        private static readonly string adjustrixPFfolder = Path.Combine(programFiles, adjustrixFolder);
 
-        private static string adjustrixADfolder = Path.Combine(appData, adjustrixFolder);
-        private static string appearanceFolder = Path.Combine(adjustrixADfolder, "Appearance");
-        private static string languageFile = Path.Combine(appearanceFolder, "language.txt");
-        private static string themeFile = Path.Combine(appearanceFolder, "theme.txt");
+        private static readonly string adjustrixADfolder = Path.Combine(appData, adjustrixFolder);
+        private static readonly string appearanceFolder = Path.Combine(adjustrixADfolder, "Appearance");
+        private static readonly string languageFile = Path.Combine(appearanceFolder, "language.txt");
+        private static readonly string themeFile = Path.Combine(appearanceFolder, "theme.txt");
 
         private static SystemFileManagement instance;
 

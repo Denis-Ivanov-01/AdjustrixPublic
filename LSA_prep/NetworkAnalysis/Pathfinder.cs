@@ -157,7 +157,7 @@
             List<TNode> closestPath = AStar(point1, point2);
             for (int i = 0; i < closestPath.Count - 1; i++)
             {
-                TEdge currentEdge = _graphData[closestPath[i]].Where(x => x.ToPoint.Number == closestPath[i+1].Number).First();
+                TEdge currentEdge = _graphData[closestPath[i]].Where(x => x.ToPoint.Number == closestPath[i + 1].Number).First();
                 totalDistance += currentEdge.Length;
             }
             return totalDistance;

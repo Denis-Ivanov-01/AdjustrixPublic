@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Collections.Generic;
 
 namespace AdjustrixWPF.View
 {
@@ -33,14 +33,17 @@ namespace AdjustrixWPF.View
 
         private static void ApplyTheme(FrameworkElement targetElement, Uri dictionaryUri)
         {
-            if (targetElement == null) return;
+            if (targetElement == null)
+            {
+                return;
+            }
 
             try
             {
                 ResourceDictionary themeDictionary = null;
                 if (dictionaryUri != null)
                 {
-                    themeDictionary = new ();
+                    themeDictionary = new();
                     themeDictionary.Source = dictionaryUri;
 
                     // add the new dictionary to the collection of merged dictionaries of the target object
@@ -63,7 +66,11 @@ namespace AdjustrixWPF.View
                 // remove the existing dictionaries
                 foreach (ResourceDictionary thDictionary in existingDictionaries)
                 {
-                    if (themeDictionary.Source == thDictionary.Source) continue;  // don't remove the newly added dictionary
+                    if (themeDictionary.Source == thDictionary.Source)
+                    {
+                        continue;  // don't remove the newly added dictionary
+                    }
+
                     Application.Current.Resources.MergedDictionaries.Remove(thDictionary);
                 }
             }

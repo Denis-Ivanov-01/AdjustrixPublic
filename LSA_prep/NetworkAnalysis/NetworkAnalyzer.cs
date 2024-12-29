@@ -12,7 +12,7 @@
         private readonly Dictionary<PointBase, List<TEdge>> graphData = new();
         private readonly List<PointBase> traversedPoints = new();
         private readonly List<List<PointBase>> linkedTraverseFromBreakdown = new();
-        private List<List<List<PointBase>>> traversesFromBreakdown = new();
+        private readonly List<List<List<PointBase>>> traversesFromBreakdown = new();
         private readonly List<TEdge> initialMeasurements;
         private readonly Pathfinder<PointBase, TEdge> pathfinder;
 

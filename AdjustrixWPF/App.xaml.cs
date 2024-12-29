@@ -1,6 +1,4 @@
 ﻿using System.Windows;
-using System;
-using AdjustrixWPF.View;
 
 namespace AdjustrixWPF
 {
@@ -21,25 +19,25 @@ namespace AdjustrixWPF
             theme = Theme.Dark;
         }
 
-        public static Language Language 
-        { 
+        public static Language Language
+        {
             get { return language; }
-            set 
-            { 
+            set
+            {
                 language = value;
-            } 
+            }
         }
 
         public static Theme Theme
-        { 
-            get 
-            { 
-                return theme; 
-            } 
-            set 
-            { 
-                theme = value; 
-            } 
+        {
+            get
+            {
+                return theme;
+            }
+            set
+            {
+                theme = value;
+            }
         }
     }
 }

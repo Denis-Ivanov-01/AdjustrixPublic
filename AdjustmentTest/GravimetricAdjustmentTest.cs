@@ -1,21 +1,22 @@
-using NUnit.Framework;
 using LSA_Base;
+using NUnit.Framework;
 
 namespace AdjustmentTest
 {
     public class Tests
     {
-        NewGravimetricPoint gp1 = new("1", 27629.2642, 340966.7408);
-        NewGravimetricPoint gp2 = new("2", 27226.8512, 341323.5681);
-        NewGravimetricPoint gp3 = new("3", 27201.8000, 341009.7822);
+        readonly NewGravimetricPoint gp1 = new("1", 27629.2642, 340966.7408);
+        readonly NewGravimetricPoint gp2 = new("2", 27226.8512, 341323.5681);
+        readonly NewGravimetricPoint gp3 = new("3", 27201.8000, 341009.7822);
+
         //NewGravimetricPoint gp3 = new("3", 27039.5212, 341009.7822);
-        NewGravimetricPoint gp7 = new("7", 27472.4619, 340382.2104);
-        KnownGravimetricPoint gp4 = new("4", 27201.8739, 340834.8395, 9);
-        KnownGravimetricPoint gp5 = new("5", 27389.2041, 340376.6567, 8);
-        KnownGravimetricPoint gp8 = new("8", 27404.4680, 340280.8549, 8.5);
-        KnownGravimetricPoint gp9 = new("9", 27133.3325, 341704.3286, 9.5);
-        KnownGravimetricPoint gp10 = new("10", 27736.1762, 340572.0287, 10);
-        NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
+        readonly NewGravimetricPoint gp7 = new("7", 27472.4619, 340382.2104);
+        readonly KnownGravimetricPoint gp4 = new("4", 27201.8739, 340834.8395, 9);
+        readonly KnownGravimetricPoint gp5 = new("5", 27389.2041, 340376.6567, 8);
+        readonly KnownGravimetricPoint gp8 = new("8", 27404.4680, 340280.8549, 8.5);
+        readonly KnownGravimetricPoint gp9 = new("9", 27133.3325, 341704.3286, 9.5);
+        readonly KnownGravimetricPoint gp10 = new("10", 27736.1762, 340572.0287, 10);
+        readonly NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
 
         [SetUp]
         public void Setup()

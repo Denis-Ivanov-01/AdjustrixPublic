@@ -59,7 +59,7 @@ namespace AdjustrixWPF.ViewModel
         public ObservableCollection<string> ConvertLanguagesBack(IEnumerable<string> strings)
         {
             ObservableCollection<string> result = new();
-            foreach(string language in strings)
+            foreach (string language in strings)
             {
                 result.Add(ConvertLanguageBack(language));
             }

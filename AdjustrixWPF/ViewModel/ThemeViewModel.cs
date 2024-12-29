@@ -13,7 +13,7 @@ namespace AdjustrixWPF.ViewModel
     {
         private ObservableCollection<string> themes = EnumHelper.GetEnumStrings<Theme>();
         private static ThemeViewModel instance;
-        
+
         public static ThemeViewModel Singleton => GetInstance();
 
         private ThemeViewModel()
@@ -31,14 +31,14 @@ namespace AdjustrixWPF.ViewModel
             return instance;
         }
 
-        public string SelectedTheme 
-        { 
-            get 
+        public string SelectedTheme
+        {
+            get
             {
-                return SystemFileManagement.Singleton.ThemeString; 
-            } 
-            set 
-            { 
+                return SystemFileManagement.Singleton.ThemeString;
+            }
+            set
+            {
                 SystemFileManagement.Singleton.ThemeString = value;
                 if (value == Theme.Dark.ToString())
                 {
@@ -55,7 +55,7 @@ namespace AdjustrixWPF.ViewModel
         public ObservableCollection<string> Themes
         {
             get { return themes; }
-            set 
+            set
             {
                 themes = value;
                 //OnPropertyChanged();
@@ -81,7 +81,7 @@ namespace AdjustrixWPF.ViewModel
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
+
             if (value is IEnumerable<string> themes)
             {
                 ObservableCollection<string> result = new();
