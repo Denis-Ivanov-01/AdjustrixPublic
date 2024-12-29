@@ -34,7 +34,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry language = new("Език", "Language");
         private readonly StringEntry theme = new("Тема", "Theme");
 
-        public static Language currentLanguage;
+        private static Language currentLanguage;
 
         public LanguageViewModel()
         {
@@ -42,8 +42,19 @@ namespace AdjustrixWPF.ViewModel
             Languages = new();
             Languages.Add("Bulgarian");
             Languages.Add("English");
-            //todo: later load it from AppData/Local
             currentLanguage = ParseLanguageString(SystemFileManagement.Singleton.LanguageString);
+        }
+
+        public static Language SelectedLanguage
+        {
+            get
+            {
+                return currentLanguage;
+            }
+            set
+            {
+                currentLanguage = value;
+            }
         }
 
         public string CurrentLanguage
@@ -89,11 +100,11 @@ namespace AdjustrixWPF.ViewModel
         {
             get
             {
-                return ThemeViewModel.Singleton.SelectedTheme;
+                return ThemeViewModel.SelectedTheme;
             }
             set
             {
-                ThemeViewModel.Singleton.SelectedTheme = value;
+                ThemeViewModel.SelectedTheme = value;
                 OnPropertyChanged();
             }
         }
@@ -113,7 +124,7 @@ namespace AdjustrixWPF.ViewModel
 
         public ObservableCollection<string> Languages { get; set; }
 
-        private string[] GetClassProperties()
+        private static string[] GetClassProperties()
         {
             Type type = typeof(LanguageViewModel);
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -136,7 +147,7 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
-        private Language ParseLanguageString(string language)
+        private static Language ParseLanguageString(string language)
         {
             if (Enum.TryParse(language, out Language lang))
             {

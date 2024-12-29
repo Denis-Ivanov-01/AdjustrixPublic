@@ -31,7 +31,7 @@ namespace AdjustrixWPF.ViewModel
             return instance;
         }
 
-        public string SelectedTheme
+        public static string SelectedTheme
         {
             get
             {
@@ -48,7 +48,6 @@ namespace AdjustrixWPF.ViewModel
                 {
                     SetLightTheme();
                 }
-                //OnPropertyChanged();
             }
         }
 
@@ -58,7 +57,6 @@ namespace AdjustrixWPF.ViewModel
             set
             {
                 themes = value;
-                //OnPropertyChanged();
             }
         }
 
@@ -116,9 +114,9 @@ namespace AdjustrixWPF.ViewModel
             return Binding.DoNothing;
         }
 
-        private string ConvertTheme(string theme)
+        private static string ConvertTheme(string theme)
         {
-            if (LanguageViewModel.currentLanguage == Language.English)
+            if (LanguageViewModel.SelectedLanguage == Language.English)
             {
                 return theme;
             }
@@ -129,7 +127,7 @@ namespace AdjustrixWPF.ViewModel
             return lightBg;
         }
 
-        private string ConvertThemeBack(string langStr)
+        private static string ConvertThemeBack(string langStr)
         {
             if (langStr == Theme.Dark.ToString() || langStr == darkBg)
             {
@@ -138,5 +136,4 @@ namespace AdjustrixWPF.ViewModel
             return Theme.Light.ToString();
         }
     }
-
 }

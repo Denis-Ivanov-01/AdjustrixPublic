@@ -5,6 +5,11 @@ namespace AdjustrixWPF.ViewModel
 {
     public class SystemFileManagement
     {
+        //todo: In the future add logic to handle Program files resources:
+        // - Appearance folder for image loading - separate folder for light and dark themes
+        // - FileReaders folder for Python scripts for reading files
+        // - Runtime folder for a Python executable
+
         private static readonly string programFiles = Environment.ExpandEnvironmentVariables("%ProgramW6432%");
         private static readonly string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)
             .Replace("Roaming", "Local");
