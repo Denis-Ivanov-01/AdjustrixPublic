@@ -13,7 +13,6 @@
     <Grid Name="MainGrid"
           Margin="5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="75*"/>
             <RowDefinition Height="25"/>
@@ -28,52 +27,8 @@
         <Border Grid.Row="1" 
                 Background="{DynamicResource TabBackgroundBrush}"
                 BorderThickness="0"/>
-        <TabControl Grid.Row="0"
-                    Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
-                    HorizontalAlignment="Left" 
-                    Grid.RowSpan="2" 
-                    Background="{DynamicResource BackgroundBrush}" 
-                    Style="{StaticResource TabControlStyle}"
-                    Margin="0 3 0 0">
-            <TabItem Background="{DynamicResource BackgroundBrush}" 
-                     Style="{StaticResource TabItemStyle}">
-                <TabItem.Header>
-                    <userControls:TabHeader Text="{Binding languageViewModel.File}" 
-                                            IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            Style="{StaticResource TabHeaderStyle}"
-                                            Height="20"/>
-                </TabItem.Header>
-                <StackPanel Orientation="Horizontal">
-                    <Border BorderBrush="{DynamicResource ForegroundBrush}"
-                            BorderThickness="0 0 1 0"
-                            Margin="5">
-                        <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Width="425"
-                              x:Name="TabPanelGrid">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <compositeControls:AppearanceButtons/>
-                            <compositeControls:ProjectButtons Grid.Column="1"/>
-                        </Grid>
-                    </Border>
-                </StackPanel>
-            </TabItem>
-            <TabItem Style="{StaticResource TabItemStyle}">
-                <TabItem.Header>
-                    <userControls:TabHeader Text="{Binding languageViewModel.Data}"
-                                            IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            Style="{StaticResource TabHeaderStyle}"
-                                            Height="20"/>
-                </TabItem.Header>
-                <StackPanel>
-                    
-                </StackPanel>
-            </TabItem>
-        </TabControl>
+        <compositeControls:MainTabControl
+            Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="_" Style="{DynamicResource TitleBarButtonStyle}" Name="Minimize" Click="Minimize_Click"/>
             <Button Content="🗖" Style="{DynamicResource TitleBarButtonStyle}" Name="Restore" Click="Restore_Click"/>

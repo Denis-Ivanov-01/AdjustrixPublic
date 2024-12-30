@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
              xmlns:userControls="clr-namespace:AdjustrixWPF.View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="200" d:DesignWidth="650">
     <TabControl Grid.Row="0"
                     Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
                     HorizontalAlignment="Left" 
@@ -23,22 +23,29 @@
                                             Style="{StaticResource TabHeaderStyle}"
                                             Height="20"/>
             </TabItem.Header>
-            <StackPanel Orientation="Horizontal">
-                <Border BorderBrush="{DynamicResource ForegroundBrush}"
-                            BorderThickness="0 0 1 0"
-                            Margin="5">
+            <Border BorderThickness="1"
+                    BorderBrush="{DynamicResource ForegroundBrush}"
+                    Background="Transparent">
+                <StackPanel Orientation="Horizontal">
                     <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Width="425"
+                              Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
                               x:Name="TabPanelGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="230"/>
                         </Grid.ColumnDefinitions>
-                        <local:AppearanceButtons/>
-                        <local:ProjectButtons Grid.Column="1"/>
+                        <local:AppearanceButtons
+                            Margin="5 5 0 5"/>
+                        <Border Grid.Column="1"
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                BorderThickness="0 0 1 0">
+                            <local:ProjectButtons Grid.Column="1"/>
+                        </Border>
                     </Grid>
-                </Border>
-            </StackPanel>
+                </StackPanel>
+
+            </Border>
+            
         </TabItem>
         <TabItem Style="{StaticResource TabItemStyle}">
             <TabItem.Header>

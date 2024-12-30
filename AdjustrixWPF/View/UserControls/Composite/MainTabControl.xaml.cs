@@ -24,5 +24,19 @@ namespace AdjustrixWPF.View.UserControls.Composite
         {
             InitializeComponent();
         }
+
+
+
+        public int Width
+        {
+            get { return (int)GetValue(WidthProperty); }
+            set { SetValue(WidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Width.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WidthProperty =
+            DependencyProperty.Register("Width", typeof(int), typeof(MainTabControl), new PropertyMetadata(200));
+
+
     }
 }
