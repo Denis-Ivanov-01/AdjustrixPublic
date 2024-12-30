@@ -18,14 +18,14 @@ namespace AdjustrixWPF
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            MainWindowViewModel mainWindowViewModel = new();
-            this.DataContext = mainWindowViewModel;
+            this.DataContext = new MainWindowViewModel();
         }
 
-        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
+        // Not using this because of weird behaviour of DragMove()
+        //private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    DragMove();
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
