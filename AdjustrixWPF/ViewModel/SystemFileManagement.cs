@@ -16,6 +16,7 @@ namespace AdjustrixWPF.ViewModel
         private const string adjustrixFolder = "Adjustrix";
 
         private static readonly string adjustrixPFfolder = Path.Combine(programFiles, adjustrixFolder);
+        private static readonly string adjustrixPFview = Path.Combine(adjustrixPFfolder, "view");
 
         private static readonly string adjustrixADfolder = Path.Combine(appData, adjustrixFolder);
         private static readonly string appearanceFolder = Path.Combine(adjustrixADfolder, "Appearance");
@@ -40,6 +41,14 @@ namespace AdjustrixWPF.ViewModel
                 instance = new SystemFileManagement();
             }
             return instance;
+        }
+
+        public string LogoPath
+        {
+            get
+            {
+                return Path.Combine(adjustrixPFview, "logo.png");
+            }
         }
 
         public string LanguageString
@@ -82,7 +91,8 @@ namespace AdjustrixWPF.ViewModel
 
         private void EnsurePFFolderExists()
         {
-            if (!Directory.Exists(adjustrixPFfolder))
+            if (!Directory.Exists(adjustrixPFfolder) ||
+                !Directory.Exists(adjustrixPFview))
             {//todo: think of a good message to display to the user in that case!
                 throw new DirectoryNotFoundException($"The system folder {adjustrixPFfolder} was not found!");
             }

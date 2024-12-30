@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="View\UserControls\Primitive\" />
   </ItemGroup>
 
   <ItemGroup>

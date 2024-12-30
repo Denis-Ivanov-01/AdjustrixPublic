@@ -33,6 +33,9 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry appearance = new("Изглед", "Appearance");
         private readonly StringEntry language = new("Език", "Language");
         private readonly StringEntry theme = new("Тема", "Theme");
+        private readonly StringEntry newProject = new("Нов Проект", "New Project");
+        private readonly StringEntry saveProject = new("Запази Проект", "Save Project");
+        private readonly StringEntry openProject = new("Отвори Проект", "Open Project");
 
         private static Language currentLanguage;
 
@@ -123,6 +126,30 @@ namespace AdjustrixWPF.ViewModel
         }
 
         public ObservableCollection<string> Languages { get; set; }
+
+        public string NewProject
+        {
+            get
+            {
+                return newProject.GetString(currentLanguage);
+            }
+        }
+
+        public string SaveProject
+        {
+            get
+            {
+                return saveProject.GetString(currentLanguage);
+            }
+        }
+
+        public string OpenProject
+        {
+            get
+            {
+                return openProject.GetString(currentLanguage);
+            }
+        }
 
         private static string[] GetClassProperties()
         {

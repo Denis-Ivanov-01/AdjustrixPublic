@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdjustrixWPF"
         xmlns:userControls="clr-namespace:AdjustrixWPF.View.UserControls"
+        xmlns:compositeControls="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized" Height="650" Width="850" WindowStyle="None"
         MouseLeftButtonDown="OnAppWindowWindowOnMouseLeftButtonDown"
@@ -17,35 +18,17 @@
             <RowDefinition Height="75*"/>
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <Border Height="45"
-                Width="45"
-                HorizontalAlignment="Left"
-                Panel.ZIndex="20">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="28"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Border Grid.Row="0" 
-                        Background="{DynamicResource BackgroundBrush}" 
-                        BorderThickness="0"/>
-                <Border Grid.Row="1" 
-                        Background="{DynamicResource TabBackgroundBrush}"
-                        BorderThickness="0"/>
-                <!-- TODO: change the borders so that there are no edges when building -->
-                <Image Source="C:\Users\denis\source\repos\Adjustrix\SampleLogoClipped.png"
-                       Width="40"
-                       Height="40"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Grid.Row="0"
-                       Grid.RowSpan="2"/>
-            </Grid>
-        </Border>
+        <Image Source="{Binding SystemFileSingleton.LogoPath}"
+               Width="45"
+               Height="45"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Grid.Row="0"
+               Panel.ZIndex="100"/>
         <Border Grid.Row="1" 
                 Background="{DynamicResource TabBackgroundBrush}"
                 BorderThickness="0"/>
-        <TabControl Grid.Row="0" 
+        <TabControl Grid.Row="0"
                     Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
                     HorizontalAlignment="Left" 
                     Grid.RowSpan="2" 
@@ -66,36 +49,14 @@
                             BorderThickness="0 0 1 0"
                             Margin="5">
                         <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Width="200"
+                              Width="425"
                               x:Name="TabPanelGrid">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50*"/>
-                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Grid Height="{Binding ElementName=TabPanelGrid, Path=ActualHeight}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="10*"/>
-                                    <RowDefinition Height="45*"/>
-                                    <RowDefinition Height="45*"/>
-                                </Grid.RowDefinitions>
-                                <!-- =========================================================== -->
-                                <!-- This is the control I am currently experimenting with-->
-                                <TextBlock x:Name="AppearanceBlock"
-                                    Style="{StaticResource TextBlockTabPanel}"
-                                           Text="{Binding languageViewModel.Appearance, UpdateSourceTrigger=PropertyChanged}"
-                                           Margin="0 0 0 3"/>
-                                <!-- =========================================================== -->
-                                <userControls:LabeledComboBox LabelText="{Binding languageViewModel.LanguageString}"
-                                                              ComboBoxItemsSource="{Binding languageViewModel.Languages, Converter={StaticResource LanguagesConverter}}"
-                                                              ComboBoxSelectedItem="{Binding languageViewModel.CurrentLanguage, Converter={StaticResource LanguagesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                              Grid.Row="1"
-                                                              x:Name="LanguageBox"/>
-                                <userControls:LabeledComboBox LabelText="{Binding languageViewModel.ThemeString}"
-                                                              ComboBoxItemsSource="{Binding Path=languageViewModel.Themes, Converter={StaticResource ThemesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                              ComboBoxSelectedItem="{Binding Path=languageViewModel.SelectedTheme, Converter={StaticResource ThemesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                              Grid.Row="2"
-                                                              x:Name="ThemeBox"/>
-                            </Grid>
+                            <compositeControls:AppearanceButtons/>
+                            <compositeControls:ProjectButtons Grid.Column="1"/>
                         </Grid>
                     </Border>
                 </StackPanel>

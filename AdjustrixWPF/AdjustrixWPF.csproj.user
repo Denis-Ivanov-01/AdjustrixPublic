@@ -13,10 +13,25 @@
     <Compile Update="View\UserControls\CloseButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\Composite\AppearanceButtons.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\Composite\MainTabControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\Composite\ProjectButtons.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\LabeledComboBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\MinimizeButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\LabeledTabButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\TabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\TabHeader.xaml.cs">
@@ -45,6 +60,9 @@
     <Page Update="View\Styles\StackPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Styles\TabButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Styles\TabControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -57,10 +75,25 @@
     <Page Update="View\UserControls\CloseButton.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\UserControls\Composite\AppearanceButtons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\Composite\MainTabControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\Composite\ProjectButtons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\UserControls\LabeledComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\MinimizeButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\LabeledTabButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\TabButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\TabHeader.xaml">
