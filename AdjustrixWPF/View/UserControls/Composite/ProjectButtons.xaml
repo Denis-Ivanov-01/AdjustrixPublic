@@ -24,7 +24,8 @@
                                         Label="{Binding languageViewModel.SaveProject}"
                                         Height="100"
                                         Width="60"
-                                        Margin="10 0 0 0"/>
+                                        Margin="10 0 0 0"
+                                        IsEnabled="{Binding projectViewModel.ProjectLoaded}"/>
             <userControls:LabeledTabButton
                                         Content="🗁"
                                         ContentSize="30"

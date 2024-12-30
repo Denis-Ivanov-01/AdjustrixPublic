@@ -38,7 +38,8 @@
                             Margin="5 5 0 5"/>
                         <Border Grid.Column="1"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
-                                BorderThickness="0 0 1 0">
+                                BorderThickness="0 0 1 0"
+                                Margin="0 5 0 5">
                             <local:ProjectButtons Grid.Column="1"/>
                         </Border>
                     </Grid>
