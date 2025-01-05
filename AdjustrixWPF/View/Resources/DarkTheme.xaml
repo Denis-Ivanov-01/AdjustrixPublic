@@ -9,5 +9,6 @@
     <SolidColorBrush x:Key="HoveredBrush">#363336</SolidColorBrush>
     <SolidColorBrush x:Key="SelectedBrush">#72657d</SolidColorBrush>
     <SolidColorBrush x:Key="TabBackgroundBrush">#2d2633</SolidColorBrush>
+    <SolidColorBrush x:Key="DisabledBrush">Gray</SolidColorBrush>
     <Brush x:Key="ForegroundBrush">#ede6ed</Brush>
 </ResourceDictionary>

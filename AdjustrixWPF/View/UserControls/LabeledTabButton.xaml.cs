@@ -25,8 +25,6 @@ namespace AdjustrixWPF.View.UserControls
             InitializeComponent();
         }
 
-
-
         public int Height
         {
             get { return (int)GetValue(HeightProperty); }

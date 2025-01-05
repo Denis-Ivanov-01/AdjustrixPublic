@@ -9,6 +9,7 @@ namespace AdjustrixWPF.ViewModel
     public class ProjectViewModel : ViewModelBase
     {
         private bool projectLoaded=false;
+        private float saveProjectOpacity = 0.0f;
 
         public ProjectViewModel()
         {
@@ -21,6 +22,5 @@ namespace AdjustrixWPF.ViewModel
             get { return projectLoaded; }
             set { projectLoaded = value; }
         }
-
     }
 }

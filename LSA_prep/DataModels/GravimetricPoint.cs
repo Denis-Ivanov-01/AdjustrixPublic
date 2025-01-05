@@ -28,7 +28,7 @@
         }
     }
 
-    public class AdjustedPoint : GravimetricPoint
+    public class AdjustedPoint : PointBase, IOneDimPoint, INode
     { //TODO: figure out if this must be in the base file
         // maybe branch out one dimensional adjustments (gravimetric, nivelation)
         public double Value { get; set; }
