@@ -12,7 +12,7 @@
                 <ControlTemplate TargetType="TabControl">
                     <Grid KeyboardNavigation.TabNavigation="Local">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="30"/>
                             <!-- Tab headers -->
                             <RowDefinition Height="*"/>
                             <!-- Tab content -->
@@ -20,11 +20,12 @@
 
                         <!-- TabPanel for headers -->
                         <TabPanel x:Name="HeaderPanel"
-                              Grid.Row="0"
-                              Margin="65,0,0,0"
-                              IsItemsHost="True"
-                              KeyboardNavigation.TabIndex="1"
-                              Background="{TemplateBinding Background}"/>
+                                  Grid.Row="0"
+                                  Margin="65,0,0,0"
+                                  IsItemsHost="True"
+                                  KeyboardNavigation.TabIndex="1"
+                                  Background="{TemplateBinding Background}"
+                                  VerticalAlignment="Bottom"/>
 
                         <!-- Border for tab content -->
                         <Border Grid.Row="1"
@@ -36,18 +37,14 @@
                             <ContentPresenter Margin="0" x:Name="PART_SelectedContentHost"
                                           ContentSource="SelectedContent"
                                           HorizontalAlignment="Stretch"
-                                          VerticalAlignment="Stretch" />
+                                          VerticalAlignment="Stretch"/>
                         </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
-
-
-    <Style TargetType="TextBlock">
-        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
-    </Style>
+    
 
     <Style TargetType="userControls:TabHeader" x:Key="TabHeaderStyle">
         <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
@@ -56,7 +53,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="userControls:TabHeader">
                     <Border Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
                     </Border>
@@ -80,22 +79,26 @@
         <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Padding" Value="0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TabItem">
                     <Grid x:Name="Root">
                         <!-- Border around the header -->
                         <Border BorderThickness="{TemplateBinding BorderThickness}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            Background="{TemplateBinding Background}" 
-                            Margin="0">
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                Background="{TemplateBinding Background}" 
+                                Margin="0"
+                                Padding="1 0 0 0">
                             <!-- Header content -->
                             <ContentPresenter x:Name="ContentSite"
-                                          VerticalAlignment="Center"
-                                          HorizontalAlignment="Center"
-                                          ContentSource="Header"
-                                          Margin="0"
-                                          RecognizesAccessKey="True"/>
+                                              VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"
+                                              ContentSource="Header"
+                                              Margin="0"
+                                              RecognizesAccessKey="True"/>
                         </Border>
                     </Grid>
                     <ControlTemplate.Triggers>
@@ -108,10 +111,12 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="{DynamicResource HoveredBrush}"/>
+                <Setter Property="BorderThickness" Value="1 1 1 0"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Background" Value="{DynamicResource SelectedBrush}"/>
+                <Setter Property="BorderThickness" Value="1 1 1 0"/>
             </Trigger>
         </Style.Triggers>
     </Style>

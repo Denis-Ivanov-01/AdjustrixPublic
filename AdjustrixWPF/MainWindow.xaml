@@ -30,9 +30,18 @@
         <compositeControls:MainTabControl
             Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Content="_" Style="{DynamicResource TitleBarButtonStyle}" Name="Minimize" Click="Minimize_Click"/>
-            <Button Content="🗖" Style="{DynamicResource TitleBarButtonStyle}" Name="Restore" Click="Restore_Click"/>
-            <Button Content="╳" Style="{DynamicResource TitleBarButtonStyle}" Name="Close" Click="Close_Click"/>
+            <Button Content="_"
+                    Style="{DynamicResource TitleBarButtonStyle}" 
+                    Name="Minimize" 
+                    Click="Minimize_Click"/>
+            <Button Content="🗖" 
+                    Style="{DynamicResource TitleBarButtonStyle}" 
+                    Name="Restore" 
+                    Click="Restore_Click"/>
+            <Button Content="╳" 
+                    Style="{DynamicResource TitleBarButtonStyle}" 
+                    Name="Close" 
+                    Click="Close_Click"/>
         </StackPanel>
     </Grid>
 </Window>

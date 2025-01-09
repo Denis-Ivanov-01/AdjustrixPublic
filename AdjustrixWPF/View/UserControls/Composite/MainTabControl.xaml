@@ -8,28 +8,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="650">
     <TabControl Grid.Row="0"
-                    Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
-                    HorizontalAlignment="Left" 
-                    Grid.RowSpan="2" 
-                    Background="{DynamicResource BackgroundBrush}" 
-                    Style="{StaticResource TabControlStyle}"
-                    Margin="0 3 0 0">
-        <TabItem Background="{DynamicResource BackgroundBrush}" 
-                     Style="{StaticResource TabItemStyle}">
+                Width="{Binding ElementName=MainGrid, Path=ActualWidth}" 
+                HorizontalAlignment="Left" 
+                Grid.RowSpan="2" 
+                Background="{DynamicResource BackgroundBrush}" 
+                Style="{StaticResource TabControlStyle}"
+                Margin="0 3 0 0">
+        <TabItem Style="{StaticResource TabItemStyle}">
             <TabItem.Header>
-                <userControls:TabHeader Text="{Binding languageViewModel.File}" 
-                                            IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            Style="{StaticResource TabHeaderStyle}"
-                                            Height="20"/>
+                <TextBlock d:Text="Test"
+                           Text="{Binding languageViewModel.File}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Background="Transparent"
+                           Foreground="{DynamicResource ForegroundBrush}"
+                           TextAlignment="Center" 
+                           Panel.ZIndex="1"/>
             </TabItem.Header>
             <Border BorderThickness="1"
                     BorderBrush="{DynamicResource ForegroundBrush}"
                     Background="Transparent">
                 <StackPanel Orientation="Horizontal">
                     <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
-                              Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                              x:Name="TabPanelGrid">
+                          Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                          x:Name="TabPanelGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="230"/>
@@ -50,11 +52,14 @@
         </TabItem>
         <TabItem Style="{StaticResource TabItemStyle}">
             <TabItem.Header>
-                <userControls:TabHeader Text="{Binding languageViewModel.Data}"
-                                            IsMouseOver="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            IsSelected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=TabItem}}"
-                                            Style="{StaticResource TabHeaderStyle}"
-                                            Height="20"/>
+                <TextBlock d:Text="Test"
+                           Text="{Binding languageViewModel.Data}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Background="Transparent"
+                           Foreground="{DynamicResource ForegroundBrush}"
+                           TextAlignment="Center" 
+                           Panel.ZIndex="1"/>
             </TabItem.Header>
             <StackPanel>
 

@@ -37,6 +37,9 @@ namespace AdjustrixWPF.View.UserControls.Composite
         public static readonly DependencyProperty WidthProperty =
             DependencyProperty.Register("Width", typeof(int), typeof(MainTabControl), new PropertyMetadata(200));
 
+        private void TabHeader_Loaded(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
