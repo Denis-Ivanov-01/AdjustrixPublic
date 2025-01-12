@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustmentTest", "Adjustmen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustrixWPF", "AdjustrixWPF\AdjustrixWPF.csproj", "{E6966B6A-9B8E-437B-979C-EA52F7B4A29C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Experimenting", "Experimenting\Experimenting.csproj", "{9439F40F-B34B-476B-88E2-CA1625F52815}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimenting", "Experimenting\Experimenting.csproj", "{9439F40F-B34B-476B-88E2-CA1625F52815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkAdjustment", "NetworkAdjustment\NetworkAdjustment.csproj", "{29A6950E-2096-4B8C-A7AC-D05D8BC82952}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9439F40F-B34B-476B-88E2-CA1625F52815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9439F40F-B34B-476B-88E2-CA1625F52815}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9439F40F-B34B-476B-88E2-CA1625F52815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A6950E-2096-4B8C-A7AC-D05D8BC82952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A6950E-2096-4B8C-A7AC-D05D8BC82952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A6950E-2096-4B8C-A7AC-D05D8BC82952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A6950E-2096-4B8C-A7AC-D05D8BC82952}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
