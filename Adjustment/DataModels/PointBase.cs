@@ -1,4 +1,4 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
 
     public interface INode
@@ -24,6 +24,10 @@
             Y = y;
         }
 
+        public PointBase(string number)
+        {
+            Number = number;
+        }
         public bool Equals(PointBase? other)
         {
             if (other == null)
@@ -43,6 +47,11 @@
         public KnownPointNoCoordsBase(string number, double? x, double? y) : base(number, x, y)
         {
 
+        }
+
+        public KnownPointNoCoordsBase(string number) : base(number)
+        {
+            
         }
     }
 }

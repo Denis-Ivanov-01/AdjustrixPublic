@@ -1,4 +1,4 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
 
     public interface IEdge<TNode, out TEdge>

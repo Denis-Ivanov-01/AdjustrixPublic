@@ -1,4 +1,4 @@
-﻿using LSA_Base;
+﻿using Adjustment;
 
 class Program
 {
@@ -12,17 +12,17 @@ class Program
         //set2.Add(1);
         //bool result = set1.SetEquals(set2);
         //Console.WriteLine(result);
-        NewGravimetricPoint gp1 = new("1", 27629.2642, 340966.7408);
-        NewGravimetricPoint gp2 = new("2", 27226.8512, 341323.5681);
-        NewGravimetricPoint gp3 = new("3", 27201.8000, 341009.7822);
+        NewBenchmark gp1 = new("1", 27629.2642, 340966.7408);
+        NewBenchmark gp2 = new("2", 27226.8512, 341323.5681);
+        NewBenchmark gp3 = new("3", 27201.8000, 341009.7822);
         //NewGravimetricPoint gp3 = new("3", 27039.5212, 341009.7822);
-        NewGravimetricPoint gp7 = new("7", 27472.4619, 340382.2104);
-        KnownGravimetricPoint gp4 = new("4", 27201.8739, 340834.8395, 9);
-        KnownGravimetricPoint gp5 = new("5", 27389.2041, 340376.6567, 8);
-        KnownGravimetricPoint gp8 = new("8", 27404.4680, 340280.8549, 8.5);
-        KnownGravimetricPoint gp9 = new("9", 27133.3325, 341704.3286, 9.5);
-        KnownGravimetricPoint gp10 = new("10", 27736.1762, 340572.0287, 10);
-        NewGravimetricPoint gp11 = new("11", 27230.5212, 341000.7822);
+        NewBenchmark gp7 = new("7", 27472.4619, 340382.2104);
+        KnownBenchmark gp4 = new("4", 27201.8739, 340834.8395, 9);
+        KnownBenchmark gp5 = new("5", 27389.2041, 340376.6567, 8);
+        KnownBenchmark gp8 = new("8", 27404.4680, 340280.8549, 8.5);
+        KnownBenchmark gp9 = new("9", 27133.3325, 341704.3286, 9.5);
+        KnownBenchmark gp10 = new("10", 27736.1762, 340572.0287, 10);
+        NewBenchmark gp11 = new("11", 27230.5212, 341000.7822);
 
         //RelativeMeasurement m1 = new(gp4, gp1, 0.052);
         //RelativeMeasurement m2 = new(gp1, gp2, -0.022);
@@ -45,26 +45,26 @@ class Program
         //RelativeMeasurement m19 = new(gp3, gp11, -0.38);
         //RelativeMeasurement m20 = new(gp11, gp8, -0.52);
 
-        RelativeMeasurement m1 = new(gp4, gp1, 0.052, 447.281);
-        RelativeMeasurement m2 = new(gp1, gp2, -0.022, 537.831);
-        RelativeMeasurement m3 = new(gp1, gp3, -0.011, 429.626);
-        RelativeMeasurement m4 = new(gp2, gp3, 0.0097, 314.784);
-        RelativeMeasurement m5 = new(gp3, gp4, -0.039, 174.943);
-        RelativeMeasurement m6 = new(gp4, gp5, -1.02, 494.999);
-        RelativeMeasurement m7 = new(gp5, gp7, 1, 83.443);
-        RelativeMeasurement m8 = new(gp7, gp1, 0.07, 605.196);
-        RelativeMeasurement m9 = new(gp5, gp8, 0.49, 97.01);
-        RelativeMeasurement m10 = new(gp8, gp7, 0.49, 122.05);
-        RelativeMeasurement m11 = new(gp2, gp9, 0.5, 392.077);
-        RelativeMeasurement m12 = new(gp9, gp3, -0.5, 697.913);
-        RelativeMeasurement m13 = new(gp4, gp2, 0.033, 489.366);
-        RelativeMeasurement m14 = new(gp8, gp9, 1, 1449.066);
-        RelativeMeasurement m15 = new(gp3, gp5, -1.05, 660.279);
-        RelativeMeasurement m16 = new(gp7, gp10, 1, 324.925);
-        RelativeMeasurement m17 = new(gp1, gp10, 0.94, 408.935);
-        RelativeMeasurement m18 = new(gp10, gp3, -1, 690.787);
-        RelativeMeasurement m19 = new(gp3, gp11, -0.38, 30.098);
-        RelativeMeasurement m20 = new(gp11, gp8, -0.52, 740.644);
+        HeightDifference m1 = new(gp4, gp1, 0.052, 447.281);
+        HeightDifference m2 = new(gp1, gp2, -0.022, 537.831);
+        HeightDifference m3 = new(gp1, gp3, -0.011, 429.626);
+        HeightDifference m4 = new(gp2, gp3, 0.0097, 314.784);
+        HeightDifference m5 = new(gp3, gp4, -0.039, 174.943);
+        HeightDifference m6 = new(gp4, gp5, -1.02, 494.999);
+        HeightDifference m7 = new(gp5, gp7, 1, 83.443);
+        HeightDifference m8 = new(gp7, gp1, 0.07, 605.196);
+        HeightDifference m9 = new(gp5, gp8, 0.49, 97.01);
+        HeightDifference m10 = new(gp8, gp7, 0.49, 122.05);
+        HeightDifference m11 = new(gp2, gp9, 0.5, 392.077);
+        HeightDifference m12 = new(gp9, gp3, -0.5, 697.913);
+        HeightDifference m13 = new(gp4, gp2, 0.033, 489.366);
+        HeightDifference m14 = new(gp8, gp9, 1, 1449.066);
+        HeightDifference m15 = new(gp3, gp5, -1.05, 660.279);
+        HeightDifference m16 = new(gp7, gp10, 1, 324.925);
+        HeightDifference m17 = new(gp1, gp10, 0.94, 408.935);
+        HeightDifference m18 = new(gp10, gp3, -1, 690.787);
+        HeightDifference m19 = new(gp3, gp11, -0.38, 30.098);
+        HeightDifference m20 = new(gp11, gp8, -0.52, 740.644);
 
         //NewGravimetricPoint gp2 = new("2", 27448.6326, 340661.0996);
         //NewGravimetricPoint gp3 = new("3", 27343.8182, 340696.2238);
@@ -126,7 +126,7 @@ class Program
         //    Console.WriteLine(String.Join(" -> ", pathNumbers));
         //}
 
-        List<RelativeMeasurement> meas = new() { m1, m2, m13 };
+        List<HeightDifference> meas = new() { m1, m2, m13 };
         //GravimetricAdjustment adjustment = new(distinctPaths, meas);
         //Matrix<double> confM = adjustment.CreateConfigurationMatrix();
         //Vector<double> inaccuracies = adjustment.CalculateInnacuraciesVector(adjustment.AssignedApproxMeasurements);
@@ -140,7 +140,7 @@ class Program
         //Vector<double> adjustedInaccuracies = adjustment.CalculateInnacuraciesVector(assignedAdjustedMeas);
         //List<AdjustedPoint> adjustedPointValues = adjustment.CalculateUnknownPoints(adjustedMeas.Cast<RelativeMeasurement>().ToList());
 
-        GravimetricAdjuster adjuster = new(meas);
+        LevelingAdjuster adjuster = new(meas);
         adjuster.PerformAdjustment();
 
         //AdjustmentResult<RelativeMeasurement, AdjustedPoint> result = adjustment.AdjustNetwork();

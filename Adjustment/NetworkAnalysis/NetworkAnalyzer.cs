@@ -1,8 +1,9 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using NetworkAnalysis;
 
 
     public class NetworkAnalyzer<TEdge>
@@ -26,12 +27,14 @@
             MeasurementsToEdge(measurements);
             initialMeasurements = measurements;
             pathfinder = new(graphData);
+            MakeGraphTwoSided();
+            NetworkValidator<TEdge> validator = new(graphData);
+            validator.ValidateNetwork();
         }
 
         //Entry point the library
         public List<List<PointBase>> FindAllDistinctTraverses()
         {
-            MakeGraphTwoSided();
             List<List<PointBase>> distinctTravs = new();
             List<List<PointBase>> closedTravs = FindAllClosedTraverses();
             List<List<PointBase>> linkedTravs = FindAllLinkedTraverses(closedTravs);

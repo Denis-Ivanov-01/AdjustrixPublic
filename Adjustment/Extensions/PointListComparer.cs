@@ -1,4 +1,4 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
     class PointListComparer<TPoint> : IEqualityComparer<List<TPoint>>
         where TPoint : PointBase

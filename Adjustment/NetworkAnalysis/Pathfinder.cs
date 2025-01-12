@@ -1,4 +1,4 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
     using System;
     using System.Collections.Generic;

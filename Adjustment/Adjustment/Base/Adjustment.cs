@@ -1,6 +1,6 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 
-namespace LSA_Base
+namespace Adjustment
 {
     public abstract class Adjustment<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
@@ -28,7 +28,7 @@ namespace LSA_Base
         {
 
             Matrix<double> configurationMatrix = CreateConfigurationMatrix();
-            Matrix<double> weightMatrix = CreateWeightMatrix();
+            Matrix<double> weightMatrix = CreateReversedWeightMatrix();
             Matrix<double> normalMatrix = CalculateNormalMatrix(configurationMatrix, weightMatrix);
             Vector<double> initialResiduals = CalculateResidualsVector(AssignedApproxMeasurements);
             Vector<double> kVector = CalculateK(normalMatrix, initialResiduals);
@@ -46,7 +46,7 @@ namespace LSA_Base
 
         protected abstract Matrix<double> CreateConfigurationMatrix();
 
-        protected abstract Matrix<double> CreateWeightMatrix();
+        protected abstract Matrix<double> CreateReversedWeightMatrix();
 
         protected abstract Vector<double> CalculateResidualsVector(List<List<TMeasurement>> assignedMeasurements);
 
@@ -183,7 +183,7 @@ namespace LSA_Base
         }
 
         protected HashSet<PointBase> GetPoinsSet()
-        {
+        {//todo: Add them using the measurements, not traverses?
             HashSet<PointBase> set = new();
             foreach (List<PointBase> t in DistinctTraverses)
             {

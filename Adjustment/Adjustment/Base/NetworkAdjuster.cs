@@ -1,4 +1,4 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
     public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()

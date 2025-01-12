@@ -1,5 +1,5 @@
 ﻿
-namespace LSA_Base.NetworkAnalysis
+namespace Adjustment.NetworkAnalysis
 {
     [Obsolete]
     internal partial class NetworkAnalyzer

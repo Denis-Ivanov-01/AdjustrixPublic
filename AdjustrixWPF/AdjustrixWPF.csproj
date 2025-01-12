@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Adjustment\Adjustment.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Page Update="View\Resources\LightTheme.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

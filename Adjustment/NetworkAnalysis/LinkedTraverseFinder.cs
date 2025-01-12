@@ -1,4 +1,4 @@
-﻿namespace LSA_Base
+﻿namespace Adjustment
 {
     /// <summary>
     /// A cluster of known points with the following properties:
