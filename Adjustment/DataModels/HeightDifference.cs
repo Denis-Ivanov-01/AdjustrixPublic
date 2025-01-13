@@ -22,7 +22,7 @@
 
         public override HeightDifference Reverse()
         {
-            return new HeightDifference(this.ToPoint, this.FromPoint, this.Length);
+            return new HeightDifference(this.ToPoint, this.FromPoint, -this.Value, this.Length);
         }
     }
 }

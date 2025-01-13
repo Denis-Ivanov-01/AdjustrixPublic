@@ -6,7 +6,7 @@
     using NetworkAnalysis;
 
 
-    public class NetworkAnalyzer<TEdge>
+    public partial class NetworkAnalyzer<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {
         private int measurementsCount = 0;
@@ -64,7 +64,8 @@
             if (redundancy > distinctTravsCount)
             {
                 throw new IncorrectGeometryAnalysis("Not enough distinct traverses were found! " +
-                    "Contact the developer");
+                    "Check for loops in the network!" +
+                    "If no loops are found, contact the developer");
             }
             if (redundancy == distinctTravsCount) { return distinctTraverses; }
             while (distinctTravsCount > redundancy)

@@ -1,8 +1,7 @@
 ﻿
 namespace Adjustment.NetworkAnalysis
 {
-    [Obsolete]
-    internal partial class NetworkAnalyzer
+    public partial class NetworkAnalyzer
     {
 
         public static void PrintTraverses(List<List<PointBase>> traverses)

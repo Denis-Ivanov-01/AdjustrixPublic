@@ -59,7 +59,7 @@
 
         // There must be only one path between two neighboring points (no cycles)
         public void AssertNoCycles()
-        {
+        {//todo: perform this before making the graph two sided!
             foreach (PointBase point in graphData.Keys)
             {
                 foreach (PointBase otherPoint in graphData.Keys.Where(x => x != point))
