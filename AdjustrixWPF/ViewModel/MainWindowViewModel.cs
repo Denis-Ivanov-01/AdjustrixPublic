@@ -14,7 +14,7 @@ namespace AdjustrixWPF.ViewModel
 
         public MainWindowViewModel()
         {
-            languageViewModel = new LanguageViewModel();
+            languageViewModel = LanguageViewModel.Singleton;
             projectViewModel = new ProjectViewModel();
             SystemFileSingleton = SystemFileManagement.Singleton;
         }

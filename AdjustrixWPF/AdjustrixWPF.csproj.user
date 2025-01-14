@@ -31,6 +31,9 @@
     <Compile Update="View\UserControls\LabeledTabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\SaveProjectPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\TabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,6 +94,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\LabeledTabButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\SaveProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\TabButton.xaml">

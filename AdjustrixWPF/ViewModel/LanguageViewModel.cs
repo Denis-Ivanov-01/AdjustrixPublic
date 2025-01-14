@@ -28,6 +28,9 @@ namespace AdjustrixWPF.ViewModel
     {
         private readonly string[] propertyNames;
 
+        private static LanguageViewModel instance;
+        public static LanguageViewModel Singleton => GetInstance();
+
         private readonly StringEntry file = new("Файл", "File");
         private readonly StringEntry data = new("Данни", "Data");
         private readonly StringEntry appearance = new("Изглед", "Appearance");
@@ -36,10 +39,14 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry newProject = new("Нов Проект", "New Project");
         private readonly StringEntry saveProject = new("Запази Проект", "Save Project");
         private readonly StringEntry openProject = new("Отвори Проект", "Open Project");
+        private readonly StringEntry saveProjectQuestion = new("Искате ли да запазите промените по текущия проект?", 
+            "Do you want to save the changes made to current project?");
+        private readonly StringEntry yes = new("Да", "Yes");
+        private readonly StringEntry no = new("Не", "No");
 
         private static Language currentLanguage;
-
-        public LanguageViewModel()
+        
+        private LanguageViewModel()
         {
             propertyNames = GetClassProperties();
             Languages = new();
@@ -149,6 +156,39 @@ namespace AdjustrixWPF.ViewModel
             {
                 return openProject.GetString(currentLanguage);
             }
+        }
+
+        public string SaveProjectQuestion
+        {
+            get
+            {
+                return saveProjectQuestion.GetString(currentLanguage);
+            }
+        }
+
+        public string Yes
+        {
+            get
+            {
+                return yes.GetString(currentLanguage);
+            }
+        }
+
+        public string No
+        {
+            get
+            {
+                return no.GetString(currentLanguage);
+            }
+        }
+
+        private static LanguageViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new LanguageViewModel();
+            }
+            return instance;
         }
 
         private static string[] GetClassProperties()

@@ -1,15 +1,30 @@
 ﻿using System.Windows.Input;
 using Adjustment.Project;
 using Microsoft.Win32;
+using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {
     public class ProjectViewModel : ViewModelBase
     {
         private bool projectLoaded = false;
+        private bool projectChanged = false;
+        private bool projectSaved = true;
         private AdjustrixProject project;
         private ProjectFile projectFile;
-        private float saveProjectOpacity = 0.0f;
+
+        //private float saveProjectOpacity = 0.0f;
+
+        private LanguageViewModel languageViewModel;
+
+        public LanguageViewModel LanguageViewModel 
+        {
+            get 
+            {
+                return languageViewModel;
+            }
+             
+        }
 
         public ICommand OpenProject { get; }
 
@@ -19,6 +34,7 @@ namespace AdjustrixWPF.ViewModel
 
         public ProjectViewModel()
         {
+            languageViewModel = LanguageViewModel.Singleton;
             projectFile = new ProjectFile();
             OpenProject = new RelayCommand(OpenProjectFile, CanOpenProject);
             SaveProject = new RelayCommand(SaveProjectFile, CanSaveProject);
@@ -56,12 +72,25 @@ namespace AdjustrixWPF.ViewModel
 
         private void SaveProjectFile(object parameter)
         {
+            if (projectChanged)
+            {
+                bool result = AskProjectSave();
+                if (result == false) { return; }
+            }
+            
             projectFile.ToFile(project);
         }
 
         private bool CanSaveProject(object parameter)
         {
             return project != null;
+        }
+
+        private bool AskProjectSave()
+        {
+            SaveProjectPrompt dialog = new(this);
+            dialog.ShowDialog();
+            return dialog.SaveProject;
         }
     }
 }

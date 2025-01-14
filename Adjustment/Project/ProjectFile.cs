@@ -24,26 +24,26 @@ namespace Adjustment.Project
             ProjectTypeClassMapping.Add(new(ProjectType.Leveling, typeof(LevelingProject)));
         }
 
-        public string AsText()
+        public string AsText(AdjustrixProject project)
         {
             JsonSerializerOptions options = new JsonSerializerOptions
             {
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.Cyrillic, UnicodeRanges.BasicLatin)
             };
-            string jsonStr = JsonSerializer.Serialize(this, options);
-            return Regex.Unescape(jsonStr);
+            string jsonStr = JsonSerializer.Serialize(project, options);
+            return Regex.Unescape(jsonStr).Replace("\\", "\\\\");
         }
 
-        public byte[] AsBytes()
+        public byte[] AsBytes(AdjustrixProject project)
         {
-            return Encoding.UTF8.GetBytes(AsText());
+            return Encoding.UTF8.GetBytes(AsText(project));
         }
 
         public void ToFile(AdjustrixProject project)
         {
             string projName = $"{project.Name}{fileExtension}";
             string path = Path.Combine(project.ProjectFolder, projName);
-            byte[] bytes = this.AsBytes();
+            byte[] bytes = AsBytes(project);
             using (var fileStream = new FileStream(path, FileMode.Create))
             using (var zipStream = new GZipStream(fileStream, CompressionMode.Compress))
             {
