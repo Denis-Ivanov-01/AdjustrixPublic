@@ -15,6 +15,8 @@ namespace Adjustment.Project
 
     public abstract class AdjustrixProject
     {
+        public abstract string NetworkType { get;}
+
         public string ProjectFolder { get; set; }
 
         //public ProjectType ProjectType { get; set; }
@@ -33,11 +35,8 @@ namespace Adjustment.Project
         [JsonConverter(typeof(DateTimeConverter))]
         public DateTime LastUpdateDate { get; set; }
 
-        protected const string fileExtension = ".adjx";
-
         public AdjustrixProject(
-            string ProjectFolder, 
-            //ProjectType ProjectType, 
+            string ProjectFolder,
             string Name, 
             string SiteName, 
             string Contractor,
@@ -47,7 +46,6 @@ namespace Adjustment.Project
             )
         {
             this.ProjectFolder = ProjectFolder;
-            //this.ProjectType = ProjectType.Leveling;
             this.Name = Name;
             this.SiteName = SiteName;
             this.Contractor = Contractor;

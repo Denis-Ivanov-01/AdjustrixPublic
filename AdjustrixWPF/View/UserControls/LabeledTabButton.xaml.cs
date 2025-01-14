@@ -81,5 +81,40 @@ namespace AdjustrixWPF.View.UserControls
         // Using a DependencyProperty as the backing store for Label.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty LabelProperty =
             DependencyProperty.Register("Label", typeof(string), typeof(LabeledTabButton), new PropertyMetadata("Label"));
+
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register(
+                "Command",
+                typeof(ICommand),
+                typeof(LabeledTabButton),
+                new PropertyMetadata(null));
+
+        public ICommand Command
+        {
+            get => (ICommand)GetValue(CommandProperty);
+            set => SetValue(CommandProperty, value);
+        }
+
+        // CommandParameter DependencyProperty
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register(
+                "CommandParameter",
+                typeof(object),
+                typeof(LabeledTabButton),
+                new PropertyMetadata(null));
+
+        public object CommandParameter
+        {
+            get => GetValue(CommandParameterProperty);
+            set => SetValue(CommandParameterProperty, value);
+        }
+
+        private void OnButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (Command?.CanExecute(CommandParameter) == true)
+            {
+                Command.Execute(CommandParameter);
+            }
+        }
     }
 }

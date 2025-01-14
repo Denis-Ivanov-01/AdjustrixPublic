@@ -13,26 +13,29 @@
                                     BorderBrush="{DynamicResource ForegroundBrush}">
         <StackPanel Orientation="Horizontal">
             <userControls:LabeledTabButton
-                                        Content=".adjx"
-                                        Label="{Binding languageViewModel.NewProject}"
-                                        Height="100"
-                                        Width="60"
-                                        Margin="10 0 0 0"/>
+                Content=".adjx"
+                Label="{Binding languageViewModel.NewProject}"
+                Height="100"
+                Width="60"
+                Margin="10 0 0 0"
+                Command="{Binding projectViewModel}"/>
             <userControls:LabeledTabButton
-                                        Content="💾"
-                                        ContentSize="30"
-                                        Label="{Binding languageViewModel.SaveProject}"
-                                        Height="100"
-                                        Width="60"
-                                        Margin="10 0 0 0"
-                                        IsEnabled="{Binding projectViewModel.ProjectLoaded}"/>
+                Content="💾"
+                ContentSize="30"
+                Label="{Binding languageViewModel.SaveProject}"
+                Height="100"
+                Width="60"
+                Margin="10 0 0 0"
+                IsEnabled="{Binding projectViewModel.ProjectLoaded}"
+                Command="{Binding projectViewModel.SaveProject}"/>
             <userControls:LabeledTabButton
-                                        Content="🗁"
-                                        ContentSize="30"
-                                        Label="{Binding languageViewModel.OpenProject}"
-                                        Height="100"
-                                        Width="60"
-                                        Margin="10 0 0 0"/>
+                Content="🗁"
+                ContentSize="30"
+                Label="{Binding languageViewModel.OpenProject}"
+                Height="100"
+                Width="60"
+                Margin="10 0 0 0"
+                Command="{Binding projectViewModel.OpenProject}"/>
         </StackPanel>
     </Border>
 </UserControl>

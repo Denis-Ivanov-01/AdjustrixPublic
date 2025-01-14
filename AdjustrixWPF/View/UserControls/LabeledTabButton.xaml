@@ -24,11 +24,12 @@
                            TextAlignment="Center"
                            Background="Transparent"
                            Panel.ZIndex="0"/>
-                <local:TabButton
-                    Background="Transparent"
-                    Panel.ZIndex="1"
-                    Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Border}}"
-                    Grid.Row="0"/>
+                <Button Style="{StaticResource TabButton}"
+                        Background="Transparent"
+                        Panel.ZIndex="1"
+                        Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Border}}"
+                        Grid.Row="0"
+                        Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
             </Grid>
         </Border>
         <TextBlock Grid.Row="1"
