@@ -25,7 +25,71 @@
                        VerticalAlignment="Center"
                        Margin="10 0 0 0"/>
             <StackPanel Grid.Row="1" Orientation="Vertical">
-                <Border>
+                <Border Margin="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border BorderThickness="0 0 1 0"
+                                BorderBrush="{DynamicResource ForegroundBrush}">
+                            <TextBlock Margin="50 0 50 0"
+                                       Text="Project Name"
+                                       Foreground="{DynamicResource ForegroundBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <TextBox Text="{Binding Project.Name}"
+                                 d:Text="Placeholder name"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Margin="100 0 0 0"
+                                 Tag="Test"/>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border BorderThickness="0 0 1 0"
+                                BorderBrush="{DynamicResource ForegroundBrush}">
+                            <TextBlock Margin="50 0 50 0"
+                                       Text="Project Name"
+                                       Foreground="{DynamicResource ForegroundBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <TextBox Text="{Binding Project.Name}"
+                                 d:Text="Placeholder name"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Margin="100 0 0 0"
+                                 Tag="Test"/>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border BorderThickness="0 0 1 0"
+                                BorderBrush="{DynamicResource ForegroundBrush}">
+                            <TextBlock Margin="50 0 50 0"
+                                       Text="Project Name"
+                                       Foreground="{DynamicResource ForegroundBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <TextBox Text="{Binding Project.Name}"
+                                 d:Text="Placeholder name"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Margin="100 0 0 0"
+                                 Tag="Test"/>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border BorderThickness="0 0 1 0"
+                                BorderBrush="{DynamicResource ForegroundBrush}">
+                            <TextBlock Margin="50 0 50 0"
+                                       Text="Project Name"
+                                       Foreground="{DynamicResource ForegroundBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <TextBox Text="{Binding Project.Name}"
+                                 d:Text="Placeholder name"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Margin="100 0 0 0"
+                                 Tag="Test"/>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
                                 BorderBrush="{DynamicResource ForegroundBrush}">

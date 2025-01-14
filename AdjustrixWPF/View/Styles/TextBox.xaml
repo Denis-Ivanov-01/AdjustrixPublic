@@ -16,26 +16,13 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Grid>
-                        <!-- Placeholder Text -->
-                        <TextBlock x:Name="WatermarkTextBlock"
-                                   Text="{TemplateBinding Tag}" 
-                                   Foreground="Pink" 
-                                   FontStyle="Italic"
-                                   IsHitTestVisible="False"
-                                   Margin="{TemplateBinding Padding}"
-                                   Visibility="Visible"/>
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             Background="{TemplateBinding Background}"
                             Padding="{TemplateBinding Padding}">
-                            <ScrollViewer x:Name="PART_ContentHost"/>
-                        </Border>
-                    </Grid>
+                        <ScrollViewer x:Name="PART_ContentHost"/>
+                    </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="Text" Value="">
-                            <Setter TargetName="WatermarkTextBlock" Property="Visibility" Value="Visible"/>
-                        </Trigger>
                         <!-- Trigger for focused state -->
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter Property="BorderBrush" Value="Blue"/>
