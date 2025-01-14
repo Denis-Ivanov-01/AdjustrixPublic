@@ -1,4 +1,6 @@
-﻿namespace Adjustment
+﻿using System.Text.Json.Serialization;
+
+namespace Adjustment
 {
 
     public interface INode
@@ -11,23 +13,37 @@
         public double Value { get; set; }
     }
 
-    public abstract class PointBase : INode, IEquatable<PointBase>
-    {
+    public class PointBase : INode, IEquatable<PointBase>
+    {//todo: use this as benchmark base (one dim point base)
         public string Number { get; set; }
+        public double Value { get; set; }
         public double? X;
         public double? Y;
 
-        public PointBase(string number, double? x = null, double? y = null)
+        public PointBase()
         {
-            Number = number;
-            X = x;
-            Y = y;
+
         }
 
-        public PointBase(string number)
+        //[JsonConstructor]
+        public PointBase(string Number, double Value)
         {
-            Number = number;
+            this.Number = Number;
+            this.Value = Value;
         }
+
+        public PointBase(string Number, double? X = null, double? Y = null)
+        {
+            this.Number = Number;
+            this.X = X;
+            this.Y = Y;
+        }
+
+        public PointBase(string Number)
+        {
+            this.Number = Number;
+        }
+
         public bool Equals(PointBase? other)
         {
             if (other == null)
@@ -45,6 +61,11 @@
     public abstract class KnownPointNoCoordsBase : PointBase
     {
         public KnownPointNoCoordsBase(string number, double? x, double? y) : base(number, x, y)
+        {
+
+        }
+
+        public KnownPointNoCoordsBase(string number, double value) : base(number, value)
         {
 
         }

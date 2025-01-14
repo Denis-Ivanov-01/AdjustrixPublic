@@ -6,13 +6,10 @@
         {
 
         }
-
-        public double Value { get; set; }
     }
 
     public class KnownBenchmark : KnownPointNoCoordsBase, IOneDimPoint, INode
     {
-        public double Value { get; set; }
 
         public KnownBenchmark(string number, double? x, double? y, double value) : base(number, x, y)
         {

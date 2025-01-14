@@ -36,12 +36,12 @@
 
         public bool IsReversed { get; set; }
 
-        public MeasurementBase(TNode fromPoint, TNode toPoint, double length, bool negative = false)
+        public MeasurementBase(TNode FromPoint, TNode ToPoint, double Length, bool IsReversed = false)
         {
-            FromPoint = fromPoint;
-            ToPoint = toPoint;
-            Length = length;
-            IsReversed = negative;
+            this.FromPoint = FromPoint;
+            this.ToPoint = ToPoint;
+            this.Length = Length;
+            this.IsReversed = IsReversed;
         }
 
         public MeasurementBase() { }

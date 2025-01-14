@@ -1,4 +1,6 @@
-﻿namespace Adjustment
+﻿using System.Text.Json.Serialization;
+
+namespace Adjustment
 {
     public class HeightDifference : MeasurementBase<PointBase, HeightDifference>, IOneDimMeasurement
     {
@@ -8,14 +10,19 @@
 
         public override PointBase ToPoint { get; set; }
 
-        public HeightDifference(PointBase fromPoint, PointBase toPoint, double heightDiff, double length, bool negative = false) : base(fromPoint, toPoint, length, negative)
+        [JsonConstructor]
+        public HeightDifference(PointBase FromPoint, PointBase ToPoint, double Value, double Length, bool IsReversed = false) 
+            : base(FromPoint, ToPoint, Length, IsReversed)
         {
-            Value = heightDiff;
+            this.Value = Value;
+            this.FromPoint = FromPoint;
+            this.ToPoint = ToPoint;
         }
 
-        public HeightDifference(PointBase fromPoint, PointBase toPoint, double heightDiff, bool negative = false) : base(fromPoint, toPoint, MathFunctions.CalcDistBetweenPoints(fromPoint, toPoint), negative)
+        public HeightDifference(PointBase FromPoint, PointBase ToPoint, double Value, bool Negative = false) 
+            : base(FromPoint, ToPoint, MathFunctions.CalcDistBetweenPoints(FromPoint, ToPoint), Negative)
         {
-            Value = heightDiff;
+            this.Value = Value;
         }
 
         public HeightDifference() : base() { }
