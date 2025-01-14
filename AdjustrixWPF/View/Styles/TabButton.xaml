@@ -5,6 +5,7 @@
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Opacity" Value="1"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>

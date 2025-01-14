@@ -25,6 +25,9 @@
     <Compile Update="View\UserControls\LabeledComboBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\ManageProjectPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\MinimizeButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +75,9 @@
     <Page Update="View\Styles\TextBlock.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Styles\TextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Styles\TitleBarButton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -88,6 +94,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\LabeledComboBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\ManageProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\MinimizeButton.xaml">

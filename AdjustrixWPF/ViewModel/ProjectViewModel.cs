@@ -26,6 +26,12 @@ namespace AdjustrixWPF.ViewModel
              
         }
 
+        public AdjustrixProject Project
+        {
+            get { return project; }
+            set { project = value; }
+        }
+
         public ICommand OpenProject { get; }
 
         public ICommand SaveProject { get; }
@@ -38,6 +44,7 @@ namespace AdjustrixWPF.ViewModel
             projectFile = new ProjectFile();
             OpenProject = new RelayCommand(OpenProjectFile, CanOpenProject);
             SaveProject = new RelayCommand(SaveProjectFile, CanSaveProject);
+            CreateProject = new RelayCommand(CreateNewProject, CanCreateProject);
         }
 
 
@@ -49,6 +56,17 @@ namespace AdjustrixWPF.ViewModel
                 projectLoaded = value;
                 OnPropertyChanged();
             }
+        }
+
+        private void CreateNewProject(object parameter)
+        {
+            ManageProjectPrompt dialog = new(this);
+            dialog.ShowDialog();
+        }
+
+        public bool CanCreateProject(object parameter)
+        {
+            return true;
         }
 
         private void OpenProjectFile(object parameter)

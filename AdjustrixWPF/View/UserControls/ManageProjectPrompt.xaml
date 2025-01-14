@@ -1,0 +1,68 @@
+﻿<Window x:Class="AdjustrixWPF.View.UserControls.ManageProjectPrompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls"
+        mc:Ignorable="d"
+        Title="ManageProjectPrompt" Height="450" Width="800"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BackgroundBrush}">
+    <Border BorderBrush="{DynamicResource ForegroundBrush}"
+            BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left"
+                       d:Text="Manage Project"
+                       Text="Manage Project"
+                       FontSize="13"
+                       Foreground="{DynamicResource ForegroundBrush}"
+                       VerticalAlignment="Center"
+                       Margin="10 0 0 0"/>
+            <StackPanel Grid.Row="1" Orientation="Vertical">
+                <Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border BorderThickness="0 0 1 0"
+                                BorderBrush="{DynamicResource ForegroundBrush}">
+                            <TextBlock Margin="50 0 50 0"
+                                       Text="Project Name"
+                                       Foreground="{DynamicResource ForegroundBrush}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Border>
+                        <TextBox Text="{Binding Project.Name}"
+                                 d:Text="Placeholder name"
+                                 Style="{StaticResource TextBoxStyle1}"
+                                 Margin="100 0 0 0"
+                                 Tag="Test"/>
+                    </StackPanel>
+                </Border>
+                <Border>
+                    <StackPanel Orientation="Horizontal">
+                        
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="2"
+                        HorizontalAlignment="Center">
+                <Button Style="{StaticResource TabButton}"
+                        Content="Save"
+                        Width="45"
+                        Height="30"
+                        Margin="0 0 50 0"
+                        Click="SaveClick"/>
+                <Button Style="{StaticResource TabButton}"
+                        Content="Cancel"
+                        Width="45"
+                        Height="30"
+                        Margin="50 0 0 0"
+                        Click="CancelClick"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

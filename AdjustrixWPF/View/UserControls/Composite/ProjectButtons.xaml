@@ -18,7 +18,7 @@
                 Height="100"
                 Width="60"
                 Margin="10 0 0 0"
-                Command="{Binding projectViewModel}"/>
+                Command="{Binding projectViewModel.CreateProject}"/>
             <userControls:LabeledTabButton
                 Content="💾"
                 ContentSize="30"
