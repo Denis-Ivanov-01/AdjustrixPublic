@@ -62,7 +62,7 @@ namespace AdjustrixWPF.View
 
                 List<ResourceDictionary> existingDictionaries = Application.Current.Resources.MergedDictionaries
                     .Where(md => md.Source != null && md.Source.OriginalString.Contains("Theme") &&
-                    !md.Source.OriginalString.Contains("material")).ToList();
+                    !md.Source.OriginalString.Contains("MaterialDesign")).ToList();
 
                 // remove the existing dictionaries
                 foreach (ResourceDictionary thDictionary in existingDictionaries)

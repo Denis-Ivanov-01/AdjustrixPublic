@@ -9,6 +9,7 @@ namespace AdjustrixWPF.ViewModel
 {
     public class ProjectViewModel : ViewModelBase
     {
+        private ProjectStore projectStore;
         private bool projectLoaded = false;
         private bool projectChanged = false;
         private bool projectSaved = true;
@@ -36,7 +37,8 @@ namespace AdjustrixWPF.ViewModel
             get { return project; }
             set
             {
-                project = value;
+                projectStore.ChangeProject(value);
+                project = value; //todo: remove?
                 OnPropertyChanged();
             }
         }
@@ -75,15 +77,21 @@ namespace AdjustrixWPF.ViewModel
 
         public ICommand CreateProject { get; }
 
-        public ProjectViewModel()
+        public ProjectViewModel(ProjectStore projectStore)
         {
+            this.projectStore = projectStore;
             languageViewModel = LanguageViewModel.Singleton;
             projectFile = new ProjectFileManager();
             OpenProject = new RelayCommand(OpenProjectFile, CanOpenProject);
             SaveProject = new RelayCommand(SaveProjectFile, CanSaveProject);
             CreateProject = new RelayCommand(CreateNewProject, CanCreateProject);
+            projectStore.ProjectChanged += OnProjectChanged;
         }
 
+        private void OnProjectChanged(AdjustrixProject project)
+        {
+            
+        }
 
         public bool ProjectLoaded
         {
@@ -167,6 +175,7 @@ namespace AdjustrixWPF.ViewModel
                 ProjectLoaded = true;
                 ProjectSaved = true;
                 ProjectChanged = false;
+                projectStore.ChangeProject(project);
             }
         }
 

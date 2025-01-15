@@ -2,30 +2,30 @@
 
 namespace Adjustment
 {
-    public class LevelingAdjustment : Adjustment<HeightDifference, AdjustedPoint>
+    public class LevelingAdjustment : Adjustment<HeightDelta, AdjustedPoint>
     {
         private const int decimalPrecision = 12;
 
         protected override int RequiredDecimalPrecision { get { return decimalPrecision; } }
 
-        public LevelingAdjustment(List<List<PointBase>> distinctTraverses, List<HeightDifference> measurements)
+        public LevelingAdjustment(List<List<PointBase>> distinctTraverses, List<HeightDelta> measurements)
             : base(distinctTraverses, measurements)
         {
 
         }
 
-        protected override HeightDifference CreateNegativeMeasurement(HeightDifference meas)
+        protected override HeightDelta CreateNegativeMeasurement(HeightDelta meas)
         {
-            return new HeightDifference(meas.FromPoint, meas.ToPoint, -meas.Value, meas.Length, true);
+            return new HeightDelta(meas.FromPoint, meas.ToPoint, -meas.Value, meas.Length, true);
         }
 
         protected override Matrix<double> CreateConfigurationMatrix()
         {
             Matrix<double> confMatrix = matrixBuilder.Dense(Measurements.Count, DistinctTraverses.Count);
-            foreach (List<HeightDifference> traverse in AssignedApproxMeasurements)
+            foreach (List<HeightDelta> traverse in AssignedApproxMeasurements)
             {
                 int travIndex = AssignedApproxMeasurements.IndexOf(traverse);
-                foreach (HeightDifference measurement in traverse)
+                foreach (HeightDelta measurement in traverse)
                 {
                     int measIndex = GetMeasurementIndex(measurement);
                     confMatrix[measIndex, travIndex] = GetMeasurementConfigurationIndex(measurement);
@@ -38,7 +38,7 @@ namespace Adjustment
         {
             int matrixSize = Measurements.Count;
             Matrix<double> weightMatrix = matrixBuilder.Dense(matrixSize, matrixSize);
-            foreach (HeightDifference meas in Measurements)
+            foreach (HeightDelta meas in Measurements)
             {
                 int currIndex = GetMeasurementIndex(meas);
                 weightMatrix[currIndex, currIndex] = meas.Length;
@@ -46,10 +46,10 @@ namespace Adjustment
             return weightMatrix;
         }
 
-        protected override Vector<double> CalculateResidualsVector(List<List<HeightDifference>> assignedMeasurements)
+        protected override Vector<double> CalculateResidualsVector(List<List<HeightDelta>> assignedMeasurements)
         {
             Vector<double> innacuracies = vectorBuilder.Dense(assignedMeasurements.Count);
-            foreach (List<HeightDifference> trav in assignedMeasurements)
+            foreach (List<HeightDelta> trav in assignedMeasurements)
             {
                 int travIndex = assignedMeasurements.IndexOf(trav);
                 innacuracies[travIndex] = CalculateResidual(trav);
@@ -60,7 +60,7 @@ namespace Adjustment
         protected override Vector<double> CalculateCorrections(Vector<double> pvMatrix, Matrix<double> weightMatrix)
         {
             Vector<double> corrections = vectorBuilder.Dense(Measurements.Count);
-            foreach (HeightDifference meas in Measurements)
+            foreach (HeightDelta meas in Measurements)
             {
                 int i = GetMeasurementIndex(meas);
                 corrections[i] = weightMatrix[i, i] * pvMatrix[i];
@@ -68,10 +68,10 @@ namespace Adjustment
             return corrections;
         }
 
-        protected override List<AdjustedPoint> CalculateUnknownPoints(List<HeightDifference> adjustedMeasurements)
+        protected override List<AdjustedPoint> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements)
         {
-            List<HeightDifference> meas = adjustedMeasurements.Cast<HeightDifference>().ToList();
-            Pathfinder<PointBase, HeightDifference> pathfinder = new(meas);
+            List<HeightDelta> meas = adjustedMeasurements.Cast<HeightDelta>().ToList();
+            Pathfinder<PointBase, HeightDelta> pathfinder = new(meas);
 
             List<NewBenchmark> newPoints = Points
                 .Where(p => p is not KnownBenchmark).Cast<NewBenchmark>().ToList();
@@ -81,26 +81,26 @@ namespace Adjustment
             {
                 List<PointBase> trav = pathfinder.AStar(kp, newPoint);
                 pathfinder.ClearTraversedPoints();
-                List<HeightDifference> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<HeightDifference>().ToList();
+                List<HeightDelta> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<HeightDelta>().ToList();
                 double value = kp.Value + measurements.Sum(meas => meas.Value);
                 adjustedPoints.Add(new AdjustedPoint(newPoint.Number, value, newPoint.X, newPoint.Y));
             }
             return adjustedPoints;
         }
 
-        protected override List<HeightDifference> CalculateAdjustedMeasurements(Vector<double> corrections)
+        protected override List<HeightDelta> CalculateAdjustedMeasurements(Vector<double> corrections)
         {
-            List<HeightDifference> adjustedMeasurements = new();
-            foreach (HeightDifference meas in Measurements)
+            List<HeightDelta> adjustedMeasurements = new();
+            foreach (HeightDelta meas in Measurements)
             {
                 int correspondingIndex = GetMeasurementIndex(meas);
                 double adjustedValue = meas.Value + corrections[correspondingIndex];
-                adjustedMeasurements.Add(new HeightDifference(meas.FromPoint, meas.ToPoint, adjustedValue, meas.Length));
+                adjustedMeasurements.Add(new HeightDelta(meas.FromPoint, meas.ToPoint, adjustedValue, meas.Length));
             }
             return adjustedMeasurements;
         }
 
-        private double CalculateResidual(List<HeightDifference> trav)
+        private double CalculateResidual(List<HeightDelta> trav)
         {
             if (IsLinkedTraverse(trav))
             {
@@ -109,17 +109,17 @@ namespace Adjustment
             return CalculateClosedTraverseResidual(trav);
         }
 
-        private static double CalculateClosedTraverseResidual(List<HeightDifference> trav)
+        private static double CalculateClosedTraverseResidual(List<HeightDelta> trav)
         {
             double currResidual = 0;
-            foreach (HeightDifference measurement in trav)
+            foreach (HeightDelta measurement in trav)
             {
                 currResidual += measurement.Value;
             }
             return currResidual;
         }
 
-        private static int GetMeasurementConfigurationIndex(HeightDifference meas)
+        private static int GetMeasurementConfigurationIndex(HeightDelta meas)
         {
             if (meas.IsReversed)
             {
@@ -128,7 +128,7 @@ namespace Adjustment
             return 1;
         }
 
-        private double CalculateLinkedTraverseResidual(List<HeightDifference> trav)
+        private double CalculateLinkedTraverseResidual(List<HeightDelta> trav)
         {
             (PointBase startP, PointBase toP) = GetTravStartEndPoint(trav);
             KnownBenchmark startPoint = (KnownBenchmark)startP;

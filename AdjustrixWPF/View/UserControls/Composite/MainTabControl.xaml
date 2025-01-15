@@ -61,9 +61,47 @@
                            TextAlignment="Center" 
                            Panel.ZIndex="1"/>
             </TabItem.Header>
-            <StackPanel>
-
-            </StackPanel>
+            <Border BorderThickness="1"
+                    BorderBrush="{DynamicResource ForegroundBrush}"
+                    Background="Transparent">
+                
+                <StackPanel Orientation="Horizontal">
+                    <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
+                          Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border Style="{StaticResource DefaultBorder}" Margin="2"
+                                BorderThickness="0 0 1 0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Border Style="{StaticResource DefaultBorder}"
+                                    BorderThickness="0 0 0 1"
+                                    Margin="5 0 5 0">
+                                    <TextBlock Grid.Row="0"
+                                           Style="{StaticResource TextBlockTabPanel}"
+                                           Text=""
+                                           d:Text="Data loading"/>
+                                </Border>
+                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                    <userControls:LabeledTabButton Content=".xlsx"
+                                                                   Height="100"
+                                                                   Width="60"
+                                                                   Label=""
+                                                                   d:Label="Excel"
+                                                                   Margin="10 0 0 0"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        
+                    </Grid>
+                </StackPanel>
+            </Border>
         </TabItem>
     </TabControl>
 </UserControl>

@@ -26,7 +26,20 @@
                Panel.ZIndex="100"/>
         <Border Grid.Row="1" 
                 Background="{DynamicResource TabBackgroundBrush}"
-                BorderThickness="0"/>
+                BorderThickness="0">
+            <DataGrid  Margin="20"
+                       Style ="{StaticResource MaterialDesignDataGrid}" 
+                       DataContext="{Binding DataViewModel}" 
+                       ItemsSource="{Binding LevelingMeasurements}"
+                       AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding FromPoint.Number}" Header="From Point" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding ToPoint.Number}" Header="To Point" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Length}" Header="Length" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Value}" Header="Delta" Width="1*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
         <compositeControls:MainTabControl
             Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Grid}}"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

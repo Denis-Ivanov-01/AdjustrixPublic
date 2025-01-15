@@ -14,13 +14,13 @@ namespace Adjustment.Project
             }
         }
 
-        public List<HeightDifference> HeightDifferences { get; set; }
+        public List<HeightDelta> HeightDifferences { get; set; }
 
         //private Dictionary<string, PointBase> benchmarksDict;
 
         [JsonConstructor]
         public LevelingProject(
-            List<HeightDifference> HeightDifferences,
+            List<HeightDelta> HeightDifferences,
             //string ProjectFolder,
             string Name,
             string SiteName,

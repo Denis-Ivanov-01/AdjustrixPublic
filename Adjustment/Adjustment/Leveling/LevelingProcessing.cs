@@ -2,9 +2,9 @@
 {
     public class LevelingProcessing
     {
-        private List<HeightDifference> measurements;
+        private List<HeightDelta> measurements;
 
-        public List<HeightDifference> HeightDifferences
+        public List<HeightDelta> HeightDifferences
         {
             get
             {

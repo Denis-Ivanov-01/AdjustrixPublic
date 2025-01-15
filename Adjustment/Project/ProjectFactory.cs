@@ -7,7 +7,7 @@
             switch (projectType)
             {
                 case ProjectType.Leveling:
-                    List<HeightDifference> heightDifferences = new List<HeightDifference>();
+                    List<HeightDelta> heightDifferences = new List<HeightDelta>();
                     return new LevelingProject(
                         heightDifferences,
                         properties.ProjectName,

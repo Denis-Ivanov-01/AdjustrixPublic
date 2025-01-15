@@ -35,14 +35,18 @@
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <ComboBox Height="25"
+                        <Border Margin="100 0 0 0"
+                                BorderThickness="1"
+                                BorderBrush="{DynamicResource ForegroundBrush}">
+                            <ComboBox Height="25"
                             ItemsSource="{Binding ProjectTypes}"
                             SelectedItem="{Binding SelectedProjectType}"
                             d:Text="Placeholder name"
                             Style="{StaticResource ComboBox}"
-                            Margin="100 0 0 0"
+                            
                             x:Name="TypeComboBox"
                             Foreground="{DynamicResource ForegroundBrush}"/>
+                        </Border>
                     </StackPanel>
                 </Border>
                 <Border Margin="5" Height="25">

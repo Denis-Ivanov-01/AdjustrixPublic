@@ -38,7 +38,7 @@ namespace Adjustment.Adjustment
         public HashSet<NewBenchmark> NewBenchmarks = new();
         private bool newBenchmarksExtracted = false;
 
-        public List<HeightDifference> HeightDifferences = new();
+        public List<HeightDelta> HeightDifferences = new();
 
         public JSONLevelingData(string jsonPath)
         {
@@ -92,7 +92,7 @@ namespace Adjustment.Adjustment
             {
                 PointBase fromPoint = GetPointByNumber(meas.FromPoint);
                 PointBase toPoint = GetPointByNumber(meas.ToPoint);
-                HeightDifferences.Add(new HeightDifference(fromPoint, toPoint, meas.Value, meas.Length));
+                HeightDifferences.Add(new HeightDelta(fromPoint, toPoint, meas.Value, meas.Length));
             }
         }
 

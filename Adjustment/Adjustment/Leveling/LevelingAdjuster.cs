@@ -1,9 +1,9 @@
 ﻿
 namespace Adjustment
 {
-    public class LevelingAdjuster : NetworkAdjuster<HeightDifference, LevelingAdjustment>
+    public class LevelingAdjuster : NetworkAdjuster<HeightDelta, LevelingAdjustment>
     {
-        public LevelingAdjuster(List<HeightDifference> measurements) : base(measurements)
+        public LevelingAdjuster(List<HeightDelta> measurements) : base(measurements)
         {
 
         }

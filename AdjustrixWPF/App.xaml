@@ -10,8 +10,9 @@
             <viewModels:LanguagesConverter x:Key="LanguagesConverter"/>
             <viewModels:ThemeConverter x:Key="ThemesConverter"/>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+                <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="LightBlue" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.DataGrid.xaml" />
                 <ResourceDictionary Source="View/Resources/DarkTheme.xaml"/>
                 <ResourceDictionary Source="View/Styles/TitleBarButton.xaml"/>
                 <ResourceDictionary Source="View/Styles/TabControl.xaml"/>

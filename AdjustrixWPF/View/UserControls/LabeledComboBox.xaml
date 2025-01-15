@@ -14,19 +14,22 @@
         <!-- Border -->
         <Border Style="{StaticResource DefaultBorder}" 
                 BorderThickness="0 1 0 0"
-                Grid.Row="0"
                 Grid.RowSpan="2"/>
 
         <!-- Label -->
         <TextBlock Style="{StaticResource TextBlockTabPanel}"
                    Text="{Binding LabelText, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    VerticalAlignment="Bottom"
-                   Margin="3"
-                   Grid.Row="0"/>
+                   Margin="3"/>
 
         <!-- ComboBox -->
-        <ComboBox Height="22"
-                  Margin="5 0 5 0"
+        <Border Grid.Row="1"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource ForegroundBrush}"
+                Width="120"
+                Height="22">
+            <ComboBox Height="22" Width="120"
+                  Margin="0 0 0 0"
                   Background="{DynamicResource HoveredBrush}"
                   Foreground="Transparent"
                   Style="{StaticResource ComboBox}"
@@ -34,11 +37,13 @@
                   SelectedItem="{Binding ComboBoxSelectedItem, RelativeSource={RelativeSource AncestorType=UserControl}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   Grid.Row="1"
                   VerticalAlignment="Center">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding}" Style="{StaticResource TextBlockTabPanel}" />
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Style="{StaticResource TextBlockTabPanel}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Border>
+        
     </Grid>
 </UserControl>

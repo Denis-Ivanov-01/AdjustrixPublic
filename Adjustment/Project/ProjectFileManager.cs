@@ -27,11 +27,8 @@ namespace Adjustment.Project
 
         public string AsText(AdjustrixProject project)
         {
-            JsonSerializerOptions options = new JsonSerializerOptions
-            {
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.Cyrillic, UnicodeRanges.BasicLatin)
-            };
-            string jsonStr = JsonSerializer.Serialize(project, options);
+            
+            string jsonStr = Serialize(project);
             return Regex.Unescape(jsonStr).Replace("\\", "\\\\");
         }
 
@@ -98,6 +95,22 @@ namespace Adjustment.Project
                     return JsonSerializer.Deserialize<LevelingProject>(projectString)!;
                 default:
                     throw new ArgumentException("Invalid type string!");
+            }
+        }
+
+        private string Serialize(AdjustrixProject project)
+        {
+            ProjectType projectType = (ProjectType)Enum.Parse(typeof(ProjectType), project.NetworkType, true);
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.Cyrillic, UnicodeRanges.BasicLatin)
+            };
+            switch (projectType)
+            {
+                case ProjectType.Leveling:
+                    return JsonSerializer.Serialize<LevelingProject>((LevelingProject)project, options);
+                default:
+                    throw new NotImplementedException();
             }
         }
     }

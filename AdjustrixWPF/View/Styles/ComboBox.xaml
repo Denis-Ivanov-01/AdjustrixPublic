@@ -11,7 +11,7 @@
             <Border Grid.Column="0"
                     Grid.ColumnSpan="2"
                 BorderBrush="{DynamicResource ForegroundBrush}"
-                BorderThickness="1"
+                BorderThickness="0"
                 Background="{Binding Background, RelativeSource={RelativeSource AncestorType=ComboBox}}">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"/>
@@ -19,7 +19,7 @@
             <Border
                 Grid.Column="1"
                 BorderBrush="{DynamicResource ForegroundBrush}"
-                BorderThickness="1"
+                BorderThickness="1 0 0 0"
                 Background="{Binding Background, RelativeSource={RelativeSource AncestorType=ComboBox}}">
                 <ContentPresenter HorizontalAlignment="Center"
                                   VerticalAlignment="Center"/>
@@ -39,16 +39,17 @@
     <ControlTemplate x:Key="ComboBoxTextBox"
                  TargetType="{x:Type TextBox}">
         <Border x:Name="PART_ContentHost"
-          Focusable="False"
-          Background="{TemplateBinding Background}" />
+                Focusable="False"
+                Background="{TemplateBinding Background}" />
     </ControlTemplate>
 
     <Style x:Key="ComboBox"
            TargetType="ComboBox">
+        <Setter Property="Width" Value="120"/>
         <Setter Property="SnapsToDevicePixels"
-          Value="true" />
+          Value="True" />
         <Setter Property="OverridesDefaultStyle"
-          Value="true" />
+          Value="True" />
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
           Value="Auto" />
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
@@ -65,21 +66,22 @@
                     <Grid>
                         <!-- ToggleButton for the drop-down arrow -->
                         <ToggleButton x:Name="ToggleButton"
-                      Template="{StaticResource ComboBoxToggleButton}"
-                      Grid.Column="2"
-                      Focusable="False"
-                      ClickMode="Press"
-                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
-                          RelativeSource={RelativeSource TemplatedParent}}"/>
+                                      Width="{TemplateBinding Width}"
+                                      Template="{StaticResource ComboBoxToggleButton}"
+                                      Grid.Column="2"
+                                      Focusable="False"
+                                      ClickMode="Press"
+                                      IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, 
+                                                    RelativeSource={RelativeSource TemplatedParent}}"/>
 
                         <!-- ContentPresenter for selected item -->
                         <ContentPresenter x:Name="ContentSite"
-                          Content="{TemplateBinding SelectionBoxItem}"
-                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                          Margin="3,3,23,3"
-                          VerticalAlignment="Stretch"
-                          HorizontalAlignment="Left"/>
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,3,23,3"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalAlignment="Center"/>
                         <TextBox x:Name="PART_EditableTextBox"
                                  Template="{StaticResource ComboBoxTextBox}"
                                  HorizontalAlignment="Left"
@@ -101,7 +103,7 @@
                                   MinWidth="{TemplateBinding ActualWidth}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                                        BorderThickness="1 0 1 1">
+                                        BorderThickness="1">
                                     <Border.BorderBrush>
                                         <SolidColorBrush Color="{DynamicResource ForegrondColor}" />
                                     </Border.BorderBrush>
@@ -109,8 +111,7 @@
                                         <SolidColorBrush Color="{DynamicResource Hovered}" />
                                     </Border.Background>
                                 </Border>
-                                <ScrollViewer Margin="4,6,4,6"
-                                              SnapsToDevicePixels="True">
+                                <ScrollViewer SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
@@ -130,16 +131,16 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem">
+    <Style x:Key="ComboBoxItem" TargetType="ComboBoxItem"> 
+        <Setter Property="Background" Value="Transparent"/>
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBoxItem">
                     <Border x:Name="Border"
-                        Padding="5"
                         SnapsToDevicePixels="true"
-                        Background="Transparent"
+                        Background="{TemplateBinding Background}"
                         BorderBrush="{DynamicResource ForegroundBrush}" 
                         BorderThickness="1">
                         <ContentPresenter HorizontalAlignment="Left"
