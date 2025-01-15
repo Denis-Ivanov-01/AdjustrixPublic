@@ -3,12 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AdjustrixWPF"
              xmlns:viewModels="clr-namespace:AdjustrixWPF.ViewModel"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <viewModels:LanguagesConverter x:Key="LanguagesConverter"/>
             <viewModels:ThemeConverter x:Key="ThemesConverter"/>
             <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <ResourceDictionary Source="View/Resources/DarkTheme.xaml"/>
                 <ResourceDictionary Source="View/Styles/TitleBarButton.xaml"/>
                 <ResourceDictionary Source="View/Styles/TabControl.xaml"/>

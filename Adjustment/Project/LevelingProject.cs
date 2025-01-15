@@ -22,12 +22,12 @@ namespace Adjustment.Project
 
         public List<HeightDifference> HeightDifferences { get; set; }
 
-        private Dictionary<string, PointBase> benchmarksDict;
+        //private Dictionary<string, PointBase> benchmarksDict;
 
         [JsonConstructor]
         public LevelingProject(
             List<HeightDifference> HeightDifferences,
-            string ProjectFolder,
+            //string ProjectFolder,
             string Name,
             string SiteName,
             string Contractor,
@@ -36,7 +36,7 @@ namespace Adjustment.Project
             //DateTime? CreateDate = null,
             //DateTime? LastUpdateDate = null
             )
-            : base(ProjectFolder, Name, SiteName, Contractor, Client/*, CreateDate, LastUpdateDate*/)
+            : base(Name, SiteName, Contractor, Client/*, CreateDate, LastUpdateDate*/)
         {
             //if (ProjectType != ProjectType.Leveling) { throw new ArgumentException("Incorrect project type!"); }
             this.HeightDifferences = HeightDifferences;

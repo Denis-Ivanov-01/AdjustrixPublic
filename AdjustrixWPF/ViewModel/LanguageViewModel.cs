@@ -43,6 +43,14 @@ namespace AdjustrixWPF.ViewModel
             "Do you want to save the changes made to current project?");
         private readonly StringEntry yes = new("Да", "Yes");
         private readonly StringEntry no = new("Не", "No");
+        private readonly StringEntry chooseProjectFolder = new("Изберете папка за проекта...", "Choose a project folder...");
+        private readonly StringEntry closeProjectQuestion = new("Искате ли да затворите текущия проект?", "Close the current project?");
+        private readonly StringEntry projectName = new("Име на проект", "Project name");
+        private readonly StringEntry siteName = new("Име на обект", "Site name");
+        private readonly StringEntry contractor = new("Изпълнител", "Contractor");
+        private readonly StringEntry client = new("Възложител", "Client");
+        private readonly StringEntry projectType = new("Тип проект", "Project type");
+
 
         private static Language currentLanguage;
         
@@ -182,6 +190,47 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
+
+        public string ChooseProjectFolder
+        {
+            get
+            {
+                return chooseProjectFolder.GetString(currentLanguage);
+            }
+        }
+
+        public string CloseProjectQuestion
+        {
+            get
+            {
+                return closeProjectQuestion.GetString(currentLanguage);
+            }
+        }
+
+        public string ProjectName
+        {
+            get { return projectName.GetString(currentLanguage); }
+        }
+
+        public string SiteName
+        {
+            get { return siteName.GetString(currentLanguage); }
+        }
+
+        public string Contractor
+        {
+            get {return contractor.GetString(currentLanguage); }
+        }
+
+        public string Client
+        {
+            get { return client.GetString(currentLanguage); }
+        }
+
+        public string ProjectType
+        {
+            get { return projectType.GetString(currentLanguage); }
+        }
         private static LanguageViewModel GetInstance()
         {
             if (instance == null)

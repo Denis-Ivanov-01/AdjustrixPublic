@@ -19,7 +19,7 @@ namespace Adjustment.Project
 
         //todo: this shouldn't be a part of the project.
         //If the project is moved to a different folder, this will be invalid!
-        public string ProjectFolder { get; set; }
+        //public string ProjectFolder { get; set; }
 
         //public ProjectType ProjectType { get; set; }
 
@@ -38,7 +38,7 @@ namespace Adjustment.Project
         public DateTime LastUpdateDate { get; set; }
 
         public AdjustrixProject(
-            string ProjectFolder,
+            //string ProjectFolder,
             string Name, 
             string SiteName, 
             string Contractor,
@@ -47,7 +47,7 @@ namespace Adjustment.Project
             DateTime? LastUpdateDate = null
             )
         {
-            this.ProjectFolder = ProjectFolder;
+            //this.ProjectFolder = ProjectFolder;
             this.Name = Name;
             this.SiteName = SiteName;
             this.Contractor = Contractor;

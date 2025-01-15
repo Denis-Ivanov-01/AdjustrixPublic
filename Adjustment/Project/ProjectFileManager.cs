@@ -12,13 +12,14 @@ namespace Adjustment.Project
         public string NetworkType { get; set; }
     }
 
-    public class ProjectFile
+    public class ProjectFileManager
     {
         private List<Tuple<ProjectType, Type>> ProjectTypeClassMapping;
+        private string lastProjectFolder;
 
         protected const string fileExtension = ".adjx";
 
-        public ProjectFile()
+        public ProjectFileManager()
         {
             ProjectTypeClassMapping = new();
             ProjectTypeClassMapping.Add(new(ProjectType.Leveling, typeof(LevelingProject)));
@@ -39,16 +40,25 @@ namespace Adjustment.Project
             return Encoding.UTF8.GetBytes(AsText(project));
         }
 
-        public void ToFile(AdjustrixProject project)
+        public void ToFile(AdjustrixProject project, string projectFolder="")
         {
+            if (projectFolder == string.Empty)
+            {//If no project folder is specified, we take the project folder of the last project file
+                
+                //todo: add some message here
+                if (string.IsNullOrWhiteSpace(lastProjectFolder)) { throw new ArgumentNullException(); }
+                
+                projectFolder = lastProjectFolder;
+            }
             string projName = $"{project.Name}{fileExtension}";
-            string path = Path.Combine(project.ProjectFolder, projName);
+            string path = Path.Combine(projectFolder, projName);
             byte[] bytes = AsBytes(project);
             using (var fileStream = new FileStream(path, FileMode.Create))
             using (var zipStream = new GZipStream(fileStream, CompressionMode.Compress))
             {
                 zipStream.Write(bytes, 0, bytes.Length);
             }
+            lastProjectFolder = projectFolder;
         }
 
         public AdjustrixProject FromFile(string path)
@@ -68,7 +78,9 @@ namespace Adjustment.Project
                 {
                     PropertyNameCaseInsensitive = true
                 };
-                
+
+                lastProjectFolder = Path.GetDirectoryName(path)!;
+
                 return Deserialize(decompressed);
             }
         }

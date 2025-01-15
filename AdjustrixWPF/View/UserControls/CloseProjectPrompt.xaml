@@ -1,0 +1,68 @@
+﻿<Window x:Class="AdjustrixWPF.View.UserControls.CloseProjectPrompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls"
+        mc:Ignorable="d"
+        Title="CloseProjectPrompt" WindowStyle="None"
+        Height="150"
+        Width="570"
+        Background="{DynamicResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen">
+    <Border BorderBrush="{DynamicResource ForegroundBrush}"
+            BorderThickness="1">
+        <Grid Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <!-- Title row -->
+                <RowDefinition Height="5"/>
+                <!-- Spacer -->
+                <RowDefinition Height="Auto" />
+                <!-- Content -->
+                <RowDefinition Height="5" />
+                <!-- Spacer -->
+                <RowDefinition Height="Auto" />
+                <!-- Buttons -->
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <!--Maybe add a title later?-->
+
+            <!-- Prompt Text -->
+            <TextBlock Grid.Row="3"
+                   Text="{Binding LanguageViewModel.CloseProjectQuestion}"
+                   d:Text="Save changes?"
+                   FontSize="14"
+                   Foreground="{DynamicResource ForegroundBrush}"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Margin="2" />
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" Margin="0,2,0,0">
+                <Button Content="{Binding LanguageViewModel.Yes}"
+                    Foreground="{DynamicResource ForegroundBrush}"
+                    d:Content="Yes"
+                    FontSize="12"
+                    Width="50"
+                    Height="35"
+                    Margin="1,0,11,0"
+                    Style="{StaticResource TabButton}"
+                    Cursor="Hand"
+                    Click="YesButtonClick" />
+                <Button Content="{Binding LanguageViewModel.No}"
+                    Foreground="{DynamicResource ForegroundBrush}"
+                    d:Content="No"
+                    Width="50"
+                    Height="35"
+                    Margin="10,0,10,0"
+                    Style="{StaticResource TabButton}"
+                    Cursor="Hand"
+                    Click="NoButtonClick" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

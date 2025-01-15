@@ -1,4 +1,4 @@
-﻿<Window x:Class="AdjustrixWPF.View.UserControls.ManageProjectPrompt"
+﻿<Window x:Class="AdjustrixWPF.View.UserControls.CreateProjectPrompt"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -25,84 +25,96 @@
                        VerticalAlignment="Center"
                        Margin="10 0 0 0"/>
             <StackPanel Grid.Row="1" Orientation="Vertical">
-                <Border Margin="5">
+                <Border Margin="5" Height="25">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}">
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                Width="200">
                             <TextBlock Margin="50 0 50 0"
-                                       Text="Project Name"
+                                       Text="{Binding LanguageViewModel.ProjectType}"
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <TextBox Text="{Binding Project.Name}"
-                                 d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
-                                 Margin="100 0 0 0"
-                                 Tag="Test"/>
+                        <ComboBox Height="25"
+                            ItemsSource="{Binding ProjectTypes}"
+                            SelectedItem="{Binding SelectedProjectType}"
+                            d:Text="Placeholder name"
+                            Style="{StaticResource ComboBox}"
+                            Margin="100 0 0 0"
+                            x:Name="TypeComboBox"
+                            Foreground="{DynamicResource ForegroundBrush}"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5">
+                <Border Margin="5" Height="25">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}">
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                Width="200">
                             <TextBlock Margin="50 0 50 0"
-                                       Text="Project Name"
+                                       Text="{Binding LanguageViewModel.ProjectName}"
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <TextBox Text="{Binding Project.Name}"
+                        <TextBox Text="{Binding ProjectProperties.ProjectName}"
                                  d:Text="Placeholder name"
                                  Style="{StaticResource TextBoxStyle1}"
                                  Margin="100 0 0 0"
-                                 Tag="Test"/>
+                                 Tag="Test"
+                                 MaxWidth="120"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5">
+                <Border Margin="5" Height="25">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}">
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                Width="200">
                             <TextBlock Margin="50 0 50 0"
-                                       Text="Project Name"
+                                       Text="{Binding LanguageViewModel.SiteName}"
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <TextBox Text="{Binding Project.Name}"
+                        <TextBox Text="{Binding ProjectProperties.SiteName}"
                                  d:Text="Placeholder name"
                                  Style="{StaticResource TextBoxStyle1}"
                                  Margin="100 0 0 0"
-                                 Tag="Test"/>
+                                 Tag="Test"
+                                 MaxWidth="120"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5">
+                <Border Margin="5" Height="25">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}">
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                Width="200">
                             <TextBlock Margin="50 0 50 0"
-                                       Text="Project Name"
+                                       Text="{Binding LanguageViewModel.Client}"
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <TextBox Text="{Binding Project.Name}"
+                        <TextBox Text="{Binding ProjectProperties.Client}"
                                  d:Text="Placeholder name"
                                  Style="{StaticResource TextBoxStyle1}"
                                  Margin="100 0 0 0"
-                                 Tag="Test"/>
+                                 Tag="Test"
+                                 MaxWidth="120"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5">
+                <Border Margin="5" Height="25">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}">
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                Width="200">
                             <TextBlock Margin="50 0 50 0"
-                                       Text="Project Name"
+                                       Text="{Binding LanguageViewModel.Contractor}"
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Border>
-                        <TextBox Text="{Binding Project.Name}"
+                        <TextBox Text="{Binding ProjectProperties.Contractor}"
                                  d:Text="Placeholder name"
                                  Style="{StaticResource TextBoxStyle1}"
                                  Margin="100 0 0 0"
-                                 Tag="Test"/>
+                                 Tag="Test"
+                                 MaxWidth="120"/>
                     </StackPanel>
                 </Border>
                 <Border>

@@ -13,6 +13,9 @@
     <Compile Update="View\UserControls\CloseButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\CloseProjectPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\Composite\AppearanceButtons.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,7 +28,7 @@
     <Compile Update="View\UserControls\LabeledComboBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\ManageProjectPrompt.xaml.cs">
+    <Compile Update="View\UserControls\CreateProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\MinimizeButton.xaml.cs">
@@ -84,6 +87,9 @@
     <Page Update="View\UserControls\CloseButton.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\UserControls\CloseProjectPrompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\UserControls\Composite\AppearanceButtons.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -96,7 +102,7 @@
     <Page Update="View\UserControls\LabeledComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\ManageProjectPrompt.xaml">
+    <Page Update="View\UserControls\CreateProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\MinimizeButton.xaml">

@@ -18,9 +18,10 @@ namespace AdjustrixWPF.View.UserControls
     /// <summary>
     /// Interaction logic for ManageProjectPrompt.xaml
     /// </summary>
-    public partial class ManageProjectPrompt : Window
+    public partial class CreateProjectPrompt : Window
     {
-        public ManageProjectPrompt(ProjectViewModel projectViewModel)
+        public bool Confirmed { get; set; }
+        public CreateProjectPrompt(ProjectViewModel projectViewModel)
         {
             this.DataContext = projectViewModel;
             InitializeComponent();
@@ -28,11 +29,13 @@ namespace AdjustrixWPF.View.UserControls
 
         private void SaveClick(object sender, RoutedEventArgs e)
         {
+            Confirmed = true;
             Close();
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
+            Confirmed = false;
             Close();
         }
     }
