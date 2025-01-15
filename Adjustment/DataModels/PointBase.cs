@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Adjustment
+﻿namespace Adjustment
 {
 
     public interface INode
@@ -72,7 +70,7 @@ namespace Adjustment
 
         public KnownPointNoCoordsBase(string number) : base(number)
         {
-            
+
         }
     }
 }

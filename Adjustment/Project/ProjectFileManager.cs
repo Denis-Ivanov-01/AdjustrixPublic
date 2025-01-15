@@ -14,7 +14,7 @@ namespace Adjustment.Project
 
     public class ProjectFileManager
     {
-        private List<Tuple<ProjectType, Type>> ProjectTypeClassMapping;
+        private readonly List<Tuple<ProjectType, Type>> ProjectTypeClassMapping;
         private string lastProjectFolder;
 
         protected const string fileExtension = ".adjx";
@@ -40,14 +40,14 @@ namespace Adjustment.Project
             return Encoding.UTF8.GetBytes(AsText(project));
         }
 
-        public void ToFile(AdjustrixProject project, string projectFolder="")
+        public void ToFile(AdjustrixProject project, string projectFolder = "")
         {
             if (projectFolder == string.Empty)
             {//If no project folder is specified, we take the project folder of the last project file
-                
+
                 //todo: add some message here
                 if (string.IsNullOrWhiteSpace(lastProjectFolder)) { throw new ArgumentNullException(); }
-                
+
                 projectFolder = lastProjectFolder;
             }
             string projName = $"{project.Name}{fileExtension}";
@@ -64,7 +64,9 @@ namespace Adjustment.Project
         public AdjustrixProject FromFile(string path)
         {
             if (!File.Exists(path))
+            {
                 throw new FileNotFoundException("The specified file does not exist.", path);
+            }
 
             using (var fileStream = new FileStream(path, FileMode.Open, FileAccess.Read))
             using (var gzipStream = new GZipStream(fileStream, CompressionMode.Decompress))

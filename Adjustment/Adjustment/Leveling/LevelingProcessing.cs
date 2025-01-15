@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Adjustment.Adjustment.Leveling
+﻿namespace Adjustment.Adjustment.Leveling
 {
     public class LevelingProcessing
     {
@@ -21,7 +15,7 @@ namespace Adjustment.Adjustment.Leveling
                 return measurements;
             }
         }
-        
+
         public void PerformAdjustment()
         {
             LevelingAdjuster adjuster = new(HeightDifferences);
@@ -37,6 +31,6 @@ namespace Adjustment.Adjustment.Leveling
         public void LoadExcel(string excelPath)
         {
             throw new NotImplementedException();
-        }        
+        }
     }
 }

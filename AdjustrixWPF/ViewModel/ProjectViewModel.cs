@@ -1,9 +1,9 @@
-﻿using System.Windows.Input;
-using Adjustment.Project;
-using Forms = System.Windows.Forms;
-using AdjustrixWPF.View.UserControls;
+﻿using System;
 using System.Collections.ObjectModel;
-using System;
+using System.Windows.Input;
+using Adjustment.Project;
+using AdjustrixWPF.View.UserControls;
+using Forms = System.Windows.Forms;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -13,35 +13,35 @@ namespace AdjustrixWPF.ViewModel
         private bool projectChanged = false;
         private bool projectSaved = true;
         private AdjustrixProject project;
-        private ProjectFileManager projectFile;
-        private ObservableCollection<string> projectTypes = EnumHelper.GetEnumStrings<ProjectType>();
+        private readonly ProjectFileManager projectFile;
+        private readonly ObservableCollection<string> projectTypes = EnumHelper.GetEnumStrings<ProjectType>();
         private ProjectType selectedProjectType;
         private ProjectCreationProperties projectProperties;
 
         //private float saveProjectOpacity = 0.0f;
 
-        private LanguageViewModel languageViewModel;
+        private readonly LanguageViewModel languageViewModel;
 
-        public LanguageViewModel LanguageViewModel 
+        public LanguageViewModel LanguageViewModel
         {
-            get 
+            get
             {
                 return languageViewModel;
             }
-             
+
         }
 
         public AdjustrixProject Project
         {
             get { return project; }
-            set 
-            { 
-                project = value; 
+            set
+            {
+                project = value;
                 OnPropertyChanged();
             }
         }
 
-        
+
         public ObservableCollection<string> ProjectTypes
         {
             get { return projectTypes; }
@@ -63,8 +63,8 @@ namespace AdjustrixWPF.ViewModel
         public ProjectCreationProperties ProjectProperties
         {
             get { return projectProperties; }
-            set 
-            { 
+            set
+            {
                 projectProperties = value;
                 OnPropertyChanged();
             }
@@ -182,7 +182,7 @@ namespace AdjustrixWPF.ViewModel
                 bool result = AskProjectSave();
                 if (result == false) { return; }
             }
-            
+
             projectFile.ToFile(project);
             ProjectSaved = true;
             ProjectChanged = false;

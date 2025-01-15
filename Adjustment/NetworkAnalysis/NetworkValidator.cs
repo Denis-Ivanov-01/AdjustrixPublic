@@ -39,7 +39,11 @@
 
             void DFS(PointBase point)
             {
-                if (visited.Contains(point)) return;
+                if (visited.Contains(point))
+                {
+                    return;
+                }
+
                 visited.Add(point);
 
                 foreach (var neighbor in GetNeighbors(point))
@@ -75,7 +79,9 @@
         private List<PointBase> GetNeighbors(PointBase point)
         {
             if (!graphData.ContainsKey(point))
+            {
                 return new List<PointBase>();
+            }
 
             return graphData[point]
                 .Select(edge => edge.FromPoint == point ? edge.ToPoint : edge.FromPoint)

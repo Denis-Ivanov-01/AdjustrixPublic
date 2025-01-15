@@ -4,7 +4,7 @@ namespace AdjustrixWPF.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private AdjustrixProject _project;
+        private readonly AdjustrixProject _project;
 
         public LanguageViewModel languageViewModel { get; set; }
 

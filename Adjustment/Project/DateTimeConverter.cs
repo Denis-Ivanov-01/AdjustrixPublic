@@ -9,7 +9,7 @@ namespace Adjustment.Project
 
         public DateTimeConverter()
         {
-            
+
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)

@@ -1,5 +1,4 @@
-﻿using Adjustment;
-using Adjustment.Adjustment;
+﻿using Adjustment.Adjustment;
 using Adjustment.Project;
 
 class Program

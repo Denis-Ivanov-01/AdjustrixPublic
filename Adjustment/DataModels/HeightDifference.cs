@@ -11,7 +11,7 @@ namespace Adjustment
         public override PointBase ToPoint { get; set; }
 
         [JsonConstructor]
-        public HeightDifference(PointBase FromPoint, PointBase ToPoint, double Value, double Length, bool IsReversed = false) 
+        public HeightDifference(PointBase FromPoint, PointBase ToPoint, double Value, double Length, bool IsReversed = false)
             : base(FromPoint, ToPoint, Length, IsReversed)
         {
             this.Value = Value;
@@ -19,7 +19,7 @@ namespace Adjustment
             this.ToPoint = ToPoint;
         }
 
-        public HeightDifference(PointBase FromPoint, PointBase ToPoint, double Value, bool Negative = false) 
+        public HeightDifference(PointBase FromPoint, PointBase ToPoint, double Value, bool Negative = false)
             : base(FromPoint, ToPoint, MathFunctions.CalcDistBetweenPoints(FromPoint, ToPoint), Negative)
         {
             this.Value = Value;

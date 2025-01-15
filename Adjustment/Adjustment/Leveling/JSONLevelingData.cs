@@ -31,7 +31,7 @@ namespace Adjustment.Adjustment
     public class JSONLevelingData
     {
         public LevelingData LevelingData { get; }
-        
+
         public HashSet<KnownBenchmark> KnownBenchmarks = new();
         private bool knownBenchmarksExtracted = false;
 
@@ -76,7 +76,7 @@ namespace Adjustment.Adjustment
 
         private void AddNewBenchmark(string number)
         {
-            if (NewBenchmarks.Any(x => x.Number == number) || KnownBenchmarks.Any(x => x.Number == number)) 
+            if (NewBenchmarks.Any(x => x.Number == number) || KnownBenchmarks.Any(x => x.Number == number))
             { return; }
             NewBenchmarks.Add(new NewBenchmark(number));
         }
