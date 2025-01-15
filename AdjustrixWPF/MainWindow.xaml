@@ -27,7 +27,7 @@
         <Border Grid.Row="1" 
                 Background="{DynamicResource TabBackgroundBrush}"
                 BorderThickness="0">
-            <DataGrid  Margin="20"
+            <DataGrid  Margin="5"
                        Style ="{StaticResource MaterialDesignDataGrid}" 
                        DataContext="{Binding DataViewModel}" 
                        ItemsSource="{Binding LevelingMeasurements}"
@@ -35,8 +35,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding FromPoint.Number}" Header="From Point" Width="1*"/>
                     <DataGridTextColumn Binding="{Binding ToPoint.Number}" Header="To Point" Width="1*"/>
-                    <DataGridTextColumn Binding="{Binding Length}" Header="Length" Width="1*"/>
-                    <DataGridTextColumn Binding="{Binding Value}" Header="Delta" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Length, StringFormat=F3}" Header="Length" Width="1*"/>
+                    <DataGridTextColumn Binding="{Binding Value, StringFormat=F3}" Header="Delta" Width="1*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

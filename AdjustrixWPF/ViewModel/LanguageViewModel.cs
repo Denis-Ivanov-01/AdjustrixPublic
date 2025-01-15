@@ -50,6 +50,10 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry contractor = new("Изпълнител", "Contractor");
         private readonly StringEntry client = new("Възложител", "Client");
         private readonly StringEntry projectType = new("Тип проект", "Project type");
+        private readonly StringEntry fromPoint = new("Начална Точка", "From Point");
+        private readonly StringEntry toPoint = new("Крайна Точка", "To Point");
+        private readonly StringEntry length = new("Дължина", "Length");
+        private readonly StringEntry value = new("Стойност", "Value");
 
 
         private static Language currentLanguage;
@@ -230,6 +234,38 @@ namespace AdjustrixWPF.ViewModel
         public string ProjectType
         {
             get { return projectType.GetString(currentLanguage); }
+        }
+
+        public string FromPoint
+        {
+            get
+            {
+                return fromPoint.GetString(currentLanguage);
+            }
+        }
+
+        public string ToPoint
+        {
+            get
+            {
+                return toPoint.GetString(currentLanguage);
+            }
+        }
+
+        public string Length
+        {
+            get
+            {
+                return length.GetString(currentLanguage);
+            }
+        }
+
+        public string Value
+        {
+            get
+            {
+                return value.GetString(currentLanguage);
+            }
         }
         private static LanguageViewModel GetInstance()
         {

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using AdjustrixWPF.View;
+using md = MaterialDesignThemes.Wpf;
 
 
 namespace AdjustrixWPF.ViewModel
@@ -62,7 +63,6 @@ namespace AdjustrixWPF.ViewModel
 
         public static void SetDarkTheme()
         {
-
             ThemeManager.SetCurrentThemeDictionary(Application.Current.MainWindow, new Uri(@"pack://application:,,,/View/Resources/DarkTheme.xaml"));
         }
 

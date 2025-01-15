@@ -15,6 +15,7 @@ namespace AdjustrixWPF.ViewModel
         private AdjustrixProject currentProject;
         private ProjectType projectType;
         private ObservableCollection<HeightDelta> levelingMeasurements;
+        private LanguageViewModel languageViewModel;
 
         public ObservableCollection<HeightDelta> LevelingMeasurements
         {
@@ -28,8 +29,17 @@ namespace AdjustrixWPF.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        public LanguageViewModel LanguageViewModel
+        {
+            get
+            {
+                return languageViewModel;
+            }
+        }
         public DataViewModel(ProjectStore store)
         {
+            languageViewModel = LanguageViewModel.Singleton;
             this.store = store;
             levelingMeasurements = new ObservableCollection<HeightDelta>();
             store.ProjectChanged += OnProjectChanged;
