@@ -18,7 +18,7 @@ namespace AdjustrixWPF.View.UserControls
         }
 
 
-        public CloseProjectPrompt(ProjectViewModel viewModel)
+        public CloseProjectPrompt(ProjectFileViewModel viewModel)
         {
             InitializeComponent();
             this.DataContext = viewModel;

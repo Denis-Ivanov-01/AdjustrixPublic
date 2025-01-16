@@ -22,6 +22,9 @@
     <Compile Update="View\UserControls\Composite\MainTabControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\Composite\MeasurementsDataGrid.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\Composite\ProjectButtons.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +97,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Composite\MainTabControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\Composite\MeasurementsDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Composite\ProjectButtons.xaml">

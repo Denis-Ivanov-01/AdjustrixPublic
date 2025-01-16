@@ -1,4 +1,6 @@
-﻿using Adjustment.Project;
+﻿using System.Windows;
+using System.Windows.Input;
+using Adjustment.Project;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -6,18 +8,28 @@ namespace AdjustrixWPF.ViewModel
     {
         public LanguageViewModel languageViewModel { get; set; }
 
-        public ProjectViewModel projectViewModel { get; set; }
+        public ProjectFileViewModel projectViewModel { get; set; }
 
         public SystemFileManagement SystemFileSingleton { get; set; }
 
-        public DataViewModel DataViewModel { get; set; }
+        public ProjectDataViewModel DataViewModel { get; set; }
+        
+        public ICommand CloseCommand { get; }
+
         public MainWindowViewModel()
         {
-            ProjectStore projectStore = new();
+            ProjectContainer projectStore = new();
             languageViewModel = LanguageViewModel.Singleton;
-            projectViewModel = new ProjectViewModel(projectStore);
+            projectViewModel = new ProjectFileViewModel(projectStore);
             DataViewModel = new(projectStore);
             SystemFileSingleton = SystemFileManagement.Singleton;
+            CloseCommand = new RelayCommand(Close);
+        }
+
+        private void Close(object param)
+        {
+            projectViewModel.PromptSaveChanges();
+            Application.Current.Shutdown();
         }
     }
 }

@@ -16,6 +16,7 @@ class Program
         //adjuster.PerformAdjustment();
         LevelingProject project = new(
             data.HeightDifferences,
+            data.KnownBenchmarks,
             //@"C:\\Users\\denis\\Desktop\\Геодезия\\_Дипломна",
             "project", "site", "contractor", "client");
         

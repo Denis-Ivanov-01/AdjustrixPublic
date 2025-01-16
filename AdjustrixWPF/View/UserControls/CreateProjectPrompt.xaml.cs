@@ -9,7 +9,7 @@ namespace AdjustrixWPF.View.UserControls
     public partial class CreateProjectPrompt : Window
     {
         public bool Confirmed { get; set; }
-        public CreateProjectPrompt(ProjectViewModel projectViewModel)
+        public CreateProjectPrompt(ProjectFileViewModel projectViewModel)
         {
             this.DataContext = projectViewModel;
             InitializeComponent();

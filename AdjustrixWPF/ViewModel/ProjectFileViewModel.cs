@@ -7,12 +7,13 @@ using Forms = System.Windows.Forms;
 
 namespace AdjustrixWPF.ViewModel
 {
-    public class ProjectViewModel : ViewModelBase
+    public class ProjectFileViewModel : ViewModelBase
     {
-        private ProjectStore projectStore;
+        private ProjectContainer projectContainer;
         private bool projectLoaded = false;
         private bool projectChanged = false;
         private bool projectSaved = true;
+        private bool hasUnsavedChanges;
         private AdjustrixProject project;
         private readonly ProjectFileManager projectFile;
         private readonly ObservableCollection<string> projectTypes = EnumHelper.GetEnumStrings<ProjectType>();
@@ -37,7 +38,7 @@ namespace AdjustrixWPF.ViewModel
             get { return project; }
             set
             {
-                projectStore.ChangeProject(value);
+                //projectStore.ChangeProject(value);
                 project = value; //todo: remove?
                 OnPropertyChanged();
             }
@@ -62,6 +63,19 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
+        public bool HasUnsavedChanges
+        {
+            get
+            {
+                return hasUnsavedChanges;
+            }
+            set
+            {
+                hasUnsavedChanges = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ProjectCreationProperties ProjectProperties
         {
             get { return projectProperties; }
@@ -77,20 +91,27 @@ namespace AdjustrixWPF.ViewModel
 
         public ICommand CreateProject { get; }
 
-        public ProjectViewModel(ProjectStore projectStore)
+        public ProjectFileViewModel(ProjectContainer projectStore)
         {
-            this.projectStore = projectStore;
+            this.projectContainer = projectStore;
+            hasUnsavedChanges = false;
             languageViewModel = LanguageViewModel.Singleton;
             projectFile = new ProjectFileManager();
             OpenProject = new RelayCommand(OpenProjectFile, CanOpenProject);
             SaveProject = new RelayCommand(SaveProjectFile, CanSaveProject);
             CreateProject = new RelayCommand(CreateNewProject, CanCreateProject);
             projectStore.ProjectChanged += OnProjectChanged;
+            projectStore.ProjectChangesChanged += OnProjectChangesChanged;
+        }
+
+        private void OnProjectChangesChanged(bool value)
+        {
+            HasUnsavedChanges = value;
         }
 
         private void OnProjectChanged(AdjustrixProject project)
         {
-            
+            Project = project;
         }
 
         public bool ProjectLoaded
@@ -125,13 +146,7 @@ namespace AdjustrixWPF.ViewModel
 
         private void CreateNewProject(object parameter)
         {
-            if (!projectSaved && AskProjectClose())
-            { // The user has unsaved changes and wants to close the current project
-                if (AskProjectSave())
-                { // Saving the changes
-                    projectFile.ToFile(project);
-                }
-            }
+            PromptSaveChanges();
 
             using (Forms.FolderBrowserDialog folderBrowser = new())
             {
@@ -150,6 +165,7 @@ namespace AdjustrixWPF.ViewModel
                     project = ProjectFactory.CreateProject(ProjectProperties, selectedProjectType);
                     //todo: Check if file exists before. Prompt to overwrite it
                     projectFile.ToFile(project, folderBrowser.SelectedPath);
+                    projectContainer.ChangeProject(project);
                     ProjectSaved = true;
                     ProjectLoaded = true;
                     ProjectChanged = false;
@@ -164,6 +180,8 @@ namespace AdjustrixWPF.ViewModel
 
         private void OpenProjectFile(object parameter)
         {
+            PromptSaveChanges();
+
             var dialog = new Forms.OpenFileDialog();
             dialog.Filter = "Adjustrix project file (.adjx)|*.adjx";
             dialog.DefaultExt = ".adjx";
@@ -172,10 +190,11 @@ namespace AdjustrixWPF.ViewModel
             if (result == Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
             {
                 project = projectFile.FromFile(dialog.FileName);
+                projectContainer.ChangeProject(project);
+                projectContainer.SetChanges(false);
                 ProjectLoaded = true;
                 ProjectSaved = true;
                 ProjectChanged = false;
-                projectStore.ChangeProject(project);
             }
         }
 
@@ -186,13 +205,15 @@ namespace AdjustrixWPF.ViewModel
 
         private void SaveProjectFile(object parameter)
         {
-            if (projectChanged)
+            if (HasUnsavedChanges && !AskProjectSave())
             {
-                bool result = AskProjectSave();
-                if (result == false) { return; }
+                return;
+                //bool result = AskProjectSave();
+                //if (result == false) { return; }
             }
 
             projectFile.ToFile(project);
+            projectContainer.SetChanges(false);
             ProjectSaved = true;
             ProjectChanged = false;
         }
@@ -200,6 +221,14 @@ namespace AdjustrixWPF.ViewModel
         private bool CanSaveProject(object parameter)
         {
             return project != null;
+        }
+
+        public void PromptSaveChanges()
+        {//todo: think of a better method name
+            if (HasUnsavedChanges && AskProjectSave())
+            { // The user has unsaved changes and wants to close the current project
+                projectFile.ToFile(project);
+            }
         }
 
         private bool AskProjectSave()

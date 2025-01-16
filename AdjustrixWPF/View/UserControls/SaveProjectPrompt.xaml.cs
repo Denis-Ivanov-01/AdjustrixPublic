@@ -15,7 +15,7 @@ namespace AdjustrixWPF.View.UserControls
             get { return saveProject; }
         }
 
-        public SaveProjectPrompt(ProjectViewModel projectViewModel)
+        public SaveProjectPrompt(ProjectFileViewModel projectViewModel)
         {
             this.DataContext = projectViewModel;
             InitializeComponent();

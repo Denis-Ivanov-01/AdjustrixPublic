@@ -16,11 +16,14 @@ namespace Adjustment.Project
 
         public List<HeightDelta> HeightDifferences { get; set; }
 
+        public HashSet<KnownBenchmark> KnownBenchmarks { get; set; }
+
         //private Dictionary<string, PointBase> benchmarksDict;
 
         [JsonConstructor]
         public LevelingProject(
             List<HeightDelta> HeightDifferences,
+            HashSet<KnownBenchmark> KnownBenchmarks,
             //string ProjectFolder,
             string Name,
             string SiteName,
@@ -34,6 +37,7 @@ namespace Adjustment.Project
         {
             //if (ProjectType != ProjectType.Leveling) { throw new ArgumentException("Incorrect project type!"); }
             this.HeightDifferences = HeightDifferences;
+            this.KnownBenchmarks = KnownBenchmarks;
         }
     }
 }

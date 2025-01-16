@@ -1,4 +1,6 @@
-﻿namespace Adjustment
+﻿using System.Text.Json.Serialization;
+
+namespace Adjustment
 {
     public class Benchmark : PointBase, IOneDimPoint, INode
     {
@@ -16,9 +18,10 @@
             Value = value;
         }
 
-        public KnownBenchmark(string number, double value) : base(number)
+        [JsonConstructor]
+        public KnownBenchmark(string Number, double Value) : base(Number)
         {
-            Value = value;
+            this.Value = Value;
         }
     }
 

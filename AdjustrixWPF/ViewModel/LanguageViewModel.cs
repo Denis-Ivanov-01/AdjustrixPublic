@@ -54,6 +54,10 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry toPoint = new("Крайна Точка", "To Point");
         private readonly StringEntry length = new("Дължина", "Length");
         private readonly StringEntry value = new("Стойност", "Value");
+        private readonly StringEntry number = new("Номер", "Number");
+        private readonly StringEntry elevation = new("Височина", "Elevation");
+        private readonly StringEntry delete = new("Изтрий", "Delete");
+        private readonly StringEntry edit = new("Редактирай", "Edit");
 
 
         private static Language currentLanguage;
@@ -267,6 +271,39 @@ namespace AdjustrixWPF.ViewModel
                 return value.GetString(currentLanguage);
             }
         }
+
+        public string Number
+        {
+            get
+            {
+                return number.GetString(currentLanguage);
+            }
+        }
+
+        public string Elevation
+        {
+            get
+            {
+                return elevation.GetString(currentLanguage);
+            }
+        }
+
+        public string Delete
+        {
+            get
+            {
+                return delete.GetString(currentLanguage);
+            }
+        }
+
+        public string Edit
+        {
+            get
+            {
+                return edit.GetString(currentLanguage);
+            }
+        }
+
         private static LanguageViewModel GetInstance()
         {
             if (instance == null)
