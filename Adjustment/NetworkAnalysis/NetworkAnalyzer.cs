@@ -24,12 +24,13 @@
 
         public NetworkAnalyzer(List<TEdge> measurements)
         {
+            NetworkValidator<TEdge> validator = new();
+            validator.PerformInitialValidation(measurements);
             MeasurementsToEdge(measurements);
             initialMeasurements = measurements;
             pathfinder = new(graphData);
             MakeGraphTwoSided();
-            NetworkValidator<TEdge> validator = new(graphData);
-            validator.ValidateNetwork();
+            validator.PerformSecondaryValidation(graphData);
         }
 
         //Entry point the library

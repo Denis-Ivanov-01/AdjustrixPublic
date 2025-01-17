@@ -3,20 +3,28 @@
     public class NetworkValidator<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {
-        private readonly Dictionary<PointBase, List<TEdge>> graphData = new();
-
-        public NetworkValidator(Dictionary<PointBase, List<TEdge>> graphData)
-        {
-            this.graphData = graphData;
-            ValidateNetwork();
-        }
-
-        public void ValidateNetwork()
+        private Dictionary<PointBase, List<TEdge>> graphData = new();
+        
+        /// <summary>
+        /// Intended to be executed after the graph is made two-sided
+        /// </summary>
+        /// <param name="graphData"></param>
+        public void PerformSecondaryValidation(Dictionary<PointBase, List<TEdge>> graphData)
         {
             //todo: test this and replace the error handling with custom exceptions
+            this.graphData = graphData;
             AssertAtLeastTwoNeighbors();
             AssertGraphIsConnected();
             AssertNoCycles();
+        }
+
+        /// <summary>
+        /// Intended to be executed on the raw measurements before any processing from the graph
+        /// </summary>
+        /// <param name="measurements"></param>
+        public void PerformInitialValidation(List<TEdge> measurements)
+        {
+            AssertNoDuplicates(measurements);
         }
 
         public void AssertAtLeastTwoNeighbors()
@@ -74,6 +82,38 @@
                     }
                 }
             }
+        }
+
+        public void AssertNoDuplicates(List<TEdge> measurements)
+        {
+            for (int i = 0; i<=measurements.Count; i++)
+            {
+                TEdge meas1 = measurements[i];
+                for (int j = i + 1; j<measurements.Count; j++)
+                {
+                    TEdge meas2 = measurements[j];
+                    if (MeasurementsMirrored(meas1, meas2))
+                    {
+                        throw new Exception("Loop found in the measurements!");
+                    }
+                    if (MeasurementsDuplicate(meas1, meas2))
+                    {
+                        throw new Exception("Duplicate measurements found!");
+                    }
+                }
+            }
+        }
+
+        private bool MeasurementsMirrored(TEdge meas1, TEdge meas2)
+        {
+            return meas1.FromPoint.Number == meas2.ToPoint.Number &&
+                        meas1.ToPoint.Number == meas2.FromPoint.Number;
+        }
+
+        private bool MeasurementsDuplicate(TEdge meas1, TEdge meas2)
+        {
+            return meas1.FromPoint.Number == meas2.FromPoint.Number &&
+                meas1.ToPoint.Number == meas2.ToPoint.Number;
         }
 
         private List<PointBase> GetNeighbors(PointBase point)
