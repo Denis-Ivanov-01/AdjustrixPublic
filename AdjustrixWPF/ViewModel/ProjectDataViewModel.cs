@@ -19,6 +19,7 @@ namespace AdjustrixWPF.ViewModel
         private ObservableCollection<HeightDelta> levelingMeasurements;
         private ObservableCollection<KnownBenchmark> knownBenchmarks;
         private LanguageViewModel languageViewModel;
+        private bool projectNonNull=false;
 
         public ICommand ToggleMeasurement { get; }
 
@@ -57,6 +58,19 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return languageViewModel;
+            }
+        }
+
+        public bool ProjectNonNull
+        {
+            get
+            {
+                return projectNonNull;
+            }
+            set
+            {
+                projectNonNull = value;
+                OnPropertyChanged();
             }
         }
         public ProjectDataViewModel(ProjectContainer container)
@@ -116,6 +130,7 @@ namespace AdjustrixWPF.ViewModel
         private void OnProjectTypeChanged(ProjectType type)
         {
             projectType = type;
+            ProjectNonNull = currentProject == null;
         }
 
         private void OnProjectChanged(AdjustrixProject project)
@@ -131,6 +146,7 @@ namespace AdjustrixWPF.ViewModel
                 default:
                     throw new NotImplementedException();
             }
+            ProjectNonNull = currentProject == null;
         }
 
         private void SwitchLevelingMeasurements(LevelingProject project)

@@ -20,7 +20,6 @@ namespace AdjustrixWPF
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             this.DataContext = new MainWindowViewModel();
-            //ThemeViewModel.RegisterObject(DataTab);
         }
 
         // Not using this because of weird behaviour of DragMove()

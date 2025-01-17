@@ -14,7 +14,8 @@
                 Background="{DynamicResource BackgroundBrush}" 
                 Style="{StaticResource TabControlStyle}"
                 Margin="0 3 0 0">
-        <TabItem Style="{StaticResource TabItemStyle}">
+        <TabItem Style="{StaticResource TabItemStyle}"
+                 Width="50">
             <TabItem.Header>
                 <TextBlock d:Text="Test"
                            Text="{Binding languageViewModel.File}"
@@ -50,7 +51,7 @@
             </Border>
             
         </TabItem>
-        <TabItem Style="{StaticResource TabItemStyle}">
+        <TabItem Style="{StaticResource TabItemStyle}" Width="50">
             <TabItem.Header>
                 <TextBlock d:Text="Test"
                            Text="{Binding languageViewModel.Data}"
@@ -99,6 +100,29 @@
                             </Grid>
                         </Border>
                         
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </TabItem>
+        <TabItem Style="{StaticResource TabItemStyle}" Width="80">
+            <TabItem.Header>
+                <TextBlock d:Text="Processing"
+                           Text="{Binding languageViewModel.Processing}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Background="Transparent"
+                           Foreground="{DynamicResource ForegroundBrush}"
+                           TextAlignment="Center" 
+                           Panel.ZIndex="1"/>
+            </TabItem.Header>
+            <Border BorderThickness="1"
+                    BorderBrush="{DynamicResource ForegroundBrush}"
+                    Background="Transparent">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
                     </Grid>
                 </StackPanel>
             </Border>

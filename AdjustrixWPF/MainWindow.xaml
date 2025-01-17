@@ -29,11 +29,26 @@
                 Background="{DynamicResource TabBackgroundBrush}"
                 BorderThickness="0">
             <TabControl x:Name="DataTab"
+                        Visibility="{Binding DataViewModel.ProjectNonNull}"
                         wpf:ColorZoneAssist.Background="{DynamicResource TabHeaderBackground}">
-                <TabItem Header="Measurements">
+                <TabItem>
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DataContext.languageViewModel.Measurements, 
+                                RelativeSource={RelativeSource AncestorType=Window}}"
+                                       Foreground="{DynamicResource TabHeaderForeground}"/>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
                     <compositeControls:MeasurementsDataGrid DataContext="{Binding DataViewModel}"/>
                 </TabItem>
                 <TabItem Header="Points">
+                    <TabItem.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DataContext.languageViewModel.Benchmarks, 
+                                RelativeSource={RelativeSource AncestorType=Window}}"
+                                       Foreground="{DynamicResource TabHeaderForeground}"/>
+                        </DataTemplate>
+                    </TabItem.HeaderTemplate>
                     <compositeControls:PointsDataGrid DataContext="{Binding DataViewModel}"/>
                 </TabItem>
             </TabControl>

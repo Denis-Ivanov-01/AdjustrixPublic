@@ -58,6 +58,9 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry elevation = new("Височина", "Elevation");
         private readonly StringEntry delete = new("Изтрий", "Delete");
         private readonly StringEntry edit = new("Редактирай", "Edit");
+        private readonly StringEntry processing = new("Обработка", "Processing");
+        private readonly StringEntry measurements = new("Измервания", "Measurements");
+        private readonly StringEntry benchmarks = new("Репери", "Benchmarks");
 
 
         private static Language currentLanguage;
@@ -301,6 +304,30 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return edit.GetString(currentLanguage);
+            }
+        }
+
+        public string Processing
+        {
+            get
+            {
+                return processing.GetString(currentLanguage);
+            }
+        }
+
+        public string Measurements
+        {
+            get
+            {
+                return measurements.GetString(currentLanguage);
+            }
+        }
+
+        public string Benchmarks
+        {
+            get
+            {
+                return benchmarks.GetString(currentLanguage);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Media;
 using AdjustrixWPF.View;
 using MaterialDesignThemes.Wpf;
 using md = MaterialDesignThemes.Wpf;
@@ -14,23 +15,7 @@ namespace AdjustrixWPF.ViewModel
     public class ThemeViewModel
     {
         private ObservableCollection<string> themes = EnumHelper.GetEnumStrings<Theme>();
-        private static List<DependencyObject> objects = new();
 
-        private static md.BundledTheme darkTheme = new md.BundledTheme
-        {
-            PrimaryColor = MaterialDesignColors.PrimaryColor.Blue,
-            BaseTheme = md.BaseTheme.Dark,
-            SecondaryColor = MaterialDesignColors.SecondaryColor.LightBlue,
-            ColorAdjustment = new md.ColorAdjustment()
-        };
-
-        public static md.BundledTheme lightTheme = new md.BundledTheme
-        {
-            PrimaryColor = MaterialDesignColors.PrimaryColor.Blue,
-            SecondaryColor = MaterialDesignColors.SecondaryColor.DeepPurple,
-            BaseTheme = md.BaseTheme.Light,
-            ColorAdjustment = new()
-        };
 
         private static ThemeViewModel instance;
 
@@ -80,29 +65,27 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
-        public static void RegisterObject(DependencyObject obj)
-        {
-            objects.Add(obj);
-        }
-
         public static void SetDarkTheme()
         {
-            foreach (DependencyObject obj in objects)
-            {
-                ColorZoneAssist.SetMode(obj, ColorZoneMode.Dark);
-            }
-            md.ThemeAssist.ChangeTheme(darkTheme, md.BaseTheme.Dark);
+            Color color = (Color)ColorConverter.ConvertFromString("#2196f3");
+            SetMaterialDesignTheme(color, color, BaseTheme.Dark);
             ThemeManager.SetCurrentThemeDictionary(Application.Current.MainWindow, new Uri(@"pack://application:,,,/View/Resources/DarkTheme.xaml"));
         }
 
         public static void SetLightTheme()
         {
-            foreach (DependencyObject obj in objects)
-            {
-                ColorZoneAssist.SetMode(obj, ColorZoneMode.Light);
-            }
-            md.ThemeAssist.ChangeTheme(lightTheme, md.BaseTheme.Light);
+            SetMaterialDesignTheme(Colors.White, Colors.White, BaseTheme.Light);
             ThemeManager.SetCurrentThemeDictionary(Application.Current.MainWindow, new Uri(@"pack://application:,,,/View/Resources/LightTheme.xaml"));
+        }
+
+        private static void SetMaterialDesignTheme(Color primary, Color secondary, BaseTheme baseTheme)
+        {
+            PaletteHelper helper = new();
+            var theme = helper.GetTheme();
+            theme.SetPrimaryColor(primary);
+            theme.SetSecondaryColor(secondary);
+            theme.SetBaseTheme(baseTheme);
+            helper.SetTheme(theme);
         }
     }
 

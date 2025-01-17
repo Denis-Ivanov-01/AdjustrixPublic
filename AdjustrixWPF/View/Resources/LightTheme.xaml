@@ -12,4 +12,6 @@
     <SolidColorBrush x:Key="DisabledBrush">Black</SolidColorBrush>
     <Brush x:Key="ForegroundBrush">black</Brush>
     <SolidColorBrush x:Key="TabHeaderBackground">DarkBlue</SolidColorBrush>
+    <SolidColorBrush x:Key="TabHeaderForeground">white</SolidColorBrush>
+    <SolidColorBrush x:Key="DataGridBackground">#2196f3</SolidColorBrush>
 </ResourceDictionary>

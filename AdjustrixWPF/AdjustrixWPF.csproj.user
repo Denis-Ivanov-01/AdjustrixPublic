@@ -78,6 +78,9 @@
     <Page Update="View\Styles\ComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Styles\DataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\Styles\StackPanel.xaml">
       <SubType>Designer</SubType>
     </Page>
