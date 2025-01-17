@@ -19,7 +19,7 @@
         public void PerformAdjustment()
         {
             LevelingAdjuster adjuster = new(HeightDifferences);
-            adjuster.PerformAdjustment();
+            AdjustmentResult<HeightDelta, AdjustedBenchmark> res = adjuster.PerformAdjustment();
         }
 
         public void LoadJson(string jsonPath)

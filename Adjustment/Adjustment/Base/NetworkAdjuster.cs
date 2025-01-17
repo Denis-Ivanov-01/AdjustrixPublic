@@ -2,7 +2,7 @@
 {
     public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
-        where TAdjustment : Adjustment<TMeasurement, AdjustedPoint>
+        where TAdjustment : Adjustment<TMeasurement, AdjustedBenchmark>
     {
         private readonly List<TMeasurement> _measurements;
 

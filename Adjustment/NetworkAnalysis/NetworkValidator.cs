@@ -24,6 +24,7 @@
         /// <param name="measurements"></param>
         public void PerformInitialValidation(List<TEdge> measurements)
         {
+            //todo: debug this
             AssertNoDuplicates(measurements);
         }
 
@@ -86,7 +87,7 @@
 
         public void AssertNoDuplicates(List<TEdge> measurements)
         {
-            for (int i = 0; i<=measurements.Count; i++)
+            for (int i = 0; i<measurements.Count-1; i++)
             {
                 TEdge meas1 = measurements[i];
                 for (int j = i + 1; j<measurements.Count; j++)

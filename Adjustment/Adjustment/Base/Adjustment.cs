@@ -4,7 +4,7 @@ namespace Adjustment
 {
     public abstract class Adjustment<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
-        where TAdjustedPoint : AdjustedPoint
+        where TAdjustedPoint : AdjustedBenchmark
     {
         public readonly MatrixBuilder<double> matrixBuilder = Matrix<double>.Build;
         public readonly VectorBuilder<double> vectorBuilder = Vector<double>.Build;
@@ -215,7 +215,7 @@ namespace Adjustment
 
     public class AdjustmentResult<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>
-        where TAdjustedPoint : AdjustedPoint
+        where TAdjustedPoint : AdjustedBenchmark
     { // todo: figure out if this will be used
         List<TAdjustedPoint> AdjustedPoints { get; set; }
 

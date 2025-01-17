@@ -2,7 +2,7 @@
 
 namespace Adjustment
 {
-    public class LevelingAdjustment : Adjustment<HeightDelta, AdjustedPoint>
+    public class LevelingAdjustment : Adjustment<HeightDelta, AdjustedBenchmark>
     {
         private const int decimalPrecision = 12;
 
@@ -68,14 +68,14 @@ namespace Adjustment
             return corrections;
         }
 
-        protected override List<AdjustedPoint> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements)
+        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements)
         {
             List<HeightDelta> meas = adjustedMeasurements.Cast<HeightDelta>().ToList();
             Pathfinder<PointBase, HeightDelta> pathfinder = new(meas);
 
             List<NewBenchmark> newPoints = Points
                 .Where(p => p is not KnownBenchmark).Cast<NewBenchmark>().ToList();
-            List<AdjustedPoint> adjustedPoints = new();
+            List<AdjustedBenchmark> adjustedPoints = new();
             KnownBenchmark kp = (KnownBenchmark)Points.Where(x => x is KnownBenchmark).First();
             foreach (NewBenchmark newPoint in newPoints)
             {
@@ -83,7 +83,7 @@ namespace Adjustment
                 pathfinder.ClearTraversedPoints();
                 List<HeightDelta> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<HeightDelta>().ToList();
                 double value = kp.Value + measurements.Sum(meas => meas.Value);
-                adjustedPoints.Add(new AdjustedPoint(newPoint.Number, value, newPoint.X, newPoint.Y));
+                adjustedPoints.Add(new AdjustedBenchmark(newPoint.Number, value, newPoint.X, newPoint.Y));
             }
             return adjustedPoints;
         }

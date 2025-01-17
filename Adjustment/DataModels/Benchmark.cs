@@ -8,6 +8,8 @@ namespace Adjustment
         {
 
         }
+
+        public Benchmark(string number) : base(number) { }
     }
 
     public class KnownBenchmark : KnownPointNoCoordsBase, IOneDimPoint, INode
@@ -25,7 +27,7 @@ namespace Adjustment
         }
     }
 
-    public class NewBenchmark : PointBase, INode
+    public class NewBenchmark : Benchmark, INode
     {
         public NewBenchmark(string number, double? x, double? y) : base(number, x, y)
         {
@@ -38,12 +40,12 @@ namespace Adjustment
         }
     }
 
-    public class AdjustedPoint : PointBase, IOneDimPoint, INode
+    public class AdjustedBenchmark : PointBase, IOneDimPoint, INode
     { //TODO: figure out if this must be in the base file
         // maybe branch out one dimensional adjustments (gravimetric, nivelation)
         public double Value { get; set; }
 
-        public AdjustedPoint(string number, double value, double? x, double? y) : base(number, x, y)
+        public AdjustedBenchmark(string number, double value, double? x, double? y) : base(number, x, y)
         {
             Value = value;
         }
