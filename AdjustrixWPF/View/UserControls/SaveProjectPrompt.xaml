@@ -9,7 +9,9 @@
         Height="150"
         Width="570"
         Background="{DynamicResource BackgroundBrush}"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="LightBlue"
+        BorderThickness="2">
     <Border BorderBrush="{DynamicResource ForegroundBrush}"
             BorderThickness="1">
         <Grid Margin="3">
@@ -34,7 +36,7 @@
             <TextBlock Grid.Row="3"
                    Text="{Binding LanguageViewModel.SaveProjectQuestion}"
                    d:Text="Save changes?"
-                   FontSize="14"
+                   Style="{StaticResource MaterialDesignTitleMediumTextBlock}"
                    Foreground="{DynamicResource ForegroundBrush}"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -47,19 +49,18 @@
                     Foreground="{DynamicResource ForegroundBrush}"
                     d:Content="Yes"
                     FontSize="12"
-                    Width="50"
+                    Width="70"
                     Height="35"
-                    Margin="1,0,11,0"
-                    Style="{StaticResource TabButton}"
+                    Margin="0,0,10,0"
                     Cursor="Hand"
                     Click="YesButton_Click" />
                 <Button Content="{Binding LanguageViewModel.No}"
                     Foreground="{DynamicResource ForegroundBrush}"
                     d:Content="No"
-                    Width="50"
+                    Width="70"
                     Height="35"
-                    Margin="10,0,10,0"
-                    Style="{StaticResource TabButton}"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Cursor="Hand"
                     Click="NoButton_Click" />
             </StackPanel>

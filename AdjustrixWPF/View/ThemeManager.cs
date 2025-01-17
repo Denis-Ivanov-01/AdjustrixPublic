@@ -2,11 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using AdjustrixWPF.ViewModel;
+using MaterialDesignThemes.Wpf;
 
 namespace AdjustrixWPF.View
 {
     public class ThemeManager : DependencyObject
     {
+
+        public static BundledTheme darkTheme = new BundledTheme
+        {
+            PrimaryColor = MaterialDesignColors.PrimaryColor.Blue,
+            BaseTheme = BaseTheme.Light,
+            SecondaryColor = MaterialDesignColors.SecondaryColor.LightBlue,
+            ColorAdjustment = new ColorAdjustment()
+        };
+
+        public static BundledTheme lightTheme = new BundledTheme
+        {
+            PrimaryColor = MaterialDesignColors.PrimaryColor.Blue,
+            SecondaryColor = MaterialDesignColors.SecondaryColor.DeepPurple,
+            BaseTheme = BaseTheme.Light,
+            ColorAdjustment = new()
+        };
 
         public static readonly DependencyProperty CurrentThemeDictionaryProperty =
          DependencyProperty.RegisterAttached("CurrentThemeDictionary", typeof(Uri),
@@ -74,6 +92,22 @@ namespace AdjustrixWPF.View
 
                     Application.Current.Resources.MergedDictionaries.Remove(thDictionary);
                 }
+
+                //List<ResourceDictionary> materialDesignThemes = Application.Current.Resources.MergedDictionaries
+                //    .Where(md => md.GetType() == typeof(BundledTheme)).ToList();
+                //foreach (ResourceDictionary theme in materialDesignThemes)
+                //{
+                //    Application.Current.Resources.MergedDictionaries.Remove(theme);
+                //}
+                //Theme currentTheme = (Theme)Enum.Parse(typeof(Theme), ThemeViewModel.SelectedTheme);
+                //if (currentTheme == Theme.Dark)
+                //{
+                //    Application.Current.Resources.MergedDictionaries.Insert(0, darkTheme);
+                //}
+                //else
+                //{
+                //    Application.Current.Resources.MergedDictionaries.Insert(0, lightTheme);
+                //}
             }
             finally { }
         }

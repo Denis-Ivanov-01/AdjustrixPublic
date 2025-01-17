@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
 using Adjustment.Project;
 
@@ -16,7 +17,7 @@ namespace AdjustrixWPF.ViewModel
         
         public ICommand CloseCommand { get; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(params DependencyObject[] elements)
         {
             ProjectContainer projectStore = new();
             languageViewModel = LanguageViewModel.Singleton;

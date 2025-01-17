@@ -1,0 +1,73 @@
+﻿<Window x:Class="AdjustrixWPF.View.UserControls.EditMeasurementPrompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls"
+        xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="EditMeasurementPrompt" Height="250" Width="600"
+        WindowStyle="None"
+        Background="{DynamicResource BackgroundBrush}"
+        BorderBrush="LightBlue"
+        BorderThickness="3">
+    <StackPanel Orientation="Vertical"
+                HorizontalAlignment="Center"
+                Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Window}}">
+        <Border Height="50" Background="{DynamicResource BackgroundBrush}">
+            <TextBlock Text="Edit measurement" 
+                       Foreground="{DynamicResource ForegroundBrush}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="10"
+                       Style="{StaticResource MaterialDesignTitleMediumTextBlock}"/>
+        </Border>
+        <StackPanel Height="70"
+                    Margin="0 20 0 0"
+                    Background="{DynamicResource BackgroundBrush}"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Border HorizontalAlignment="Center"
+                    BorderThickness="0 0 2 0"
+                    BorderBrush="{DynamicResource ForegroundBrush}"
+                    Opacity="0.7">
+                <TextBlock Text="Value"
+                           Margin="50 0 50 0"
+                           Foreground="{DynamicResource ForegroundBrush}"
+                           Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Border>
+            <TextBox x:Name="InputBox"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     Foreground="{DynamicResource ForegroundBrush}"
+                     d:Text="Placeholder"
+                     TextChanged="InputBox_TextChanged"
+                     Width="150"
+                     MinWidth="150"
+                     MaxWidth="150"
+                     Margin="15"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"
+                    Margin="0 20 0 0"
+                    HorizontalAlignment="Center">
+            <Button Content="Save"
+                    Margin="0 0 20 0"
+                    Width="75"
+                    Click="SaveButton_Click"/>
+            <Button Content="Cancel"
+                    Margin="20 0 0 0"
+                    Width="75"
+                    Click="CancelButton_Click"
+                    Style="{StaticResource MaterialDesignFlatSecondaryButton}"/>
+        </StackPanel>
+        <Border HorizontalAlignment="Center">
+            <TextBlock Margin="0 10 0 0"
+                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       x:Name="MessageBox"
+                       d:Text="Message"
+                       Foreground="Red"
+                       Opacity="0.8"/>
+        </Border>
+    </StackPanel>
+</Window>

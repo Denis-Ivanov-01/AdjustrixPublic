@@ -25,7 +25,16 @@
     <Compile Update="View\UserControls\Composite\MeasurementsDataGrid.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\Composite\PointsDataGrid.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\Composite\ProjectButtons.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\EditMeasurementPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\EditPointPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\LabeledComboBox.xaml.cs">
@@ -102,7 +111,16 @@
     <Page Update="View\UserControls\Composite\MeasurementsDataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\UserControls\Composite\PointsDataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\UserControls\Composite\ProjectButtons.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\EditMeasurementPrompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\EditPointPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\LabeledComboBox.xaml">

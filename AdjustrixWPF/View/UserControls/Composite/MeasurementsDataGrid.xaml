@@ -1,14 +1,13 @@
 ﻿<UserControl x:Class="AdjustrixWPF.View.UserControls.Composite.MeasurementsDataGrid"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid  Margin="5"
-               Style ="{StaticResource MaterialDesignDataGrid}"
                ItemsSource="{Binding LevelingMeasurements}"
                AutoGenerateColumns="False"
                CanUserAddRows="False"
@@ -24,7 +23,10 @@
             </Style>
         </DataGrid.Resources>
         <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding FromPoint.Number}" Width="1*">
+            <DataGridTextColumn Width="50"/>
+            <DataGridTextColumn Binding="{Binding FromPoint.Number}" 
+                                Width="2*"
+                                MinWidth="150">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding DataContext.LanguageViewModel.FromPoint, 
@@ -34,7 +36,9 @@
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
-            <DataGridTextColumn Binding="{Binding ToPoint.Number}" Width="1*">
+            <DataGridTextColumn Binding="{Binding ToPoint.Number}" 
+                                Width="2*"
+                                MinWidth="150">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding DataContext.LanguageViewModel.ToPoint,
@@ -44,39 +48,64 @@
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
-            <DataGridTextColumn Binding="{Binding Length, StringFormat=F3}" Width="1*">
+            <DataGridTextColumn Binding="{Binding Length, StringFormat=F3}" 
+                                Width="1*"
+                                MinWidth="150">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding DataContext.LanguageViewModel.Length, 
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DataContext.LanguageViewModel.Length, 
                                             RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                    d:Text="Length"
                                    Foreground="{DynamicResource ForegroundBrush}"/>
+                            <TextBlock Text=" [m]"/>
+                        </StackPanel>
+
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
-            <DataGridTextColumn Binding="{Binding Value, StringFormat=F3}" Width="1*">
+            <DataGridTextColumn Binding="{Binding Value, StringFormat=F3}" 
+                                Width="1*"
+                                MinWidth="70">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding DataContext.LanguageViewModel.Value, 
-                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                   d:Text="Value"
-                                   Foreground="{DynamicResource ForegroundBrush}"/>
+                        <TextBlock d:Text="Value"
+                                   Foreground="{DynamicResource ForegroundBrush}">
+                            <Run Text="{Binding DataContext.LanguageViewModel.Value, 
+                                     RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=OneWay}"/>
+                            <Run Text=" [m]"/>
+                        </TextBlock>
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
-            <DataGridTemplateColumn Width="*">
+            <DataGridCheckBoxColumn Binding="{Binding IsEnabled}" Header="Enabled"
+                                    Width="80"
+                                    MinWidth="60">
+
+            </DataGridCheckBoxColumn>
+            <DataGridTemplateColumn Width="*" MinWidth="80">
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{materialDesign:PackIcon Kind=RemoveCircleOutline}"
-                                    ToolTip="{Binding DataContext.LanguageViewModel.Delete, 
+                            <Button Content="{materialDesign:PackIcon Kind=ToggleSwitchOutline}"
+                                    Foreground="White"
+                                    Background="DarkBlue"
+                                    BorderThickness="0"
+                                    ToolTip="{Binding DataContext.LanguageViewModel.Delete,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    Command="{Binding DataContext.DeleteMeasurement, 
+                                    Command="{Binding DataContext.ToggleMeasurement,
+                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}">
+                            </Button>
+                            <Button Content="{materialDesign:PackIcon Kind=PencilOutline}"
+                                    ToolTip="{Binding DataContext.LanguageViewModel.Edit,
+                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    Foreground="White"
+                                    Background="DarkBlue"
+                                    BorderThickness="0"
+                                    Command="{Binding DataContext.EditMeasurement,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     CommandParameter="{Binding}"/>
-                            <Button Content="{materialDesign:PackIcon Kind=PencilOutline}"
-                                    ToolTip="{Binding DataContext.LanguageViewModel.Edit, 
-                                RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
                         </StackPanel>
                     </DataTemplate>
                 </DataGridTemplateColumn.CellTemplate>

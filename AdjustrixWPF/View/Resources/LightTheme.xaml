@@ -11,4 +11,5 @@
     <SolidColorBrush x:Key="TabBackgroundBrush">#c9c2cf</SolidColorBrush>
     <SolidColorBrush x:Key="DisabledBrush">Black</SolidColorBrush>
     <Brush x:Key="ForegroundBrush">black</Brush>
+    <SolidColorBrush x:Key="TabHeaderBackground">DarkBlue</SolidColorBrush>
 </ResourceDictionary>

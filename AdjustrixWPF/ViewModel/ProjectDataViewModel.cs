@@ -7,6 +7,7 @@ using Adjustment.Project;
 using Adjustment;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -19,9 +20,11 @@ namespace AdjustrixWPF.ViewModel
         private ObservableCollection<KnownBenchmark> knownBenchmarks;
         private LanguageViewModel languageViewModel;
 
-        public ICommand DeleteMeasurement { get; }
+        public ICommand ToggleMeasurement { get; }
 
         public ICommand EditMeasurement { get; }
+
+        public ICommand EditPoint { get; }
 
         public ObservableCollection<HeightDelta> LevelingMeasurements
         {
@@ -65,18 +68,46 @@ namespace AdjustrixWPF.ViewModel
             projectContainer.ProjectChanged += OnProjectChanged;
             projectContainer.ProjectTypeChanged += OnProjectTypeChanged;
 
-            DeleteMeasurement = new RelayCommand(RemoveMeasurement, CanRemoveMeasurement);
+            ToggleMeasurement = new RelayCommand(ToggleMeasurementEnabled, CanToggleMeasurement);
+            EditMeasurement = new RelayCommand(EditMeasurementValue);
+            EditPoint = new RelayCommand(EditPointValue);
         }
 
-        private void RemoveMeasurement(object parameter)
+        private void EditMeasurementValue(object parameter)
         {
             HeightDelta delta = (HeightDelta)parameter;
-            LevelingMeasurements.Remove(delta);
-            UpdateProject();
-            projectContainer.ChangeProject(currentProject);
+            int deltaIndex = LevelingMeasurements.IndexOf(delta);
+            EditMeasurementPrompt prompt = new(delta);
+            prompt.ShowDialog();
+            if (prompt.Edit)
+            {
+                LevelingMeasurements[deltaIndex].Value = prompt.Value;
+                PublishProjectChanges();
+            }
         }
 
-        private bool CanRemoveMeasurement(object parameter)
+        public void EditPointValue(object parameter)
+        {
+            KnownBenchmark point = (KnownBenchmark)parameter;
+            int pointIndex = KnownBenchmarks.IndexOf(point);
+            EditPointPrompt prompt = new(point);
+            prompt.ShowDialog();
+            if (prompt.Edit)
+            {
+                KnownBenchmarks[pointIndex].Value = prompt.Value;
+                UpdatePointsInMeasurements(point);
+                PublishProjectChanges();
+            }
+        }
+
+        private void ToggleMeasurementEnabled(object parameter)
+        {
+            HeightDelta delta = (HeightDelta)parameter;
+            delta.IsEnabled = delta.IsEnabled? false: true;
+            PublishProjectChanges();
+        }
+
+        private bool CanToggleMeasurement(object parameter)
         {
             return true;
         }
@@ -127,6 +158,12 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
+        private void PublishProjectChanges()
+        {
+            UpdateProject();
+            projectContainer.ChangeProject(currentProject);
+        }
+
         private void UpdateProject()
         {
             switch (projectType)
@@ -138,6 +175,21 @@ namespace AdjustrixWPF.ViewModel
                     break;
                 default:
                     throw new NotImplementedException();
+            }
+        }
+
+        private void UpdatePointsInMeasurements(KnownBenchmark newPoint)
+        {
+            foreach (HeightDelta meas in LevelingMeasurements)
+            {
+                if (meas.FromPoint.Number == newPoint.Number)
+                {
+                    meas.FromPoint = newPoint;
+                }
+                else if (meas.ToPoint.Number == newPoint.Number)
+                {
+                    meas.ToPoint = newPoint;
+                }
             }
         }
     }

@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using AdjustrixWPF.ViewModel;
+using MaterialDesignThemes.Wpf;
+using System.Drawing;
 
 namespace AdjustrixWPF
 {
@@ -11,7 +13,6 @@ namespace AdjustrixWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private bool _mRestoreForDragMove;
 
         public MainWindow()
@@ -19,6 +20,7 @@ namespace AdjustrixWPF
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             this.DataContext = new MainWindowViewModel();
+            //ThemeViewModel.RegisterObject(DataTab);
         }
 
         // Not using this because of weird behaviour of DragMove()

@@ -36,6 +36,8 @@
 
         public bool IsReversed { get; set; }
 
+        public bool IsEnabled { get; set; } = true;
+
         public MeasurementBase(TNode FromPoint, TNode ToPoint, double Length, bool IsReversed = false)
         {
             this.FromPoint = FromPoint;

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdjustrixWPF"
+        xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:userControls="clr-namespace:AdjustrixWPF.View.UserControls"
         xmlns:compositeControls="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
         mc:Ignorable="d"
@@ -27,39 +28,13 @@
         <Border Grid.Row="1" 
                 Background="{DynamicResource TabBackgroundBrush}"
                 BorderThickness="0">
-            <TabControl>
+            <TabControl x:Name="DataTab"
+                        wpf:ColorZoneAssist.Background="{DynamicResource TabHeaderBackground}">
                 <TabItem Header="Measurements">
                     <compositeControls:MeasurementsDataGrid DataContext="{Binding DataViewModel}"/>
                 </TabItem>
                 <TabItem Header="Points">
-                    <DataGrid DataContext="{Binding DataViewModel}"
-                              AutoGenerateColumns="False"
-                              ItemsSource="{Binding KnownBenchmarks}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="*"
-                                                Binding="{Binding Number}">
-                                <DataGridTextColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding DataContext.LanguageViewModel.Number, 
-                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                   d:Text="Number"
-                                                   Foreground="{DynamicResource ForegroundBrush}"/>
-                                    </DataTemplate>
-                                </DataGridTextColumn.HeaderTemplate>
-                            </DataGridTextColumn>
-                            <DataGridTextColumn Width="*"
-                                                Binding="{Binding Value, StringFormat=F3}">
-                                <DataGridTextColumn.HeaderTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding DataContext.LanguageViewModel.Elevation, 
-                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                   d:Text="Elevation"
-                                                   Foreground="{DynamicResource ForegroundBrush}"/>
-                                    </DataTemplate>
-                                </DataGridTextColumn.HeaderTemplate>
-                            </DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <compositeControls:PointsDataGrid DataContext="{Binding DataViewModel}"/>
                 </TabItem>
             </TabControl>
             

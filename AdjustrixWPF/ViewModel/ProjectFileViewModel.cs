@@ -205,12 +205,12 @@ namespace AdjustrixWPF.ViewModel
 
         private void SaveProjectFile(object parameter)
         {
-            if (HasUnsavedChanges && !AskProjectSave())
-            {
-                return;
-                //bool result = AskProjectSave();
-                //if (result == false) { return; }
-            }
+            //if (HasUnsavedChanges && !AskProjectSave())
+            //{
+            //    return;
+            //    //bool result = AskProjectSave();
+            //    //if (result == false) { return; }
+            //}
 
             projectFile.ToFile(project);
             projectContainer.SetChanges(false);
