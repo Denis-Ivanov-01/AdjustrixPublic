@@ -5,6 +5,7 @@ namespace AdjustrixWPF.ViewModel
 {
     public class ProjectContainer
     {
+
         private AdjustrixProject project;
 
         public AdjustrixProject Project
@@ -13,9 +14,24 @@ namespace AdjustrixWPF.ViewModel
             private set { project = value; }
         }
 
+        private string projectFolder;
+
+        public string ProjectFolder
+        {
+            get
+            {
+                return projectFolder;
+            }
+            private set
+            {
+                projectFolder = value;
+            }
+        }
+
         public event Action<AdjustrixProject> ProjectChanged;
         public event Action<ProjectType> ProjectTypeChanged;
         public event Action<bool> ProjectChangesChanged;
+        public event Action<string> ProjectFolderChanged;
 
         
         public void ChangeProject(AdjustrixProject project)
@@ -29,6 +45,12 @@ namespace AdjustrixWPF.ViewModel
         public void ChangeProjectType(ProjectType type)
         {
             ProjectTypeChanged?.Invoke(type);
+        }
+
+        public void ChangeProjectFolder(string folder)
+        {
+            ProjectFolder = folder;
+            ProjectFolderChanged?.Invoke(ProjectFolder);
         }
 
         public void SetChanges(bool value)

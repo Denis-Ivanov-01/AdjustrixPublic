@@ -1,19 +1,22 @@
 ﻿namespace Adjustment
 {
     public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
-        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
+        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, 
+        IDeactivatable, new()
         where TAdjustment : Adjustment<TMeasurement, AdjustedBenchmark>
     {
         private readonly List<TMeasurement> _measurements;
 
         public NetworkAdjuster(List<TMeasurement> measurements)
         {
-            _measurements = measurements;
+            _measurements = measurements.Where(x => x.IsEnabled).ToList();
         }
+
+        public abstract void Process(string directory);
 
         public abstract void GeneratePDFReport();
 
-        public void PerformAdjustment()
+        public AdjustmentResult<TMeasurement, AdjustedBenchmark> PerformAdjustment()
         {
             NetworkAnalyzer<TMeasurement> networkAnalyzer = new(_measurements);
             List<List<PointBase>> distinctTraverses = networkAnalyzer.FindAllDistinctTraverses();
@@ -22,7 +25,7 @@
             // IMO the pros outweigh the cons in this case :)
             object[] args = new object[] { distinctTraverses, _measurements };
             TAdjustment adjustment = (TAdjustment)Activator.CreateInstance(typeof(TAdjustment), args)!;
-            adjustment.AdjustNetwork();
+            return adjustment.AdjustNetwork();
             //todo: figure out what should be included in the reports and then figure out how to create
             // these reports in the most efficient way - in which class should that happen?
         }

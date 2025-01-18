@@ -14,15 +14,18 @@ namespace AdjustrixWPF.ViewModel
         public SystemFileManagement SystemFileSingleton { get; set; }
 
         public ProjectDataViewModel DataViewModel { get; set; }
+
+        public ProcessingViewModel ProcessingViewModel { get; set; }
         
         public ICommand CloseCommand { get; }
 
-        public MainWindowViewModel(params DependencyObject[] elements)
+        public MainWindowViewModel()
         {
-            ProjectContainer projectStore = new();
+            ProjectContainer container = new();
             languageViewModel = LanguageViewModel.Singleton;
-            projectViewModel = new ProjectFileViewModel(projectStore);
-            DataViewModel = new(projectStore);
+            projectViewModel = new ProjectFileViewModel(container);
+            DataViewModel = new(container);
+            this.ProcessingViewModel = new ProcessingViewModel(container);
             SystemFileSingleton = SystemFileManagement.Singleton;
             CloseCommand = new RelayCommand(Close);
         }

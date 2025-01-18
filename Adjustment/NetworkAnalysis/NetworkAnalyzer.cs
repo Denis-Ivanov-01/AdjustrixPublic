@@ -50,7 +50,7 @@
         #region Common
         private int CalculateRedundancy()
         {
-            int knownPointsCount = graphData.Keys.OfType<KnownPointNoCoordsBase>().Count();
+            int knownPointsCount = graphData.Keys.OfType<KnownBenchmark>().Count();
             int unknownPointsCount = graphData.Keys.Count - knownPointsCount;
             return measurementsCount - unknownPointsCount;
         }
@@ -188,11 +188,12 @@
             }
             List<List<PointBase>> allClosedTravs = hsallClosedTravs.Distinct(new PointListComparer<PointBase>()).OrderByDescending(x => x.Count).ToList();
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs, traversesFromBreakdown);
-
+            
             //this was added so that complex closed traverses would be eliminated.
             //otherwise, the algorithm can find huge closed traverses that encapsulate multiple smaller ones.
             //it should work fine, but test it using multiple configurations!
             allClosedTravs = SupersetRemover.RemoveCompositeSupersets(allClosedTravs, new List<List<PointBase>>());
+
             allClosedTravs = BreakClosedTraversesToLinked(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsTwoTypes(allClosedTravs);
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs, traversesFromBreakdown);
@@ -419,11 +420,13 @@
 
         private void InsertEdge(TEdge edge)
         {
-            if (!graphData.ContainsKey(edge.FromPoint))
+            if (!graphData.Keys.Any(x => x.Number == edge.FromPoint.Number))
+            //if (!graphData.ContainsKey(edge.FromPoint))
             {
                 graphData[edge.FromPoint] = new List<TEdge>();
             }
-            if (!graphData[edge.FromPoint].Any(e => e.FromPoint == edge.FromPoint && e.ToPoint == edge.ToPoint))
+            if (!graphData[edge.FromPoint].Any(e => e.FromPoint.Number == edge.FromPoint.Number 
+            && e.ToPoint.Number == edge.ToPoint.Number))
             {
                 graphData[edge.FromPoint].Add(edge);
             }
@@ -431,7 +434,7 @@
 
         private void RemoveEdgeByPoint(PointBase starPointBase, PointBase endNode)
         {
-            TEdge edge = graphData[starPointBase].Where(x => x.ToPoint == endNode).First();
+            TEdge edge = graphData[starPointBase].Where(x => x.ToPoint.Number == endNode.Number).First();
             int index = graphData[starPointBase].IndexOf(edge);
             graphData[starPointBase].RemoveAt(index);
         }
@@ -450,7 +453,8 @@
             {
                 foreach (TEdge edge in graphData[key])
                 {
-                    if (!graphData.ContainsKey(edge.ToPoint))
+                    if (!graphData.Keys.Any(x => x.Number == edge.ToPoint.Number))
+                    //if (!graphData.ContainsKey(edge.ToPoint))
                     {
                         graphData[edge.ToPoint] = new List<TEdge>();
                     }
@@ -458,7 +462,8 @@
                     //reverseEdge.FromPoint = edge.ToPoint;
                     //reverseEdge.ToPoint = edge.FromPoint;
                     //reverseEdge.Length = edge.Length;
-                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint == reverseEdge.FromPoint && e.ToPoint == reverseEdge.ToPoint))
+                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint.Number == reverseEdge.FromPoint.Number 
+                    && e.ToPoint.Number == reverseEdge.ToPoint.Number))
                     {
                         graphData[edge.ToPoint].Add(reverseEdge);
                     }

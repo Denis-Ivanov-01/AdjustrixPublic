@@ -38,7 +38,7 @@ namespace Adjustment
             Vector<double> adjustedResiduals = CalculateResidualsVector(AsignMeasurementsToTraverses(adjustedMeasurements));
             ValidateAdjustmentResult(adjustedResiduals);
             List<TAdjustedPoint> adjustedPoints = CalculateUnknownPoints(adjustedMeasurements);
-            AdjustmentResult<TMeasurement, TAdjustedPoint> result = new(adjustedPoints, adjustedMeasurements, corrections);
+            AdjustmentResult<TMeasurement, TAdjustedPoint> result = new(adjustedPoints, adjustedMeasurements, corrections, DistinctTraverses);
             return result;
         }
 
@@ -112,8 +112,10 @@ namespace Adjustment
 
         protected TMeasurement FindMeasurementByPoints(PointBase p1, PointBase p2, List<TMeasurement> measurements)
         {
-            IEnumerable<TMeasurement> positiveMeas = measurements.Where(m => m.FromPoint == p1 && m.ToPoint == p2);
-            IEnumerable<TMeasurement> negativeMeas = measurements.Where(m => m.FromPoint == p2 && m.ToPoint == p1);
+            IEnumerable<TMeasurement> positiveMeas = measurements.Where(
+                m => m.FromPoint.Number == p1.Number && m.ToPoint.Number == p2.Number);
+            IEnumerable<TMeasurement> negativeMeas = measurements.Where(
+                m => m.FromPoint.Number == p2.Number && m.ToPoint.Number == p1.Number);
             if (positiveMeas.Any())
             {
                 return positiveMeas.First();
@@ -217,19 +219,23 @@ namespace Adjustment
         where TMeasurement : IEdge<PointBase, TMeasurement>
         where TAdjustedPoint : AdjustedBenchmark
     { // todo: figure out if this will be used
-        List<TAdjustedPoint> AdjustedPoints { get; set; }
+        public List<TAdjustedPoint> AdjustedPoints { get; set; }
 
-        List<TMeasurement> AdjustedMeasurements { get; set; }
+        public List<TMeasurement> AdjustedMeasurements { get; set; }
 
-        Vector<double> AdjustedCorrections { get; set; }
+        public Vector<double> AdjustedCorrections { get; set; }
+
+        public List<List<PointBase>> DistinctTraverses { get; set; }
 
         public AdjustmentResult(List<TAdjustedPoint> adjustedPoints,
             List<TMeasurement> adjustedMeasurements,
-            Vector<double> adjustedCorrections)
+            Vector<double> adjustedCorrections,
+            List<List<PointBase>> distinctTravs)
         {
             AdjustedPoints = adjustedPoints;
             AdjustedMeasurements = adjustedMeasurements;
             AdjustedCorrections = adjustedCorrections;
+            DistinctTraverses = distinctTravs;
         }
     }
 }

@@ -44,29 +44,25 @@
         // There must be a path from each point to every other point
         public void AssertGraphIsConnected()
         {//Maybe this should be done for every point. Think about it.
-            var visited = new HashSet<PointBase>();
+            Pathfinder<PointBase, TEdge> pf = new(graphData);
 
-            void DFS(PointBase point)
+            List<PointBase> points = graphData.Keys.ToList();
+
+            for (int i = 0 ; i < points.Count - 1; i++)
             {
-                if (visited.Contains(point))
+                PointBase p1 = points[i];
+                for (int j = i + 1; j < points.Count; j++)
                 {
-                    return;
+                    PointBase p2 = points[j];
+                    try
+                    {
+                        pf.AStar(p1, p2);
+                    }
+                    catch (Exception) 
+                    {
+                        throw new Exception("The network is not fully connected!");
+                    }
                 }
-
-                visited.Add(point);
-
-                foreach (var neighbor in GetNeighbors(point))
-                {
-                    DFS(neighbor);
-                }
-            }
-
-            // Start DFS from any point
-            DFS(graphData.Keys.First());
-
-            if (visited.Count != graphData.Keys.Count)
-            {
-                throw new InvalidOperationException("The graph is not fully connected.");
             }
         }
 

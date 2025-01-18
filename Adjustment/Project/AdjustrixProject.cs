@@ -50,5 +50,7 @@ namespace Adjustment.Project
             this.CreateDate = CreateDate == null ? DateTime.Now : (DateTime)CreateDate;
             this.LastUpdateDate = LastUpdateDate == null ? DateTime.Now : (DateTime)LastUpdateDate;
         }
+
+        protected abstract void EnsureValidDataTypes();
     }
 }

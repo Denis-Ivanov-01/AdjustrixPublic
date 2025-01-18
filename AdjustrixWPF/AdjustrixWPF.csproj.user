@@ -49,7 +49,13 @@
     <Compile Update="View\UserControls\LabeledTabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\ProcessingErrorPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\SaveProjectPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\SuccessfulProcessingPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\TabButton.xaml.cs">
@@ -138,7 +144,13 @@
     <Page Update="View\UserControls\LabeledTabButton.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\UserControls\ProcessingErrorPrompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\UserControls\SaveProjectPrompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\SuccessfulProcessingPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\TabButton.xaml">

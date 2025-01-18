@@ -24,7 +24,12 @@
         public bool IsReversed { get; set; }
     }
 
-    public abstract class MeasurementBase<TNode, TEdge> : IEdge<TNode, TEdge>, IDirectedMeasurement
+    public interface IDeactivatable
+    {
+        public bool IsEnabled { get; set; }
+    }
+
+    public abstract class MeasurementBase<TNode, TEdge> : IEdge<TNode, TEdge>, IDirectedMeasurement, IDeactivatable
         where TNode : INode
         where TEdge : IEdge<TNode, TEdge>, new()
     {

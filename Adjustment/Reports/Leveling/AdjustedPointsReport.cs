@@ -1,5 +1,7 @@
 ﻿
 
+using System.Text;
+
 namespace Adjustment.Reports.Leveling
 {
     public class AdjustedPointsReport : IReportGenerator
@@ -25,9 +27,14 @@ namespace Adjustment.Reports.Leveling
             for (int i = 0; i < adjustedBenchmarks.Count; i++)
             {
                 AdjustedBenchmark b = adjustedBenchmarks[i];
-                lines[i + 1] = string.Join(", ", b.Number, b.Value, -1);
+                lines[i + 1] = string.Join(", ", b.Number, Math.Round(b.Value, 4), -1);
             }
-            File.WriteAllLines(path, lines);
+
+            byte[] bom = new byte[] { 0xEF, 0xBB, 0xBF }; // UTF-8 BOM
+            byte[] contentBytes = Encoding.UTF8.GetBytes(string.Join("\n", lines));
+            byte[] bytes = bom.Concat(contentBytes).ToArray();
+
+            File.WriteAllBytes(path, bytes);
         }
 
         private string GetName(string dir)
@@ -43,7 +50,7 @@ namespace Adjustment.Reports.Leveling
             string finalName = name;
             while (names.Contains(finalName))
             {
-                finalName = $"{finalName}_{counter}";
+                finalName = $"{name}_{counter}";
                 counter++;
             }
             return finalName;

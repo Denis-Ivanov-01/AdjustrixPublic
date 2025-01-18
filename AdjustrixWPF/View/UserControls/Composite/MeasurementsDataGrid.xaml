@@ -71,10 +71,17 @@
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
-            <DataGridCheckBoxColumn Binding="{Binding IsEnabled}" Header="Enabled"
-                                    Width="80"
+            <DataGridCheckBoxColumn Binding="{Binding IsEnabled}"
+                                    Width="100"
                                     MinWidth="60">
-
+                <DataGridCheckBoxColumn.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock d:Text="Enabled"
+                                   Foreground="{DynamicResource ForegroundBrush}"
+                                   Text="{Binding DataContext.LanguageViewModel.Enabled, 
+                                     RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=OneWay}"/>
+                    </DataTemplate>
+                </DataGridCheckBoxColumn.HeaderTemplate>
             </DataGridCheckBoxColumn>
             <DataGridTemplateColumn Width="*" MinWidth="80">
                 <DataGridTemplateColumn.CellTemplate>
@@ -84,7 +91,7 @@
                                     Foreground="White"
                                     Background="DarkBlue"
                                     BorderThickness="0"
-                                    ToolTip="{Binding DataContext.LanguageViewModel.Delete,
+                                    ToolTip="{Binding DataContext.LanguageViewModel.Toggle,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     Command="{Binding DataContext.ToggleMeasurement,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"

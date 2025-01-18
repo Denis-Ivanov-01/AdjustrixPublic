@@ -19,6 +19,18 @@ namespace Adjustment.Project
 
         protected const string fileExtension = ".adjx";
 
+        public string LastProjectFolder
+        {
+            get
+            {
+                return lastProjectFolder;
+            }
+            private set
+            {
+                lastProjectFolder = value;
+            }
+        }
+
         public ProjectFileManager()
         {
             ProjectTypeClassMapping = new();
@@ -43,9 +55,9 @@ namespace Adjustment.Project
             {//If no project folder is specified, we take the project folder of the last project file
 
                 //todo: add some message here
-                if (string.IsNullOrWhiteSpace(lastProjectFolder)) { throw new ArgumentNullException(); }
+                if (string.IsNullOrWhiteSpace(LastProjectFolder)) { throw new ArgumentNullException(); }
 
-                projectFolder = lastProjectFolder;
+                projectFolder = LastProjectFolder;
             }
             string projName = $"{project.Name}{fileExtension}";
             string path = Path.Combine(projectFolder, projName);
@@ -55,7 +67,7 @@ namespace Adjustment.Project
             {
                 zipStream.Write(bytes, 0, bytes.Length);
             }
-            lastProjectFolder = projectFolder;
+            LastProjectFolder = projectFolder;
         }
 
         public AdjustrixProject FromFile(string path)
@@ -75,16 +87,18 @@ namespace Adjustment.Project
                 string decompressed = Encoding.UTF8.GetString(decompressedBytes);
                 var options = new JsonSerializerOptions
                 {
-                    PropertyNameCaseInsensitive = true
+                    PropertyNameCaseInsensitive = false
                 };
 
-                lastProjectFolder = Path.GetDirectoryName(path)!;
+                LastProjectFolder = Path.GetDirectoryName(path)!;
 
-                return Deserialize(decompressed);
+                AdjustrixProject project = Deserialize(decompressed, options);
+
+                return Deserialize(decompressed, options);
             }
         }
 
-        private AdjustrixProject Deserialize(string projectString)
+        private AdjustrixProject Deserialize(string projectString, JsonSerializerOptions options)
         {
             NetworkTypeData type = JsonSerializer.Deserialize<NetworkTypeData>(projectString)!;
             ProjectType projectType = (ProjectType)Enum.Parse(typeof(ProjectType), type.NetworkType, true);
@@ -92,7 +106,7 @@ namespace Adjustment.Project
             switch (projectType)
             {
                 case ProjectType.Leveling:
-                    return JsonSerializer.Deserialize<LevelingProject>(projectString)!;
+                    return JsonSerializer.Deserialize<LevelingProject>(projectString, options)!;
                 default:
                     throw new ArgumentException("Invalid type string!");
             }

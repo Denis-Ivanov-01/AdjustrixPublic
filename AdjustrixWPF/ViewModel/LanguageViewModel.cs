@@ -56,11 +56,12 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry value = new("Стойност", "Value");
         private readonly StringEntry number = new("Номер", "Number");
         private readonly StringEntry elevation = new("Височина", "Elevation");
-        private readonly StringEntry delete = new("Изтрий", "Delete");
+        private readonly StringEntry toggle = new("Включи/Изключи", "Toggle");
         private readonly StringEntry edit = new("Редактирай", "Edit");
         private readonly StringEntry processing = new("Обработка", "Processing");
         private readonly StringEntry measurements = new("Измервания", "Measurements");
         private readonly StringEntry benchmarks = new("Репери", "Benchmarks");
+        private readonly StringEntry enabled = new("Включено", "Enabled");
 
 
         private static Language currentLanguage;
@@ -291,11 +292,11 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
-        public string Delete
+        public string Toggle
         {
             get
             {
-                return delete.GetString(currentLanguage);
+                return toggle.GetString(currentLanguage);
             }
         }
 
@@ -331,6 +332,13 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
+        public string Enabled
+        {
+            get
+            {
+                return enabled.GetString(currentLanguage);
+            }
+        }
         private static LanguageViewModel GetInstance()
         {
             if (instance == null)

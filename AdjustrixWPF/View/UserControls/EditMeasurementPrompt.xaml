@@ -8,23 +8,26 @@
         mc:Ignorable="d"
         Title="EditMeasurementPrompt" Height="250" Width="600"
         WindowStyle="None"
-        Background="{DynamicResource BackgroundBrush}"
+        ResizeMode="CanResizeWithGrip" 
+        AllowsTransparency="True"
+        Background="{DynamicResource HoveredBrush}"
         BorderBrush="LightBlue"
-        BorderThickness="3">
+        BorderThickness="3"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <StackPanel Orientation="Vertical"
                 HorizontalAlignment="Center"
                 Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Window}}">
-        <Border Height="50" Background="{DynamicResource BackgroundBrush}">
-            <TextBlock Text="Edit measurement" 
+        <Border Height="50" Background="Transparent">
+            <TextBlock Text="Edit measurement"
                        Foreground="{DynamicResource ForegroundBrush}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Margin="10"
+                       Margin="15"
                        Style="{StaticResource MaterialDesignTitleMediumTextBlock}"/>
         </Border>
         <StackPanel Height="70"
                     Margin="0 20 0 0"
-                    Background="{DynamicResource BackgroundBrush}"
+                    Background="Transparent"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Border HorizontalAlignment="Center"

@@ -30,7 +30,6 @@ namespace AdjustrixWPF.ViewModel
             {
                 return languageViewModel;
             }
-
         }
 
         public AdjustrixProject Project
@@ -166,9 +165,7 @@ namespace AdjustrixWPF.ViewModel
                     //todo: Check if file exists before. Prompt to overwrite it
                     projectFile.ToFile(project, folderBrowser.SelectedPath);
                     projectContainer.ChangeProject(project);
-                    ProjectSaved = true;
-                    ProjectLoaded = true;
-                    ProjectChanged = false;
+                    projectContainer.ChangeProjectFolder(projectFile.LastProjectFolder);
                 }
             }
         }
@@ -192,9 +189,7 @@ namespace AdjustrixWPF.ViewModel
                 project = projectFile.FromFile(dialog.FileName);
                 projectContainer.ChangeProject(project);
                 projectContainer.SetChanges(false);
-                ProjectLoaded = true;
-                ProjectSaved = true;
-                ProjectChanged = false;
+                projectContainer.ChangeProjectFolder(projectFile.LastProjectFolder);
             }
         }
 
@@ -214,8 +209,6 @@ namespace AdjustrixWPF.ViewModel
 
             projectFile.ToFile(project);
             projectContainer.SetChanges(false);
-            ProjectSaved = true;
-            ProjectChanged = false;
         }
 
         private bool CanSaveProject(object parameter)

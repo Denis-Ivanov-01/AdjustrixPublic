@@ -2,14 +2,48 @@
 
 namespace Adjustment
 {
-    public class Benchmark : PointBase, IOneDimPoint, INode
+    public class Benchmark : PointBase, IOneDimPoint, INode, IEquatable<Benchmark>
     {
         public Benchmark(string number, double? x, double? y) : base(number, x, y)
         {
 
         }
 
+        [JsonConstructor]
+        public Benchmark(string Number, double Value) : base(Number, Value)
+        {
+
+        }
+
         public Benchmark(string number) : base(number) { }
+
+        public bool Equals(Benchmark? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return other.Number == Number;
+        }
+
+        public bool Equals(KnownBenchmark? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+            return other.Number == Number;
+        }
+
+        public bool Equals(NewBenchmark? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return other.Number == Number;
+        }
     }
 
     public class KnownBenchmark : KnownPointNoCoordsBase, IOneDimPoint, INode

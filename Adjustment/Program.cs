@@ -1,4 +1,5 @@
-﻿using Adjustment.Adjustment;
+﻿using Adjustment;
+using Adjustment.Adjustment;
 using Adjustment.Project;
 
 class Program
@@ -9,9 +10,9 @@ class Program
         string file = @"C:\Users\denis\Desktop\Геодезия\_Дипломна\project.adjx";
 
         ProjectFileManager projectFile = new ProjectFileManager();
-        LevelingProject proj = (LevelingProject)projectFile.FromFile(file);
+        //LevelingProject proj = (LevelingProject)projectFile.FromFile(file);
 
-        JSONLevelingData data = new(@"C:\Users\denis\source\repos\Adjustrix\testInputData2.json");
+        JSONLevelingData data = new(@"C:\Users\denis\source\repos\Adjustrix\testInputData3.json");
         //LevelingAdjuster adjuster = new LevelingAdjuster(data.HeightDifferences);
         //adjuster.PerformAdjustment();
         LevelingProject project = new(
@@ -20,10 +21,13 @@ class Program
             //@"C:\\Users\\denis\\Desktop\\Геодезия\\_Дипломна",
             "project", "site", "contractor", "client");
         
-        projectFile.ToFile(project, folder);
-        LevelingProject levelingProject = (LevelingProject)projectFile.FromFile(file);
-        projectFile.ToFile(levelingProject, folder);
+        //projectFile.ToFile(project, folder);
+        //LevelingProject levelingProject = (LevelingProject)projectFile.FromFile(file);
+        //projectFile.ToFile(levelingProject, folder);
         LevelingProject project2 = (LevelingProject)projectFile.FromFile(file);
-        Console.WriteLine();
+
+        LevelingProcessing processing = new(project2.HeightDifferences);
+        processing.Process(folder);
+
     }
 }

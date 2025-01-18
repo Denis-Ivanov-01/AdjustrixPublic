@@ -119,10 +119,17 @@
                     BorderBrush="{DynamicResource ForegroundBrush}"
                     Background="Transparent">
                 <StackPanel Orientation="Horizontal">
-                    <Grid>
+                    <Grid Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Window}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <userControls:LabeledTabButtonIcon Height="105"
+                                                               Margin="20 0 0 0"
+                                                               Width="70"
+                                                               Label="Adjust"
+                                                               Command="{Binding ProcessingViewModel.Adjust}"/>
+                        </StackPanel>
                     </Grid>
                 </StackPanel>
             </Border>

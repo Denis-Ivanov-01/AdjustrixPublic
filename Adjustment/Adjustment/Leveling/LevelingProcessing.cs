@@ -1,34 +1,24 @@
-﻿namespace Adjustment.Adjustment.Leveling
+﻿using Adjustment.Reports.Leveling;
+
+namespace Adjustment
 {
-    public class LevelingProcessing
+    public class LevelingProcessing : NetworkAdjuster<HeightDelta, LevelingAdjustment>
     {
-        private List<HeightDelta> measurements;
 
-        public List<HeightDelta> HeightDifferences
+        private AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
+
+        public LevelingProcessing(List<HeightDelta> measurements) : base(measurements)
         {
-            get
-            {
-                if (measurements == null)
-                {
-                    throw new ArgumentNullException();
-                }
-                return measurements;
-            }
+            this.AdjustmentResult = PerformAdjustment();
         }
 
-        public void PerformAdjustment()
+        public override void Process(string directory)
         {
-            LevelingAdjuster adjuster = new(HeightDifferences);
-            AdjustmentResult<HeightDelta, AdjustedBenchmark> res = adjuster.PerformAdjustment();
+            AdjustedPointsReport benchmarksReport = new(this.AdjustmentResult.AdjustedPoints);
+            benchmarksReport.Generate(directory);
         }
 
-        public void LoadJson(string jsonPath)
-        {
-            JSONLevelingData data = new(jsonPath);
-            measurements = data.HeightDifferences;
-        }
-
-        public void LoadExcel(string excelPath)
+        public override void GeneratePDFReport()
         {
             throw new NotImplementedException();
         }

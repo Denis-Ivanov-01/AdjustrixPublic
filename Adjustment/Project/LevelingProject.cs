@@ -38,6 +38,39 @@ namespace Adjustment.Project
             //if (ProjectType != ProjectType.Leveling) { throw new ArgumentException("Incorrect project type!"); }
             this.HeightDifferences = HeightDifferences;
             this.KnownBenchmarks = KnownBenchmarks;
+            EnsureValidDataTypes();
+        }
+
+        protected override void EnsureValidDataTypes()
+        { //TODO: think whether to leave this that way?
+            //maybe it is a good idea to have some validation
+            foreach (KnownBenchmark kb in KnownBenchmarks) 
+            {
+                foreach (HeightDelta delta in HeightDifferences)
+                {
+                    if (delta.FromPoint.Number == kb.Number)
+                    {
+                        delta.FromPoint = kb;
+                    }
+                    else if (delta.ToPoint.Number == kb.Number)
+                    {
+                        delta.ToPoint = kb;
+                    }
+                }
+            }
+            foreach(HeightDelta delta in HeightDifferences)
+            {
+                Type fpType = delta.FromPoint.GetType();
+                Type tpType = delta.ToPoint.GetType();
+                if (fpType != typeof(KnownBenchmark) && fpType != typeof(NewBenchmark))
+                {
+                    delta.FromPoint = new NewBenchmark(delta.FromPoint.Number);
+                }
+                if (tpType != typeof(KnownBenchmark) && tpType != typeof(NewBenchmark))
+                {
+                    delta.ToPoint = new NewBenchmark(delta.ToPoint.Number);
+                }
+            }
         }
     }
 }
