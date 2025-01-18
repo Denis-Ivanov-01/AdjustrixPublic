@@ -16,16 +16,20 @@ namespace AdjustrixWPF.ViewModel
         public ProjectDataViewModel DataViewModel { get; set; }
 
         public ProcessingViewModel ProcessingViewModel { get; set; }
+
+        public MessageBoxViewModel MessageBoxViewModel { get; set; }
         
         public ICommand CloseCommand { get; }
 
         public MainWindowViewModel()
         {
-            ProjectContainer container = new();
+            ProjectContainer projectContainer = new();
+            MessageDelegate messageDelegate = new MessageDelegate();
             languageViewModel = LanguageViewModel.Singleton;
-            projectViewModel = new ProjectFileViewModel(container);
-            DataViewModel = new(container);
-            this.ProcessingViewModel = new ProcessingViewModel(container);
+            projectViewModel = new ProjectFileViewModel(projectContainer);
+            DataViewModel = new(projectContainer);
+            this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
+            this.MessageBoxViewModel = new(messageDelegate);
             SystemFileSingleton = SystemFileManagement.Singleton;
             CloseCommand = new RelayCommand(Close);
         }

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using System.Diagnostics;
 using Adjustment;
-using Adjustment.Adjustment.Leveling;
+using Adjustment.Extensions;
 using Adjustment.Project;
 using AdjustrixWPF.View.UserControls;
 using System;
@@ -14,14 +14,30 @@ namespace AdjustrixWPF.ViewModel
         private AdjustrixProject currentProject;
         private string projectFolder;
 
+        private AdjustmentStatus status;
+        private StatusDelegate statusDelegate;
+
+        private MessageDelegate messageDelegate;
+
         public ICommand Adjust { get; }
 
-        public ProcessingViewModel(ProjectContainer projectContainer)
+        public ProcessingViewModel(ProjectContainer projectContainer, 
+            MessageDelegate messageDelegate)
         {
             this.projectContainer = projectContainer;
+            this.messageDelegate = messageDelegate;
             this.projectContainer.ProjectChanged += OnProjectChanged;
             this.projectContainer.ProjectFolderChanged += OnProjectFolderChanged;
             Adjust = new RelayCommand(PerformProcessing, CanProcess);
+            statusDelegate = new();
+            statusDelegate.StatusChanged += OnAdjustmentStatusChanged;
+        }
+
+        private void OnAdjustmentStatusChanged(AdjustmentStatus status)
+        {
+            this.status = status;
+            StatusMessage = GenerateStatusMessage();
+            messageDelegate.ChangeMessage(StatusMessage);
         }
 
         private void OnProjectFolderChanged(string obj)
@@ -43,7 +59,7 @@ namespace AdjustrixWPF.ViewModel
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                LevelingProcessing processing = new(project.HeightDifferences);
+                LevelingProcessing processing = new(project.HeightDifferences, statusDelegate);
                 processing.Process(projectFolder);
             }
             catch (Exception ex)
@@ -63,6 +79,41 @@ namespace AdjustrixWPF.ViewModel
         private bool CanProcess(object param)
         {
             return currentProject != null;
+        }
+
+        private string statusMessage;
+
+        public string StatusMessage
+        {
+            get { return statusMessage; }
+            set { statusMessage = value; }
+        }
+
+        private string GenerateStatusMessage()
+        {
+            string message;
+            switch (status)
+            {
+                case AdjustmentStatus.DoingNothing:
+                    message = "";
+                    break;
+                case AdjustmentStatus.PreparingNetworkData:
+                    message = "Preparing the network data...";
+                    break;
+                case AdjustmentStatus.AnalyzingNetwork:
+                    message = "Performing geometric network analysis...";
+                    break;
+                case AdjustmentStatus.CalculatingAdjustment:
+                    message = "Adjusting the network...";
+                    break;
+                case AdjustmentStatus.CreatingReports:
+                    message = "Creating the reports...";
+                    break;
+                default:
+                    message = "";
+                    break;
+            }
+            return message;
         }
     }
 }

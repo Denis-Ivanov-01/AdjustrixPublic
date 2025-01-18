@@ -16,7 +16,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
             <RowDefinition Height="75*"/>
-            <RowDefinition Height="25"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Image Source="{Binding SystemFileSingleton.LogoPath}"
                Width="45"
@@ -70,5 +70,26 @@
                     Name="Close" 
                     Command="{Binding DataContext.CloseCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
         </StackPanel>
+        <Border Grid.Row="2" 
+                Background="{DynamicResource HoveredBrush}"
+                BorderBrush="{DynamicResource ForegroundBrush}"
+                BorderThickness="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                <Border Margin="15 0 0 0"
+                        Background="{DynamicResource BackgroundBrush}">
+                    <TextBlock d:Text="Test"
+                               Text="{Binding MessageBoxViewModel.Message}"
+                               Style="{StaticResource MaterialDesignTextBlock}"
+                               Foreground="{DynamicResource ForegroundBrush}"
+                               Width="200"
+                               Padding="4"/>
+                </Border>
+                
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
