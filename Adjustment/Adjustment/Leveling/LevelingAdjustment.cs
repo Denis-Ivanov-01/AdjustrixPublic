@@ -68,23 +68,75 @@ namespace Adjustment
             return corrections;
         }
 
-        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements)
+        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements, Matrix<double> Qv, double perUnitVariance)
         {
             List<HeightDelta> meas = adjustedMeasurements.Cast<HeightDelta>().ToList();
             Pathfinder<PointBase, HeightDelta> pathfinder = new(meas);
 
             List<NewBenchmark> newPoints = Points
                 .Where(p => p is not KnownBenchmark).Cast<NewBenchmark>().ToList();
+            
             List<AdjustedBenchmark> adjustedPoints = new();
+            
+            List<KnownBenchmark> knownBenchmarks = Points.Where(x => x is KnownBenchmark).
+                Cast<KnownBenchmark>().ToList();
+
             KnownBenchmark kp = (KnownBenchmark)Points.Where(x => x is KnownBenchmark).First();
-            foreach (NewBenchmark newPoint in newPoints)
+
+            Matrix<double> fi = matrixBuilder.Dense(newPoints.Count, adjustedMeasurements.Count);
+
+            foreach (NewBenchmark newBenchmark in newPoints)
             {
-                List<PointBase> trav = pathfinder.AStar(kp, newPoint);
-                pathfinder.ClearTraversedPoints();
-                List<HeightDelta> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<HeightDelta>().ToList();
-                double value = kp.Value + measurements.Sum(meas => meas.Value);
-                adjustedPoints.Add(new AdjustedBenchmark(newPoint.Number, value, newPoint.X, newPoint.Y));
+                int benchmarkIndex = newPoints.IndexOf(newBenchmark);
+
+                double minLength = double.PositiveInfinity;
+                double optimalKnownBenchmarkElevation = double.NegativeInfinity;
+                List<HeightDelta> optimalMeasurements = new();
+                List<PointBase> optimalTraverse = new();
+
+                foreach (KnownBenchmark knownBenchmark in knownBenchmarks)
+                {
+                    List<PointBase> trav = pathfinder.AStar(kp, newBenchmark);
+                    List<HeightDelta> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements);
+                    double length = measurements.Sum(m => m.Length);
+                    if (length < minLength)
+                    {
+                        minLength = length;
+                        optimalKnownBenchmarkElevation = knownBenchmark.Value;
+                        optimalMeasurements = measurements;
+                        optimalTraverse = trav;
+                    }
+                }
+
+                double elevation = optimalKnownBenchmarkElevation + optimalMeasurements.Sum(m => m.Value);
+                adjustedPoints.Add(new AdjustedBenchmark(newBenchmark.Number, elevation, newBenchmark.X, newBenchmark.Y));
+
+                foreach(HeightDelta m in optimalMeasurements)
+                {
+                    int mIndex = GetMeasurementIndex(m);
+                    int value = GetMeasurementConfigurationIndex(m);
+                    fi[benchmarkIndex, mIndex] = value;
+                }
             }
+
+            Matrix<double> KH = (fi.Multiply(Qv).Multiply(fi.Transpose())) * 
+                (perUnitVariance * perUnitVariance);
+
+            int counter = 0;
+            foreach (AdjustedBenchmark adjustedBenchmark in adjustedPoints)
+            {
+                adjustedBenchmark.Variance = Math.Sqrt(KH[counter, counter]);
+                counter++;
+            }
+
+            //foreach (NewBenchmark newPoint in newPoints)
+            //{
+            //    List<PointBase> trav = pathfinder.AStar(kp, newPoint);
+            //    pathfinder.ClearTraversedPoints();
+            //    List<HeightDelta> measurements = AssignMeasurementsToTraverse(trav, adjustedMeasurements).Cast<HeightDelta>().ToList();
+            //    double value = kp.Value + measurements.Sum(meas => meas.Value);
+            //    adjustedPoints.Add(new AdjustedBenchmark(newPoint.Number, value, newPoint.X, newPoint.Y));
+            //}
             return adjustedPoints;
         }
 

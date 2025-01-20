@@ -5,6 +5,7 @@ using Adjustment.Extensions;
 using Adjustment.Project;
 using AdjustrixWPF.View.UserControls;
 using System;
+using System.Threading.Tasks;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -50,7 +51,7 @@ namespace AdjustrixWPF.ViewModel
             currentProject = project;
         }
 
-        private void PerformProcessing(object param)
+        private async void PerformProcessing(object param)
         {
              if (string.IsNullOrWhiteSpace(projectFolder)) 
             {
@@ -59,8 +60,15 @@ namespace AdjustrixWPF.ViewModel
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                LevelingProcessing processing = new(project.HeightDifferences, statusDelegate);
-                processing.Process(projectFolder);
+                //LevelingProcessing processing = new(project, statusDelegate);
+
+                //todo: another thread
+                await Task.Run(() =>
+                {
+                    LevelingProcessing processing = new(project, statusDelegate);
+                    processing.Process(projectFolder);
+                });
+                //processing.Process(projectFolder);
             }
             catch (Exception ex)
             {

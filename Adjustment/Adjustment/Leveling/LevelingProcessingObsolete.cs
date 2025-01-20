@@ -19,7 +19,7 @@
 
         public void PerformAdjustment()
         {
-            LevelingProcessing adjuster = new(HeightDifferences);
+            //LevelingProcessing adjuster = new(HeightDifferences);
             //AdjustmentResult<HeightDelta, AdjustedBenchmark> res = adjuster.PerformAdjustment();
         }
 

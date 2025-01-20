@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Adjustment.Extensions;
+using Adjustment.Project;
 using Adjustment.Reports.Leveling;
 
 namespace Adjustment
@@ -8,23 +9,24 @@ namespace Adjustment
     {
 
         private AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
+        private LevelingProject project;
 
-        public LevelingProcessing(List<HeightDelta> measurements, StatusDelegate? messageDelegate=null) : base(measurements, messageDelegate)
+        public LevelingProcessing(LevelingProject project, StatusDelegate? messageDelegate=null) : base(project.HeightDifferences, messageDelegate)
         {
             this.AdjustmentResult = PerformAdjustment();
+            this.project = project;
         }
 
-        public override void Process(string directory)
+        public override void GeneratePdfReport(string directory)
         {
-            UpdateStatus(AdjustmentStatus.CreatingReports);
+            LevelingReportPdf detailedReport = new(this.AdjustmentResult, this.project);
+            detailedReport.Generate(directory);
+        }
+
+        public override void GenerateCsvReport(string directory)
+        {
             AdjustedPointsReport benchmarksReport = new(this.AdjustmentResult.AdjustedPoints);
             benchmarksReport.Generate(directory);
-            UpdateStatus(AdjustmentStatus.DoingNothing);
-        }
-
-        public override void GeneratePDFReport()
-        {
-            throw new NotImplementedException();
         }
     }
 }

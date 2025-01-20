@@ -25,9 +25,19 @@ namespace Adjustment
             this.messageDelegate = messageDelegate;
         }
 
-        public abstract void Process(string directory);
+        public virtual void Process(string directory)
+        {
+            UpdateStatus(AdjustmentStatus.CreatingReports);
 
-        public abstract void GeneratePDFReport();
+            GenerateCsvReport(directory);
+            GeneratePdfReport(directory);
+
+            UpdateStatus(AdjustmentStatus.DoingNothing);
+        }
+
+        public abstract void GeneratePdfReport(string directory);
+
+        public abstract void GenerateCsvReport(string directory);
 
         public AdjustmentResult<TMeasurement, AdjustedBenchmark> PerformAdjustment()
         {

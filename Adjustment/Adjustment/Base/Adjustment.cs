@@ -13,14 +13,16 @@ namespace Adjustment
         public List<TMeasurement> Measurements;
         public readonly List<List<TMeasurement>> AssignedApproxMeasurements = new();
         private readonly Dictionary<int, TMeasurement> MeasurementIndices = new();
+        private readonly int Redundancy;
         protected abstract int RequiredDecimalPrecision { get; }
 
         public Adjustment(List<List<PointBase>> distinctTraverses, List<TMeasurement> measurements)
         {
             DistinctTraverses = distinctTraverses;
+            Redundancy = distinctTraverses.Count;
             Measurements = measurements;
             AsignMeasurementsIndices();
-            AssignedApproxMeasurements = AsignMeasurementsToTraverses(measurements);
+            AssignedApproxMeasurements = AssignMeasurementsToTraverses(measurements);
             Points = GetPoinsSet();
         }
 
@@ -28,17 +30,38 @@ namespace Adjustment
         {
 
             Matrix<double> configurationMatrix = CreateConfigurationMatrix();
-            Matrix<double> weightMatrix = CreateReversedWeightMatrix();
-            Matrix<double> normalMatrix = CalculateNormalMatrix(configurationMatrix, weightMatrix);
+            Matrix<double> reversedWeights = CreateReversedWeightMatrix();
+            Matrix<double> normalMatrix = CalculateNormalMatrix(configurationMatrix, reversedWeights);
+
+            Matrix<double> inversedNormal = InverseMatrix(normalMatrix);
+
             Vector<double> initialResiduals = CalculateResidualsVector(AssignedApproxMeasurements);
-            Vector<double> kVector = CalculateK(normalMatrix, initialResiduals);
+            Vector<double> kVector = CalculateK(inversedNormal, initialResiduals);
             Vector<double> pvVector = CalculatePV(kVector, configurationMatrix);
-            Vector<double> corrections = CalculateCorrections(pvVector, weightMatrix);
+
+            Vector<double> corrections = CalculateCorrections(pvVector, reversedWeights);
+
+            double perUnitVariance = CalculatePerUnitVariance(pvVector, corrections) * 1000;
+            Matrix<double> Qv = CalculateQv(reversedWeights, configurationMatrix, perUnitVariance, inversedNormal);
+            Vector<double> correctionVariances = CalculateCorrectionVariances(Qv, perUnitVariance);
+
             List<TMeasurement> adjustedMeasurements = CalculateAdjustedMeasurements(corrections);
-            Vector<double> adjustedResiduals = CalculateResidualsVector(AsignMeasurementsToTraverses(adjustedMeasurements));
+            Vector<double> adjustedResiduals = CalculateResidualsVector(AssignMeasurementsToTraverses(adjustedMeasurements));
             ValidateAdjustmentResult(adjustedResiduals);
-            List<TAdjustedPoint> adjustedPoints = CalculateUnknownPoints(adjustedMeasurements);
-            AdjustmentResult<TMeasurement, TAdjustedPoint> result = new(adjustedPoints, adjustedMeasurements, corrections, DistinctTraverses);
+            List<TAdjustedPoint> adjustedPoints = CalculateUnknownPoints(adjustedMeasurements, Qv, perUnitVariance);
+
+
+
+            AdjustmentResult<TMeasurement, TAdjustedPoint> result = new
+                (adjustedPoints, 
+                adjustedMeasurements, 
+                //todo: PASS THE CORRECT VALUE!
+                new(), 
+                corrections, 
+                correctionVariances, 
+                DistinctTraverses, 
+                initialResiduals, 
+                perUnitVariance);
             return result;
         }
 
@@ -54,16 +77,29 @@ namespace Adjustment
 
         protected abstract List<TMeasurement> CalculateAdjustedMeasurements(Vector<double> corrections);
 
-        protected abstract List<TAdjustedPoint> CalculateUnknownPoints(List<TMeasurement> adjustedMeasurements);
+        protected abstract List<TAdjustedPoint> CalculateUnknownPoints(List<TMeasurement> adjustedMeasurements, Matrix<double> Qv, double perUnitVaruance);
+
+        protected Matrix<double> InverseMatrix(Matrix<double> matrix)
+        {
+            // Using PseudoInverse in case of determinants approaching 0
+            //This way we ensure numeric stability
+
+            //Another possible approach is to check the condition number and use PseudoInverse
+            //if the condition number is above some threshold
+            //todo: use this approach if computational speed gets important!
+            //first research what value of the condition number is a good threshold
+
+            return matrix.PseudoInverse();
+        }
 
         protected Matrix<double> CalculateNormalMatrix(Matrix<double> configMatrix, Matrix<double> weightMatrix)
         {
             return (configMatrix.Transpose().Multiply(weightMatrix)).Multiply(configMatrix);
         }
 
-        protected Vector<double> CalculateK(Matrix<double> normalMatrix, Vector<double> residuals)
-        {// Using PseudoInverse in case of determinants approaching 0 -> numerically unstable inverse
-            return -normalMatrix.PseudoInverse().Multiply(residuals);
+        protected Vector<double> CalculateK(Matrix<double> inversedNormal, Vector<double> residuals)
+        {
+            return -inversedNormal.Multiply(residuals);
         }
 
         protected Vector<double> CalculatePV(Vector<double> kVector, Matrix<double> confMatrix)
@@ -78,7 +114,43 @@ namespace Adjustment
             return pvMatrix;
         }
 
-        protected List<List<TMeasurement>> AsignMeasurementsToTraverses(List<TMeasurement> measurements)
+        protected double CalculatePerUnitVariance(Vector<double> PV, Vector<double> V)
+        {
+            double pvv_sum = 0;
+            for (int i = 0; i < PV.Count; i++)
+            {
+                pvv_sum += PV[i] * V[i];
+            }
+            return Math.Sqrt(pvv_sum / Redundancy);
+        }
+
+        protected Matrix<double> CalculateQv(Matrix<double> reversedWeights, 
+            Matrix<double> configMatrix,
+            double perUnitVariance,
+            Matrix<double> inversedNormal)
+        {
+            // I am not aware of a specific name for this matrix :(
+            Matrix<double> placeholderMatrix = reversedWeights.Multiply(configMatrix);
+
+            Matrix<double> Kk = inversedNormal * perUnitVariance;
+
+            Matrix<double> Kv = (placeholderMatrix.Multiply(Kk)).Multiply(placeholderMatrix.Transpose());
+
+            Matrix<double> Qv = Kv * (1 / perUnitVariance);
+            return Qv;
+        }
+
+        protected Vector<double> CalculateCorrectionVariances(Matrix<double> Qv, double perUnitVariance)
+        {
+            Vector<double> variances = vectorBuilder.Dense(Qv.ColumnCount);
+            for (int i=0; i<variances.Count; i++)
+            {
+                variances[i] = perUnitVariance * Math.Sqrt(Qv[i,i]);
+            }
+            return variances;
+        }
+
+        protected List<List<TMeasurement>> AssignMeasurementsToTraverses(List<TMeasurement> measurements)
         {
             List<List<TMeasurement>> assignedMeasurements = new();
             foreach (List<PointBase> t in DistinctTraverses)
@@ -219,23 +291,38 @@ namespace Adjustment
         where TMeasurement : IEdge<PointBase, TMeasurement>
         where TAdjustedPoint : AdjustedBenchmark
     { // todo: figure out if this will be used
+        public Vector<double> Residuals { get; set; }
+
         public List<TAdjustedPoint> AdjustedPoints { get; set; }
 
         public List<TMeasurement> AdjustedMeasurements { get; set; }
 
+        public List<double> MeasurementVariances { get; set; }
+
         public Vector<double> AdjustedCorrections { get; set; }
+
+        public Vector<double> CorrectionVariances { get; set; }
 
         public List<List<PointBase>> DistinctTraverses { get; set; }
 
+        public double PerUnitVariance { get; set; }
+
         public AdjustmentResult(List<TAdjustedPoint> adjustedPoints,
             List<TMeasurement> adjustedMeasurements,
+            List<double> measurementsVariances,
             Vector<double> adjustedCorrections,
-            List<List<PointBase>> distinctTravs)
+            Vector<double> correctionVariances,
+            List<List<PointBase>> distinctTravs,
+            Vector<double> residuals,
+            double perUnitVariance)
         {
             AdjustedPoints = adjustedPoints;
             AdjustedMeasurements = adjustedMeasurements;
             AdjustedCorrections = adjustedCorrections;
             DistinctTraverses = distinctTravs;
+            Residuals = residuals;
+            PerUnitVariance = perUnitVariance;
+            CorrectionVariances = correctionVariances;
         }
     }
 }

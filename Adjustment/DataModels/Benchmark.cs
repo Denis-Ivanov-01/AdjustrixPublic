@@ -79,6 +79,8 @@ namespace Adjustment
         // maybe branch out one dimensional adjustments (gravimetric, nivelation)
         public double Value { get; set; }
 
+        public double Variance { get; set; }
+
         public AdjustedBenchmark(string number, double value, double? x, double? y) : base(number, x, y)
         {
             Value = value;

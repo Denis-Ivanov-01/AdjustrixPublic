@@ -26,7 +26,7 @@ class Program
         //projectFile.ToFile(levelingProject, folder);
         LevelingProject project2 = (LevelingProject)projectFile.FromFile(file);
 
-        LevelingProcessing processing = new(project2.HeightDifferences);
+        LevelingProcessing processing = new(project2);
         processing.Process(folder);
 
     }
