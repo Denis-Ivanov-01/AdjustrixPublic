@@ -17,10 +17,13 @@ namespace Adjustment
         where TAdjustment : Adjustment<TMeasurement, AdjustedBenchmark>
     {
         private readonly List<TMeasurement> _measurements;
-        private StatusDelegate? messageDelegate;
+        private AdjustmentStatusDelegate? messageDelegate;
 
-        public NetworkAdjuster(List<TMeasurement> measurements, StatusDelegate? messageDelegate=null)
+        private readonly DateTime startTime;
+
+        public NetworkAdjuster(List<TMeasurement> measurements, AdjustmentStatusDelegate? messageDelegate=null)
         {
+            startTime = DateTime.Now;
             _measurements = measurements.Where(x => x.IsEnabled).ToList();
             this.messageDelegate = messageDelegate;
         }
@@ -32,7 +35,8 @@ namespace Adjustment
             GenerateCsvReport(directory);
             GeneratePdfReport(directory);
 
-            UpdateStatus(AdjustmentStatus.DoingNothing);
+            DateTime endTime = DateTime.Now;
+            UpdateDuration(endTime);
         }
 
         public abstract void GeneratePdfReport(string directory);
@@ -63,6 +67,14 @@ namespace Adjustment
             if (messageDelegate != null)
             {
                 messageDelegate.ChangeStatus(status);
+            }
+        }
+
+        protected void UpdateDuration(DateTime endTime)
+        {
+            if (messageDelegate != null)
+            {
+                messageDelegate.ChangeDuration(endTime - startTime);
             }
         }
     }

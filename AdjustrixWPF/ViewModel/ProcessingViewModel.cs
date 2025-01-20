@@ -16,7 +16,7 @@ namespace AdjustrixWPF.ViewModel
         private string projectFolder;
 
         private AdjustmentStatus status;
-        private StatusDelegate statusDelegate;
+        private AdjustmentStatusDelegate statusDelegate;
 
         private MessageDelegate messageDelegate;
 
@@ -32,6 +32,13 @@ namespace AdjustrixWPF.ViewModel
             Adjust = new RelayCommand(PerformProcessing, CanProcess);
             statusDelegate = new();
             statusDelegate.StatusChanged += OnAdjustmentStatusChanged;
+            statusDelegate.DurationChanged += OnProcessingDurationChanged;
+        }
+
+        private void OnProcessingDurationChanged(TimeSpan obj)
+        {
+            StatusMessage = GenerateStatusMessage(obj);
+            messageDelegate.ChangeMessage(StatusMessage, TimeSpan.FromSeconds(5));
         }
 
         private void OnAdjustmentStatusChanged(AdjustmentStatus status)
@@ -60,15 +67,11 @@ namespace AdjustrixWPF.ViewModel
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                //LevelingProcessing processing = new(project, statusDelegate);
-
-                //todo: another thread
                 await Task.Run(() =>
                 {
                     LevelingProcessing processing = new(project, statusDelegate);
                     processing.Process(projectFolder);
                 });
-                //processing.Process(projectFolder);
             }
             catch (Exception ex)
             {
@@ -122,6 +125,11 @@ namespace AdjustrixWPF.ViewModel
                     break;
             }
             return message;
+        }
+
+        private string GenerateStatusMessage(TimeSpan duration)
+        {
+            return $"Processing took {duration.TotalSeconds.ToString("F3")} seconds.";
         }
     }
 }

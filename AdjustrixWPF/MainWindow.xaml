@@ -85,7 +85,7 @@
                                Text="{Binding MessageBoxViewModel.Message}"
                                Style="{StaticResource MaterialDesignTextBlock}"
                                Foreground="{DynamicResource ForegroundBrush}"
-                               Width="200"
+                               Width="500"
                                Padding="4"/>
                 </Border>
                 

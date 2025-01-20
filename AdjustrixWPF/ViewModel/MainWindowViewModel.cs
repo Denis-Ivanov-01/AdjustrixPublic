@@ -26,7 +26,7 @@ namespace AdjustrixWPF.ViewModel
             ProjectContainer projectContainer = new();
             MessageDelegate messageDelegate = new MessageDelegate();
             languageViewModel = LanguageViewModel.Singleton;
-            projectViewModel = new ProjectFileViewModel(projectContainer);
+            projectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
             this.MessageBoxViewModel = new(messageDelegate);

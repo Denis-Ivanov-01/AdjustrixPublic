@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AdjustrixWPF.ViewModel
@@ -9,13 +7,49 @@ namespace AdjustrixWPF.ViewModel
     public class MessageDelegate
     {
         private string message = "";
+        private readonly TimeSpan defaultTimeSpan = TimeSpan.FromSeconds(3);
+        private CancellationTokenSource? cancellationTokenSource; // Cancellation token source for task cancellation
 
         public event Action<string> MessageChanged;
 
-        public void ChangeMessage(string message)
+        private void ChangeMessage(string message)
         {
             this.message = message;
             MessageChanged?.Invoke(this.message);
+        }
+
+        public void ChangeMessage(string message, TimeSpan timeSpan = default)
+        {
+            if (timeSpan == default)
+            {
+                timeSpan = defaultTimeSpan;
+            }
+
+            // Cancel the previous task if it's still running
+            cancellationTokenSource?.Cancel();
+
+            // Create a new CancellationTokenSource for the new task
+            cancellationTokenSource = new CancellationTokenSource();
+            var token = cancellationTokenSource.Token;
+
+            ChangeMessage(message);
+
+            // Run the new task
+            Task.Run(async () =>
+            {
+                try
+                {
+                    await Task.Delay(timeSpan, token); // Pass the cancellation token to Task.Delay
+                    if (!token.IsCancellationRequested)
+                    {
+                        ChangeMessage(""); // Clear the message if not canceled
+                    }
+                }
+                catch (TaskCanceledException)
+                {
+                    // Task was canceled, just exit without clearing the message
+                }
+            });
         }
     }
 }

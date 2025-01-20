@@ -11,7 +11,7 @@ namespace Adjustment
         private AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
         private LevelingProject project;
 
-        public LevelingProcessing(LevelingProject project, StatusDelegate? messageDelegate=null) : base(project.HeightDifferences, messageDelegate)
+        public LevelingProcessing(LevelingProject project, AdjustmentStatusDelegate? messageDelegate=null) : base(project.HeightDifferences, messageDelegate)
         {
             this.AdjustmentResult = PerformAdjustment();
             this.project = project;

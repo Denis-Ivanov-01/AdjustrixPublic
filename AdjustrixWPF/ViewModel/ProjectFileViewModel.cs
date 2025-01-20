@@ -9,6 +9,9 @@ namespace AdjustrixWPF.ViewModel
 {
     public class ProjectFileViewModel : ViewModelBase
     {
+
+        private readonly MessageDelegate messageDelegate;
+
         private ProjectContainer projectContainer;
         private bool projectLoaded = false;
         private bool projectChanged = false;
@@ -90,9 +93,10 @@ namespace AdjustrixWPF.ViewModel
 
         public ICommand CreateProject { get; }
 
-        public ProjectFileViewModel(ProjectContainer projectStore)
+        public ProjectFileViewModel(ProjectContainer projectStore, MessageDelegate messageDelegate)
         {
             this.projectContainer = projectStore;
+            this.messageDelegate = messageDelegate;
             hasUnsavedChanges = false;
             languageViewModel = LanguageViewModel.Singleton;
             projectFile = new ProjectFileManager();
@@ -166,6 +170,7 @@ namespace AdjustrixWPF.ViewModel
                     projectFile.ToFile(project, folderBrowser.SelectedPath);
                     projectContainer.ChangeProject(project);
                     projectContainer.ChangeProjectFolder(projectFile.LastProjectFolder);
+                    messageDelegate.ChangeMessage($"Created new project: {project.Name} in folder {projectFile.LastProjectFolder}", TimeSpan.FromSeconds(3));
                 }
             }
         }
@@ -190,6 +195,7 @@ namespace AdjustrixWPF.ViewModel
                 projectContainer.ChangeProject(project);
                 projectContainer.SetChanges(false);
                 projectContainer.ChangeProjectFolder(projectFile.LastProjectFolder);
+                messageDelegate.ChangeMessage($"Opened project {project.Name}", TimeSpan.FromSeconds(3));
             }
         }
 
@@ -209,6 +215,7 @@ namespace AdjustrixWPF.ViewModel
 
             projectFile.ToFile(project);
             projectContainer.SetChanges(false);
+            messageDelegate.ChangeMessage($"Saved project {project.Name} in {projectFile.LastProjectFolder}", TimeSpan.FromSeconds(5));
         }
 
         private bool CanSaveProject(object parameter)
