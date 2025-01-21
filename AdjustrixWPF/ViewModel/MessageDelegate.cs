@@ -14,7 +14,7 @@ namespace AdjustrixWPF.ViewModel
 
         public event Action<string> MessageChanged;
 
-        private void ChangeMessage(string message="")
+        private void ChangeMessage(string message = "")
         {
             lock (lockObj)
             {

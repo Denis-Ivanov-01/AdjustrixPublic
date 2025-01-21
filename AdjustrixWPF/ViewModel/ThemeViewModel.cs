@@ -7,7 +7,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 using AdjustrixWPF.View;
 using MaterialDesignThemes.Wpf;
-using md = MaterialDesignThemes.Wpf;
 
 
 namespace AdjustrixWPF.ViewModel

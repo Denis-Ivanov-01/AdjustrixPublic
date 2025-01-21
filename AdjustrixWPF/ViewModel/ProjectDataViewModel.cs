@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Adjustment.Project;
-using Adjustment;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
+using Adjustment;
+using Adjustment.Project;
 using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {
     public class ProjectDataViewModel : ViewModelBase
     {
-        private ProjectContainer projectContainer;
+        private readonly ProjectContainer projectContainer;
         private AdjustrixProject currentProject;
         private ProjectType projectType;
         private ObservableCollection<HeightDelta> levelingMeasurements;
         private ObservableCollection<KnownBenchmark> knownBenchmarks;
-        private LanguageViewModel languageViewModel;
-        private bool projectNonNull=false;
+        private readonly LanguageViewModel languageViewModel;
+        private bool projectNonNull = false;
 
         public ICommand ToggleMeasurement { get; }
 
@@ -78,7 +75,7 @@ namespace AdjustrixWPF.ViewModel
             languageViewModel = LanguageViewModel.Singleton;
             projectContainer = container;
             levelingMeasurements = new ObservableCollection<HeightDelta>();
-            knownBenchmarks= new ObservableCollection<KnownBenchmark>();
+            knownBenchmarks = new ObservableCollection<KnownBenchmark>();
             projectContainer.ProjectChanged += OnProjectChanged;
             projectContainer.ProjectTypeChanged += OnProjectTypeChanged;
 
@@ -117,7 +114,7 @@ namespace AdjustrixWPF.ViewModel
         private void ToggleMeasurementEnabled(object parameter)
         {
             HeightDelta delta = (HeightDelta)parameter;
-            delta.IsEnabled = delta.IsEnabled? false: true;
+            delta.IsEnabled = delta.IsEnabled ? false : true;
             PublishProjectChanges();
         }
 
@@ -154,7 +151,7 @@ namespace AdjustrixWPF.ViewModel
             LevelingMeasurements.Clear();
             if (project.HeightDifferences != null)
             {
-                foreach(HeightDelta delta in project.HeightDifferences)
+                foreach (HeightDelta delta in project.HeightDifferences)
                 {
                     LevelingMeasurements.Add(delta);
                 }
@@ -167,7 +164,7 @@ namespace AdjustrixWPF.ViewModel
             KnownBenchmarks.Clear();
             if (project.KnownBenchmarks != null)
             {
-                foreach(KnownBenchmark benchmark in project.KnownBenchmarks)
+                foreach (KnownBenchmark benchmark in project.KnownBenchmarks)
                 {
                     KnownBenchmarks.Add(benchmark);
                 }

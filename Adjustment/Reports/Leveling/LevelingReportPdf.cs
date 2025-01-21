@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Adjustment.Project;
-using MigraDoc;
+﻿using Adjustment.Project;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
@@ -21,10 +15,10 @@ namespace Adjustment.Reports.Leveling
         private const string fontStyle = "Times New Roman";
 
         //data
-        private AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
-        private LevelingProject Project;
+        private readonly AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
+        private readonly LevelingProject Project;
 
-        public LevelingReportPdf(AdjustmentResult<HeightDelta, AdjustedBenchmark> adjustmentResult, 
+        public LevelingReportPdf(AdjustmentResult<HeightDelta, AdjustedBenchmark> adjustmentResult,
             LevelingProject project)
         {
             AdjustmentResult = adjustmentResult;
@@ -155,7 +149,7 @@ namespace Adjustment.Reports.Leveling
             header.Cells[0].AddParagraph("Residual");
             header.Cells[1].AddParagraph("Value [mm]");
 
-            for (int i=0; i < AdjustmentResult.DistinctTraverses.Count; i++)
+            for (int i = 0; i < AdjustmentResult.DistinctTraverses.Count; i++)
             {
                 Row row = table.AddRow();
                 row[0].AddParagraph(JoinTraverseNames(AdjustmentResult.DistinctTraverses[i]));

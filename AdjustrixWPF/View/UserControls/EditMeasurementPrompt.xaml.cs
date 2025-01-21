@@ -38,7 +38,7 @@ namespace AdjustrixWPF.View.UserControls
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (valueIsValid) 
+            if (valueIsValid)
             {
                 Edit = true;
                 Close();

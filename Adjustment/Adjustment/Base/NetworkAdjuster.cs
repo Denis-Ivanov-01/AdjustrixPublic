@@ -12,16 +12,16 @@ namespace Adjustment
     }
 
     public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
-        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, 
+        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement,
         IDeactivatable, new()
         where TAdjustment : Adjustment<TMeasurement, AdjustedBenchmark>
     {
         private readonly List<TMeasurement> _measurements;
-        private AdjustmentStatusDelegate? messageDelegate;
+        private readonly AdjustmentStatusDelegate? messageDelegate;
 
         private readonly DateTime startTime;
 
-        public NetworkAdjuster(List<TMeasurement> measurements, AdjustmentStatusDelegate? messageDelegate=null)
+        public NetworkAdjuster(List<TMeasurement> measurements, AdjustmentStatusDelegate? messageDelegate = null)
         {
             startTime = DateTime.Now;
             _measurements = measurements.Where(x => x.IsEnabled).ToList();
@@ -55,7 +55,7 @@ namespace Adjustment
             // IMO the pros outweigh the cons in this case :)
             object[] args = new object[] { distinctTraverses, _measurements };
             TAdjustment adjustment = (TAdjustment)Activator.CreateInstance(typeof(TAdjustment), args)!;
-            
+
             UpdateStatus(AdjustmentStatus.CalculatingAdjustment);
             return adjustment.AdjustNetwork();
             //todo: figure out what should be included in the reports and then figure out how to create

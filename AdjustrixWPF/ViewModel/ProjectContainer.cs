@@ -33,7 +33,7 @@ namespace AdjustrixWPF.ViewModel
         public event Action<bool> ProjectChangesChanged;
         public event Action<string> ProjectFolderChanged;
 
-        
+
         public void ChangeProject(AdjustrixProject project)
         {
             Project = project;

@@ -20,7 +20,7 @@
 
         public ProjectGeneralProperties()
         {
-                
+
         }
 
         public ProjectGeneralProperties GetState()

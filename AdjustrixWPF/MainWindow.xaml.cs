@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using AdjustrixWPF.ViewModel;
-using MaterialDesignThemes.Wpf;
-using System.Drawing;
 
 namespace AdjustrixWPF
 {
@@ -52,7 +50,7 @@ namespace AdjustrixWPF
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            
+
             Application.Current.Shutdown();
         }
 

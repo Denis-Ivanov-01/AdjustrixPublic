@@ -1,28 +1,28 @@
-﻿using System.Windows.Input;
+﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Adjustment;
 using Adjustment.Extensions;
 using Adjustment.Project;
 using AdjustrixWPF.View.UserControls;
-using System;
-using System.Threading.Tasks;
 
 namespace AdjustrixWPF.ViewModel
 {
     public class ProcessingViewModel : ViewModelBase
     {
-        private ProjectContainer projectContainer;
+        private readonly ProjectContainer projectContainer;
         private AdjustrixProject currentProject;
         private string projectFolder;
 
         private AdjustmentStatus status;
-        private AdjustmentStatusDelegate statusDelegate;
+        private readonly AdjustmentStatusDelegate statusDelegate;
 
-        private MessageDelegate messageDelegate;
+        private readonly MessageDelegate messageDelegate;
 
         public ICommand Adjust { get; }
 
-        public ProcessingViewModel(ProjectContainer projectContainer, 
+        public ProcessingViewModel(ProjectContainer projectContainer,
             MessageDelegate messageDelegate)
         {
             this.projectContainer = projectContainer;
@@ -60,7 +60,7 @@ namespace AdjustrixWPF.ViewModel
 
         private async void PerformProcessing(object param)
         {
-             if (string.IsNullOrWhiteSpace(projectFolder)) 
+            if (string.IsNullOrWhiteSpace(projectFolder))
             {
                 //todo: error messages (prompts)
             }
@@ -81,12 +81,12 @@ namespace AdjustrixWPF.ViewModel
             }
             SuccessfulProcessingPrompt prompt = new();
             prompt.ShowDialog();
-            if (prompt.RevealReports) 
+            if (prompt.RevealReports)
             {
                 Process.Start("explorer.exe", projectFolder);
             }
         }
-        
+
         private bool CanProcess(object param)
         {
             return currentProject != null;

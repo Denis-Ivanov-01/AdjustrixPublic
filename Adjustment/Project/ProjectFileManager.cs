@@ -40,7 +40,7 @@ namespace Adjustment.Project
 
         public string AsText(AdjustrixProject project)
         {
-            
+
             string jsonStr = Serialize(project);
             return Regex.Unescape(jsonStr).Replace("\\", "\\\\");
         }

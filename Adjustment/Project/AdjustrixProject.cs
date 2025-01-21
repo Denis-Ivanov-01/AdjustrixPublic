@@ -17,7 +17,7 @@ namespace Adjustment.Project
         //public string ProjectFolder { get; set; }
 
         //public ProjectType ProjectType { get; set; }
-        
+
         public string Name { get; set; }
 
         public string SiteName { get; set; }

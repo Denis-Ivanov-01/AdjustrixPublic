@@ -53,14 +53,14 @@ namespace Adjustment
 
 
             AdjustmentResult<TMeasurement, TAdjustedPoint> result = new
-                (adjustedPoints, 
-                adjustedMeasurements, 
+                (adjustedPoints,
+                adjustedMeasurements,
                 //todo: PASS THE CORRECT VALUE!
-                new(), 
-                corrections, 
-                correctionVariances, 
-                DistinctTraverses, 
-                initialResiduals, 
+                new(),
+                corrections,
+                correctionVariances,
+                DistinctTraverses,
+                initialResiduals,
                 perUnitVariance);
             return result;
         }
@@ -124,7 +124,7 @@ namespace Adjustment
             return Math.Sqrt(pvv_sum / Redundancy);
         }
 
-        protected Matrix<double> CalculateQv(Matrix<double> reversedWeights, 
+        protected Matrix<double> CalculateQv(Matrix<double> reversedWeights,
             Matrix<double> configMatrix,
             double perUnitVariance,
             Matrix<double> inversedNormal)
@@ -143,9 +143,9 @@ namespace Adjustment
         protected Vector<double> CalculateCorrectionVariances(Matrix<double> Qv, double perUnitVariance)
         {
             Vector<double> variances = vectorBuilder.Dense(Qv.ColumnCount);
-            for (int i=0; i<variances.Count; i++)
+            for (int i = 0; i < variances.Count; i++)
             {
-                variances[i] = perUnitVariance * Math.Sqrt(Qv[i,i]);
+                variances[i] = perUnitVariance * Math.Sqrt(Qv[i, i]);
             }
             return variances;
         }

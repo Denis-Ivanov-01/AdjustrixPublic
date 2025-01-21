@@ -188,7 +188,7 @@
             }
             List<List<PointBase>> allClosedTravs = hsallClosedTravs.Distinct(new PointListComparer<PointBase>()).OrderByDescending(x => x.Count).ToList();
             allClosedTravs = SupersetRemover.RemoveSupersetsOneType(allClosedTravs, traversesFromBreakdown);
-            
+
             //this was added so that complex closed traverses would be eliminated.
             //otherwise, the algorithm can find huge closed traverses that encapsulate multiple smaller ones.
             //it should work fine, but test it using multiple configurations!
@@ -425,7 +425,7 @@
             {
                 graphData[edge.FromPoint] = new List<TEdge>();
             }
-            if (!graphData[edge.FromPoint].Any(e => e.FromPoint.Number == edge.FromPoint.Number 
+            if (!graphData[edge.FromPoint].Any(e => e.FromPoint.Number == edge.FromPoint.Number
             && e.ToPoint.Number == edge.ToPoint.Number))
             {
                 graphData[edge.FromPoint].Add(edge);
@@ -462,7 +462,7 @@
                     //reverseEdge.FromPoint = edge.ToPoint;
                     //reverseEdge.ToPoint = edge.FromPoint;
                     //reverseEdge.Length = edge.Length;
-                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint.Number == reverseEdge.FromPoint.Number 
+                    if (!graphData[edge.ToPoint].Any(e => e.FromPoint.Number == reverseEdge.FromPoint.Number
                     && e.ToPoint.Number == reverseEdge.ToPoint.Number))
                     {
                         graphData[edge.ToPoint].Add(reverseEdge);

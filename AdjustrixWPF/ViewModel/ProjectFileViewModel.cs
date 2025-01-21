@@ -13,7 +13,7 @@ namespace AdjustrixWPF.ViewModel
 
         private readonly MessageDelegate messageDelegate;
 
-        private ProjectContainer projectContainer;
+        private readonly ProjectContainer projectContainer;
         private bool projectIsNew;
         private bool hasUnsavedChanges;
         private AdjustrixProject project;
@@ -124,7 +124,10 @@ namespace AdjustrixWPF.ViewModel
             PromptForUnsavedChangesAndSave();
 
             string selectedPath = ShowFolderDialog();
-            if (string.IsNullOrWhiteSpace(selectedPath)) return;
+            if (string.IsNullOrWhiteSpace(selectedPath))
+            {
+                return;
+            }
 
             CreateNewProjectFile(selectedPath);
             messageDelegate.ChangeMessage($"Created new project: {project.Name} in folder {projectFile.LastProjectFolder}", TimeSpan.FromSeconds(3));
@@ -154,7 +157,10 @@ namespace AdjustrixWPF.ViewModel
             CreateProjectPrompt dialog = new(this);
             dialog.ShowDialog();
 
-            if (!dialog.Confirmed) return;
+            if (!dialog.Confirmed)
+            {
+                return;
+            }
 
             project = ProjectFactory.CreateProject(ProjectProperties, selectedProjectType);
             projectFile.ToFile(project, projectIsNew, folderPath);

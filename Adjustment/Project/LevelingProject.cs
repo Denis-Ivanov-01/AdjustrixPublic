@@ -44,7 +44,7 @@ namespace Adjustment.Project
         protected override void EnsureValidDataTypes()
         { //TODO: think whether to leave this that way?
             //maybe it is a good idea to have some validation
-            foreach (KnownBenchmark kb in KnownBenchmarks) 
+            foreach (KnownBenchmark kb in KnownBenchmarks)
             {
                 foreach (HeightDelta delta in HeightDifferences)
                 {
@@ -58,7 +58,7 @@ namespace Adjustment.Project
                     }
                 }
             }
-            foreach(HeightDelta delta in HeightDifferences)
+            foreach (HeightDelta delta in HeightDifferences)
             {
                 Type fpType = delta.FromPoint.GetType();
                 Type tpType = delta.ToPoint.GetType();

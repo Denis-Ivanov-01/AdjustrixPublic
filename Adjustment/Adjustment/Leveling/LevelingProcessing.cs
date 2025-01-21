@@ -1,5 +1,4 @@
-﻿using System.Data;
-using Adjustment.Extensions;
+﻿using Adjustment.Extensions;
 using Adjustment.Project;
 using Adjustment.Reports.Leveling;
 
@@ -8,10 +7,10 @@ namespace Adjustment
     public class LevelingProcessing : NetworkAdjuster<HeightDelta, LevelingAdjustment>
     {
 
-        private AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
-        private LevelingProject project;
+        private readonly AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
+        private readonly LevelingProject project;
 
-        public LevelingProcessing(LevelingProject project, AdjustmentStatusDelegate? messageDelegate=null) : base(project.HeightDifferences, messageDelegate)
+        public LevelingProcessing(LevelingProject project, AdjustmentStatusDelegate? messageDelegate = null) : base(project.HeightDifferences, messageDelegate)
         {
             this.AdjustmentResult = PerformAdjustment();
             this.project = project;

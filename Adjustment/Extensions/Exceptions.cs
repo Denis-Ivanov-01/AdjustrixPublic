@@ -27,7 +27,7 @@
 
         public NetworkNotConnectedException(string message, Exception inner) : base(message, inner)
         {
-                
+
         }
     }
 
@@ -35,17 +35,17 @@
     {
         public HangingPointException()
         {
-            
+
         }
 
         public HangingPointException(string message) : base(message)
         {
-            
+
         }
 
-        public HangingPointException(string message, Exception inner) : base (message, inner)
+        public HangingPointException(string message, Exception inner) : base(message, inner)
         {
-             
+
         }
     }
 }

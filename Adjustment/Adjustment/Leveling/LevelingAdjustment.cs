@@ -75,9 +75,9 @@ namespace Adjustment
 
             List<NewBenchmark> newPoints = Points
                 .Where(p => p is not KnownBenchmark).Cast<NewBenchmark>().ToList();
-            
+
             List<AdjustedBenchmark> adjustedPoints = new();
-            
+
             List<KnownBenchmark> knownBenchmarks = Points.Where(x => x is KnownBenchmark).
                 Cast<KnownBenchmark>().ToList();
 
@@ -111,7 +111,7 @@ namespace Adjustment
                 double elevation = optimalKnownBenchmarkElevation + optimalMeasurements.Sum(m => m.Value);
                 adjustedPoints.Add(new AdjustedBenchmark(newBenchmark.Number, elevation, newBenchmark.X, newBenchmark.Y));
 
-                foreach(HeightDelta m in optimalMeasurements)
+                foreach (HeightDelta m in optimalMeasurements)
                 {
                     int mIndex = GetMeasurementIndex(m);
                     int value = GetMeasurementConfigurationIndex(m);
@@ -119,7 +119,7 @@ namespace Adjustment
                 }
             }
 
-            Matrix<double> KH = (fi.Multiply(Qv).Multiply(fi.Transpose())) * 
+            Matrix<double> KH = (fi.Multiply(Qv).Multiply(fi.Transpose())) *
                 (perUnitVariance * perUnitVariance);
 
             int counter = 0;

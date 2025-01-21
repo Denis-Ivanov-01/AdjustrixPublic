@@ -20,7 +20,7 @@ class Program
             data.KnownBenchmarks,
             //@"C:\\Users\\denis\\Desktop\\Геодезия\\_Дипломна",
             "project", "site", "contractor", "client");
-        
+
         //projectFile.ToFile(project, folder);
         //LevelingProject levelingProject = (LevelingProject)projectFile.FromFile(file);
         //projectFile.ToFile(levelingProject, folder);

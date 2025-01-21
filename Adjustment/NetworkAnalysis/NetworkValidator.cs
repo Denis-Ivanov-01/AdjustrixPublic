@@ -4,7 +4,7 @@
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {
         private Dictionary<PointBase, List<TEdge>> graphData = new();
-        
+
         /// <summary>
         /// Intended to be executed after the graph is made two-sided
         /// </summary>
@@ -48,7 +48,7 @@
 
             List<PointBase> points = graphData.Keys.ToList();
 
-            for (int i = 0 ; i < points.Count - 1; i++)
+            for (int i = 0; i < points.Count - 1; i++)
             {
                 PointBase p1 = points[i];
                 for (int j = i + 1; j < points.Count; j++)
@@ -58,7 +58,7 @@
                     {
                         pf.AStar(p1, p2);
                     }
-                    catch (Exception) 
+                    catch (Exception)
                     {
                         throw new Exception("The network is not fully connected!");
                     }
@@ -83,10 +83,10 @@
 
         public void AssertNoDuplicates(List<TEdge> measurements)
         {
-            for (int i = 0; i<measurements.Count-1; i++)
+            for (int i = 0; i < measurements.Count - 1; i++)
             {
                 TEdge meas1 = measurements[i];
-                for (int j = i + 1; j<measurements.Count; j++)
+                for (int j = i + 1; j < measurements.Count; j++)
                 {
                     TEdge meas2 = measurements[j];
                     if (MeasurementsMirrored(meas1, meas2))

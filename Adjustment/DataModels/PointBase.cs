@@ -78,9 +78,9 @@
             try
             {
                 PointBase p = (PointBase)other;
-                return p.Number == this.Number ;
+                return p.Number == this.Number;
             }
-            catch (Exception ex) { return false; }
+            catch (Exception) { return false; }
 
             // Only the number should be compared.
             // The program should check for duplicate points by number and by coordinates
@@ -96,8 +96,15 @@
         public static bool operator ==(PointBase? left, PointBase? right)
         {
             // Handle null cases
-            if (ReferenceEquals(left, right)) return true;
-            if (left is null || right is null) return false;
+            if (ReferenceEquals(left, right))
+            {
+                return true;
+            }
+
+            if (left is null || right is null)
+            {
+                return false;
+            }
 
             // Delegate to Equals
             return left.Equals(right);

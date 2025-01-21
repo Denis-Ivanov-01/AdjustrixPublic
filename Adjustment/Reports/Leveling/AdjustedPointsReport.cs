@@ -9,7 +9,7 @@ namespace Adjustment.Reports.Leveling
         private const string name = "AdjustedBenchmarks";
         private const string extension = ".csv";
 
-        private List<AdjustedBenchmark> adjustedBenchmarks;
+        private readonly List<AdjustedBenchmark> adjustedBenchmarks;
 
         public AdjustedPointsReport(List<AdjustedBenchmark> benchmarks)
         {

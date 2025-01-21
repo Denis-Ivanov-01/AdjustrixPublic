@@ -1,7 +1,5 @@
 ﻿using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Input;
-using Adjustment.Project;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -18,7 +16,7 @@ namespace AdjustrixWPF.ViewModel
         public ProcessingViewModel ProcessingViewModel { get; set; }
 
         public MessageBoxViewModel MessageBoxViewModel { get; set; }
-        
+
         public ICommand CloseCommand { get; }
 
         public MainWindowViewModel()
