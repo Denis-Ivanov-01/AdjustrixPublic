@@ -87,9 +87,9 @@
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{materialDesign:PackIcon Kind=ToggleSwitchOutline}"
+                            <Button Content="{materialDesign:PackIcon Kind=ToggleSwitchOutline, Size=25}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
                                     Foreground="White"
-                                    Background="DarkBlue"
                                     BorderThickness="0"
                                     ToolTip="{Binding DataContext.LanguageViewModel.Toggle,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
@@ -97,11 +97,12 @@
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     CommandParameter="{Binding}">
                             </Button>
-                            <Button Content="{materialDesign:PackIcon Kind=PencilOutline}"
+                            <Button Content="{materialDesign:PackIcon Kind=PencilOutline,Size=25}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Margin="5 0 0 0"
                                     ToolTip="{Binding DataContext.LanguageViewModel.Edit,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     Foreground="White"
-                                    Background="DarkBlue"
                                     BorderThickness="0"
                                     Command="{Binding DataContext.EditMeasurement,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"

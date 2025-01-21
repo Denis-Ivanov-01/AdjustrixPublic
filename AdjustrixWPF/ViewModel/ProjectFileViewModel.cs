@@ -229,9 +229,9 @@ namespace AdjustrixWPF.ViewModel
         }
 
         public void PromptForUnsavedChangesAndSave()
-        {//todo: think of a better method name
+        {
             if (HasUnsavedChanges && AskProjectSave())
-            { // The user has unsaved changes and wants to close the current project
+            {
                 projectFile.ToFile(project, projectIsNew);
             }
         }

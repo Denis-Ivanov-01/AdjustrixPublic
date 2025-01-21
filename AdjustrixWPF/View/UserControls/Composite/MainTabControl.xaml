@@ -90,12 +90,18 @@
                                            d:Text="Data loading"/>
                                 </Border>
                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                    <userControls:LabeledTabButton Content=".xlsx"
-                                                                   Height="100"
-                                                                   Width="60"
-                                                                   Label=""
-                                                                   d:Label="Excel"
-                                                                   Margin="10 0 0 0"/>
+                                    <userControls:LabeledTabButtonIcon Icon="FileExcelOutline"
+                                                                       Height="100"
+                                                                       Width="70"
+                                                                       Label=""
+                                                                       d:Label="Excel"
+                                                                       Margin="10 0 0 0"/>
+                                    <userControls:LabeledTabButtonIcon Icon="LanguagePython"
+                                                                       Height="100"
+                                                                       Width="70"
+                                                                       Label=""
+                                                                       d:Label="Custom file formats"
+                                                                       Margin="10 0 0 0"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
@@ -128,7 +134,7 @@
                                                                Margin="20 0 0 0"
                                                                Width="70"
                                                                Label="Adjust"
-                                                               Icon="VectorPolygonVariant"
+                                                               Icon="Calculator"
                                                                Command="{Binding ProcessingViewModel.Adjust}"/>
                         </StackPanel>
                     </Grid>

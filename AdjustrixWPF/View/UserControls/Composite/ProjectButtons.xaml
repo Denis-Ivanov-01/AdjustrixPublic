@@ -19,8 +19,8 @@
                 Width="70"
                 Margin="10 0 0 0"
                 Command="{Binding projectViewModel.CreateProject}"/>
-            <userControls:LabeledTabButton
-                Content="💾"
+            <userControls:LabeledTabButtonIcon
+                Icon="ContentSaveOutline"
                 ContentSize="30"
                 Label="{Binding languageViewModel.SaveProject}"
                 Height="100"
@@ -28,8 +28,8 @@
                 Margin="10 0 0 0"
                 IsEnabled="{Binding projectViewModel.HasUnsavedChanges}"
                 Command="{Binding projectViewModel.SaveProject}"/>
-            <userControls:LabeledTabButton
-                Content="🗁"
+            <userControls:LabeledTabButtonIcon
+                Icon="FolderOpenOutline"
                 ContentSize="30"
                 Label="{Binding languageViewModel.OpenProject}"
                 Height="100"
