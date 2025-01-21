@@ -16,6 +16,7 @@ namespace Adjustment.Project
     {
         private readonly List<Tuple<ProjectType, Type>> ProjectTypeClassMapping;
         private string lastProjectFolder;
+        public string fileName;
 
         protected const string fileExtension = ".adjx";
 
@@ -49,7 +50,7 @@ namespace Adjustment.Project
             return Encoding.UTF8.GetBytes(AsText(project));
         }
 
-        public void ToFile(AdjustrixProject project, string projectFolder = "")
+        public void ToFile(AdjustrixProject project, bool projectIsNew, string projectFolder = "")
         {
             if (projectFolder == string.Empty)
             {//If no project folder is specified, we take the project folder of the last project file
@@ -59,8 +60,12 @@ namespace Adjustment.Project
 
                 projectFolder = LastProjectFolder;
             }
-            string projName = $"{project.Name}{fileExtension}";
-            string path = Path.Combine(projectFolder, projName);
+            if (projectIsNew)
+            {
+                fileName = project.Name;
+            }
+            string fullName = $"{fileName}{fileExtension}";
+            string path = Path.Combine(projectFolder, fullName);
             byte[] bytes = AsBytes(project);
             using (var fileStream = new FileStream(path, FileMode.Create))
             using (var zipStream = new GZipStream(fileStream, CompressionMode.Compress))
@@ -91,6 +96,7 @@ namespace Adjustment.Project
                 };
 
                 LastProjectFolder = Path.GetDirectoryName(path)!;
+                fileName = Path.GetFileNameWithoutExtension(path);
 
                 AdjustrixProject project = Deserialize(decompressed, options);
 

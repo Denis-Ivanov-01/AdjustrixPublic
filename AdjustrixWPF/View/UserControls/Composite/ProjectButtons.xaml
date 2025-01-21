@@ -16,7 +16,7 @@
                 Content=".adjx"
                 Label="{Binding languageViewModel.NewProject}"
                 Height="100"
-                Width="60"
+                Width="70"
                 Margin="10 0 0 0"
                 Command="{Binding projectViewModel.CreateProject}"/>
             <userControls:LabeledTabButton
@@ -24,7 +24,7 @@
                 ContentSize="30"
                 Label="{Binding languageViewModel.SaveProject}"
                 Height="100"
-                Width="60"
+                Width="70"
                 Margin="10 0 0 0"
                 IsEnabled="{Binding projectViewModel.HasUnsavedChanges}"
                 Command="{Binding projectViewModel.SaveProject}"/>
@@ -33,9 +33,16 @@
                 ContentSize="30"
                 Label="{Binding languageViewModel.OpenProject}"
                 Height="100"
-                Width="60"
+                Width="70"
                 Margin="10 0 0 0"
                 Command="{Binding projectViewModel.OpenProject}"/>
+            <userControls:LabeledTabButtonIcon
+                Icon="BriefcaseEditOutline"
+                Label="{Binding languageViewModel.EditProject}"
+                Height="100"
+                Width="70"
+                Margin="10 0 0 0"
+                Command="{Binding projectViewModel.EditProject}"/>
         </StackPanel>
     </Border>
 </UserControl>

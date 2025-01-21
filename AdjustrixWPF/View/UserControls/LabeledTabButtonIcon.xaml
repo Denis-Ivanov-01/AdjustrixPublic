@@ -17,13 +17,16 @@
         <Border Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Grid}}"
             Grid.Row="0">
             <Grid>
-                <Button Content="{materialDesign:PackIcon Kind=VectorPolygonVariant, Size=40}"
-                        Style="{StaticResource TabButton}"
+                <Button Style="{StaticResource TabButton}"
                         Background="Transparent"
                         Foreground="{DynamicResource ForegroundBrush}"
                         Panel.ZIndex="1"
                         Grid.Row="0"
-                        Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        Command="{Binding Command, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                    <materialDesign:PackIcon Kind="{Binding Icon, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                             Width="40"
+                                             Height="40"/>
+                </Button>
             </Grid>
         </Border>
         <TextBlock Grid.Row="1"

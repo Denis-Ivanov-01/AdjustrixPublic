@@ -2,7 +2,7 @@
 {
     public class ProjectFactory
     {
-        public static AdjustrixProject CreateProject(ProjectCreationProperties properties, ProjectType projectType)
+        public static AdjustrixProject CreateProject(ProjectGeneralProperties properties, ProjectType projectType)
         {
             switch (projectType)
             {

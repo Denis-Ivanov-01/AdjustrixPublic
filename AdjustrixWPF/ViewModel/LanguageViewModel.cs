@@ -39,6 +39,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry newProject = new("Нов Проект", "New Project");
         private readonly StringEntry saveProject = new("Запази Проект", "Save Project");
         private readonly StringEntry openProject = new("Отвори Проект", "Open Project");
+        private readonly StringEntry editProject = new("Редактирай проект", "Edit Project");
         private readonly StringEntry saveProjectQuestion = new("Искате ли да запазите промените по текущия проект?",
             "Do you want to save the changes made to current project?");
         private readonly StringEntry yes = new("Да", "Yes");
@@ -175,6 +176,14 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return openProject.GetString(currentLanguage);
+            }
+        }
+
+        public string EditProject
+        {
+            get
+            {
+                return editProject.GetString(currentLanguage);
             }
         }
 

@@ -35,7 +35,7 @@
                           x:Name="TabPanelGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="230"/>
+                            <ColumnDefinition Width="338"/>
                         </Grid.ColumnDefinitions>
                         <local:AppearanceButtons
                             Margin="5 5 0 5"/>
@@ -128,6 +128,7 @@
                                                                Margin="20 0 0 0"
                                                                Width="70"
                                                                Label="Adjust"
+                                                               Icon="VectorPolygonVariant"
                                                                Command="{Binding ProcessingViewModel.Adjust}"/>
                         </StackPanel>
                     </Grid>

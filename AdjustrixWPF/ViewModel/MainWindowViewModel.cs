@@ -36,7 +36,7 @@ namespace AdjustrixWPF.ViewModel
 
         private void Close(object param)
         {
-            projectViewModel.PromptSaveChanges();
+            projectViewModel.PromptForUnsavedChangesAndSave();
             Application.Current.Shutdown();
         }
     }

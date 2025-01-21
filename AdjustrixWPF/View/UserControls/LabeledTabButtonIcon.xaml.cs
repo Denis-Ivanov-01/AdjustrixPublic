@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 
 namespace AdjustrixWPF.View.UserControls
 {
@@ -23,6 +24,20 @@ namespace AdjustrixWPF.View.UserControls
         public LabeledTabButtonIcon()
         {
             InitializeComponent();
+        }
+
+        // Icon DependencyProperty
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register(
+                nameof(Icon),
+                typeof(PackIconKind),
+                typeof(LabeledTabButtonIcon),
+                new PropertyMetadata(default(PackIconKind)));
+
+        public PackIconKind Icon
+        {
+            get => (PackIconKind)GetValue(IconProperty);
+            set => SetValue(IconProperty, value);
         }
 
         public int Height

@@ -10,6 +10,9 @@
     <Compile Update="NormalWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\EditProjectPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\CloseButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -70,6 +73,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="NormalWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\EditProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Resources\LightTheme.xaml">

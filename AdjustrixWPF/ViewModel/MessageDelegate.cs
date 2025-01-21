@@ -10,12 +10,17 @@ namespace AdjustrixWPF.ViewModel
         private readonly TimeSpan defaultTimeSpan = TimeSpan.FromSeconds(3);
         private CancellationTokenSource? cancellationTokenSource; // Cancellation token source for task cancellation
 
+        private readonly object lockObj = new();
+
         public event Action<string> MessageChanged;
 
-        private void ChangeMessage(string message)
+        private void ChangeMessage(string message="")
         {
-            this.message = message;
-            MessageChanged?.Invoke(this.message);
+            lock (lockObj)
+            {
+                this.message = message;
+                MessageChanged?.Invoke(this.message);
+            }
         }
 
         public void ChangeMessage(string message, TimeSpan timeSpan = default)
@@ -24,13 +29,15 @@ namespace AdjustrixWPF.ViewModel
             {
                 timeSpan = defaultTimeSpan;
             }
-
-            // Cancel the previous task if it's still running
-            cancellationTokenSource?.Cancel();
-
-            // Create a new CancellationTokenSource for the new task
-            cancellationTokenSource = new CancellationTokenSource();
-            var token = cancellationTokenSource.Token;
+            CancellationToken token;
+            lock (lockObj)
+            {
+                // Cancel the previous task if it's still running
+                cancellationTokenSource?.Cancel();
+                // Create a new CancellationTokenSource for the new task
+                cancellationTokenSource = new CancellationTokenSource();
+                token = cancellationTokenSource.Token;
+            }
 
             ChangeMessage(message);
 
@@ -42,7 +49,7 @@ namespace AdjustrixWPF.ViewModel
                     await Task.Delay(timeSpan, token); // Pass the cancellation token to Task.Delay
                     if (!token.IsCancellationRequested)
                     {
-                        ChangeMessage(""); // Clear the message if not canceled
+                        ChangeMessage(); // Clear the message if not canceled
                     }
                 }
                 catch (TaskCanceledException)
