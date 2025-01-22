@@ -7,8 +7,17 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <!-- Custom Style for DataGridCheckBoxColumn -->
+        <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignSecondaryCheckBox}">
+            <Setter Property="Background" Value="{DynamicResource ForegroundBrush}"/>
+        </Style>
+    </UserControl.Resources>
+
     <DataGrid  ItemsSource="{Binding LevelingMeasurements}"
-               Style="{StaticResource CustomDataGridStyle}">
+               Style="{StaticResource CustomDataGridStyle}"
+               AlternationCount="2"
+               AlternatingRowBackground="{DynamicResource HoveredBrush}">
         <DataGrid.Resources>
             <Style TargetType="DataGridColumnHeader" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
@@ -53,7 +62,6 @@
                                    Foreground="{DynamicResource ForegroundBrush}"/>
                             <TextBlock Text=" [m]"/>
                         </StackPanel>
-
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
@@ -63,17 +71,16 @@
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock d:Text="Value"
-                                   Foreground="{DynamicResource ForegroundBrush}">
-                            <Run Text="{Binding DataContext.LanguageViewModel.Value, 
-                                     RelativeSource={RelativeSource AncestorType=DataGrid}, Mode=OneWay}"/>
-                            <Run Text=" [m]"/>
-                        </TextBlock>
+                                   Foreground="{DynamicResource ForegroundBrush}"/>
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>
+            <!-- Checkbox Column with Custom Style -->
             <DataGridCheckBoxColumn Binding="{Binding IsEnabled}"
                                     Width="100"
-                                    MinWidth="60">
+                                    MinWidth="60"
+                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                    EditingElementStyle="{StaticResource DataGridCheckBoxStyle}">
                 <DataGridCheckBoxColumn.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock d:Text="Enabled"
@@ -89,20 +96,19 @@
                         <StackPanel Orientation="Horizontal">
                             <Button Content="{materialDesign:PackIcon Kind=ToggleSwitchOutline, Size=25}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource ForegroundBrush}"
                                     BorderThickness="0"
                                     ToolTip="{Binding DataContext.LanguageViewModel.Toggle,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     Command="{Binding DataContext.ToggleMeasurement,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    CommandParameter="{Binding}">
-                            </Button>
+                                    CommandParameter="{Binding}"/>
                             <Button Content="{materialDesign:PackIcon Kind=PencilOutline,Size=25}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     Margin="5 0 0 0"
                                     ToolTip="{Binding DataContext.LanguageViewModel.Edit,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    Foreground="White"
+                                    Foreground="{DynamicResource ForegroundBrush}"
                                     BorderThickness="0"
                                     Command="{Binding DataContext.EditMeasurement,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"

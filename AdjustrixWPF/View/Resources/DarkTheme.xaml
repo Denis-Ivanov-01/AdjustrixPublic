@@ -5,10 +5,10 @@
     <Color x:Key="OutOfFocus">#474547</Color>
     <Color x:Key="BackgroundColor">black</Color>
     <Color x:Key="ForegrondColor">#ede6ed</Color>
-    <SolidColorBrush x:Key="BackgroundBrush">black</SolidColorBrush>
-    <SolidColorBrush x:Key="HoveredBrush">#363336</SolidColorBrush>
+    <SolidColorBrush x:Key="BackgroundBrush">#2d2c2d</SolidColorBrush>
+    <SolidColorBrush x:Key="HoveredBrush">#3d3c3d</SolidColorBrush>
     <SolidColorBrush x:Key="SelectedBrush">#72657d</SolidColorBrush>
-    <SolidColorBrush x:Key="TabBackgroundBrush">#2d2633</SolidColorBrush>
+    <SolidColorBrush x:Key="TabBackgroundBrush">#2d2c2d</SolidColorBrush>
     <SolidColorBrush x:Key="DisabledBrush">Gray</SolidColorBrush>
     <SolidColorBrush x:Key="TabHeaderBackground">transparent</SolidColorBrush>
     <SolidColorBrush x:Key="TabHeaderForeground">#2196f3</SolidColorBrush>

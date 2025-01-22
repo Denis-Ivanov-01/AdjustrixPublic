@@ -8,7 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DataGrid ItemsSource="{Binding KnownBenchmarks}"
-              Style="{StaticResource CustomDataGridStyle}">
+              Style="{StaticResource CustomDataGridStyle}"
+              AlternationCount="2"
+              AlternatingRowBackground="{DynamicResource HoveredBrush}">
         <DataGrid.Columns>
             <DataGridTextColumn Width="50"/>
             <DataGridTextColumn Width="*" MinWidth="150"
@@ -40,11 +42,11 @@
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{materialDesign:PackIcon Kind=PencilOutline}"
+                            <Button Content="{materialDesign:PackIcon Kind=PencilOutline,Size=25}"
                                     ToolTip="{Binding DataContext.LanguageViewModel.Edit,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    Foreground="White"
-                                    Background="DarkBlue"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Foreground="{DynamicResource ForegroundBrush}"
                                     BorderThickness="0"
                                     Command="{Binding DataContext.EditPoint,
                                 RelativeSource={RelativeSource AncestorType=DataGrid}}"
