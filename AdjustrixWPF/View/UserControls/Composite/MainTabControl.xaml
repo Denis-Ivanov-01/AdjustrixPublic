@@ -86,20 +86,21 @@
                                     Margin="5 0 5 0">
                                     <TextBlock Grid.Row="0"
                                            Style="{StaticResource TextBlockTabPanel}"
-                                           Text=""
+                                           Text="{Binding languageViewModel.DataLoading}"
                                            d:Text="Data loading"/>
                                 </Border>
                                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                                     <userControls:LabeledTabButtonIcon Icon="FileExcelOutline"
                                                                        Height="100"
                                                                        Width="70"
-                                                                       Label=""
+                                                                       Label="{Binding languageViewModel.ImportExcel}"
                                                                        d:Label="Excel"
-                                                                       Margin="10 0 0 0"/>
+                                                                       Margin="10 0 0 0"
+                                                                       Command="{Binding DataLoadingViewModel.ReadExcel}"/>
                                     <userControls:LabeledTabButtonIcon Icon="LanguagePython"
                                                                        Height="100"
                                                                        Width="70"
-                                                                       Label=""
+                                                                       Label="{Binding languageViewModel.CustomImport}"
                                                                        d:Label="Custom file formats"
                                                                        Margin="10 0 0 0"/>
                                 </StackPanel>

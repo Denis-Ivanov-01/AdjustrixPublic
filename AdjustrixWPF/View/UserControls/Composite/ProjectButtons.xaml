@@ -14,6 +14,7 @@
         <StackPanel Orientation="Horizontal">
             <userControls:LabeledTabButton
                 Content=".adjx"
+                FontWeight="Bold"
                 Label="{Binding languageViewModel.NewProject}"
                 Height="100"
                 Width="70"

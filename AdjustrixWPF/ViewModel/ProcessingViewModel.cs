@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Adjustment;
 using Adjustment.Extensions;
@@ -64,28 +65,59 @@ namespace AdjustrixWPF.ViewModel
             {
                 //todo: error messages (prompts)
             }
+            //try
+            //{
+                //LevelingProject project = (LevelingProject)currentProject;
+                await Task.Run(() =>
+                {
+                    TryPerformProcessing(projectFolder);
+                });
+            //}
+            //catch (Exception ex)
+            //{
+            //    ProcessingErrorPrompt p = new(ex.Message);
+            //    p.ShowDialog();
+            //    return;
+            //}
+            //SuccessfulProcessingPrompt prompt = new();
+            //prompt.ShowDialog();
+            //if (prompt.RevealReports)
+            //{
+            //    Process.Start("explorer.exe", projectFolder);
+            //}
+        }
+
+        private void TryPerformProcessing(string projectFolder)
+        {
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                await Task.Run(() =>
-                {
-                    LevelingProcessing processing = new(project, statusDelegate);
-                    processing.Process(projectFolder);
-                });
+                LevelingProcessing processing = new(project, statusDelegate);
+                processing.Process(projectFolder);
             }
             catch (Exception ex)
             {
-                ProcessingErrorPrompt p = new(ex.Message);
-                p.ShowDialog();
+                // Show the error prompt on the UI thread
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ProcessingErrorPrompt p = new(ex.Message);
+                    p.ShowDialog();
+                });
                 return;
             }
-            SuccessfulProcessingPrompt prompt = new();
-            prompt.ShowDialog();
-            if (prompt.RevealReports)
+
+            // Show the success prompt on the UI thread
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                Process.Start("explorer.exe", projectFolder);
-            }
+                SuccessfulProcessingPrompt prompt = new();
+                prompt.ShowDialog();
+                if (prompt.RevealReports)
+                {
+                    Process.Start("explorer.exe", projectFolder);
+                }
+            });
         }
+
 
         private bool CanProcess(object param)
         {

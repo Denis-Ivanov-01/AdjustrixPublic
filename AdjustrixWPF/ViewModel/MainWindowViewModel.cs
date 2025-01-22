@@ -13,6 +13,8 @@ namespace AdjustrixWPF.ViewModel
 
         public ProjectDataViewModel DataViewModel { get; set; }
 
+        public DataLoadingViewModel DataLoadingViewModel { get; set; }
+
         public ProcessingViewModel ProcessingViewModel { get; set; }
 
         public MessageBoxViewModel MessageBoxViewModel { get; set; }
@@ -28,6 +30,7 @@ namespace AdjustrixWPF.ViewModel
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
             this.MessageBoxViewModel = new(messageDelegate);
+            this.DataLoadingViewModel = new(projectContainer, messageDelegate);
             SystemFileSingleton = SystemFileManagement.Singleton;
             CloseCommand = new RelayCommand(Close);
         }

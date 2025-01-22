@@ -39,6 +39,7 @@
                    Text="{Binding Label, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    FontSize="12"
                    Foreground="{DynamicResource ForegroundBrush}"
+                   FontWeight="Normal"
                    TextWrapping="WrapWithOverflow"/>
     </Grid>
 </UserControl>

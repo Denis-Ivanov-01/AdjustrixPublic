@@ -63,6 +63,9 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry measurements = new("Измервания", "Measurements");
         private readonly StringEntry benchmarks = new("Репери", "Benchmarks");
         private readonly StringEntry enabled = new("Включено", "Enabled");
+        private readonly StringEntry dataLoading = new("Зареждане на Данни", "Data Loading");
+        private readonly StringEntry importExcel = new("Зареждане на Ексел файл", "Load Excel file");
+        private readonly StringEntry customImport = new("Скрипт за вмъкване", "Run Import Script");
 
 
         private static Language currentLanguage;
@@ -348,6 +351,31 @@ namespace AdjustrixWPF.ViewModel
                 return enabled.GetString(currentLanguage);
             }
         }
+
+        public string DataLoading
+        {
+            get
+            {
+                return dataLoading.GetString(currentLanguage);
+            }
+        }
+
+        public string ImportExcel
+        {
+            get
+            {
+                return importExcel.GetString(currentLanguage);
+            }
+        }
+
+        public string CustomImport
+        {
+            get
+            {
+                return customImport.GetString(currentLanguage);
+            }
+        }
+
         private static LanguageViewModel GetInstance()
         {
             if (instance == null)
