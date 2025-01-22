@@ -10,74 +10,72 @@ namespace AdjustrixWPF.Model
 {
     public class LevelingExcelReader
     {
-        private const string benchmarksSheet = "KnownBenchmarks";
-        private const string measurementsSheet = "Measurements";
+        private const string BenchmarksSheetName = "KnownBenchmarks";
+        private const string MeasurementsSheetName = "Measurements";
 
-        private const string number = "Number";
-        private const string elevation = "Elevation";
+        private const string ColumnNumber = "Number";
+        private const string ColumnElevation = "Elevation";
 
-        private const string fromPoint = "FromPoint";
-        private const string toPoint = "ToPoint";
-        private const string length = "Length";
-        private const string value = "Value";
+        private const string ColumnFromPoint = "FromPoint";
+        private const string ColumnToPoint = "ToPoint";
+        private const string ColumnLength = "Length";
+        private const string ColumnValue = "Value";
 
         private bool benchmarksParsed = false;
 
-        private string excelPath;
-
         public HashSet<KnownBenchmark> KnownBenchmarks { get; private set; } = new();
-
         public List<HeightDelta> Measurements { get; private set; } = new();
+
+        private readonly string excelPath;
 
         public LevelingExcelReader(string excelPath)
         {
+            if (string.IsNullOrWhiteSpace(excelPath) || !File.Exists(excelPath))
+            {
+                throw new ArgumentException("Invalid Excel file path", nameof(excelPath));
+            }
+
             this.excelPath = excelPath;
-            DataSet excel = ReadExcel();
-            ParseExcel(excel);
+            DataSet excelData = ReadExcel();
+            ParseExcel(excelData);
         }
 
-        private void ParseExcel(DataSet excel)
+        private void ParseExcel(DataSet excelData)
         {
-            (DataTable, DataTable) result = GetSheets(excel);
-            DataTable knownBenchmarks = result.Item1;
-            DataTable measurements = result.Item2;
-
-            ParseBenchmarks(knownBenchmarks);
-            ParseMeasurements(measurements);
+            var sheets = GetSheets(excelData);
+            ParseBenchmarks(sheets.benchmarksSheet);
+            ParseMeasurements(sheets.measurementsSheet);
         }
 
-        private (DataTable, DataTable) GetSheets(DataSet excel)
+        private (DataTable benchmarksSheet, DataTable measurementsSheet) GetSheets(DataSet excelData)
         {
-            DataTable? knownBenchmarks = null;
-            DataTable? measurements = null;
-            foreach (DataTable t in excel.Tables)
+            var benchmarksSheet = excelData.Tables.Cast<DataTable>().FirstOrDefault(t => t.TableName == BenchmarksSheetName);
+            var measurementsSheet = excelData.Tables.Cast<DataTable>().FirstOrDefault(t => t.TableName == MeasurementsSheetName);
+
+            if (benchmarksSheet == null || measurementsSheet == null)
             {
-                if (t.TableName == benchmarksSheet)
-                {
-                    knownBenchmarks = t;
-                }
-                else if (t.TableName == measurementsSheet)
-                {
-                    measurements = t;
-                }
+                throw new InvalidOperationException("The Excel file must contain both 'KnownBenchmarks' and 'Measurements' sheets.");
             }
-            if (measurements == null || knownBenchmarks == null)
-            {
-                throw new ArgumentNullException("The passed Excel file did not contain the required sheets");
-            }
-            return (knownBenchmarks, measurements);
+
+            return (benchmarksSheet, measurementsSheet);
         }
 
         private void ParseBenchmarks(DataTable benchmarks)
         {
-            int numIndex = benchmarks.Columns.IndexOf(number);
-            int elevIndex = benchmarks.Columns.IndexOf(elevation);
-
-            foreach (DataRow row  in benchmarks.Rows)
+            if (!benchmarks.Columns.Contains(ColumnNumber) || !benchmarks.Columns.Contains(ColumnElevation))
             {
-                string num = (string)row[numIndex];
-                double val = (double)row[elevIndex];
-                KnownBenchmarks.Add(new(num, val));
+                throw new InvalidOperationException("The 'KnownBenchmarks' sheet is missing required columns.");
+            }
+
+            foreach (DataRow row in benchmarks.Rows)
+            {
+                string number = row[ColumnNumber]?.ToString() ?? throw new InvalidOperationException("Benchmark number is missing.");
+                if (!double.TryParse(row[ColumnElevation]?.ToString(), out double elevation))
+                {
+                    throw new InvalidOperationException($"Invalid elevation value for benchmark {number}.");
+                }
+
+                KnownBenchmarks.Add(new KnownBenchmark(number, elevation));
             }
 
             benchmarksParsed = true;
@@ -85,61 +83,61 @@ namespace AdjustrixWPF.Model
 
         private void ParseMeasurements(DataTable measurements)
         {
-            if (!benchmarksParsed) 
-            { 
-                throw new ArgumentNullException("The benchmarks from the Excel must be parsed before the measurements"); 
+            if (!benchmarksParsed)
+            {
+                throw new InvalidOperationException("ParseBenchmarks must be called before ParseMeasurements.");
             }
 
-            int fromIndex = measurements.Columns.IndexOf(fromPoint);
-            int toIndex = measurements.Columns.IndexOf(toPoint);
-            int lengthIndex = measurements.Columns.IndexOf(length);
-            int valueIndex = measurements.Columns.IndexOf(value);
+            var requiredColumns = new[] { ColumnFromPoint, ColumnToPoint, ColumnLength, ColumnValue };
+            foreach (var column in requiredColumns)
+            {
+                if (!measurements.Columns.Contains(column))
+                {
+                    throw new InvalidOperationException($"The 'Measurements' sheet is missing the required column: {column}.");
+                }
+            }
 
             foreach (DataRow row in measurements.Rows)
             {
-                string fromPointNum = (string)row[fromIndex];
-                string toPointNum = (string)row[toIndex];
-                double length = (double)row[lengthIndex];
-                double value = (double)row[valueIndex];
+                string fromPoint = row[ColumnFromPoint]?.ToString() ?? throw new InvalidOperationException("FromPoint is missing.");
+                string toPoint = row[ColumnToPoint]?.ToString() ?? throw new InvalidOperationException("ToPoint is missing.");
+                if (!double.TryParse(row[ColumnLength]?.ToString(), out double length))
+                {
+                    throw new InvalidOperationException($"Invalid length value for measurement from {fromPoint} to {toPoint}.");
+                }
+                if (!double.TryParse(row[ColumnValue]?.ToString(), out double value))
+                {
+                    throw new InvalidOperationException($"Invalid value for measurement from {fromPoint} to {toPoint}.");
+                }
 
-                PointBase fromPoint = PointFromString(fromPointNum);
-                PointBase toPoint = PointFromString(toPointNum);
-
-                Measurements.Add(new(fromPoint, toPoint, value, length));
+                Measurements.Add(new HeightDelta(PointFromString(fromPoint), PointFromString(toPoint), value, length));
             }
         }
 
-        private PointBase PointFromString(string number)
+        private PointBase PointFromString(string pointNumber)
         {
-            HashSet<KnownBenchmark> filtered = KnownBenchmarks.Where(kb => kb.Number == number).ToHashSet();
-            if (filtered.Count == 1)
+            if (KnownBenchmarks.FirstOrDefault(kb => kb.Number == pointNumber) is KnownBenchmark benchmark)
             {
-                return filtered.First();
+                return benchmark;
             }
-            return new NewBenchmark(number);
+
+            return new NewBenchmark(pointNumber);
         }
 
         private DataSet ReadExcel()
         {
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
 
-            DataSet result;
-            using (FileStream stream = new FileStream(excelPath,  FileMode.Open, FileAccess.Read))
+            using FileStream stream = new(excelPath, FileMode.Open, FileAccess.Read);
+            using var reader = ExcelReaderFactory.CreateReader(stream);
+
+            return reader.AsDataSet(new ExcelDataSetConfiguration
             {
-                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                ConfigureDataTable = _ => new ExcelDataTableConfiguration
                 {
-                    result = reader.AsDataSet(new ExcelDataSetConfiguration
-                    {
-                        ConfigureDataTable = (_) => new ExcelDataTableConfiguration
-                        {
-                            UseHeaderRow = true // Set to true if the first row contains column names
-                        }
-                    });
+                    UseHeaderRow = true
                 }
-            }
-
-            return result;
+            });
         }
-
     }
 }
