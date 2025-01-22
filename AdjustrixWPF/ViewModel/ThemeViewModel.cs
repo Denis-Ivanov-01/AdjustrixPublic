@@ -73,7 +73,8 @@ namespace AdjustrixWPF.ViewModel
 
         public static void SetLightTheme()
         {
-            SetMaterialDesignTheme(Colors.White, Colors.White, BaseTheme.Light);
+            Color color = (Color)ColorConverter.ConvertFromString("#2196f3");
+            SetMaterialDesignTheme(color, Colors.White, BaseTheme.Light);
             ThemeManager.SetCurrentThemeDictionary(Application.Current.MainWindow, new Uri(@"pack://application:,,,/View/Resources/LightTheme.xaml"));
         }
 
