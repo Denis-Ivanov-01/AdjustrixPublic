@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls"
         mc:Ignorable="d"
-        Title="ManageProjectPrompt" Height="450" Width="800"
+        Title="ManageProjectPrompt" Height="550" Width="800"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource BackgroundBrush}">
@@ -15,7 +15,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Left"
                        d:Text="Manage Project"
@@ -25,100 +25,132 @@
                        VerticalAlignment="Center"
                        Margin="10 0 0 0"/>
             <StackPanel Grid.Row="1" Orientation="Vertical">
-                <Border Margin="5" Height="25">
+                <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
+                                Width="232">
+                            <TextBlock Margin="20 0 50 0"
+                                       d:Text="Project Type"
                                        Text="{Binding LanguageViewModel.ProjectType}"
                                        Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Opacity="0.7"/>
                         </Border>
                         <Border Margin="100 0 0 0"
                                 BorderThickness="1"
-                                BorderBrush="{DynamicResource ForegroundBrush}">
+                                BorderBrush="{DynamicResource ForegroundBrush}"
+                                Height="25">
                             <ComboBox Height="25"
-                            ItemsSource="{Binding ProjectTypes}"
-                            SelectedItem="{Binding SelectedProjectType}"
-                            d:Text="Placeholder name"
-                            Style="{StaticResource ComboBox}"
-                            
-                            x:Name="TypeComboBox"
-                            Foreground="{DynamicResource ForegroundBrush}"/>
+                                      Width="120"
+                                      ItemsSource="{Binding ProjectTypes}"
+                                      SelectedItem="{Binding SelectedProjectType}"
+                                      d:Text="Placeholder name"
+                                      Style="{StaticResource ComboBox}"
+                                      Foreground="{DynamicResource ForegroundBrush}"
+                                      x:Name="TypeComboBox"/>
                         </Border>
                     </StackPanel>
                 </Border>
-                <Border Margin="5" Height="25">
+                <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
+                                Width="230">
+                            <TextBlock Margin="20 0 50 0"
+                                       d:Text="Project name"
                                        Text="{Binding LanguageViewModel.ProjectName}"
                                        Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Opacity="0.7"/>
                         </Border>
                         <TextBox Text="{Binding ProjectProperties.ProjectName}"
                                  d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 Foreground="{DynamicResource ForegroundBrush}"
+                                 Padding="5"
                                  Margin="100 0 0 0"
                                  Tag="Test"
+                                 Height="30"
+                                 Width="120"
                                  MaxWidth="120"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5" Height="25">
+                <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
+                                Width="230">
+                            <TextBlock Margin="20 0 50 0"
+                                       d:Text="Site Name"
                                        Text="{Binding LanguageViewModel.SiteName}"
                                        Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Opacity="0.7"/>
                         </Border>
                         <TextBox Text="{Binding ProjectProperties.SiteName}"
                                  d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 Foreground="{DynamicResource ForegroundBrush}"
+                                 Padding="5"
+                                 Height="30"
                                  Margin="100 0 0 0"
                                  Tag="Test"
+                                 Width="120"
                                  MaxWidth="120"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5" Height="25">
+                <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
+                                Width="230">
+                            <TextBlock Margin="20 0 50 0"
+                                       d:Text="Client"
                                        Text="{Binding LanguageViewModel.Client}"
                                        Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Opacity="0.7"/>
                         </Border>
                         <TextBox Text="{Binding ProjectProperties.Client}"
                                  d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 Foreground="{DynamicResource ForegroundBrush}"
+                                 Padding="5"
                                  Margin="100 0 0 0"
                                  Tag="Test"
-                                 MaxWidth="120"/>
+                                 MaxWidth="120"
+                                 Width="120"
+                                 Height="30"/>
                     </StackPanel>
                 </Border>
-                <Border Margin="5" Height="25">
+                <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Border BorderThickness="0 0 1 0"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
+                                Width="230">
+                            <TextBlock Margin="20 0 50 0"
                                        Text="{Binding LanguageViewModel.Contractor}"
+                                       d:Text="Contractor"
                                        Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                       VerticalAlignment="Center" HorizontalAlignment="Left"
+                                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                       Opacity="0.7"/>
                         </Border>
                         <TextBox Text="{Binding ProjectProperties.Contractor}"
                                  d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
+                                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 Foreground="{DynamicResource ForegroundBrush}"
+                                 Padding="5"
                                  Margin="100 0 0 0"
                                  Tag="Test"
-                                 MaxWidth="120"/>
+                                 Width="120"
+                                 MaxWidth="120"
+                                 Height="30"/>
                     </StackPanel>
                 </Border>
                 <Border>
@@ -130,16 +162,20 @@
             <StackPanel Orientation="Horizontal"
                         Grid.Row="2"
                         HorizontalAlignment="Center">
-                <Button Style="{StaticResource TabButton}"
-                        Content="Save"
-                        Width="45"
-                        Height="30"
+                <Button Style="{StaticResource YesButton}"
+                        Content="{Binding LanguageViewModel.Save}"
+                        FontSize="14"
+                        d:Content="Save"
+                        Height="40"
+                        Width="100"
                         Margin="0 0 50 0"
                         Click="SaveClick"/>
-                <Button Style="{StaticResource TabButton}"
-                        Content="Cancel"
-                        Width="45"
-                        Height="30"
+                <Button Style="{StaticResource NoButton}"
+                        Content="{Binding LanguageViewModel.Cancel}"
+                        FontSize="14"
+                        d:Content="Cancel"
+                        Height="40"
+                        Width="100"
                         Margin="50 0 0 0"
                         Click="CancelClick"/>
             </StackPanel>

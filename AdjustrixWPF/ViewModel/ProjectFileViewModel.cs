@@ -129,8 +129,10 @@ namespace AdjustrixWPF.ViewModel
                 return;
             }
 
-            CreateNewProjectFile(selectedPath);
-            messageDelegate.ChangeMessage($"Created new project: {project.Name} in folder {projectFile.LastProjectFolder}", TimeSpan.FromSeconds(3));
+            if (CreateNewProjectFile(selectedPath))
+            {
+                messageDelegate.ChangeMessage($"Created new project: {project.Name} in folder {projectFile.LastProjectFolder}", TimeSpan.FromSeconds(3));
+            }
         }
 
         private string ShowFolderDialog()
@@ -150,7 +152,7 @@ namespace AdjustrixWPF.ViewModel
             }
         }
 
-        private void CreateNewProjectFile(string folderPath)
+        private bool CreateNewProjectFile(string folderPath)
         {
             projectIsNew = true;
             ProjectProperties = new();
@@ -159,7 +161,7 @@ namespace AdjustrixWPF.ViewModel
 
             if (!dialog.Confirmed)
             {
-                return;
+                return false;
             }
 
             project = ProjectFactory.CreateProject(ProjectProperties, selectedProjectType);
@@ -167,6 +169,7 @@ namespace AdjustrixWPF.ViewModel
             projectContainer.ChangeProject(project);
             projectContainer.ChangeProjectFolder(projectFile.LastProjectFolder);
             UpdateProjectProperties();
+            return true;
         }
 
         public bool CanCreateProject(object parameter)
