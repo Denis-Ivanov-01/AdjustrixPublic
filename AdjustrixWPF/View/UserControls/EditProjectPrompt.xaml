@@ -15,107 +15,43 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Left"
                        d:Text="Manage Project"
-                       Text="Manage Project"
-                       FontSize="13"
+                       Text="{Binding LanguageViewModel.ProjectSettings}"
+                       Style="{StaticResource MaterialDesignHeadline2TextBlock}"
+                       FontSize="16"
                        Foreground="{DynamicResource ForegroundBrush}"
                        VerticalAlignment="Center"
-                       Margin="10 0 0 0"/>
+                       Margin="20 0 0 0"/>
             <StackPanel Grid.Row="1" Orientation="Vertical">
-                <Border Margin="5" Height="25">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
-                                       Text="{Binding LanguageViewModel.ProjectName}"
-                                       Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBox Text="{Binding ProjectProperties.ProjectName}"
-                                 d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
-                                 Margin="100 0 0 0"
-                                 Tag="Test"
-                                 MaxWidth="120"/>
-                    </StackPanel>
-                </Border>
-                <Border Margin="5" Height="25">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
-                                       Text="{Binding LanguageViewModel.SiteName}"
-                                       Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBox Text="{Binding ProjectProperties.SiteName}"
-                                 d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
-                                 Margin="100 0 0 0"
-                                 Tag="Test"
-                                 MaxWidth="120"/>
-                    </StackPanel>
-                </Border>
-                <Border Margin="5" Height="25">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
-                                       Text="{Binding LanguageViewModel.Client}"
-                                       Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBox Text="{Binding ProjectProperties.Client}"
-                                 d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
-                                 Margin="100 0 0 0"
-                                 Tag="Test"
-                                 MaxWidth="120"/>
-                    </StackPanel>
-                </Border>
-                <Border Margin="5" Height="25">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Border BorderThickness="0 0 1 0"
-                                BorderBrush="{DynamicResource ForegroundBrush}"
-                                Width="200">
-                            <TextBlock Margin="50 0 50 0"
-                                       Text="{Binding LanguageViewModel.Contractor}"
-                                       Foreground="{DynamicResource ForegroundBrush}"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        </Border>
-                        <TextBox Text="{Binding ProjectProperties.Contractor}"
-                                 d:Text="Placeholder name"
-                                 Style="{StaticResource TextBoxStyle1}"
-                                 Margin="100 0 0 0"
-                                 Tag="Test"
-                                 MaxWidth="120"/>
-                    </StackPanel>
-                </Border>
-                <Border>
-                    <StackPanel Orientation="Horizontal">
-
-                    </StackPanel>
-                </Border>
+                <local:LabeledTextBoxRow LabelText="{Binding LanguageViewModel.ProjectName}"
+                                         TextBoxText="{Binding ProjectProperties.ProjectName, Mode=TwoWay}"/>
+                <local:LabeledTextBoxRow LabelText="{Binding LanguageViewModel.SiteName}"
+                                         TextBoxText="{Binding ProjectProperties.SiteName, Mode=TwoWay}"/>
+                <local:LabeledTextBoxRow LabelText="{Binding LanguageViewModel.Client}"
+                         TextBoxText="{Binding ProjectProperties.Client, Mode=TwoWay}"/>
+                <local:LabeledTextBoxRow LabelText="{Binding LanguageViewModel.Contractor}"
+                         TextBoxText="{Binding ProjectProperties.Contractor, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
                         Grid.Row="2"
                         HorizontalAlignment="Center">
-                <Button Style="{StaticResource TabButton}"
-                        Content="Save"
-                        Width="45"
-                        Height="30"
+                <Button Style="{StaticResource YesButton}"
+                        Content="{Binding LanguageViewModel.Save}"
+                        FontSize="14"
+                        d:Content="Save"
+                        Height="40"
+                        Width="100"
                         Margin="0 0 50 0"
                         Click="SaveClick"/>
-                <Button Style="{StaticResource TabButton}"
-                        Content="Cancel"
-                        Width="45"
-                        Height="30"
+                <Button Style="{StaticResource NoButton}"
+                        Content="{Binding LanguageViewModel.Cancel}"
+                        FontSize="14"
+                        d:Content="Cancel"
+                        Height="40"
+                        Width="100"
                         Margin="50 0 0 0"
                         Click="CancelClick"/>
             </StackPanel>
