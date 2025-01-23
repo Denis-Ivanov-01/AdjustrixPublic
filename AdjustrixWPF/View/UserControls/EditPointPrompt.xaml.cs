@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Adjustment;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.View.UserControls
 {
@@ -9,14 +10,18 @@ namespace AdjustrixWPF.View.UserControls
     /// </summary>
     public partial class EditPointPrompt : Window
     {
+        private AdjustrixViewModel viewModel;
+
         private bool valueIsValid = false;
 
         public double Value { get; set; }
 
         public bool Edit { get; set; }
 
-        public EditPointPrompt(KnownBenchmark point)
+        public EditPointPrompt(KnownBenchmark point, AdjustrixViewModel viewModel)
         {
+            this.DataContext = viewModel;
+            this.viewModel = viewModel;
             InitializeComponent();
             InputBox.Text = point.Value.ToString();
         }
@@ -27,7 +32,7 @@ namespace AdjustrixWPF.View.UserControls
             {
                 if (value < 0)
                 {
-                    MessageBox.Text = "Cannot enter negative value!";
+                    MessageBox.Text = viewModel.LanguageViewModel.NegativeValueMessage;
                     valueIsValid = false;
                     return;
                 }
@@ -39,7 +44,7 @@ namespace AdjustrixWPF.View.UserControls
             else
             {
                 valueIsValid = false;
-                MessageBox.Text = "Cannot enter non-numeric value!";
+                MessageBox.Text = viewModel.LanguageViewModel.NonNumericMessage;
             }
         }
 

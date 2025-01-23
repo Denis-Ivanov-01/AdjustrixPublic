@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using Adjustment;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.View.UserControls
 {
@@ -9,14 +10,18 @@ namespace AdjustrixWPF.View.UserControls
     /// </summary>
     public partial class EditMeasurementPrompt : Window
     {
+        private AdjustrixViewModel viewModel;
+
         private bool valueIsValid = false;
 
         public double Value { get; set; }
 
         public bool Edit { get; set; }
 
-        public EditMeasurementPrompt(HeightDelta measurement)
+        public EditMeasurementPrompt(HeightDelta measurement, AdjustrixViewModel viewModel)
         {
+            this.DataContext = viewModel;
+            this.viewModel = viewModel;
             InitializeComponent();
             InputBox.Text = measurement.Value.ToString();
         }
@@ -32,7 +37,7 @@ namespace AdjustrixWPF.View.UserControls
             else
             {
                 valueIsValid = false;
-                MessageBox.Text = "Cannot enter non-numeric value!";
+                MessageBox.Text = viewModel.LanguageViewModel.NonNumericMessage;
             }
         }
 

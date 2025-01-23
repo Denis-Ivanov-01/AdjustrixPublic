@@ -8,7 +8,7 @@ using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {
-    public class ProjectDataViewModel : ViewModelBase
+    public class ProjectDataViewModel : AdjustrixViewModel
     {
         private readonly ProjectContainer projectContainer;
         private AdjustrixProject currentProject;
@@ -88,7 +88,7 @@ namespace AdjustrixWPF.ViewModel
         {
             HeightDelta delta = (HeightDelta)parameter;
             int deltaIndex = LevelingMeasurements.IndexOf(delta);
-            EditMeasurementPrompt prompt = new(delta);
+            EditMeasurementPrompt prompt = new(delta, this);
             prompt.ShowDialog();
             if (prompt.Edit)
             {
@@ -101,7 +101,7 @@ namespace AdjustrixWPF.ViewModel
         {
             KnownBenchmark point = (KnownBenchmark)parameter;
             int pointIndex = KnownBenchmarks.IndexOf(point);
-            EditPointPrompt prompt = new(point);
+            EditPointPrompt prompt = new(point, this);
             prompt.ShowDialog();
             if (prompt.Edit)
             {

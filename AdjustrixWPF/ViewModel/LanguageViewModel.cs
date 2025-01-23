@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Windows.Navigation;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -70,6 +71,12 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry revealQuestion = new("Искате ли да се покажат докладите от обработката?", 
             "Do you want to reveal the processing reports?");
         private readonly StringEntry errorOccurred = new("Възникна грешка", "An error occurred");
+        private readonly StringEntry editMeasurement = new("Редактиране на измерване", "Edit measurement");
+        private readonly StringEntry save = new("Запази", "Save");
+        private readonly StringEntry cancel = new("Откажи", "Cancel");
+        private readonly StringEntry nonNumericMessage = new("Трябва да въведете числена стойност", "You must enter a numeric value");
+        private readonly StringEntry editPoint = new("Редактиране на точка", "Edit point");
+        private readonly StringEntry negativeValueMessage = new("Не може да въведете отрицателна стойност", "You cannot enter a negative value");
 
         private static Language currentLanguage;
 
@@ -400,6 +407,54 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return errorOccurred.GetString(currentLanguage);
+            }
+        }
+
+        public string EditMeasurement
+        {
+            get
+            {
+                return editMeasurement.GetString(currentLanguage);
+            }
+        }
+        
+        public string Save
+        {
+            get
+            {
+                return save.GetString(currentLanguage);
+            }
+        }
+
+        public string Cancel
+        {
+            get
+            {
+                return cancel.GetString(currentLanguage);
+            }
+        }
+
+        public string NonNumericMessage
+        {
+            get
+            {
+                return nonNumericMessage.GetString(currentLanguage);
+            }
+        }
+
+        public string EditPoint
+        {
+            get
+            {
+                return editPoint.GetString(currentLanguage);
+            }
+        }
+
+        public string NegativeValueMessage
+        {
+            get
+            {
+                return negativeValueMessage.GetString(currentLanguage);
             }
         }
 

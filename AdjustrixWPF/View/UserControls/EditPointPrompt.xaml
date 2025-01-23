@@ -14,11 +14,12 @@
                 HorizontalAlignment="Center"
                 Width="{Binding Width, RelativeSource={RelativeSource AncestorType=Window}}">
         <Border Height="50" Background="{DynamicResource BackgroundBrush}">
-            <TextBlock Text="Edit measurement" 
+            <TextBlock Text="{Binding LanguageViewModel.EditPoint}"
+                       d:Text="Edit measurement" 
                        Foreground="{DynamicResource ForegroundBrush}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Margin="10"
+                       Margin="20 10"
                        Style="{StaticResource MaterialDesignTitleMediumTextBlock}"/>
         </Border>
         <StackPanel Height="70"
@@ -30,7 +31,8 @@
                     BorderThickness="0 0 2 0"
                     BorderBrush="{DynamicResource ForegroundBrush}"
                     Opacity="0.7">
-                <TextBlock Text="Value"
+                <TextBlock Text="{Binding LanguageViewModel.Value}"
+                           d:Text="Value"
                            Margin="50 0 50 0"
                            Foreground="{DynamicResource ForegroundBrush}"
                            Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -50,15 +52,20 @@
         <StackPanel Orientation="Horizontal"
                     Margin="0 20 0 0"
                     HorizontalAlignment="Center">
-            <Button Content="Save"
+            <Button Content="{Binding LanguageViewModel.Save}"
+                    d:Content="Save"
                     Margin="0 0 20 0"
-                    Width="75"
-                    Click="SaveButton_Click"/>
-            <Button Content="Cancel"
+                    Width="100"
+                    Click="SaveButton_Click"
+                    Style="{StaticResource YesButton}"
+                    FontSize="15"/>
+            <Button Content="{Binding LanguageViewModel.Cancel}"
+                    d:Content="Cancel"
                     Margin="20 0 0 0"
-                    Width="75"
+                    Width="100"
                     Click="CancelButton_Click"
-                    Style="{StaticResource MaterialDesignFlatSecondaryButton}"/>
+                    Style="{StaticResource NoButton}"
+                    FontSize="14"/>
         </StackPanel>
         <Border HorizontalAlignment="Center">
             <TextBlock Margin="0 10 0 0"
