@@ -13,17 +13,18 @@
             BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Left"
                        d:Text="Manage Project"
-                       Text="Manage Project"
-                       FontSize="13"
+                       Text="{Binding LanguageViewModel.ProjectSettings}"
+                       Style="{StaticResource MaterialDesignHeadline2TextBlock}"
+                       FontSize="16"
                        Foreground="{DynamicResource ForegroundBrush}"
                        VerticalAlignment="Center"
-                       Margin="10 0 0 0"/>
+                       Margin="20 0 0 0"/>
             <StackPanel Grid.Row="1" Orientation="Vertical">
                 <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -31,8 +32,8 @@
                                 BorderBrush="{DynamicResource ForegroundBrush}"
                                 Width="232">
                             <TextBlock Margin="20 0 50 0"
-                                       d:Text="Project Type"
-                                       Text="{Binding LanguageViewModel.ProjectType}"
+                                       d:Text="Network Type"
+                                       Text="{Binding LanguageViewModel.NetworkType}"
                                        Foreground="{DynamicResource ForegroundBrush}"
                                        VerticalAlignment="Center" HorizontalAlignment="Left"
                                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
@@ -42,10 +43,10 @@
                                 BorderThickness="1"
                                 BorderBrush="{DynamicResource ForegroundBrush}"
                                 Height="25">
-                            <ComboBox Height="25"
-                                      Width="120"
-                                      ItemsSource="{Binding ProjectTypes}"
-                                      SelectedItem="{Binding SelectedProjectType}"
+                            <ComboBox Height="35"
+                                      Width="150"
+                                      ItemsSource="{Binding ProjectTypes, Converter={StaticResource ProjectTypesConverter}}"
+                                      SelectedItem="{Binding SelectedProjectType, Converter={StaticResource ProjectTypesConverter}}"
                                       d:Text="Placeholder name"
                                       Style="{StaticResource ComboBox}"
                                       Foreground="{DynamicResource ForegroundBrush}"
@@ -69,13 +70,14 @@
                         <TextBox Text="{Binding ProjectProperties.ProjectName}"
                                  d:Text="Placeholder name"
                                  Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 FontSize="14"
                                  Foreground="{DynamicResource ForegroundBrush}"
                                  Padding="5"
                                  Margin="100 0 0 0"
                                  Tag="Test"
                                  Height="30"
-                                 Width="120"
-                                 MaxWidth="120"/>
+                                 Width="150"
+                                 MaxWidth="150"/>
                     </StackPanel>
                 </Border>
                 <Border Margin="5" Height="70">
@@ -94,13 +96,14 @@
                         <TextBox Text="{Binding ProjectProperties.SiteName}"
                                  d:Text="Placeholder name"
                                  Style="{StaticResource MaterialDesignFilledTextBox}"
+                                 FontSize="14"
                                  Foreground="{DynamicResource ForegroundBrush}"
                                  Padding="5"
                                  Height="30"
                                  Margin="100 0 0 0"
                                  Tag="Test"
-                                 Width="120"
-                                 MaxWidth="120"/>
+                                 Width="150"
+                                 MaxWidth="150"/>
                     </StackPanel>
                 </Border>
                 <Border Margin="5" Height="70">
@@ -120,11 +123,12 @@
                                  d:Text="Placeholder name"
                                  Style="{StaticResource MaterialDesignFilledTextBox}"
                                  Foreground="{DynamicResource ForegroundBrush}"
+                                 FontSize="14"
                                  Padding="5"
                                  Margin="100 0 0 0"
                                  Tag="Test"
-                                 MaxWidth="120"
-                                 Width="120"
+                                 MaxWidth="150"
+                                 Width="150"
                                  Height="30"/>
                     </StackPanel>
                 </Border>
@@ -145,11 +149,12 @@
                                  d:Text="Placeholder name"
                                  Style="{StaticResource MaterialDesignFilledTextBox}"
                                  Foreground="{DynamicResource ForegroundBrush}"
+                                 FontSize="14"
                                  Padding="5"
                                  Margin="100 0 0 0"
                                  Tag="Test"
-                                 Width="120"
-                                 MaxWidth="120"
+                                 Width="150"
+                                 MaxWidth="150"
                                  Height="30"/>
                     </StackPanel>
                 </Border>

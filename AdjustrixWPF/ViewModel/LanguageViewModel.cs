@@ -51,7 +51,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry siteName = new("Име на обект", "Site name");
         private readonly StringEntry contractor = new("Изпълнител", "Contractor");
         private readonly StringEntry client = new("Възложител", "Client");
-        private readonly StringEntry projectType = new("Тип проект", "Project type");
+        private readonly StringEntry networkType = new("Тип мрежа", "Network type");
         private readonly StringEntry fromPoint = new("Начална Точка", "From Point");
         private readonly StringEntry toPoint = new("Крайна Точка", "To Point");
         private readonly StringEntry length = new("Дължина", "Length");
@@ -77,6 +77,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry nonNumericMessage = new("Трябва да въведете числена стойност", "You must enter a numeric value");
         private readonly StringEntry editPoint = new("Редактиране на точка", "Edit point");
         private readonly StringEntry negativeValueMessage = new("Не може да въведете отрицателна стойност", "You cannot enter a negative value");
+        private readonly StringEntry projectSettings = new("Настройки на проекта", "Project settings");
 
         private static Language currentLanguage;
 
@@ -261,9 +262,9 @@ namespace AdjustrixWPF.ViewModel
             get { return client.GetString(currentLanguage); }
         }
 
-        public string ProjectType
+        public string NetworkType
         {
-            get { return projectType.GetString(currentLanguage); }
+            get { return networkType.GetString(currentLanguage); }
         }
 
         public string FromPoint
@@ -455,6 +456,14 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return negativeValueMessage.GetString(currentLanguage);
+            }
+        }
+
+        public string ProjectSettings
+        {
+            get
+            {
+                return projectSettings.GetString(currentLanguage);
             }
         }
 

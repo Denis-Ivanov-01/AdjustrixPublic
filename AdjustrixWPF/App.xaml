@@ -9,6 +9,7 @@
         <ResourceDictionary>
             <viewModels:LanguagesConverter x:Key="LanguagesConverter"/>
             <viewModels:ThemeConverter x:Key="ThemesConverter"/>
+            <viewModels:ProjectTypeConverter x:Key="ProjectTypesConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="LightBlue" />
