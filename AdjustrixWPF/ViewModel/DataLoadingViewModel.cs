@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Adjustment.Project;
@@ -12,7 +8,7 @@ using Forms = System.Windows.Forms;
 
 namespace AdjustrixWPF.ViewModel
 {
-    public class DataLoadingViewModel : ViewModelBase
+    public class DataLoadingViewModel : AdjustrixViewModel
     {
         private ProjectContainer projectContainer;
         private MessageDelegate messageDelegate;
@@ -56,7 +52,7 @@ namespace AdjustrixWPF.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    ProcessingErrorPrompt prompt = new(ex.Message);
+                    ProcessingErrorPrompt prompt = new(this, ex.Message);
                     prompt.ShowDialog();
                 }
             }

@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource BackgroundBrush}"
         BorderThickness="3"
-        BorderBrush="DarkBlue">
+        BorderBrush="{DynamicResource ForegroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Foreground="{DynamicResource ForegroundBrush}" 
-                       Text="Adjustment successful"
+                       Text="{Binding LanguageViewModel.ProcessingSuccessful}"
                        d:Text="Adjustment successful"
                        Style="{StaticResource MaterialDesignHeadlineLargeTextBlock}"/>
         </Border>
@@ -40,7 +40,7 @@
                 VerticalAlignment="Center">
             <TextBlock Foreground="{DynamicResource ForegroundBrush}" 
                        d:Text="Do you want to reveal the result reports?"
-                       Text="Do you want to reveal the result reports?"
+                       Text="{Binding LanguageViewModel.RevealQuestion}"
                        TextWrapping="Wrap"
                        TextAlignment="Center"
                        Style="{StaticResource MaterialDesignBodyLargeTextBlock}"/>
@@ -50,13 +50,14 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-            <Button Content="Yes"
-                    FontSize="20"
+            <Button Content="{Binding LanguageViewModel.Yes}"
+                    d:Content="Yes"
                     Margin="0 0 25 0"
-                    Click="YesButtonClick"/>
-            <Button Content="No"
-                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                    FontSize="20"
+                    Click="YesButtonClick"
+                    Style="{StaticResource YesButton}"/>
+            <Button Content="{Binding LanguageViewModel.No}"
+                    d:Content="No"
+                    Style="{StaticResource NoButton}"
                     Margin="25 0 0 0"
                     Click="NoButtonClick"/>
         </StackPanel>

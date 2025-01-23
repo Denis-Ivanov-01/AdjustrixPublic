@@ -10,7 +10,7 @@
         Width="570"
         Background="{DynamicResource BackgroundBrush}"
         WindowStartupLocation="CenterScreen"
-        BorderBrush="LightBlue"
+        BorderBrush="{DynamicResource ForegroundBrush}"
         BorderThickness="2">
     <Border BorderBrush="{DynamicResource ForegroundBrush}"
             BorderThickness="1">
@@ -35,7 +35,7 @@
             <!-- Prompt Text -->
             <TextBlock Grid.Row="3"
                    Text="{Binding LanguageViewModel.SaveProjectQuestion}"
-                   d:Text="Save changes?"
+                   d:Text="Do you want to save the changes to the project?"
                    Style="{StaticResource MaterialDesignTitleMediumTextBlock}"
                    Foreground="{DynamicResource ForegroundBrush}"
                    HorizontalAlignment="Center"
@@ -46,21 +46,19 @@
             <!-- Buttons -->
             <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" Margin="0,2,0,0">
                 <Button Content="{Binding LanguageViewModel.Yes}"
-                    Foreground="{DynamicResource ForegroundBrush}"
-                    d:Content="Yes"
-                    FontSize="12"
-                    Width="70"
-                    Height="35"
-                    Margin="0,0,10,0"
-                    Cursor="Hand"
-                    Click="YesButton_Click" />
+                        d:Content="Yes"
+                        Width="70"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        Cursor="Hand"
+                        Click="YesButton_Click" 
+                        Style="{StaticResource YesButton}"/>
                 <Button Content="{Binding LanguageViewModel.No}"
-                    Foreground="{DynamicResource ForegroundBrush}"
                     d:Content="No"
                     Width="70"
                     Height="35"
                     Margin="10,0,0,0"
-                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Style="{StaticResource NoButton}"
                     Cursor="Hand"
                     Click="NoButton_Click" />
             </StackPanel>

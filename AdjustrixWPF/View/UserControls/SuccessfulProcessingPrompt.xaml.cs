@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.View.UserControls
 {
@@ -12,8 +13,9 @@ namespace AdjustrixWPF.View.UserControls
             get; private set;
         }
 
-        public SuccessfulProcessingPrompt()
+        public SuccessfulProcessingPrompt(ViewModelBase viewModel)
         {
+            this.DataContext = viewModel;
             InitializeComponent();
         }
 

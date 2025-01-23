@@ -70,8 +70,13 @@
                                 MinWidth="70">
                 <DataGridTextColumn.HeaderTemplate>
                     <DataTemplate>
-                        <TextBlock d:Text="Value"
-                                   Foreground="{DynamicResource ForegroundBrush}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DataContext.LanguageViewModel.Value, 
+                                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                       d:Text="Length"
+                                       Foreground="{DynamicResource ForegroundBrush}"/>
+                            <TextBlock Text=" [m]"/>
+                        </StackPanel>
                     </DataTemplate>
                 </DataGridTextColumn.HeaderTemplate>
             </DataGridTextColumn>

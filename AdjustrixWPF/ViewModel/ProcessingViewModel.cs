@@ -10,7 +10,7 @@ using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {
-    public class ProcessingViewModel : ViewModelBase
+    public class ProcessingViewModel : AdjustrixViewModel
     {
         private readonly ProjectContainer projectContainer;
         private AdjustrixProject currentProject;
@@ -100,7 +100,7 @@ namespace AdjustrixWPF.ViewModel
                 // Show the error prompt on the UI thread
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    ProcessingErrorPrompt p = new(ex.Message);
+                    ProcessingErrorPrompt p = new(this, ex.Message);
                     p.ShowDialog();
                 });
                 return;
@@ -109,7 +109,7 @@ namespace AdjustrixWPF.ViewModel
             // Show the success prompt on the UI thread
             Application.Current.Dispatcher.Invoke(() =>
             {
-                SuccessfulProcessingPrompt prompt = new();
+                SuccessfulProcessingPrompt prompt = new(this);
                 prompt.ShowDialog();
                 if (prompt.RevealReports)
                 {

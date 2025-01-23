@@ -66,7 +66,10 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry dataLoading = new("Зареждане на Данни", "Data Loading");
         private readonly StringEntry importExcel = new("Зареждане на Ексел файл", "Load Excel file");
         private readonly StringEntry customImport = new("Скрипт за вмъкване", "Run Import Script");
-
+        private readonly StringEntry successfulProcessing = new("Успешна обработка", "Successful processing");
+        private readonly StringEntry revealQuestion = new("Искате ли да се покажат докладите от обработката?", 
+            "Do you want to reveal the processing reports?");
+        private readonly StringEntry errorOccurred = new("Възникна грешка", "An error occurred");
 
         private static Language currentLanguage;
 
@@ -373,6 +376,30 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return customImport.GetString(currentLanguage);
+            }
+        }
+
+        public string ProcessingSuccessful
+        {
+            get
+            {
+                return successfulProcessing.GetString(currentLanguage);
+            }
+        }
+
+        public string RevealQuestion
+        {
+            get
+            {
+                return revealQuestion.GetString(currentLanguage);
+            }
+        }
+
+        public string ErrorOccurred
+        {
+            get
+            {
+                return errorOccurred.GetString(currentLanguage);
             }
         }
 

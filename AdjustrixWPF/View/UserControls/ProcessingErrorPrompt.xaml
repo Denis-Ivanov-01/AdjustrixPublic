@@ -13,7 +13,7 @@
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource BackgroundBrush}"
         BorderThickness="3"
-        BorderBrush="DarkBlue">
+        BorderBrush="{DynamicResource ForegroundBrush}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
@@ -47,12 +47,12 @@
         </Border>
 
         <StackPanel Grid.Row="3"
-                Orientation="Horizontal"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
             <Button Content="OK"
-                FontSize="20"
-                Click="Button_Click"/>
+                    Style="{DynamicResource YesButton}"
+                    Click="Button_Click"/>
         </StackPanel>
 
     </Grid>

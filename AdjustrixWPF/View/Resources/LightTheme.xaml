@@ -6,7 +6,7 @@
     <SolidColorBrush x:Key="TabBackgroundBrush">#efefef</SolidColorBrush>
     <SolidColorBrush x:Key="DisabledBrush">Black</SolidColorBrush>
     <Brush x:Key="ForegroundBrush">black</Brush>
-    <SolidColorBrush x:Key="TabHeaderBackground">#363336</SolidColorBrush>
+    <SolidColorBrush x:Key="TabHeaderBackground">#4c494c</SolidColorBrush>
     <SolidColorBrush x:Key="TabHeaderForeground">white</SolidColorBrush>
     <SolidColorBrush x:Key="DataGridBackground">#d5d5d5</SolidColorBrush>
 </ResourceDictionary>

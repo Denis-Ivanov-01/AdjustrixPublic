@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.View.UserControls
 {
@@ -7,8 +8,9 @@ namespace AdjustrixWPF.View.UserControls
     /// </summary>
     public partial class ProcessingErrorPrompt : Window
     {
-        public ProcessingErrorPrompt(string errorMessage)
+        public ProcessingErrorPrompt(AdjustrixViewModel viewModel, string errorMessage)
         {
+            this.DataContext = viewModel;
             InitializeComponent();
             ErrorMessageTextBlock.Text = errorMessage;
         }

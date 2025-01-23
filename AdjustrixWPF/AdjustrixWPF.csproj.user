@@ -75,6 +75,9 @@
     <Page Update="NormalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Styles\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\UserControls\EditProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
