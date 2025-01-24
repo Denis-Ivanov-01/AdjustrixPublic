@@ -50,7 +50,7 @@ namespace AdjustrixWPF.ViewModel
             dialog.DefaultExt = ".xlsx/.xls";
             Forms.DialogResult result = dialog.ShowDialog();
             if (result == Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
-            {//todo: add data validation here. Now it is done when the adjustment is started
+            {
                 await Task.Run(() => TryReadExcel(dialog.FileName));
             }
 

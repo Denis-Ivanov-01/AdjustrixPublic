@@ -55,8 +55,7 @@ namespace Adjustment.Project
             if (projectFolder == string.Empty)
             {//If no project folder is specified, we take the project folder of the last project file
 
-                //todo: add some message here
-                if (string.IsNullOrWhiteSpace(LastProjectFolder)) { throw new ArgumentNullException(); }
+                if (string.IsNullOrWhiteSpace(LastProjectFolder)) { throw new ArgumentNullException("An empty project folder path was passed!"); }
 
                 projectFolder = LastProjectFolder;
             }

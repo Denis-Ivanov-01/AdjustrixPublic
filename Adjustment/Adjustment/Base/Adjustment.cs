@@ -50,8 +50,6 @@ namespace Adjustment
             ValidateAdjustmentResult(adjustedResiduals);
             List<TAdjustedPoint> adjustedPoints = CalculateUnknownPoints(adjustedMeasurements, Qv, perUnitVariance);
 
-
-
             AdjustmentResult<TMeasurement, TAdjustedPoint> result = new
                 (adjustedPoints,
                 adjustedMeasurements,
@@ -290,7 +288,7 @@ namespace Adjustment
     public class AdjustmentResult<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>
         where TAdjustedPoint : AdjustedBenchmark
-    { // todo: figure out if this will be used
+    {
         public Vector<double> Residuals { get; set; }
 
         public List<TAdjustedPoint> AdjustedPoints { get; set; }

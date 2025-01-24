@@ -6,7 +6,6 @@ namespace Adjustment
 {
     public class LevelingProcessing : NetworkAdjuster<HeightDelta, LevelingAdjustment>
     {
-
         private readonly AdjustmentResult<HeightDelta, AdjustedBenchmark> AdjustmentResult;
         private readonly LevelingProject project;
 

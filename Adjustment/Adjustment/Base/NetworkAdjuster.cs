@@ -58,8 +58,6 @@ namespace Adjustment
 
             UpdateStatus(AdjustmentStatus.CalculatingAdjustment);
             return adjustment.AdjustNetwork();
-            //todo: figure out what should be included in the reports and then figure out how to create
-            // these reports in the most efficient way - in which class should that happen?
         }
 
         protected void UpdateStatus(AdjustmentStatus status)

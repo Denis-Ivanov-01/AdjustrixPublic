@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF
 {
@@ -14,9 +16,8 @@ namespace AdjustrixWPF
 
         public App()
         {
-            //todo: replace these with reading from AppData
-            language = Language.English;
-            theme = Theme.Dark;
+            language = (Language)Enum.Parse(typeof(Language), SystemFileManagement.Singleton.LanguageString);
+            theme = (Theme)Enum.Parse(typeof(Theme), SystemFileManagement.Singleton.ThemeString);
         }
 
         public static Language Language

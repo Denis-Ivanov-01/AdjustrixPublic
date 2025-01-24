@@ -12,12 +12,6 @@ namespace Adjustment.Project
     {
         public abstract string NetworkType { get; }
 
-        //todo: this shouldn't be a part of the project.
-        //If the project is moved to a different folder, this will be invalid!
-        //public string ProjectFolder { get; set; }
-
-        //public ProjectType ProjectType { get; set; }
-
         public string Name { get; set; }
 
         public string SiteName { get; set; }

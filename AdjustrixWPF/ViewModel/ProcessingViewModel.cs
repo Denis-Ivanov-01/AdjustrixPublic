@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using Adjustment;
 using Adjustment.Extensions;
+using Adjustment.NetworkAnalysis;
 using Adjustment.Project;
 using AdjustrixWPF.View.UserControls;
 
@@ -18,6 +19,8 @@ namespace AdjustrixWPF.ViewModel
 
         private AdjustmentStatus status;
         private readonly AdjustmentStatusDelegate statusDelegate;
+
+        private Graph<HeightDelta> graph;
 
         private readonly MessageDelegate messageDelegate;
 
@@ -65,26 +68,10 @@ namespace AdjustrixWPF.ViewModel
             {
                 //todo: error messages (prompts)
             }
-            //try
-            //{
-            //LevelingProject project = (LevelingProject)currentProject;
             await Task.Run(() =>
             {
                 TryPerformProcessing(projectFolder);
             });
-            //}
-            //catch (Exception ex)
-            //{
-            //    ProcessingErrorPrompt p = new(ex.Message);
-            //    p.ShowDialog();
-            //    return;
-            //}
-            //SuccessfulProcessingPrompt prompt = new();
-            //prompt.ShowDialog();
-            //if (prompt.RevealReports)
-            //{
-            //    Process.Start("explorer.exe", projectFolder);
-            //}
         }
 
         private void TryPerformProcessing(string projectFolder)
