@@ -80,15 +80,12 @@
             {
                 foreach (TEdge edge in graphData[key])
                 {
-                    if (!graphData.Keys.Any(x => x.Number == edge.ToPoint.Number))
-                    //if (!graphData.ContainsKey(edge.ToPoint))
+                    //if (!graphData.Keys.Any(x => x.Number == edge.ToPoint.Number))
+                    if (!graphData.ContainsKey(edge.ToPoint))
                     {
                         graphData[edge.ToPoint] = new List<TEdge>();
                     }
                     TEdge reverseEdge = edge.Reverse();
-                    //reverseEdge.FromPoint = edge.ToPoint;
-                    //reverseEdge.ToPoint = edge.FromPoint;
-                    //reverseEdge.Length = edge.Length;
                     if (!graphData[edge.ToPoint].Any(e => e.FromPoint.Number == reverseEdge.FromPoint.Number
                     && e.ToPoint.Number == reverseEdge.ToPoint.Number))
                     {
