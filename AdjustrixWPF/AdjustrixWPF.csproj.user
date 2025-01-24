@@ -55,6 +55,9 @@
     <Compile Update="View\UserControls\LabeledTabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\OverwriteDataPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\ProcessingErrorPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -157,6 +160,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\LabeledTabButton.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\OverwriteDataPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\ProcessingErrorPrompt.xaml">

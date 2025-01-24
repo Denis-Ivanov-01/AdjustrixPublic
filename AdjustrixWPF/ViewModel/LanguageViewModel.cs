@@ -67,6 +67,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry dataLoading = new("Зареждане на Данни", "Data Loading");
         private readonly StringEntry importExcel = new("Зареждане на Ексел файл", "Load Excel file");
         private readonly StringEntry customImport = new("Скрипт за вмъкване", "Run Import Script");
+        private readonly StringEntry overwriteDataQuestion = new("Искате ли да презапишете данните?", "Do you want to overwrite the data?");
         private readonly StringEntry successfulProcessing = new("Успешна обработка", "Successful processing");
         private readonly StringEntry revealQuestion = new("Искате ли да се покажат докладите от обработката?", 
             "Do you want to reveal the processing reports?");
@@ -407,6 +408,14 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return customImport.GetString(currentLanguage);
+            }
+        }
+
+        public string OverwriteDataQuestion
+        {
+            get
+            {
+                return overwriteDataQuestion.GetString(currentLanguage);
             }
         }
 

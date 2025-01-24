@@ -45,6 +45,7 @@ namespace AdjustrixWPF.ViewModel
 
         private async void ReadExcelFile(object param)
         {
+            HandleExistingData();
             OpenFileDialog dialog = new();
             dialog.Filter = "Microsoft Excel file (.xlsx / .xls)|*.xlsx;*.xls";
             dialog.DefaultExt = ".xlsx/.xls";
@@ -101,6 +102,30 @@ namespace AdjustrixWPF.ViewModel
         public bool CanReadExcel(object param)
         {
             return currentProject != null;
+        }
+
+        private bool HandleExistingData()
+        {
+            switch (currentProjectType)
+            {
+                case ProjectType.Leveling:
+                    LevelingProject levelingProject = (LevelingProject)currentProject;
+                    if (levelingProject.KnownBenchmarks.Count > 0 || levelingProject.HeightDifferences.Count > 0)
+                    {
+                        return PromptOverwrite();
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            return true;
+        }
+
+        private bool PromptOverwrite()
+        {
+            OverwriteDataPrompt prompt = new(this);
+            prompt.ShowDialog();
+            return prompt.OverwriteData;
         }
     }
 }
