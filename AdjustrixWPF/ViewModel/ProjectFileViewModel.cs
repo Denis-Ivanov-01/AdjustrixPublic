@@ -209,6 +209,7 @@ namespace AdjustrixWPF.ViewModel
         {
             projectFile.ToFile(project, projectIsNew, folderPath);
             projectContainer.SetChanges(false);
+            projectContainer.ChangeProjectFolder(folderPath);
         }
 
         private void LoadProjectFromFile(string filePath)
@@ -216,6 +217,7 @@ namespace AdjustrixWPF.ViewModel
             project = projectFile.FromFile(filePath);
             projectContainer.ChangeProject(project);
             projectContainer.SetChanges(false);
+            projectContainer.ChangeProjectFolder(projectFile.LastProjectFolder);
             UpdateProjectProperties();
         }
 
