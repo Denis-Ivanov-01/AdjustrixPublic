@@ -7,7 +7,7 @@ namespace AdjustrixWPF.Model
 {
     public class ErrorMessageGenerator
     {
-        private LanguageViewModel languageViewModel;
+        private readonly LanguageViewModel languageViewModel;
 
         public ErrorMessageGenerator(LanguageViewModel languageViewModel)
         {

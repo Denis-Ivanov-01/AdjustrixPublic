@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Reflection;
-using System.Windows.Navigation;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -69,7 +68,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry customImport = new("Скрипт за вмъкване", "Run Import Script");
         private readonly StringEntry overwriteDataQuestion = new("Искате ли да презапишете данните?", "Do you want to overwrite the data?");
         private readonly StringEntry successfulProcessing = new("Успешна обработка", "Successful processing");
-        private readonly StringEntry revealQuestion = new("Искате ли да се покажат докладите от обработката?", 
+        private readonly StringEntry revealQuestion = new("Искате ли да се покажат докладите от обработката?",
             "Do you want to reveal the processing reports?");
         private readonly StringEntry errorOccurred = new("Възникна грешка", "An error occurred");
         private readonly StringEntry editMeasurement = new("Редактиране на измерване", "Edit measurement");
@@ -81,7 +80,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry projectSettings = new("Настройки на проекта", "Project settings");
 
         #region ExceptionMessages
-        private readonly StringEntry ioException = new("Проблем с отварянето на файла. Затворете файловете преди да ги вмъквате.", 
+        private readonly StringEntry ioException = new("Проблем с отварянето на файла. Затворете файловете преди да ги вмъквате.",
             "An error occurred while opening the file. Close the files before importing.");
         private readonly StringEntry incorrectGeoAnalysis = new("Неуспешен анализ на мрежата. Проверете конфигурацията.", "Unsuccessful network analysis. Check the network configuration.");
         private readonly StringEntry incorrectAdjustmentRes = new("Не е изпълнена крайната проверка при изравнението.", "The network could not be adjusted. It yielded an incorrec result.");
@@ -450,7 +449,7 @@ namespace AdjustrixWPF.ViewModel
                 return editMeasurement.GetString(currentLanguage);
             }
         }
-        
+
         public string Save
         {
             get

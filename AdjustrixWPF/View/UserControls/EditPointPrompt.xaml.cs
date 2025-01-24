@@ -10,7 +10,7 @@ namespace AdjustrixWPF.View.UserControls
     /// </summary>
     public partial class EditPointPrompt : Window
     {
-        private AdjustrixViewModel viewModel;
+        private readonly AdjustrixViewModel viewModel;
 
         private bool valueIsValid = false;
 

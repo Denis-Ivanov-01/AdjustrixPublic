@@ -8,21 +8,21 @@ namespace AdjustrixWPF.ViewModel
     /// </summary>
     public class AdjustrixViewModel : ViewModelBase
     {
-		private LanguageViewModel languageViewModel = LanguageViewModel.Singleton;
-		private ErrorMessageGenerator messageGenerator = new(LanguageViewModel.Singleton);
-		public LanguageViewModel LanguageViewModel
-		{
-			get { return languageViewModel; }
-			set { languageViewModel = value; }
-		}
+        private LanguageViewModel languageViewModel = LanguageViewModel.Singleton;
+        private readonly ErrorMessageGenerator messageGenerator = new(LanguageViewModel.Singleton);
+        public LanguageViewModel LanguageViewModel
+        {
+            get { return languageViewModel; }
+            set { languageViewModel = value; }
+        }
 
-		public ErrorMessageGenerator ErrorMessageGenerator
-		{
-			get
-			{
-				return messageGenerator;
-			}
-		}
+        public ErrorMessageGenerator ErrorMessageGenerator
+        {
+            get
+            {
+                return messageGenerator;
+            }
+        }
 
-	}
+    }
 }

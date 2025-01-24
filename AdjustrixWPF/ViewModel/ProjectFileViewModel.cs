@@ -102,10 +102,16 @@ namespace AdjustrixWPF.ViewModel
 
         private void CreateNewProject(object parameter)
         {
-            if (!HandleUnsavedChanges()) return;
+            if (!HandleUnsavedChanges())
+            {
+                return;
+            }
 
             string selectedPath = ShowFolderDialog();
-            if (string.IsNullOrWhiteSpace(selectedPath)) return;
+            if (string.IsNullOrWhiteSpace(selectedPath))
+            {
+                return;
+            }
 
             if (CreateNewProjectFile(selectedPath))
             {
@@ -133,7 +139,10 @@ namespace AdjustrixWPF.ViewModel
             var dialog = new CreateProjectPrompt(this);
             dialog.ShowDialog();
 
-            if (!dialog.Confirmed) return false;
+            if (!dialog.Confirmed)
+            {
+                return false;
+            }
 
             project = ProjectFactory.CreateProject(ProjectProperties, selectedProjectType);
             SaveProjectToFile(folderPath);
@@ -143,7 +152,10 @@ namespace AdjustrixWPF.ViewModel
 
         private void OpenProjectFile(object parameter)
         {
-            if (!HandleUnsavedChanges()) return;
+            if (!HandleUnsavedChanges())
+            {
+                return;
+            }
 
             var dialog = new Forms.OpenFileDialog
             {
@@ -209,7 +221,10 @@ namespace AdjustrixWPF.ViewModel
 
         private void UpdateProjectProperties()
         {
-            if (project == null) return;
+            if (project == null)
+            {
+                return;
+            }
 
             ProjectProperties ??= new(
                 project.Name,
@@ -220,7 +235,10 @@ namespace AdjustrixWPF.ViewModel
 
         private void ApplyProjectProperties()
         {
-            if (project == null || ProjectProperties == null) return;
+            if (project == null || ProjectProperties == null)
+            {
+                return;
+            }
 
             project.Name = ProjectProperties.ProjectName;
             project.SiteName = ProjectProperties.SiteName;

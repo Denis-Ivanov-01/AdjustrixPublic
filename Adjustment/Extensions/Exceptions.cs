@@ -40,7 +40,7 @@
 
         }
 
-        public HangingPointException(string message, string pointNumber):base(message)
+        public HangingPointException(string message, string pointNumber) : base(message)
         {
             this.pointNumber = pointNumber;
         }

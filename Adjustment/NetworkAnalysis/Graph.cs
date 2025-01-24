@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Adjustment.NetworkAnalysis
+﻿namespace Adjustment.NetworkAnalysis
 {
     public class Graph<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()

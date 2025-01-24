@@ -67,11 +67,11 @@ namespace AdjustrixWPF.ViewModel
             }
             //try
             //{
-                //LevelingProject project = (LevelingProject)currentProject;
-                await Task.Run(() =>
-                {
-                    TryPerformProcessing(projectFolder);
-                });
+            //LevelingProject project = (LevelingProject)currentProject;
+            await Task.Run(() =>
+            {
+                TryPerformProcessing(projectFolder);
+            });
             //}
             //catch (Exception ex)
             //{

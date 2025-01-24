@@ -244,7 +244,7 @@
                 }
                 finally
                 {
-                   graph.InsertMultipleEdges(edgesToRemove);
+                    graph.InsertMultipleEdges(edgesToRemove);
                 }
             }
 

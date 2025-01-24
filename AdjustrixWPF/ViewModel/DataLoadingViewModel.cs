@@ -1,5 +1,4 @@
 ﻿using System;
-using win=System.Windows;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
@@ -8,15 +7,15 @@ using Adjustment.NetworkAnalysis;
 using Adjustment.Project;
 using AdjustrixWPF.Model;
 using AdjustrixWPF.View.UserControls;
-using MaterialDesignThemes.Wpf;
 using Forms = System.Windows.Forms;
+using Win = System.Windows;
 
 namespace AdjustrixWPF.ViewModel
 {
     public class DataLoadingViewModel : AdjustrixViewModel
     {
-        private ProjectContainer projectContainer;
-        private MessageDelegate messageDelegate;
+        private readonly ProjectContainer projectContainer;
+        private readonly MessageDelegate messageDelegate;
 
         private AdjustrixProject currentProject;
         private ProjectType currentProjectType;
@@ -65,7 +64,7 @@ namespace AdjustrixWPF.ViewModel
             }
             catch (Exception ex)
             {
-                win.Application.Current.Dispatcher.Invoke(() =>
+                Win.Application.Current.Dispatcher.Invoke(() =>
                 {
                     string message = ErrorMessageGenerator.GenerateMessage(ex);
                     ProcessingErrorPrompt prompt = new(this, message);
@@ -83,11 +82,11 @@ namespace AdjustrixWPF.ViewModel
 
                     //In the Graph constructor, there are validations.
                     Graph<HeightDelta> graph = new(reader.Measurements);
-                    
+
                     LevelingProject project = (LevelingProject)currentProject;
                     project.KnownBenchmarks = reader.KnownBenchmarks;
                     project.HeightDifferences = reader.Measurements;
-                    win.Application.Current.Dispatcher.Invoke(() =>
+                    Win.Application.Current.Dispatcher.Invoke(() =>
                     {
                         projectContainer.ChangeProject(project);
                         string message = string.Format(LanguageViewModel.DataLoadedMessagePattern, reader.Measurements.Count, reader.KnownBenchmarks.Count);

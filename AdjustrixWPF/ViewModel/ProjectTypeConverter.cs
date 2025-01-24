@@ -16,7 +16,7 @@ namespace AdjustrixWPF.ViewModel
             if (value is IEnumerable<ProjectType> types)
             {
                 ObservableCollection<string> result = new();
-                foreach(ProjectType type in types)
+                foreach (ProjectType type in types)
                 {
                     result.Add(ConvertType(type));
                 }
@@ -25,7 +25,7 @@ namespace AdjustrixWPF.ViewModel
             else if (value is IEnumerable<string> typesStr)
             {
                 ObservableCollection<string> result = new();
-                foreach(string type in typesStr)
+                foreach (string type in typesStr)
                 {
                     result.Add(ConvertType(type));
                 }
@@ -43,7 +43,7 @@ namespace AdjustrixWPF.ViewModel
             if (value is IEnumerable<string> types)
             {
                 ObservableCollection<string> result = new();
-                foreach(string type in types)
+                foreach (string type in types)
                 {
                     result.Add(ConvertTypeBack(type));
                 }

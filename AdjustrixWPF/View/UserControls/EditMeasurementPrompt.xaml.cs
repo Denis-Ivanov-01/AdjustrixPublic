@@ -10,7 +10,7 @@ namespace AdjustrixWPF.View.UserControls
     /// </summary>
     public partial class EditMeasurementPrompt : Window
     {
-        private AdjustrixViewModel viewModel;
+        private readonly AdjustrixViewModel viewModel;
 
         private bool valueIsValid = false;
 
