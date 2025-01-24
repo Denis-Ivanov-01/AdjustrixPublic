@@ -1,9 +1,14 @@
 ﻿using System;
+using win=System.Windows;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Adjustment;
+using Adjustment.NetworkAnalysis;
 using Adjustment.Project;
 using AdjustrixWPF.Model;
 using AdjustrixWPF.View.UserControls;
+using MaterialDesignThemes.Wpf;
 using Forms = System.Windows.Forms;
 
 namespace AdjustrixWPF.ViewModel
@@ -38,7 +43,7 @@ namespace AdjustrixWPF.ViewModel
             currentProject = proj;
         }
 
-        private void ReadExcelFile(object param)
+        private async void ReadExcelFile(object param)
         {
             OpenFileDialog dialog = new();
             dialog.Filter = "Microsoft Excel file (.xlsx / .xls)|*.xlsx;*.xls";
@@ -46,17 +51,26 @@ namespace AdjustrixWPF.ViewModel
             Forms.DialogResult result = dialog.ShowDialog();
             if (result == Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
             {//todo: add data validation here. Now it is done when the adjustment is started
-                try
-                {
-                    ReadExcelForType(dialog.FileName);
-                }
-                catch (Exception ex)
-                {
-                    ProcessingErrorPrompt prompt = new(this, ex.Message);
-                    prompt.ShowDialog();
-                }
+                await Task.Run(() => TryReadExcel(dialog.FileName));
             }
 
+        }
+
+        private void TryReadExcel(string filePath)
+        {
+            try
+            {
+                ReadExcelForType(filePath);
+            }
+            catch (Exception ex)
+            {
+                win.Application.Current.Dispatcher.Invoke(() =>
+                {
+                    string message = ErrorMessageGenerator.GenerateMessage(ex);
+                    ProcessingErrorPrompt prompt = new(this, message);
+                    prompt.ShowDialog();
+                });
+            }
         }
 
         private void ReadExcelForType(string excelPath)
@@ -65,17 +79,24 @@ namespace AdjustrixWPF.ViewModel
             {
                 case ProjectType.Leveling:
                     LevelingExcelReader reader = new(excelPath);
+
+                    //In the Graph constructor, there are validations.
+                    Graph<HeightDelta> graph = new(reader.Measurements);
+                    
                     LevelingProject project = (LevelingProject)currentProject;
                     project.KnownBenchmarks = reader.KnownBenchmarks;
                     project.HeightDifferences = reader.Measurements;
-                    projectContainer.ChangeProject(project);
-                    messageDelegate.ChangeMessage($"Loaded {reader.KnownBenchmarks.Count} benchmarks and {reader.Measurements.Count} measurements.");
+                    win.Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        projectContainer.ChangeProject(project);
+                        string message = string.Format(LanguageViewModel.DataLoadedMessagePattern, reader.Measurements.Count, reader.KnownBenchmarks.Count);
+                        messageDelegate.ChangeMessage(message);
+                    });
                     break;
                 default:
                     throw new NotImplementedException("No logic for this project type is supported!");
             }
         }
-
 
         public bool CanReadExcel(object param)
         {

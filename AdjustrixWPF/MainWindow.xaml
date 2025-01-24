@@ -34,7 +34,7 @@
                 <TabItem>
                     <TabItem.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DataContext.languageViewModel.Measurements, 
+                            <TextBlock Text="{Binding DataContext.LanguageViewModel.Measurements, 
                                 RelativeSource={RelativeSource AncestorType=Window}}"
                                        Foreground="{DynamicResource TabHeaderForeground}"/>
                         </DataTemplate>
@@ -44,7 +44,7 @@
                 <TabItem Header="Points">
                     <TabItem.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding DataContext.languageViewModel.Benchmarks, 
+                            <TextBlock Text="{Binding DataContext.LanguageViewModel.Benchmarks, 
                                 RelativeSource={RelativeSource AncestorType=Window}}"
                                        Foreground="{DynamicResource TabHeaderForeground}"/>
                         </DataTemplate>

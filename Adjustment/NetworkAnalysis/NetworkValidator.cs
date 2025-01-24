@@ -36,7 +36,7 @@
 
                 if (neighbors.Count < 2)
                 {
-                    throw new InvalidOperationException($"Point {point.Number} has fewer than 2 neighbors.");
+                    throw new HangingPointException($"Point {point.Number} has fewer than 2 neighbors.", point.Number);
                 }
             }
         }
@@ -60,7 +60,7 @@
                     }
                     catch (Exception)
                     {
-                        throw new Exception("The network is not fully connected!");
+                        throw new NetworkNotConnectedException("The network is not fully connected!");
                     }
                 }
             }
@@ -75,7 +75,7 @@
                 {
                     if (graphData[point].Where(x => x.ToPoint == otherPoint).Count() >= 2)
                     {
-                        throw new Exception("Placeholder exception to be replaced later.");
+                        throw new DuplicateMeasurementException("Placeholder exception to be replaced later.", point.Number, otherPoint.Number);
                     }
                 }
             }
@@ -91,11 +91,11 @@
                     TEdge meas2 = measurements[j];
                     if (MeasurementsMirrored(meas1, meas2))
                     {
-                        throw new Exception("Loop found in the measurements!");
+                        throw new LoopingMeasurementsException("Loop found in the measurements!", meas1.FromPoint.Number, meas1.ToPoint.Number);
                     }
                     if (MeasurementsDuplicate(meas1, meas2))
                     {
-                        throw new Exception("Duplicate measurements found!");
+                        throw new DuplicateMeasurementException("Duplicate measurements found!", meas1.FromPoint.Number, meas1.ToPoint.Number);
                     }
                 }
             }

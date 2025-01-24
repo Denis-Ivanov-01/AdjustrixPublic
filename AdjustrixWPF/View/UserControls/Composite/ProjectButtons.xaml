@@ -15,35 +15,35 @@
             <userControls:LabeledTabButton
                 Content=".adjx"
                 FontWeight="Bold"
-                Label="{Binding languageViewModel.NewProject}"
+                Label="{Binding LanguageViewModel.NewProject}"
                 Height="100"
                 Width="70"
                 Margin="10 0 0 0"
-                Command="{Binding projectViewModel.CreateProject}"/>
+                Command="{Binding ProjectViewModel.CreateProject}"/>
             <userControls:LabeledTabButtonIcon
                 Icon="ContentSaveOutline"
                 ContentSize="30"
-                Label="{Binding languageViewModel.SaveProject}"
+                Label="{Binding LanguageViewModel.SaveProject}"
                 Height="100"
                 Width="70"
                 Margin="10 0 0 0"
-                IsEnabled="{Binding projectViewModel.HasUnsavedChanges}"
-                Command="{Binding projectViewModel.SaveProject}"/>
+                IsEnabled="{Binding ProjectViewModel.HasUnsavedChanges}"
+                Command="{Binding ProjectViewModel.SaveProject}"/>
             <userControls:LabeledTabButtonIcon
                 Icon="FolderOpenOutline"
                 ContentSize="30"
-                Label="{Binding languageViewModel.OpenProject}"
+                Label="{Binding LanguageViewModel.OpenProject}"
                 Height="100"
                 Width="70"
                 Margin="10 0 0 0"
-                Command="{Binding projectViewModel.OpenProject}"/>
+                Command="{Binding ProjectViewModel.OpenProject}"/>
             <userControls:LabeledTabButtonIcon
                 Icon="BriefcaseEditOutline"
-                Label="{Binding languageViewModel.EditProject}"
+                Label="{Binding LanguageViewModel.EditProject}"
                 Height="100"
                 Width="70"
                 Margin="10 0 0 0"
-                Command="{Binding projectViewModel.EditProject}"/>
+                Command="{Binding ProjectViewModel.EditProject}"/>
         </StackPanel>
     </Border>
 </UserControl>

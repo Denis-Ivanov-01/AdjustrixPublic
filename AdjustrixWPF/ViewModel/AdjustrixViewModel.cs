@@ -1,4 +1,6 @@
-﻿namespace AdjustrixWPF.ViewModel
+﻿using AdjustrixWPF.Model;
+
+namespace AdjustrixWPF.ViewModel
 {
     /// <summary>
     /// Common base class for ViewModels. 
@@ -7,11 +9,19 @@
     public class AdjustrixViewModel : ViewModelBase
     {
 		private LanguageViewModel languageViewModel = LanguageViewModel.Singleton;
-
+		private ErrorMessageGenerator messageGenerator = new(LanguageViewModel.Singleton);
 		public LanguageViewModel LanguageViewModel
 		{
 			get { return languageViewModel; }
 			set { languageViewModel = value; }
+		}
+
+		public ErrorMessageGenerator ErrorMessageGenerator
+		{
+			get
+			{
+				return messageGenerator;
+			}
 		}
 
 	}

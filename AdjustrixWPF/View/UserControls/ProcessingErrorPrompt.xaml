@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
         <Border HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Foreground="{DynamicResource ForegroundBrush}" 
-                   Text="An error occurred"
+                   Text="{Binding LanguageViewModel.ErrorOccurred}"
                    d:Text="An error occurred"
                    Style="{StaticResource MaterialDesignHeadlineLargeTextBlock}"/>
         </Border>

@@ -15,17 +15,17 @@
         </Grid.RowDefinitions>
         <TextBlock x:Name="AppearanceBlock"
                                     Style="{StaticResource TextBlockTabPanel}"
-                                           Text="{Binding languageViewModel.Appearance, UpdateSourceTrigger=PropertyChanged}"
+                                           Text="{Binding LanguageViewModel.Appearance, UpdateSourceTrigger=PropertyChanged}"
                                            Margin="0 0 0 3"/>
-        <userControls:LabeledComboBox LabelText="{Binding languageViewModel.LanguageString}"
-                                      ComboBoxItemsSource="{Binding languageViewModel.Languages, Converter={StaticResource LanguagesConverter}}"
-                                      ComboBoxSelectedItem="{Binding languageViewModel.CurrentLanguage, Converter={StaticResource LanguagesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <userControls:LabeledComboBox LabelText="{Binding LanguageViewModel.LanguageString}"
+                                      ComboBoxItemsSource="{Binding LanguageViewModel.Languages, Converter={StaticResource LanguagesConverter}}"
+                                      ComboBoxSelectedItem="{Binding LanguageViewModel.CurrentLanguage, Converter={StaticResource LanguagesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       Grid.Row="1"
                                       x:Name="LanguageBox"
                                       Background="Transparent"/>
-        <userControls:LabeledComboBox LabelText="{Binding languageViewModel.ThemeString}"
-                                                              ComboBoxItemsSource="{Binding Path=languageViewModel.Themes, Converter={StaticResource ThemesConverter}}"
-                                                              ComboBoxSelectedItem="{Binding Path=languageViewModel.SelectedTheme, Converter={StaticResource ThemesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <userControls:LabeledComboBox LabelText="{Binding LanguageViewModel.ThemeString}"
+                                                              ComboBoxItemsSource="{Binding Path=LanguageViewModel.Themes, Converter={StaticResource ThemesConverter}}"
+                                                              ComboBoxSelectedItem="{Binding Path=LanguageViewModel.SelectedTheme, Converter={StaticResource ThemesConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                               Grid.Row="2"
                                                               x:Name="ThemeBox"/>
     </Grid>

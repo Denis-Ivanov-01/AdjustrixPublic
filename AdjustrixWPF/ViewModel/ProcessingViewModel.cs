@@ -100,7 +100,8 @@ namespace AdjustrixWPF.ViewModel
                 // Show the error prompt on the UI thread
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    ProcessingErrorPrompt p = new(this, ex.Message);
+                    string message = ErrorMessageGenerator.GenerateMessage(ex);
+                    ProcessingErrorPrompt p = new(this, message);
                     p.ShowDialog();
                 });
                 return;
@@ -141,16 +142,16 @@ namespace AdjustrixWPF.ViewModel
                     message = "";
                     break;
                 case AdjustmentStatus.PreparingNetworkData:
-                    message = "Preparing the network data...";
+                    message = LanguageViewModel.PreparingDataMessage;
                     break;
                 case AdjustmentStatus.AnalyzingNetwork:
-                    message = "Performing geometric network analysis...";
+                    message = LanguageViewModel.PerformingGeometricAnalysis;
                     break;
                 case AdjustmentStatus.CalculatingAdjustment:
-                    message = "Adjusting the network...";
+                    message = LanguageViewModel.PerformingAdjustmentMessage;
                     break;
                 case AdjustmentStatus.CreatingReports:
-                    message = "Creating the reports...";
+                    message = LanguageViewModel.CreatingReportsMessage;
                     break;
                 default:
                     message = "";
@@ -161,7 +162,7 @@ namespace AdjustrixWPF.ViewModel
 
         private string GenerateStatusMessage(TimeSpan duration)
         {
-            return $"Processing took {duration.TotalSeconds.ToString("F3")} seconds.";
+            return string.Format(LanguageViewModel.ProcessingTimeMessage, duration.TotalSeconds.ToString("F3"));
         }
     }
 }

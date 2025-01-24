@@ -79,7 +79,30 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry negativeValueMessage = new("Не може да въведете отрицателна стойност", "You cannot enter a negative value");
         private readonly StringEntry projectSettings = new("Настройки на проекта", "Project settings");
 
+        #region ExceptionMessages
+        private readonly StringEntry ioException = new("Проблем с отварянето на файла. Затворете файловете преди да ги вмъквате.", 
+            "An error occurred while opening the file. Close the files before importing.");
+        private readonly StringEntry incorrectGeoAnalysis = new("Неуспешен анализ на мрежата. Проверете конфигурацията.", "Unsuccessful network analysis. Check the network configuration.");
+        private readonly StringEntry incorrectAdjustmentRes = new("Не е изпълнена крайната проверка при изравнението.", "The network could not be adjusted. It yielded an incorrec result.");
+        private readonly StringEntry networkNotConnected = new("Мрежата не е напълно свързана.", "The network is not fully connected.");
+        private readonly StringEntry hangingPoint = new("Точка с номер {0} е висяща.", "Point with number {0} is hanging.");
+        private readonly StringEntry duplicateMeasurement = new("Дублирано измерване между точки с номера {0} и {1}.", "Duplicate measurement between points with number {0} and {1}.");
+        private readonly StringEntry loopingMeasurement = new("Огледални измервания между точки с номера {0} и {1}.", "Mirrored measurements between points with number {0} and {1}.");
+
+        private readonly StringEntry unknownError = new("Възникна неизвестна грешка.", "An unkown exception occurred.");
+        #endregion
+
+        private readonly StringEntry dataLoaded = new("Заредени са {0} измервания и {1} репер(а).", "{0} measurements and {1} benchmarks were loaded.");
+        private readonly StringEntry preparingData = new("Подготвят се данните за мрежата...", "Preparing the network data...");
+        private readonly StringEntry performingGeoAnalysis = new("Извършва се геометричен анализ на мрежата...", "Performing geometric analysis of the network...");
+        private readonly StringEntry adjusting = new("Изравнява се мрежата...", "Adjusting the network...");
+        private readonly StringEntry creatingReports = new("Създават се докладите...", "Creating the reports...");
+        private readonly StringEntry processingTime = new("Процесът приключи за {0} секунди.", "The processing took {0} seconds.");
         private static Language currentLanguage;
+
+        private readonly StringEntry createdProject = new("Създаден е проект с име {0} в папката {1}.", "A project with the name {0} was created in the folder {1}.");
+        private readonly StringEntry openedProject = new("Отворен е проектът {0}.", "The project {0} was opened.");
+        private readonly StringEntry savedProject = new("Проектът {0} е запазен в папката {1}.", "The project {0} was saved in the folder {1}.");
 
         private LanguageViewModel()
         {
@@ -464,6 +487,142 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return projectSettings.GetString(currentLanguage);
+            }
+        }
+
+        public string IOExceptionMessage
+        {
+            get
+            {
+                return ioException.GetString(currentLanguage);
+            }
+        }
+
+        public string GeoAnalysisExceptionMessage
+        {
+            get
+            {
+                return incorrectGeoAnalysis.GetString(currentLanguage);
+            }
+        }
+
+        public string AdjustmentResultExceptionMessage
+        {
+            get
+            {
+                return incorrectAdjustmentRes.GetString(currentLanguage);
+            }
+        }
+
+        public string NetworkNotConnectedMessage
+        {
+            get
+            {
+                return networkNotConnected.GetString(currentLanguage);
+            }
+        }
+
+        public string HangingPointMessagePattern
+        {
+            get
+            {
+                return hangingPoint.GetString(currentLanguage);
+            }
+        }
+
+        public string UnknownErrorMessage
+        {
+            get
+            {
+                return unknownError.GetString(currentLanguage);
+            }
+        }
+
+        public string DuplicateMeasurementMessagePattern
+        {
+            get
+            {
+                return duplicateMeasurement.GetString(currentLanguage);
+            }
+        }
+
+        public string LoopingMeasurementsMessagePattern
+        {
+            get
+            {
+                return loopingMeasurement.GetString(currentLanguage);
+            }
+        }
+
+        public string DataLoadedMessagePattern
+        {
+            get
+            {
+                return dataLoaded.GetString(currentLanguage);
+            }
+        }
+
+        public string PreparingDataMessage
+        {
+            get
+            {
+                return preparingData.GetString(currentLanguage);
+            }
+        }
+
+        public string PerformingGeometricAnalysis
+        {
+            get
+            {
+                return performingGeoAnalysis.GetString(currentLanguage);
+            }
+        }
+
+        public string PerformingAdjustmentMessage
+        {
+            get
+            {
+                return adjusting.GetString(currentLanguage);
+            }
+        }
+
+        public string CreatingReportsMessage
+        {
+            get
+            {
+                return creatingReports.GetString(currentLanguage);
+            }
+        }
+
+        public string ProcessingTimeMessage
+        {
+            get
+            {
+                return processingTime.GetString(currentLanguage);
+            }
+        }
+
+        public string ProjectCreatedMessagePattern
+        {
+            get
+            {
+                return createdProject.GetString(currentLanguage);
+            }
+        }
+
+        public string ProjectOpenedMessagePattern
+        {
+            get
+            {
+                return openedProject.GetString(currentLanguage);
+            }
+        }
+
+        public string ProjectSavedMessagePattern
+        {
+            get
+            {
+                return savedProject.GetString(currentLanguage);
             }
         }
 

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    internal class Pathfinder<TNode, TEdge>
+    public class Pathfinder<TNode, TEdge>
         where TNode : INode
         where TEdge : IEdge<TNode, TEdge>, new()
     {

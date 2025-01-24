@@ -3,11 +3,9 @@ using System.Windows.Input;
 
 namespace AdjustrixWPF.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : AdjustrixViewModel
     {
-        public LanguageViewModel languageViewModel { get; set; }
-
-        public ProjectFileViewModel projectViewModel { get; set; }
+        public ProjectFileViewModel ProjectViewModel { get; set; }
 
         public SystemFileManagement SystemFileSingleton { get; set; }
 
@@ -25,8 +23,7 @@ namespace AdjustrixWPF.ViewModel
         {
             ProjectContainer projectContainer = new();
             MessageDelegate messageDelegate = new MessageDelegate();
-            languageViewModel = LanguageViewModel.Singleton;
-            projectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
+            ProjectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
             this.MessageBoxViewModel = new(messageDelegate);
@@ -37,7 +34,7 @@ namespace AdjustrixWPF.ViewModel
 
         private void Close(object param)
         {
-            projectViewModel.PromptForUnsavedChangesAndSave();
+            ProjectViewModel.HandleUnsavedChanges();
             Application.Current.Shutdown();
         }
     }
