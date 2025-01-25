@@ -9,6 +9,8 @@ using Adjustment.Project;
 using System.Windows;
 using System;
 using System.Threading;
+using Adjustment;
+using Adjustment.NetworkAnalysis;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -99,12 +101,14 @@ namespace AdjustrixWPF.ViewModel
             {
                 if (result.ExitCode == 0)
                 {
+                    //Graph<HeightDelta> graph = new(result.Data.HeightDifferences);
                     LevelingProject proj = (LevelingProject)currentProject;
                     proj.KnownBenchmarks = result.Data.KnownBenchmarks;
                     proj.HeightDifferences = result.Data.HeightDifferences;
+                    proj.EnsureValidDataTypes();
                     projectContainer.ChangeProject(proj);
                     string message = string.Format(LanguageViewModel.DataLoadedMessagePattern, 
-                        result.Data.HeightDifferences.Count, 
+                        result.Data.HeightDifferences.Count,
                         result.Data.KnownBenchmarks.Count);
                     messageDelegate.ChangeMessage(message);
                 }

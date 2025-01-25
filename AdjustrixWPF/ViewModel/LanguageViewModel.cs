@@ -108,7 +108,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry name = new("Име", "Name");
         private readonly StringEntry extension = new("Файлово разширение", "File extension");
         private readonly StringEntry scriptProperteis = new("Настройки на скрипт", "Script properties");
-        private readonly StringEntry inputParameterType = new("Вид входедн параметър", "Input parameter type");
+        private readonly StringEntry inputParameterType = new("Вид входен параметър", "Input parameter type");
         private readonly StringEntry filter = new("Филтър", "Filter");
         private readonly StringEntry scriptFile = new("Скрипт файл", "Script file");
         private readonly StringEntry executingScript = new("Изпълнява се {0}", "Running {0}");

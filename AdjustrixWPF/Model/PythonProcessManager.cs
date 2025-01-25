@@ -23,21 +23,21 @@ namespace AdjustrixWPF.Model
         {
             if (script.ScriptParameterType == ScriptParameterType.FilePath)
             {
-                if (RunFileScript(script, out string args))
+                if (GetFileScriptArgs(script, out string args))
                 {
                     ExecuteScript(args, script);
                 }
             }
             else
             {
-                if (RunFolderScript(script, out string args))
+                if (GetFolderScriptArgs(script, out string args))
                 {
                     ExecuteScript(args, script);
                 }
             }
         }
 
-        private bool RunFileScript(CustomImportScript script, out string args)
+        private bool GetFileScriptArgs(CustomImportScript script, out string args)
         {
             OpenFileDialog dialog = new();
             DialogResult result = dialog.ShowDialog();
@@ -52,7 +52,7 @@ namespace AdjustrixWPF.Model
             return false;
         }
 
-        private bool RunFolderScript(CustomImportScript script, out string args)
+        private bool GetFolderScriptArgs(CustomImportScript script, out string args)
         {
             FolderBrowserDialog dialog = new();
             DialogResult result = dialog.ShowDialog();
