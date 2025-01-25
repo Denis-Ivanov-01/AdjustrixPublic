@@ -47,7 +47,7 @@
                             <ComboBox Height="30"
                                       Width="150"
                                       ItemsSource="{Binding InputParameterTypes, Converter={StaticResource ScriptParameterConverter}, Mode=OneWay}"
-                                      SelectedItem="{Binding SelectedParameterType, Converter={StaticResource ScriptParameterConverter}}"
+                                      SelectedItem="{Binding SelectedParameterType, Converter={StaticResource ScriptParameterConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                       d:Text="Placeholder name"
                                       Style="{StaticResource ComboBox}"
                                       Foreground="{DynamicResource ForegroundBrush}"

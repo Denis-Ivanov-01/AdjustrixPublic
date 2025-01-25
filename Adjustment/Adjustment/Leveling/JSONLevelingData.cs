@@ -115,7 +115,7 @@ namespace Adjustment.Adjustment
 
         private PointBase GetPointByNumber(string number)
         {
-            List<KnownBenchmark> filtered = KnownBenchmarks.Where(x => string.Equals(x.Number, number)).ToList();
+            List<KnownBenchmark> filtered = KnownBenchmarks.Where(x => x.Number == number).ToList();
             if (filtered.Any())
             {
                 return filtered.First();

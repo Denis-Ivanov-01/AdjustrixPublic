@@ -75,9 +75,17 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button Content="{materialDesign:PackIcon Kind=Close,Size=25}"
-                    Click="CloseButtonClick"/>
+                    Click="CloseButtonClick"
+                    Style="{StaticResource YesButton}"
+                    Height="35"
+                    Width="70"
+                    Margin="0 0 20 0"/>
             <Button Content="{materialDesign:PackIcon Kind=ApplicationImport, Size=25}"
-                    Command="{Binding RegisterScript}"/>
+                    Command="{Binding RegisterScript}"
+                    Style="{StaticResource YesButton}"
+                    Height="35"
+                    Width="70"
+                    Margin="20 0 0 0"/>
         </StackPanel>
     </Grid>
 </Window>

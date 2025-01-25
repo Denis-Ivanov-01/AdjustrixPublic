@@ -79,6 +79,9 @@
     <Compile Update="View\UserControls\TabHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\YesNoPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
@@ -190,6 +193,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\TabHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\YesNoPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

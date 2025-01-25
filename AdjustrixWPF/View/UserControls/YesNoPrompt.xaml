@@ -1,0 +1,67 @@
+﻿<Window x:Class="AdjustrixWPF.View.UserControls.YesNoPrompt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls"
+        mc:Ignorable="d"
+        Title="YesNoPrompt" WindowStyle="None"
+        Height="150"
+        Width="570"
+        Background="{DynamicResource BackgroundBrush}"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="{DynamicResource ForegroundBrush}"
+        BorderThickness="2">
+    <Border BorderBrush="{DynamicResource ForegroundBrush}"
+            BorderThickness="1">
+        <Grid Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+                <!-- Title row -->
+                <RowDefinition Height="5"/>
+                <!-- Spacer -->
+                <RowDefinition Height="Auto" />
+                <!-- Content -->
+                <RowDefinition Height="5" />
+                <!-- Spacer -->
+                <RowDefinition Height="Auto" />
+                <!-- Buttons -->
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <!--Maybe add a title later?-->
+
+            <!-- Prompt Text -->
+            <TextBlock Grid.Row="3"
+                       d:Text="Do you want to save the changes to the project?"
+                       Style="{StaticResource MaterialDesignTitleMediumTextBlock}"
+                       Foreground="{DynamicResource ForegroundBrush}"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       Margin="2"
+                       x:Name="PromptTextBlock"/>
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center" Margin="0,2,0,0">
+                <Button Content="{Binding LanguageViewModel.Yes}"
+                        d:Content="Yes"
+                        Width="70"
+                        Height="35"
+                        Margin="0,0,10,0"
+                        Cursor="Hand"
+                        Click="YesButtonClick"
+                        Style="{StaticResource YesButton}"/>
+                <Button Content="{Binding LanguageViewModel.No}"
+                    d:Content="No"
+                    Width="70"
+                    Height="35"
+                    Margin="10,0,0,0"
+                    Style="{StaticResource NoButton}"
+                    Cursor="Hand"
+                    Click="NoButtonClick" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

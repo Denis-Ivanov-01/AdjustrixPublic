@@ -52,6 +52,7 @@ namespace AdjustrixWPF.ViewModel
             set
             {
                 selectedParameterType = value;
+                NewImportScript.ScriptParameterType = value;
             }
         }
 
@@ -156,19 +157,32 @@ namespace AdjustrixWPF.ViewModel
 
         private void RemoveScript(object parameter)
         {
-            CustomImportScript script = (CustomImportScript)parameter;
-            scriptFileManager.DeleteScript(script.Name);
-            ImportScripts.Remove(script);
+            YesNoPrompt prompt = new(this, LanguageViewModel.DeleteScriptQuestion);
+            prompt.ShowDialog();
+            if (prompt.Result == YesNoPromptResult.Yes)
+            {
+                CustomImportScript script = (CustomImportScript)parameter;
+                scriptFileManager.DeleteScript(script.Name);
+                ImportScripts.Remove(script);
+            }
         }
 
         private void RegisterScriptFile(object parameter)
         {
-            NewImportScript = new();
+            YesNoPrompt yesNo = new(this, LanguageViewModel.TrustScriptAuthorQuestion);
+            yesNo.ShowDialog();
+            if (yesNo.Result != YesNoPromptResult.Yes)
+            {
+                return;
+            }
+            NewImportScript = new() 
+            { 
+                ScriptParameterType = SelectedParameterType 
+            };
             AddImportScriptPrompt prompt = new(this);
             prompt.ShowDialog();
             if (prompt.RegisterScript && ValidateNewScript())
             {
-                NewImportScript.ScriptParameterType = SelectedParameterType;
                 scriptFileManager.CreateScriptFolder(NewImportScript);
                 ImportScripts.Add(NewImportScript);
             }
@@ -176,6 +190,10 @@ namespace AdjustrixWPF.ViewModel
 
         private bool ValidateNewScript()
         {
+            if (NewImportScript.ScriptParameterType == ScriptParameterType.Directory)
+            {
+                return !string.IsNullOrWhiteSpace(NewImportScript.Name);
+            }
             return !string.IsNullOrWhiteSpace(NewImportScript.Name) && 
                 !string.IsNullOrWhiteSpace(NewImportScript.FileExtension) &&
                 FileFilterValidator.IsValidFileFilter(NewImportScript.FileFilter) &&
