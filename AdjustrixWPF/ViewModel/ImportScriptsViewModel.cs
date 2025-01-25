@@ -50,7 +50,6 @@ namespace AdjustrixWPF.ViewModel
             set
             {
                 selectedParameterType = value;
-                NewImportScript.ScriptParameterType = selectedParameterType;
             }
         }
 
@@ -165,6 +164,7 @@ namespace AdjustrixWPF.ViewModel
             prompt.ShowDialog();
             if (prompt.RegisterScript && ValidateNewScript())
             {
+                NewImportScript.ScriptParameterType = SelectedParameterType;
                 scriptFileManager.CreateScriptFolder(NewImportScript);
                 ImportScripts.Add(NewImportScript);
             }
