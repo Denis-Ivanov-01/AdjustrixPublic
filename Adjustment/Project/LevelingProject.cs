@@ -41,7 +41,7 @@ namespace Adjustment.Project
             EnsureValidDataTypes();
         }
 
-        protected override void EnsureValidDataTypes()
+        public override void EnsureValidDataTypes()
         { //TODO: think whether to leave this that way?
             //maybe it is a good idea to have some validation
             foreach (KnownBenchmark kb in KnownBenchmarks)

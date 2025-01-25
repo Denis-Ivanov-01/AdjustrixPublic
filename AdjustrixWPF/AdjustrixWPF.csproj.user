@@ -10,6 +10,12 @@
     <Compile Update="NormalWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UserControls\AddImportScriptPrompt.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UserControls\Composite\PythonScriptsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\EditProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -82,6 +88,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Styles\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\AddImportScriptPrompt.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\Composite\PythonScriptsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\EditProjectPrompt.xaml">

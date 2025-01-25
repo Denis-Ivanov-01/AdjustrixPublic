@@ -9,6 +9,16 @@ namespace AdjustrixWPF.View.UserControls
     public partial class LabeledTextBoxRow : UserControl
     {
 
+        public int ControlWidth
+        {
+            get { return (int)GetValue(ControlWidthProperty); }
+            set { SetValue(ControlWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ControlWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ControlWidthProperty =
+            DependencyProperty.Register("ControlWidth", typeof(int), typeof(LabeledTextBoxRow), new PropertyMetadata(230));
+
 
 
         public string TextBoxText

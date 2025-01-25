@@ -18,10 +18,13 @@ namespace AdjustrixWPF.ViewModel
         private static readonly string adjustrixPFfolder = Path.Combine(programFiles, adjustrixFolder);
         private static readonly string adjustrixPFview = Path.Combine(adjustrixPFfolder, "view");
 
+        private static readonly string pythonExecutable = "C:\\Users\\denis\\Desktop\\Геодезия\\_Дипломна\\pythonTest\\python.exe";
+
         private static readonly string adjustrixADfolder = Path.Combine(appData, adjustrixFolder);
         private static readonly string appearanceFolder = Path.Combine(adjustrixADfolder, "Appearance");
         private static readonly string languageFile = Path.Combine(appearanceFolder, "language.txt");
         private static readonly string themeFile = Path.Combine(appearanceFolder, "theme.txt");
+        private static readonly string pythonScriptsFolder = Path.Combine(adjustrixADfolder, "PythonScripts");
 
         private static SystemFileManagement instance;
 
@@ -31,6 +34,7 @@ namespace AdjustrixWPF.ViewModel
         {
             EnsurePFFolderExists();
             Directory.CreateDirectory(appearanceFolder);
+            Directory.CreateDirectory(pythonScriptsFolder);
             EnsureAppearanceFilesExist();
         }
 
@@ -72,6 +76,22 @@ namespace AdjustrixWPF.ViewModel
             set
             {
                 File.WriteAllText(themeFile, value);
+            }
+        }
+
+        public string PythonScriptsFolder
+        {
+            get
+            {
+                return pythonScriptsFolder;
+            }
+        }
+
+        public string PythonExecutable
+        {
+            get
+            {
+                return pythonExecutable;
             }
         }
 

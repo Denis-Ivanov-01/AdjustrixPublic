@@ -104,6 +104,14 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry openedProject = new("Отворен е проектът {0}.", "The project {0} was opened.");
         private readonly StringEntry savedProject = new("Проектът {0} е запазен в папката {1}.", "The project {0} was saved in the folder {1}.");
 
+        private readonly StringEntry importScripts = new("Скриптове за Импорт", "Import Scripts");
+        private readonly StringEntry name = new("Име", "Name");
+        private readonly StringEntry extension = new("Файлово разширение", "File extension");
+        private readonly StringEntry scriptProperteis = new("Настройки на скрипт", "Script properties");
+        private readonly StringEntry inputParameterType = new("Вид входедн параметър", "Input parameter type");
+        private readonly StringEntry filter = new("Филтър", "Filter");
+        private readonly StringEntry scriptFile = new("Скрипт файл", "Script file");
+
         private LanguageViewModel()
         {
             propertyNames = GetClassProperties();
@@ -631,6 +639,62 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return savedProject.GetString(currentLanguage);
+            }
+        }
+
+        public string ImportScripts
+        {
+            get
+            {
+                return importScripts.GetString(currentLanguage);
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                return name.GetString(currentLanguage);
+            }
+        }
+
+        public string FileExtension
+        {
+            get
+            {
+                return extension.GetString(currentLanguage);
+            }
+        }
+
+        public string ScriptProperties
+        {
+            get
+            {
+                return scriptProperteis.GetString(currentLanguage);
+            }
+        }
+
+        public string InputParameterType
+        {
+            get
+            {
+                return inputParameterType.GetString(currentLanguage);
+            }
+        }
+
+        public string Filter
+        {
+            get
+            {
+                return filter.GetString(currentLanguage);
+            }
+        }
+
+        public string ScriptFile
+        {
+            get
+            {
+                return scriptFile.GetString(currentLanguage);
             }
         }
 

@@ -102,6 +102,12 @@
                                                                        Width="70"
                                                                        Label="{Binding LanguageViewModel.CustomImport}"
                                                                        d:Label="Custom file formats"
+                                                                       Margin="10 0 0 0"
+                                                                       Command="{Binding ImportScriptsViewModel.OpenScriptsList}"/>
+                                    <userControls:LabeledTabButtonIcon Icon="ScriptTextPlayOutline"
+                                                                       Height="100"
+                                                                       Width="70"
+                                                                       d:Label="Add script"
                                                                        Margin="10 0 0 0"/>
                                 </StackPanel>
                             </Grid>

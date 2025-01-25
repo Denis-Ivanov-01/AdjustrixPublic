@@ -1,0 +1,83 @@
+﻿<Window x:Class="AdjustrixWPF.View.UserControls.Composite.PythonScriptsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="PythonScriptsWindow" Height="600" Width="800"
+        Background="{DynamicResource BackgroundBrush}"
+        WindowStyle="None" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        BorderBrush="{DynamicResource ForegroundBrush}"
+        BorderThickness="2">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="70"/>
+        </Grid.RowDefinitions>
+        <TextBlock d:Text="Python scripts"
+                   Text="{Binding LanguageViewModel.ImportScripts}"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Foreground="{DynamicResource ForegroundBrush}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="30 0"/>
+        <DataGrid Grid.Row="1"
+                  Style="{StaticResource CustomDataGridStyle}"
+                  ItemsSource="{Binding ImportScripts}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DataContext.LanguageViewModel.Name, 
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding FileExtension}">
+                    <DataGridTextColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding DataContext.LanguageViewModel.FileExtension, 
+                                            RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                        </DataTemplate>
+                    </DataGridTextColumn.HeaderTemplate>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource YesButton}"
+                                        Content="{materialDesign:PackIcon Kind=Play,Size=25}"
+                                        Foreground="#499c54"
+                                        Background="Transparent"
+                                        Command="{Binding DataContext.RunScript,
+                                                    RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"/>
+                                <Button Style="{StaticResource YesButton}"
+                                        Content="{materialDesign:PackIcon Kind=TrashCanOutline,Size=25}"
+                                        Foreground="{DynamicResource ForegroundBrush}"
+                                        Background="Transparent"
+                                        Command="{Binding DataContext.DeleteScript,
+                                                    RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+                  
+        </DataGrid>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="{materialDesign:PackIcon Kind=Close,Size=25}"
+                    Click="CloseButtonClick"/>
+            <Button Content="{materialDesign:PackIcon Kind=ApplicationImport, Size=25}"
+                    Command="{Binding RegisterScript}"/>
+        </StackPanel>
+    </Grid>
+</Window>

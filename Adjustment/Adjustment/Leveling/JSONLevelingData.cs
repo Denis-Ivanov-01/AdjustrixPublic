@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace Adjustment.Adjustment
 {
@@ -30,7 +31,7 @@ namespace Adjustment.Adjustment
 
     public class JSONLevelingData
     {
-        public LevelingData LevelingData { get; }
+        public LevelingData LevelingData { get; private set; }
 
         public HashSet<KnownBenchmark> KnownBenchmarks = new();
         private bool knownBenchmarksExtracted = false;
@@ -40,12 +41,28 @@ namespace Adjustment.Adjustment
 
         public List<HeightDelta> HeightDifferences = new();
 
+        public JSONLevelingData()
+        {
+            
+        }
+
         public JSONLevelingData(string jsonPath)
         {
             LevelingData = ParseFile(jsonPath);
             GetKnownBenchmarks();
             GetNewBenchmarks();
             GetMeasurements();
+        }
+
+        public static JSONLevelingData FromString(string data)
+        {
+            string unescaped = Regex.Unescape(data);
+            JSONLevelingData obj = new();
+            obj.LevelingData = JsonSerializer.Deserialize<LevelingData>(unescaped)!;
+            obj.GetKnownBenchmarks();
+            obj.GetNewBenchmarks();
+            obj.GetMeasurements();
+            return obj;
         }
 
         private static LevelingData ParseFile(string jsonPath)

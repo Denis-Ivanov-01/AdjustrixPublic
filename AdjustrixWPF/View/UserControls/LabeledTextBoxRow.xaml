@@ -10,7 +10,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Border BorderThickness="0 0 1 0"
                 BorderBrush="{DynamicResource ForegroundBrush}"
-                Width="230">
+                Width="{Binding ControlWidth, RelativeSource={RelativeSource AncestorType=UserControl}}">
                 <TextBlock Margin="20 0 50 0"
                        d:Text="Project name"
                        Text="{Binding LabelText, RelativeSource={RelativeSource AncestorType=UserControl}}"
