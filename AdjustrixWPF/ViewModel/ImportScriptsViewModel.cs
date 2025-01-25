@@ -7,6 +7,8 @@ using AdjustrixWPF.View.UserControls.Composite;
 using Microsoft.Win32;
 using Adjustment.Project;
 using System.Windows;
+using System;
+using System.Threading;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -15,6 +17,9 @@ namespace AdjustrixWPF.ViewModel
         private readonly PythonScriptFileManager scriptFileManager;
         private readonly ProjectContainer projectContainer;
         private AdjustrixProject currentProject;
+        private ProjectType currentProjectType;
+
+        private MessageDelegate messageDelegate;
 
         private ScriptResultContainer scriptResultContainer;
         private PythonProcessManager scriptProcessManager;
@@ -63,15 +68,17 @@ namespace AdjustrixWPF.ViewModel
         public ICommand RunScript { get; }
         public ICommand DeleteScript { get; }
 
-        public ImportScriptsViewModel(ProjectContainer projectContainer, ScriptResultContainer resultContainer)
+        public ImportScriptsViewModel(ProjectContainer projectContainer, MessageDelegate messageDelegate)
         {
+            this.messageDelegate = messageDelegate;
+
             scriptFileManager = new(SystemFileManagement.Singleton.PythonScriptsFolder);
             this.projectContainer = projectContainer;
             this.projectContainer.ProjectChanged += OnProjectChanged;
+            this.projectContainer.ProjectTypeChanged += OnProjectTypeChanged;
 
-            scriptProcessManager = new(resultContainer);
-
-            scriptResultContainer = resultContainer;
+            scriptResultContainer = new();
+            scriptProcessManager = new(scriptResultContainer);
             scriptResultContainer.ResultChanged += OnResultChanged;
 
             ScanImportScripts();
@@ -82,9 +89,14 @@ namespace AdjustrixWPF.ViewModel
             RunScript = new RelayCommand(ExecuteScript, CanExecuteScript);
         }
 
+        private void OnProjectTypeChanged(ProjectType type)
+        {
+            currentProjectType = type;
+        }
+
         private void OnResultChanged(ScriptResult result)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke((Delegate)(() =>
             {
                 if (result.ExitCode == 0)
                 {
@@ -92,12 +104,17 @@ namespace AdjustrixWPF.ViewModel
                     proj.KnownBenchmarks = result.Data.KnownBenchmarks;
                     proj.HeightDifferences = result.Data.HeightDifferences;
                     projectContainer.ChangeProject(proj);
+                    string message = string.Format(LanguageViewModel.DataLoadedMessagePattern, 
+                        result.Data.HeightDifferences.Count, 
+                        result.Data.KnownBenchmarks.Count);
+                    messageDelegate.ChangeMessage(message);
                 }
                 else
                 {
                     ProcessingErrorPrompt prompt = new(this, result.Error);
+                    messageDelegate.ChangeMessage("");
                 }
-            });
+            }));
         }
 
         private void OnProjectChanged(AdjustrixProject project)
@@ -120,9 +137,18 @@ namespace AdjustrixWPF.ViewModel
 
         private void ExecuteScript(object parameter)
         {
-            CustomImportScript script = (CustomImportScript)parameter;
-            scriptsWindow.Close();
-            scriptProcessManager.ExecuteScript(script);
+            if (HandleExistingData())
+            {
+                CustomImportScript script = (CustomImportScript)parameter;
+                NotifyScriptExecuting(script);
+                scriptsWindow.Close();
+                scriptProcessManager.ExecuteScript(script);
+            }
+        }
+        private void NotifyScriptExecuting(CustomImportScript script)
+        {
+            string message = string.Format(LanguageViewModel.ExecutingScriptPattern, script.Name);
+            messageDelegate.ChangeMessage(message, Timeout.InfiniteTimeSpan);
         }
 
         private void RemoveScript(object parameter)
@@ -172,6 +198,30 @@ namespace AdjustrixWPF.ViewModel
             {
                 ImportScripts.Add(script);
             }
+        }
+
+        private bool HandleExistingData()
+        {
+            switch (currentProjectType)
+            {
+                case ProjectType.Leveling:
+                    LevelingProject levelingProject = (LevelingProject)currentProject;
+                    if (levelingProject.KnownBenchmarks.Count > 0 || levelingProject.HeightDifferences.Count > 0)
+                    {
+                        return PromptOverwrite();
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+            return true;
+        }
+
+        private bool PromptOverwrite()
+        {
+            OverwriteDataPrompt prompt = new(this);
+            prompt.ShowDialog();
+            return prompt.OverwriteData;
         }
     }
 

@@ -44,14 +44,16 @@ namespace AdjustrixWPF.ViewModel
 
         private async void ReadExcelFile(object param)
         {
-            HandleExistingData();
-            OpenFileDialog dialog = new();
-            dialog.Filter = "Microsoft Excel file (.xlsx / .xls)|*.xlsx;*.xls";
-            dialog.DefaultExt = ".xlsx/.xls";
-            Forms.DialogResult result = dialog.ShowDialog();
-            if (result == Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
+            if (HandleExistingData())
             {
-                await Task.Run(() => TryReadExcel(dialog.FileName));
+                OpenFileDialog dialog = new();
+                dialog.Filter = "Microsoft Excel file (.xlsx / .xls)|*.xlsx;*.xls";
+                dialog.DefaultExt = ".xlsx/.xls";
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
+                {
+                    await Task.Run(() => TryReadExcel(dialog.FileName));
+                }
             }
 
         }

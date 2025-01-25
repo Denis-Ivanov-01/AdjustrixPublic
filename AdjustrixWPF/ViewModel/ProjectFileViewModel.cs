@@ -147,6 +147,7 @@ namespace AdjustrixWPF.ViewModel
             project = ProjectFactory.CreateProject(ProjectProperties, selectedProjectType);
             SaveProjectToFile(folderPath);
             UpdateProjectProperties();
+            projectContainer.ChangeProject(project);
             return true;
         }
 

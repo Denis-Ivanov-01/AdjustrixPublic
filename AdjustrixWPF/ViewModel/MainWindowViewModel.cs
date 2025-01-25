@@ -25,13 +25,13 @@ namespace AdjustrixWPF.ViewModel
         {
             ProjectContainer projectContainer = new();
             MessageDelegate messageDelegate = new MessageDelegate();
-            ScriptResultContainer scriptResultContainer = new();
+            
             ProjectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
             this.MessageBoxViewModel = new(messageDelegate);
             this.DataLoadingViewModel = new(projectContainer, messageDelegate);
-            this.ImportScriptsViewModel = new(projectContainer, scriptResultContainer);
+            this.ImportScriptsViewModel = new(projectContainer, messageDelegate);
             SystemFileSingleton = SystemFileManagement.Singleton;
             CloseCommand = new RelayCommand(Close);
         }

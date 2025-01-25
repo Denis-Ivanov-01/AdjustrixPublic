@@ -111,6 +111,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry inputParameterType = new("Вид входедн параметър", "Input parameter type");
         private readonly StringEntry filter = new("Филтър", "Filter");
         private readonly StringEntry scriptFile = new("Скрипт файл", "Script file");
+        private readonly StringEntry executingScript = new("Изпълнява се {0}", "Running {0}");
 
         private LanguageViewModel()
         {
@@ -695,6 +696,14 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return scriptFile.GetString(currentLanguage);
+            }
+        }
+
+        public string ExecutingScriptPattern
+        {
+            get
+            {
+                return executingScript.GetString(currentLanguage);
             }
         }
 
