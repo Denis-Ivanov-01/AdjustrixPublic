@@ -9,7 +9,7 @@ namespace AdjustrixWPF.Model
 {
     public class PythonProcessManager
     {
-        private ScriptResultContainer resultContainer;
+        private readonly ScriptResultContainer resultContainer;
 
         private readonly string pythonExecutable = SystemFileManagement.Singleton.PythonExecutable;
         public bool ProcessSuccessful { get; private set; } = false;
@@ -40,6 +40,8 @@ namespace AdjustrixWPF.Model
         private bool GetFileScriptArgs(CustomImportScript script, out string args)
         {
             OpenFileDialog dialog = new();
+            dialog.Filter = script.FileFilter;
+            dialog.DefaultExt = script.FileExtension;
             DialogResult result = dialog.ShowDialog();
             if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
             {

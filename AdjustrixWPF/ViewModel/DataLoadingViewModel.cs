@@ -7,7 +7,6 @@ using Adjustment.NetworkAnalysis;
 using Adjustment.Project;
 using AdjustrixWPF.Model;
 using AdjustrixWPF.View.UserControls;
-using Forms = System.Windows.Forms;
 using Win = System.Windows;
 
 namespace AdjustrixWPF.ViewModel

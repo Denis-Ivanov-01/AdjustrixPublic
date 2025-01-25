@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.Model
@@ -16,7 +13,7 @@ namespace AdjustrixWPF.Model
         private const string extensionFileName = "extension.txt";
         private const string parameterFileName = "parameter.txt";
 
-        private string pythonScriptsFolder;
+        private readonly string pythonScriptsFolder;
 
         public PythonScriptFileManager(string scriptsFolder)
         {
@@ -50,25 +47,49 @@ namespace AdjustrixWPF.Model
             script = new();
 
             string extensionFilePath = GetExtensionFilePath(scriptDir);
-            if (!File.Exists(extensionFilePath)) return false;
+            if (!File.Exists(extensionFilePath))
+            {
+                return false;
+            }
+
             string extension = File.ReadAllText(extensionFilePath);
-            if (!FileFilterValidator.IsValidFileExtension(extension)) return false;
+            if (!FileFilterValidator.IsValidFileExtension(extension))
+            {
+                return false;
+            }
+
             script.FileExtension = extension;
 
             string filterFilePath = GetFilterFilePath(scriptDir);
-            if (!File.Exists (filterFilePath)) return false;
+            if (!File.Exists(filterFilePath))
+            {
+                return false;
+            }
+
             string filter = File.ReadAllText(filterFilePath);
-            if (!FileFilterValidator.IsValidFileFilter(filter)) return false;
+            if (!FileFilterValidator.IsValidFileFilter(filter))
+            {
+                return false;
+            }
+
             script.FileFilter = filter;
 
             script.Name = Path.GetFileName(scriptDir)!;
-            
+
             string scriptFile = GetScriptFilePath(scriptDir);
-            if (!File.Exists(scriptFile)) return false;
+            if (!File.Exists(scriptFile))
+            {
+                return false;
+            }
+
             script.ScriptPath = scriptFile;
 
             string parameterTypeFile = GetParameterFilePath(scriptDir);
-            if (!File.Exists(parameterTypeFile)) return false;
+            if (!File.Exists(parameterTypeFile))
+            {
+                return false;
+            }
+
             string paramType = File.ReadAllText(parameterTypeFile);
             if (Enum.TryParse(typeof(ScriptParameterType), paramType, out object result))
             {

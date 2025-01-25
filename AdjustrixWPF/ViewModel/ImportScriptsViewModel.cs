@@ -1,16 +1,16 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows;
 using System.Windows.Input;
+using Adjustment;
+using Adjustment.NetworkAnalysis;
+using Adjustment.Project;
 using AdjustrixWPF.Model;
 using AdjustrixWPF.View.UserControls;
 using AdjustrixWPF.View.UserControls.Composite;
 using Microsoft.Win32;
-using Adjustment.Project;
-using System.Windows;
-using System;
-using System.Threading;
-using Adjustment;
-using Adjustment.NetworkAnalysis;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -21,20 +21,20 @@ namespace AdjustrixWPF.ViewModel
         private AdjustrixProject currentProject;
         private ProjectType currentProjectType;
 
-        private MessageDelegate messageDelegate;
+        private readonly MessageDelegate messageDelegate;
 
-        private ScriptResultContainer scriptResultContainer;
-        private PythonProcessManager scriptProcessManager;
+        private readonly ScriptResultContainer scriptResultContainer;
+        private readonly PythonProcessManager scriptProcessManager;
 
         private PythonScriptsWindow scriptsWindow;
 
         private ObservableCollection<CustomImportScript> importScripts = new();
-       
-		public ObservableCollection<CustomImportScript> ImportScripts
-		{
-			get { return importScripts; }
-			set { importScripts = value; }
-		}
+
+        public ObservableCollection<CustomImportScript> ImportScripts
+        {
+            get { return importScripts; }
+            set { importScripts = value; }
+        }
 
         private ObservableCollection<string> inputParameterTypes = EnumHelper.GetEnumStrings<ScriptParameterType>();
 
@@ -102,13 +102,15 @@ namespace AdjustrixWPF.ViewModel
             {
                 if (result.ExitCode == 0)
                 {
-                    //Graph<HeightDelta> graph = new(result.Data.HeightDifferences);
+                    //There are validations in the graph constructor
+                    Graph<HeightDelta> graph = new(result.Data.HeightDifferences);
+
                     LevelingProject proj = (LevelingProject)currentProject;
                     proj.KnownBenchmarks = result.Data.KnownBenchmarks;
                     proj.HeightDifferences = result.Data.HeightDifferences;
                     proj.EnsureValidDataTypes();
                     projectContainer.ChangeProject(proj);
-                    string message = string.Format(LanguageViewModel.DataLoadedMessagePattern, 
+                    string message = string.Format(LanguageViewModel.DataLoadedMessagePattern,
                         result.Data.HeightDifferences.Count,
                         result.Data.KnownBenchmarks.Count);
                     messageDelegate.ChangeMessage(message);
@@ -175,9 +177,9 @@ namespace AdjustrixWPF.ViewModel
             {
                 return;
             }
-            NewImportScript = new() 
-            { 
-                ScriptParameterType = SelectedParameterType 
+            NewImportScript = new()
+            {
+                ScriptParameterType = SelectedParameterType
             };
             AddImportScriptPrompt prompt = new(this);
             prompt.ShowDialog();
@@ -194,7 +196,7 @@ namespace AdjustrixWPF.ViewModel
             {
                 return !string.IsNullOrWhiteSpace(NewImportScript.Name);
             }
-            return !string.IsNullOrWhiteSpace(NewImportScript.Name) && 
+            return !string.IsNullOrWhiteSpace(NewImportScript.Name) &&
                 !string.IsNullOrWhiteSpace(NewImportScript.FileExtension) &&
                 FileFilterValidator.IsValidFileFilter(NewImportScript.FileFilter) &&
                 FileFilterValidator.IsValidFileExtension(NewImportScript.FileExtension);

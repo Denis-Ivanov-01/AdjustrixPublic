@@ -12,7 +12,7 @@
 
         public ScriptParameterType ScriptParameterType { get; set; }
 
-        public string FileExtension {  get; set; }
+        public string FileExtension { get; set; }
 
         public string FileFilter { get; set; }
 

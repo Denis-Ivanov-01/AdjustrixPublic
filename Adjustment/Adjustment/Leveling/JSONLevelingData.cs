@@ -43,7 +43,7 @@ namespace Adjustment.Adjustment
 
         public JSONLevelingData()
         {
-            
+
         }
 
         public JSONLevelingData(string jsonPath)

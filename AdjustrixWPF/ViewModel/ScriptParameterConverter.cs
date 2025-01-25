@@ -12,7 +12,9 @@ namespace AdjustrixWPF.ViewModel
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
+            {
                 return null;
+            }
 
             // Handle individual enum value conversion
             if (value is Enum enumValue)
@@ -32,7 +34,9 @@ namespace AdjustrixWPF.ViewModel
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
+            {
                 return null;
+            }
 
             // Convert string back to enum value
             if (value is string stringValue && targetType.IsEnum)

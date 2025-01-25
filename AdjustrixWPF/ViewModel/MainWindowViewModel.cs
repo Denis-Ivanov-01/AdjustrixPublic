@@ -25,7 +25,7 @@ namespace AdjustrixWPF.ViewModel
         {
             ProjectContainer projectContainer = new();
             MessageDelegate messageDelegate = new MessageDelegate();
-            
+
             ProjectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);

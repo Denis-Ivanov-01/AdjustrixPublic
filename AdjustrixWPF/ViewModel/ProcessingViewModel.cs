@@ -20,7 +20,7 @@ namespace AdjustrixWPF.ViewModel
         private AdjustmentStatus status;
         private readonly AdjustmentStatusDelegate statusDelegate;
 
-        private Graph<HeightDelta> graph;
+        private readonly Graph<HeightDelta> graph;
 
         private readonly MessageDelegate messageDelegate;
 

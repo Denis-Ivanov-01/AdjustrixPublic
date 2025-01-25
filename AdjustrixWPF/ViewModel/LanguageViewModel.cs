@@ -114,7 +114,7 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry executingScript = new("Изпълнява се {0}", "Running {0}");
         private readonly StringEntry deleteScriptQuestion = new("Искате ли да изтриете скрипта?", "Do you want to delete the script?");
         private readonly StringEntry trustScriptSourceQustion = new("Доверявате ли се на автора на скрипта?", "Do you trust the author of the script?");
-        
+
         private LanguageViewModel()
         {
             propertyNames = GetClassProperties();

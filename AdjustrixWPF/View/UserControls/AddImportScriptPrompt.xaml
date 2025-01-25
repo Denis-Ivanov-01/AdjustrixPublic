@@ -20,7 +20,7 @@
             </Grid.RowDefinitions>
             <TextBlock HorizontalAlignment="Left"
                        d:Text="Manage Project"
-                       Text="{Binding LanguageViewModel.ProjectSettings}"
+                       Text="{Binding LanguageViewModel.ScriptProperties}"
                        Style="{StaticResource MaterialDesignHeadline2TextBlock}"
                        FontSize="16"
                        Foreground="{DynamicResource ForegroundBrush}"
