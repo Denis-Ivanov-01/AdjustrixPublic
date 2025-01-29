@@ -103,4 +103,16 @@
 
         }
     }
+
+    public class NoKnownPointsException : Exception
+    {
+        public NoKnownPointsException() { }
+
+        public NoKnownPointsException(string message) : base(message) { }
+
+        public NoKnownPointsException(string message, Exception inner) : base(message, inner)
+        {
+
+        }
+    }
 }

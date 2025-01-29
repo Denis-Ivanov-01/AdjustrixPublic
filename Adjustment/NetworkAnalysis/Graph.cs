@@ -10,7 +10,7 @@
 
         public Graph(List<TEdge> measurements)
         {
-            NetworkValidator<TEdge> validator = new();
+            NetworkDataValidator<TEdge> validator = new();
             validator.PerformInitialValidation(measurements);
             MeasurementsToEdge(measurements);
             initialMeasurements = measurements;

@@ -68,7 +68,9 @@ namespace Adjustment
             return corrections;
         }
 
-        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements, Matrix<double> Qv, double perUnitVariance)
+        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements, 
+            Matrix<double> Qv, 
+            double perUnitVariance)
         {
             List<HeightDelta> meas = adjustedMeasurements.Cast<HeightDelta>().ToList();
             Pathfinder<PointBase, HeightDelta> pathfinder = new(meas);

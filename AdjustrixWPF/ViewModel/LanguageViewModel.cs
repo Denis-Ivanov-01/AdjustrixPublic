@@ -88,6 +88,8 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry hangingPoint = new("Точка с номер {0} е висяща.", "Point with number {0} is hanging.");
         private readonly StringEntry duplicateMeasurement = new("Дублирано измерване между точки с номера {0} и {1}.", "Duplicate measurement between points with number {0} and {1}.");
         private readonly StringEntry loopingMeasurement = new("Огледални измервания между точки с номера {0} и {1}.", "Mirrored measurements between points with number {0} and {1}.");
+        private readonly StringEntry noKnownPoint = new("Не е намерена дадена точка. Ако сте посочили дадени точки, проверете номерата им в регистъра и измерванията.", 
+            "No known point was found. If you have entered known points, check their numbers in the registry and in the measurements.");
 
         private readonly StringEntry unknownError = new("Възникна неизвестна грешка.", "An unkown exception occurred.");
         #endregion
@@ -574,6 +576,14 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return loopingMeasurement.GetString(currentLanguage);
+            }
+        }
+
+        public string NoKnownPointsMessage
+        {
+            get
+            {
+                return noKnownPoint.GetString(currentLanguage);
             }
         }
 

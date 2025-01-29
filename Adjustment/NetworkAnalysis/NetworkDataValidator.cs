@@ -1,6 +1,6 @@
 ﻿namespace Adjustment.NetworkAnalysis
 {
-    public class NetworkValidator<TEdge>
+    public class NetworkDataValidator<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {
         private Dictionary<PointBase, List<TEdge>> graphData = new();
@@ -23,6 +23,7 @@
         /// <param name="measurements"></param>
         public void PerformInitialValidation(List<TEdge> measurements)
         {
+            AssertKnownBenchmarks(measurements);
             AssertNoDuplicates(measurements);
         }
 
@@ -37,6 +38,26 @@
                     throw new HangingPointException($"Point {point.Number} has fewer than 2 neighbors.", point.Number);
                 }
             }
+        }
+
+        public void AssertKnownBenchmarks(List<TEdge> measurements)
+        {
+            bool knownBenchmarkFound = false;
+            foreach (TEdge e in measurements)
+            {
+                if (e.FromPoint is KnownBenchmark)
+                {
+                    knownBenchmarkFound = true;
+                    break;
+                }
+                if (e.ToPoint is KnownBenchmark)
+                {
+                    knownBenchmarkFound = true;
+                    break;
+                }
+            }
+
+            if (!knownBenchmarkFound) throw new NoKnownPointsException("No known points found in the measurements!");
         }
 
         // There must be a path from each point to every other point

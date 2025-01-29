@@ -44,6 +44,7 @@ namespace Adjustment
             double perUnitVariance = CalculatePerUnitVariance(pvVector, corrections) * 1000;
             Matrix<double> Qv = CalculateQv(reversedWeights, configurationMatrix, perUnitVariance, inversedNormal);
             Vector<double> correctionVariances = CalculateCorrectionVariances(Qv, perUnitVariance);
+            Vector<double> measurementVariances = CalculateMeasurementVariances(perUnitVariance, Qv);
 
             List<TMeasurement> adjustedMeasurements = CalculateAdjustedMeasurements(corrections);
             Vector<double> adjustedResiduals = CalculateResidualsVector(AssignMeasurementsToTraverses(adjustedMeasurements));
@@ -54,7 +55,7 @@ namespace Adjustment
                 (adjustedPoints,
                 adjustedMeasurements,
                 //todo: PASS THE CORRECT VALUE!
-                new(),
+                measurementVariances,
                 corrections,
                 correctionVariances,
                 DistinctTraverses,
@@ -139,6 +140,16 @@ namespace Adjustment
         }
 
         protected Vector<double> CalculateCorrectionVariances(Matrix<double> Qv, double perUnitVariance)
+        {
+            Vector<double> variances = vectorBuilder.Dense(Qv.ColumnCount);
+            for (int i = 0; i < variances.Count; i++)
+            {
+                variances[i] = perUnitVariance * Math.Sqrt(Qv[i, i]);
+            }
+            return variances;
+        }
+
+        protected Vector<double> CalculateMeasurementVariances(double perUnitVariance, Matrix<double> Qv)
         {
             Vector<double> variances = vectorBuilder.Dense(Qv.ColumnCount);
             for (int i = 0; i < variances.Count; i++)
@@ -295,7 +306,7 @@ namespace Adjustment
 
         public List<TMeasurement> AdjustedMeasurements { get; set; }
 
-        public List<double> MeasurementVariances { get; set; }
+        public Vector<double> MeasurementVariances { get; set; }
 
         public Vector<double> AdjustedCorrections { get; set; }
 
@@ -307,7 +318,7 @@ namespace Adjustment
 
         public AdjustmentResult(List<TAdjustedPoint> adjustedPoints,
             List<TMeasurement> adjustedMeasurements,
-            List<double> measurementsVariances,
+            Vector<double> measurementsVariances,
             Vector<double> adjustedCorrections,
             Vector<double> correctionVariances,
             List<List<PointBase>> distinctTravs,
@@ -316,6 +327,7 @@ namespace Adjustment
         {
             AdjustedPoints = adjustedPoints;
             AdjustedMeasurements = adjustedMeasurements;
+            MeasurementVariances = measurementsVariances;
             AdjustedCorrections = adjustedCorrections;
             DistinctTraverses = distinctTravs;
             Residuals = residuals;

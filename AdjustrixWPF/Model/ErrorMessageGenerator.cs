@@ -32,6 +32,8 @@ namespace AdjustrixWPF.Model
                     return string.Format(languageViewModel.DuplicateMeasurementMessagePattern, dpEx.fromPointNumber, dpEx.toPointNumber);
                 case LoopingMeasurementsException lmEx:
                     return string.Format(languageViewModel.LoopingMeasurementsMessagePattern, lmEx.fromPointNumber, lmEx.toPointNumber);
+                case NoKnownPointsException nkpEx:
+                    return languageViewModel.NoKnownPointsMessage;
                 default:
                     return languageViewModel.UnknownErrorMessage;
             }

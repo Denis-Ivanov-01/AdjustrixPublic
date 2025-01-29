@@ -79,7 +79,8 @@ namespace AdjustrixWPF.ViewModel
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                LevelingProcessing processing = new(project, statusDelegate);
+                Adjustment.Language lang = GetAdjustmentLanguage();
+                LevelingProcessing processing = new(project, statusDelegate, lang);
                 processing.Process(projectFolder);
             }
             catch (Exception ex)
@@ -106,6 +107,10 @@ namespace AdjustrixWPF.ViewModel
             });
         }
 
+        private static Adjustment.Language GetAdjustmentLanguage()
+        {
+            return LanguageViewModel.SelectedLanguage == Language.Bulgarian ? Adjustment.Language.Bulgarian : Adjustment.Language.English;
+        }
 
         private bool CanProcess(object param)
         {

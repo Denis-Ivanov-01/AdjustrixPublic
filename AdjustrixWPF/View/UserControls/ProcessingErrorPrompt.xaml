@@ -43,6 +43,7 @@
                        d:Text="Error message"
                        TextWrapping="Wrap"
                        TextAlignment="Center"
+                       Margin="5"
                        Style="{StaticResource MaterialDesignBodyLargeTextBlock}"/>
         </Border>
 

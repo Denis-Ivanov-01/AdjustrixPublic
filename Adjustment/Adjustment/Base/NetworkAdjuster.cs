@@ -11,6 +11,12 @@ namespace Adjustment
         CreatingReports
     }
 
+    public enum Language
+    {
+        English,
+        Bulgarian
+    }
+
     public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement,
         IDeactivatable, new()
