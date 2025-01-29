@@ -102,7 +102,7 @@ namespace AdjustrixWPF.Model
             return true;
         }
 
-        public void CreateScriptFolder(CustomImportScript script)
+        public void RegisterScript(CustomImportScript script)
         {
             string scriptFolderPath = Path.Combine(pythonScriptsFolder, script.Name);
             if (Directory.Exists(scriptFolderPath))

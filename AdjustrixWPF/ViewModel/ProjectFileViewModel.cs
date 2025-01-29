@@ -56,7 +56,7 @@ namespace AdjustrixWPF.ViewModel
         }
 
         public ProjectGeneralProperties ProjectProperties
-        {
+        { // maybe can be removed - for later
             get => projectProperties;
             set
             {

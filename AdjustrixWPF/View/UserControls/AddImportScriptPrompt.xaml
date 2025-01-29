@@ -57,13 +57,13 @@
                 </Border>
                 <local:LabeledTextBoxRow d:LabelText="Script Name"
                                          LabelText="{Binding LanguageViewModel.Name}"
-                                         TextBoxText="{Binding NewImportScript.Name, Mode=TwoWay}"
+                                         TextBoxText="{Binding ScriptName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                                          ControlWidth="300"/>
                 <local:LabeledTextBoxRow LabelText="{Binding LanguageViewModel.FileExtension}"
-                                         TextBoxText="{Binding NewImportScript.FileExtension, Mode=TwoWay}"
+                                         TextBoxText="{Binding FileExtension, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                                          ControlWidth="300"/>
                 <local:LabeledTextBoxRow LabelText="{Binding LanguageViewModel.Filter}"
-                                         TextBoxText="{Binding NewImportScript.FileFilter, Mode=TwoWay}"
+                                         TextBoxText="{Binding FileFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"
                                          ControlWidth="300"/>
                 <Border Margin="5" Height="70">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

@@ -78,8 +78,11 @@ namespace AdjustrixWPF.Model
             info.RedirectStandardOutput = true;
             Task.Run(async () =>
             {
-                Process process = new();
-                process.StartInfo = info;
+                Process process = new() 
+                { 
+                    StartInfo = info 
+                };
+
                 process.Start();
 
                 string error = await process.StandardError.ReadToEndAsync();

@@ -11,6 +11,7 @@
             <viewModels:ThemeConverter x:Key="ThemesConverter"/>
             <viewModels:ProjectTypeConverter x:Key="ProjectTypesConverter"/>
             <viewModels:ScriptParameterConverter x:Key="ScriptParameterConverter"/>
+            <viewModels:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="LightBlue" />

@@ -114,6 +114,10 @@ namespace AdjustrixWPF.ViewModel
         private readonly StringEntry executingScript = new("Изпълнява се {0}", "Running {0}");
         private readonly StringEntry deleteScriptQuestion = new("Искате ли да изтриете скрипта?", "Do you want to delete the script?");
         private readonly StringEntry trustScriptSourceQustion = new("Доверявате ли се на автора на скрипта?", "Do you trust the author of the script?");
+        private readonly StringEntry mustEnterValidExtension = new("Трябва да въведете валидно разширение.", "You must enter a valid extension.");
+        private readonly StringEntry mustEnterValidFilter = new("Трябва да веведете валиден филтър.", "You must enter a valid filter.");
+        private readonly StringEntry mustEnterName = new("Трябва да въведете име на скрипта.", "You must enter a script name.");
+        private readonly StringEntry mustSpecifyScript = new("Трябва да посочите скрипт.", "You must specify a script.");
 
         private LanguageViewModel()
         {
@@ -722,6 +726,38 @@ namespace AdjustrixWPF.ViewModel
             get
             {
                 return trustScriptSourceQustion.GetString(currentLanguage);
+            }
+        }
+
+        public string MustEnterValidExtensionMessage
+        {
+            get
+            {
+                return mustEnterValidExtension.GetString(currentLanguage);
+            }
+        }
+
+        public string MustEnterValidFilterMessage
+        {
+            get
+            {
+                return mustEnterValidFilter.GetString(currentLanguage);
+            }
+        }
+
+        public string MustEnterName
+        {
+            get
+            {
+                return mustEnterName.GetString(currentLanguage);
+            }
+        }
+
+        public string MustSpecifyScript
+        {
+            get
+            {
+                return mustSpecifyScript.GetString(currentLanguage);
             }
         }
 
