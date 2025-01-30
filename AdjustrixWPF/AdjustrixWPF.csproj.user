@@ -7,9 +7,6 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="NormalWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\UserControls\Prompts\AddImportScriptPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -79,9 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="NormalWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Styles\Button.xaml">
