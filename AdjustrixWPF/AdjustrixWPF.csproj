@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Adjustment\AdjustrixBase.csproj" />
+    <ProjectReference Include="..\AdjustrixBase\AdjustrixBase.csproj" />
   </ItemGroup>
 
   <ItemGroup>
