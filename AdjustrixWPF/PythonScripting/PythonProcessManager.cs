@@ -27,19 +27,19 @@ namespace AdjustrixWPF.PythonScripting
             {
                 if (GetFileScriptArgs(script, out string args))
                 {
-                    ExecuteScript(args, script);
+                    ExecuteScript(args);
                 }
             }
             else
             {
                 if (GetFolderScriptArgs(script, out string args))
                 {
-                    ExecuteScript(args, script);
+                    ExecuteScript(args);
                 }
             }
         }
 
-        private bool GetFileScriptArgs(CustomImportScript script, out string args)
+        private static bool GetFileScriptArgs(CustomImportScript script, out string args)
         {
             OpenFileDialog dialog = new();
             dialog.Filter = script.FileFilter;
@@ -56,7 +56,7 @@ namespace AdjustrixWPF.PythonScripting
             return false;
         }
 
-        private bool GetFolderScriptArgs(CustomImportScript script, out string args)
+        private static bool GetFolderScriptArgs(CustomImportScript script, out string args)
         {
             FolderBrowserDialog dialog = new();
             DialogResult result = dialog.ShowDialog();
@@ -71,16 +71,18 @@ namespace AdjustrixWPF.PythonScripting
             return false;
         }
 
-        private void ExecuteScript(string arguments, CustomImportScript script)
+        private void ExecuteScript(string arguments)
         {
-            ProcessStartInfo info = new();
-            info.Arguments = arguments;
-            info.FileName = pythonExecutable;
-            info.RedirectStandardError = true;
-            info.RedirectStandardOutput = true;
+            ProcessStartInfo info = new() 
+            {
+                Arguments = arguments,
+                FileName = pythonExecutable,
+                RedirectStandardError = true,
+                RedirectStandardOutput = true
+            };
             Task.Run(async () =>
             {
-                Process process = new()
+                using Process process = new()
                 {
                     StartInfo = info
                 };
