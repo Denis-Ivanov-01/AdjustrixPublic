@@ -1,5 +1,4 @@
 ﻿using AdjustrixBase.DataModels;
-using AdjustrixBase.Project;
 
 namespace AdjustrixBase.Project
 {

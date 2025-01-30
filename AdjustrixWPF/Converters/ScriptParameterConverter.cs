@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using AdjustrixWPF.Enums;
-using AdjustrixWPF.PythonScripting;
 using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.Converters

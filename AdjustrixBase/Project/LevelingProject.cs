@@ -1,6 +1,5 @@
 ﻿using System.Text.Json.Serialization;
 using AdjustrixBase.DataModels;
-using AdjustrixBase.Project;
 
 namespace AdjustrixBase.Project
 {

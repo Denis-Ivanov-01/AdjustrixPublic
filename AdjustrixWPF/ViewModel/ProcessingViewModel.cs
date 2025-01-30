@@ -8,11 +8,10 @@ using AdjustrixBase.DataModels;
 using AdjustrixBase.Extensions;
 using AdjustrixBase.NetworkAnalysis;
 using AdjustrixBase.Project;
-using AdjustrixWPF.View.UserControls;
 using AdjustrixBase.Adjustment.Base;
 using AdjustrixWPF.Containers;
-using AdjustrixWPF.Enums;
 using AdjustrixWPF.Commands;
+using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {

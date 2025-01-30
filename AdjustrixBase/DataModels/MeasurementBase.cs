@@ -1,6 +1,4 @@
-﻿using AdjustrixBase.DataModels;
-
-namespace AdjustrixBase.DataModels;
+﻿namespace AdjustrixBase.DataModels;
 
 
 public interface IEdge<TNode, out TEdge>

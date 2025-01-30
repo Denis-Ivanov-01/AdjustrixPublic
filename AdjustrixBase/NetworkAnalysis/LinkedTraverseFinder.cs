@@ -1,5 +1,4 @@
-﻿using Adjustment;
-using AdjustrixBase.DataModels;
+﻿using AdjustrixBase.DataModels;
 
 namespace AdjustrixBase.NetworkAnalysis
 {

@@ -1,9 +1,9 @@
 ﻿using AdjustrixBase.Adjustment.Base;
 using AdjustrixBase.DataModels;
+using AdjustrixBase.Project;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
-using AdjustrixBase.Project;
 
 namespace AdjustrixBase.Reports.Leveling
 {

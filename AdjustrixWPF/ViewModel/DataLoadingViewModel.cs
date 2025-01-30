@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using Win = System.Windows;
 using AdjustrixBase.Project;
 using AdjustrixBase.DataModels;
 using AdjustrixBase.NetworkAnalysis;
 using AdjustrixWPF.View.UserControls;
-using Win = System.Windows;
 using AdjustrixWPF.Containers;
 using AdjustrixWPF.DataLoading;
 using AdjustrixWPF.Commands;

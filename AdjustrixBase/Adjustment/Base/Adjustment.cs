@@ -1,5 +1,4 @@
-﻿using Adjustment;
-using AdjustrixBase.DataModels;
+﻿using AdjustrixBase.DataModels;
 using AdjustrixBase.Extensions;
 using AdjustrixBase.NetworkAnalysis;
 using MathNet.Numerics.LinearAlgebra;
