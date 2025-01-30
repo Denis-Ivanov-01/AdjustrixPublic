@@ -74,7 +74,7 @@ namespace AdjustrixWPF.DataLoading
                 {
                     throw new InvalidOperationException($"Invalid elevation value for benchmark {number}.");
                 }
-
+                number = number.Trim();
                 KnownBenchmarks.Add(new KnownBenchmark(number, elevation));
             }
 
@@ -110,7 +110,7 @@ namespace AdjustrixWPF.DataLoading
                     throw new InvalidOperationException($"Invalid value for measurement from {fromPoint} to {toPoint}.");
                 }
 
-                Measurements.Add(new HeightDelta(PointFromString(fromPoint), PointFromString(toPoint), value, length));
+                Measurements.Add(new HeightDelta(PointFromString(fromPoint.Trim()), PointFromString(toPoint.Trim()), value, length));
             }
         }
 
