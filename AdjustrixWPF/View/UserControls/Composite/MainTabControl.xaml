@@ -70,7 +70,7 @@
                     <Grid Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=StackPanel}}"
                           Width="{Binding Width, RelativeSource={RelativeSource AncestorType=UserControl}}">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="215"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -89,7 +89,8 @@
                                            Text="{Binding LanguageViewModel.DataLoading}"
                                            d:Text="Data loading"/>
                                 </Border>
-                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <StackPanel Grid.Row="1" Orientation="Horizontal"
+                                            Margin="20 0 0 0">
                                     <userControls:LabeledTabButtonIcon Icon="FileExcelOutline"
                                                                        Height="100"
                                                                        Width="70"
@@ -104,11 +105,6 @@
                                                                        d:Label="Custom file formats"
                                                                        Margin="10 0 0 0"
                                                                        Command="{Binding ImportScriptsViewModel.OpenScriptsList}"/>
-                                    <userControls:LabeledTabButtonIcon Icon="ScriptTextPlayOutline"
-                                                                       Height="100"
-                                                                       Width="70"
-                                                                       d:Label="Add script"
-                                                                       Margin="10 0 0 0"/>
                                 </StackPanel>
                             </Grid>
                         </Border>

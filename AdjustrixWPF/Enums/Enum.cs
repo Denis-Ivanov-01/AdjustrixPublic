@@ -1,8 +1,5 @@
-﻿using System.Collections.ObjectModel;
-
-namespace AdjustrixWPF.Enums
+﻿namespace AdjustrixWPF.Enums
 {
-
 
     public enum Language
     {
@@ -26,15 +23,5 @@ namespace AdjustrixWPF.Enums
     {
         Yes,
         No
-    }
-
-    public static class EnumHelper
-    {
-        public static ObservableCollection<string> GetEnumStrings<T>()
-            where T : System.Enum
-        {
-            var enumValues = System.Enum.GetNames(typeof(T));
-            return new ObservableCollection<string>(enumValues);
-        }
     }
 }
