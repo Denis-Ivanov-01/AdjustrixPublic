@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Adjustment.Project
+namespace AdjustrixBase.Project
 {
 
     public enum ProjectType

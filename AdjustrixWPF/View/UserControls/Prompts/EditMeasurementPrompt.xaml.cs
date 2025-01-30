@@ -1,14 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using Adjustment;
+using AdjustrixBase.DataModels;
 using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.View.UserControls
 {
     /// <summary>
-    /// Interaction logic for EditPointPrompt.xaml
+    /// Interaction logic for EditMeasurementPrompt.xaml
     /// </summary>
-    public partial class EditPointPrompt : Window
+    public partial class EditMeasurementPrompt : Window
     {
         private readonly AdjustrixViewModel viewModel;
 
@@ -18,25 +18,18 @@ namespace AdjustrixWPF.View.UserControls
 
         public bool Edit { get; set; }
 
-        public EditPointPrompt(KnownBenchmark point, AdjustrixViewModel viewModel)
+        public EditMeasurementPrompt(HeightDelta measurement, AdjustrixViewModel viewModel)
         {
             this.DataContext = viewModel;
             this.viewModel = viewModel;
             InitializeComponent();
-            InputBox.Text = point.Value.ToString();
+            InputBox.Text = measurement.Value.ToString();
         }
 
         private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (double.TryParse(InputBox.Text, out double value))
             {
-                if (value < 0)
-                {
-                    MessageBox.Text = viewModel.LanguageViewModel.NegativeValueMessage;
-                    valueIsValid = false;
-                    return;
-                }
-
                 Value = value;
                 MessageBox.Text = "";
                 valueIsValid = true;
@@ -61,6 +54,11 @@ namespace AdjustrixWPF.View.UserControls
         {
             Edit = false;
             Close();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }

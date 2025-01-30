@@ -8,24 +8,7 @@ namespace AdjustrixWPF.View
 {
     public class ThemeManager : DependencyObject
     {
-
-        public static BundledTheme darkTheme = new BundledTheme
-        {
-            PrimaryColor = MaterialDesignColors.PrimaryColor.Blue,
-            BaseTheme = BaseTheme.Light,
-            SecondaryColor = MaterialDesignColors.SecondaryColor.LightBlue,
-            ColorAdjustment = new ColorAdjustment()
-        };
-
-        public static BundledTheme lightTheme = new BundledTheme
-        {
-            PrimaryColor = MaterialDesignColors.PrimaryColor.Blue,
-            SecondaryColor = MaterialDesignColors.SecondaryColor.DeepPurple,
-            BaseTheme = BaseTheme.Light,
-            ColorAdjustment = new()
-        };
-
-        public static readonly DependencyProperty CurrentThemeDictionaryProperty =
+public static readonly DependencyProperty CurrentThemeDictionaryProperty =
          DependencyProperty.RegisterAttached("CurrentThemeDictionary", typeof(Uri),
          typeof(ThemeManager),
          new UIPropertyMetadata(null, CurrentThemeDictionaryChanged));

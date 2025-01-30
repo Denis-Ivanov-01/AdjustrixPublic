@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
-using AdjustrixWPF.ViewModel;
+using AdjustrixWPF.Enums;
+using AdjustrixWPF.SystemManagement;
 
 namespace AdjustrixWPF
 {

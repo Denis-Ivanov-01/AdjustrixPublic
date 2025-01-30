@@ -1,4 +1,7 @@
-﻿namespace Adjustment.NetworkAnalysis
+﻿using AdjustrixBase.Extensions;
+using AdjustrixBase.DataModels;
+
+namespace AdjustrixBase.NetworkAnalysis
 {
     public class NetworkDataValidator<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()

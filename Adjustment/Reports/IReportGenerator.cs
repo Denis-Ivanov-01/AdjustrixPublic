@@ -1,4 +1,4 @@
-﻿namespace Adjustment.Reports
+﻿namespace AdjustrixBase.Reports
 {
     internal interface IReportGenerator
     {

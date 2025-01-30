@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using Adjustment;
+using AdjustrixBase.Extensions;
 using AdjustrixWPF.ViewModel;
 
-namespace AdjustrixWPF.Model
+namespace AdjustrixWPF.ExceptionHandling
 {
     public class ErrorMessageGenerator
     {

@@ -2,9 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using Adjustment;
-using Adjustment.Project;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.Project;
+using AdjustrixWPF.Containers;
 using AdjustrixWPF.View.UserControls;
+using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {

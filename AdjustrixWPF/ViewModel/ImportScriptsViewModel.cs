@@ -3,22 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Shapes;
-using Adjustment;
-using Adjustment.NetworkAnalysis;
-using Adjustment.Project;
-using AdjustrixWPF.Model;
+using AdjustrixBase.Project;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.NetworkAnalysis;
 using AdjustrixWPF.View.UserControls;
 using AdjustrixWPF.View.UserControls.Composite;
 using Microsoft.Win32;
+using AdjustrixWPF.Containers;
+using AdjustrixWPF.PythonScripting;
+using AdjustrixWPF.SystemManagement;
+using AdjustrixWPF.Enums;
+using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -439,23 +440,6 @@ namespace AdjustrixWPF.ViewModel
             // Regex to validate a single file extension like ".py"
             string pattern = @"^\.[a-zA-Z0-9]+$";
             return Regex.IsMatch(extension, pattern);
-        }
-    }
-
-    public class BooleanToVisibilityConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value is bool boolValue)
-            {
-                return boolValue ? Visibility.Visible : Visibility.Collapsed;
-            }
-            return Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return value is Visibility visibility && visibility == Visibility.Visible;
         }
     }
 }

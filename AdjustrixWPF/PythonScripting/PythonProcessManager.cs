@@ -3,9 +3,10 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Adjustment.Adjustment;
-using AdjustrixWPF.ViewModel;
+using AdjustrixWPF.Containers;
+using AdjustrixWPF.SystemManagement;
 
-namespace AdjustrixWPF.Model
+namespace AdjustrixWPF.PythonScripting
 {
     public class PythonProcessManager
     {
@@ -78,9 +79,9 @@ namespace AdjustrixWPF.Model
             info.RedirectStandardOutput = true;
             Task.Run(async () =>
             {
-                Process process = new() 
-                { 
-                    StartInfo = info 
+                Process process = new()
+                {
+                    StartInfo = info
                 };
 
                 process.Start();

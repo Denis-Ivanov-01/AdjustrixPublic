@@ -1,4 +1,6 @@
-﻿namespace AdjustrixWPF.ViewModel
+﻿using AdjustrixWPF.Containers;
+
+namespace AdjustrixWPF.ViewModel
 {
     public class MessageBoxViewModel : ViewModelBase
     {

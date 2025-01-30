@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
+using AdjustrixBase.Extensions;
 
-namespace Adjustment
+namespace AdjustrixBase.DataModels
 {
     public class HeightDelta : MeasurementBase<PointBase, HeightDelta>, IOneDimMeasurement
     {
@@ -29,7 +30,7 @@ namespace Adjustment
 
         public override HeightDelta Reverse()
         {
-            return new HeightDelta(this.ToPoint, this.FromPoint, -this.Value, this.Length);
+            return new HeightDelta(ToPoint, FromPoint, -Value, Length);
         }
     }
 }

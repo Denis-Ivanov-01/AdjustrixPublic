@@ -1,11 +1,10 @@
-﻿namespace Adjustment
+﻿using Adjustment;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.Extensions;
+
+
+namespace AdjustrixBase.NetworkAnalysis
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using NetworkAnalysis;
-
-
     public partial class NetworkAnalyzer<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
     {

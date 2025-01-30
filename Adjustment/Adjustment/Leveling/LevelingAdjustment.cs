@@ -1,6 +1,10 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
+using AdjustrixBase.Adjustment.Base;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.NetworkAnalysis;
 
-namespace Adjustment
+
+namespace AdjustrixBase.Adjustment.Leveling
 {
     public class LevelingAdjustment : Adjustment<HeightDelta, AdjustedBenchmark>
     {

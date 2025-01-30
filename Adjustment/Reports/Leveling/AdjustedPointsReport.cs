@@ -1,8 +1,7 @@
-﻿
+﻿using System.Text;
+using AdjustrixBase.DataModels;
 
-using System.Text;
-
-namespace Adjustment.Reports.Leveling
+namespace AdjustrixBase.Reports.Leveling
 {
     public class AdjustedPointsReport : IReportGenerator
     {

@@ -10,19 +10,16 @@
     <Compile Update="NormalWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\AddImportScriptPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\AddImportScriptPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\Composite\PythonScriptsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\EditProjectPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\EditProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\CloseButton.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\UserControls\CloseProjectPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\CloseProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\Composite\AppearanceButtons.xaml.cs">
@@ -40,46 +37,43 @@
     <Compile Update="View\UserControls\Composite\ProjectButtons.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\EditMeasurementPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\EditMeasurementPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\EditPointPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\EditPointPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\LabeledComboBox.xaml.cs">
+    <Compile Update="View\UserControls\Primitive\LabeledComboBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\CreateProjectPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\CreateProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\LabeledTextBoxRow.xaml.cs">
+    <Compile Update="View\UserControls\Primitive\LabeledTextBoxRow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\MinimizeButton.xaml.cs">
+    <Compile Update="View\UserControls\Primitive\LabeledTabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\LabeledTabButton.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\OverwriteDataPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\OverwriteDataPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\ProcessingErrorPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\ProcessingErrorPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\SaveProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\SaveProjectPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\SuccessfulProcessingPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\SuccessfulProcessingPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Primitive\TabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\TabButton.xaml.cs">
+    <Compile Update="View\UserControls\Primitive\TabHeader.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\TabHeader.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\UserControls\YesNoPrompt.xaml.cs">
+    <Compile Update="View\UserControls\Prompts\YesNoPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -93,13 +87,13 @@
     <Page Update="View\Styles\Button.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\AddImportScriptPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\AddImportScriptPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Composite\PythonScriptsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\EditProjectPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\EditProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Resources\LightTheme.xaml">
@@ -135,10 +129,7 @@
     <Page Update="View\Styles\TitleBarButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\CloseButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\UserControls\CloseProjectPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\CloseProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Composite\AppearanceButtons.xaml">
@@ -156,46 +147,43 @@
     <Page Update="View\UserControls\Composite\ProjectButtons.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\EditMeasurementPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\EditMeasurementPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\EditPointPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\EditPointPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\LabeledComboBox.xaml">
+    <Page Update="View\UserControls\Primitive\LabeledComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\CreateProjectPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\CreateProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\LabeledTextBoxRow.xaml">
+    <Page Update="View\UserControls\Primitive\LabeledTextBoxRow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\MinimizeButton.xaml">
+    <Page Update="View\UserControls\Primitive\LabeledTabButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\LabeledTabButton.xaml">
+    <Page Update="View\UserControls\Prompts\OverwriteDataPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\OverwriteDataPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\ProcessingErrorPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\ProcessingErrorPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\SaveProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\SaveProjectPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\SuccessfulProcessingPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\SuccessfulProcessingPrompt.xaml">
+    <Page Update="View\UserControls\Primitive\TabButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\TabButton.xaml">
+    <Page Update="View\UserControls\Primitive\TabHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\TabHeader.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\UserControls\YesNoPrompt.xaml">
+    <Page Update="View\UserControls\Prompts\YesNoPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

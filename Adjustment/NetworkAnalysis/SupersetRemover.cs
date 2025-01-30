@@ -1,4 +1,7 @@
-﻿namespace Adjustment
+﻿using AdjustrixBase.DataModels;
+using AdjustrixBase.Extensions;
+
+namespace AdjustrixBase.NetworkAnalysis
 {
 
     public enum TraverseType

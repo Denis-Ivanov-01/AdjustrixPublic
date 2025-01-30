@@ -1,4 +1,4 @@
-﻿namespace Adjustment.Project
+﻿namespace AdjustrixBase.Project
 {
     public class ProjectGeneralProperties : IMemento<ProjectGeneralProperties>
     {

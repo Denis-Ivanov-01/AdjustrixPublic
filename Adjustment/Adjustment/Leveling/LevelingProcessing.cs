@@ -1,8 +1,10 @@
-﻿using Adjustment.Extensions;
-using Adjustment.Project;
-using Adjustment.Reports.Leveling;
+﻿using AdjustrixBase.Adjustment.Base;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.Reports.Leveling;
+using AdjustrixBase.Extensions;
+using AdjustrixBase.Project;
 
-namespace Adjustment
+namespace AdjustrixBase.Adjustment.Leveling
 {
     public class LevelingProcessing : NetworkAdjuster<HeightDelta, LevelingAdjustment>
     {
@@ -30,7 +32,7 @@ namespace Adjustment
             Value = "Value [mm]",
             Measurements = "Measurements",
             FromPoint = "From Point",
-            ToPoint="To Point"
+            ToPoint = "To Point"
         };
 
         private readonly StringsDictionary BG = new()
@@ -56,23 +58,23 @@ namespace Adjustment
             ToPoint = "Крайна точка"
         };
 
-    public LevelingProcessing(LevelingProject project, AdjustmentStatusDelegate? messageDelegate = null, Language language = Language.Bulgarian) : base(project.HeightDifferences, messageDelegate)
+        public LevelingProcessing(LevelingProject project, AdjustmentStatusDelegate? messageDelegate = null, Language language = Language.Bulgarian) : base(project.HeightDifferences, messageDelegate)
         {
             this.language = language;
-            this.AdjustmentResult = PerformAdjustment();
+            AdjustmentResult = PerformAdjustment();
             this.project = project;
         }
 
         public override void GeneratePdfReport(string directory)
         {
             StringsDictionary dict = language == Language.Bulgarian ? BG : EN;
-            LevelingReportPdf detailedReport = new(this.AdjustmentResult, this.project, dict);
+            LevelingReportPdf detailedReport = new(AdjustmentResult, project, dict);
             detailedReport.Generate(directory);
         }
 
         public override void GenerateCsvReport(string directory)
         {
-            AdjustedPointsReport benchmarksReport = new(this.AdjustmentResult.AdjustedPoints);
+            AdjustedPointsReport benchmarksReport = new(AdjustmentResult.AdjustedPoints);
             benchmarksReport.Generate(directory);
         }
     }

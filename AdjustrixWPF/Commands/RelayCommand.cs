@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Commands
 {
     public class RelayCommand : ICommand
     {

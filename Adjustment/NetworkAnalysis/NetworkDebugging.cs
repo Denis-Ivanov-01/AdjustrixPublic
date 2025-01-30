@@ -1,5 +1,6 @@
-﻿
-namespace Adjustment.NetworkAnalysis
+﻿using AdjustrixBase.DataModels;
+
+namespace AdjustrixBase.NetworkAnalysis
 {
     public partial class NetworkAnalyzer
     {

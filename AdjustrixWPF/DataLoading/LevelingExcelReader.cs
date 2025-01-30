@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using Adjustment;
+using AdjustrixBase.DataModels;
 using ExcelDataReader;
 
-namespace AdjustrixWPF.Model
+namespace AdjustrixWPF.DataLoading
 {
     public class LevelingExcelReader
     {

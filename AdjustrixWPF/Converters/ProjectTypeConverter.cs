@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Data;
-using Adjustment.Project;
+using AdjustrixBase.Project;
+using AdjustrixWPF.Enums;
+using AdjustrixWPF.ViewModel;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Converters
 {
     class ProjectTypeConverter : IValueConverter
     {

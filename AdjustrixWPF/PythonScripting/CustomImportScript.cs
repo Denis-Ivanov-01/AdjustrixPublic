@@ -1,4 +1,4 @@
-﻿namespace AdjustrixWPF.Model
+﻿namespace AdjustrixWPF.PythonScripting
 {
     public enum ScriptParameterType
     {

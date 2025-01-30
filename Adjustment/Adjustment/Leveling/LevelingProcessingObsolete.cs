@@ -1,4 +1,6 @@
-﻿namespace Adjustment.Adjustment.Leveling
+﻿using AdjustrixBase.DataModels;
+
+namespace Adjustment.Adjustment.Leveling
 {
     [Obsolete]
     public class LevelingProcessingObsolete

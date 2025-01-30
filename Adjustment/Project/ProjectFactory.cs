@@ -1,4 +1,7 @@
-﻿namespace Adjustment.Project
+﻿using AdjustrixBase.DataModels;
+using AdjustrixBase.Project;
+
+namespace AdjustrixBase.Project
 {
     public class ProjectFactory
     {

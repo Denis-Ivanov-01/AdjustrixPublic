@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Containers
 {
     public class MessageDelegate
     {

@@ -1,4 +1,6 @@
-﻿namespace Adjustment
+﻿using AdjustrixBase.DataModels;
+
+namespace AdjustrixBase.Extensions
 {
     public class MathFunctions
     {

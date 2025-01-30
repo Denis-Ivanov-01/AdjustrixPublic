@@ -1,4 +1,4 @@
-﻿namespace Adjustment
+﻿namespace AdjustrixBase.DataModels
 {
 
     public interface INode
@@ -26,8 +26,8 @@
         //[JsonConstructor]
         public PointBase(string n, double v)
         {
-            this.Number = n;
-            this.Value = v;
+            Number = n;
+            Value = v;
         }
 
         public PointBase(string Number, double? X = null, double? Y = null)
@@ -78,7 +78,7 @@
             try
             {
                 PointBase p = (PointBase)other;
-                return p.Number == this.Number;
+                return p.Number == Number;
             }
             catch (Exception) { return false; }
 

@@ -1,6 +1,8 @@
 ﻿using System.Text.Json.Serialization;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.Project;
 
-namespace Adjustment.Project
+namespace AdjustrixBase.Project
 {
     public class LevelingProject : AdjustrixProject
     {

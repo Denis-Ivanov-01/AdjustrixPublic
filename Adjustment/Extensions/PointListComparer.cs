@@ -1,4 +1,6 @@
-﻿namespace Adjustment
+﻿using AdjustrixBase.DataModels;
+
+namespace AdjustrixBase.Extensions
 {
     class PointListComparer<TPoint> : IEqualityComparer<List<TPoint>>
         where TPoint : PointBase

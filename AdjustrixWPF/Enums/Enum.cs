@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
-namespace AdjustrixWPF
+namespace AdjustrixWPF.Enums
 {
 
 
@@ -21,9 +20,9 @@ namespace AdjustrixWPF
     public static class EnumHelper
     {
         public static ObservableCollection<string> GetEnumStrings<T>()
-            where T : Enum
+            where T : System.Enum
         {
-            var enumValues = Enum.GetNames(typeof(T));
+            var enumValues = System.Enum.GetNames(typeof(T));
             return new ObservableCollection<string>(enumValues);
         }
     }

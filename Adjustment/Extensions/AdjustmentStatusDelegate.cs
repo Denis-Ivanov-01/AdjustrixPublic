@@ -1,4 +1,6 @@
-﻿namespace Adjustment.Extensions
+﻿using AdjustrixBase.Adjustment.Base;
+
+namespace AdjustrixBase.Extensions
 {
     public class AdjustmentStatusDelegate
     {

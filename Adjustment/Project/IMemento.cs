@@ -1,4 +1,4 @@
-﻿namespace Adjustment.Project
+﻿namespace AdjustrixBase.Project
 {
     internal interface IMemento<TObject> where TObject : class
     {

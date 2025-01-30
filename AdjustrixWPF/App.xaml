@@ -2,16 +2,16 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:AdjustrixWPF"
-             xmlns:viewModels="clr-namespace:AdjustrixWPF.ViewModel"
+             xmlns:converters="clr-namespace:AdjustrixWPF.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <viewModels:LanguagesConverter x:Key="LanguagesConverter"/>
-            <viewModels:ThemeConverter x:Key="ThemesConverter"/>
-            <viewModels:ProjectTypeConverter x:Key="ProjectTypesConverter"/>
-            <viewModels:ScriptParameterConverter x:Key="ScriptParameterConverter"/>
-            <viewModels:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:LanguagesConverter x:Key="LanguagesConverter"/>
+            <converters:ThemeConverter x:Key="ThemesConverter"/>
+            <converters:ProjectTypeConverter x:Key="ProjectTypesConverter"/>
+            <converters:ScriptParameterConverter x:Key="ScriptParameterConverter"/>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
                 <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="Blue" SecondaryColor="LightBlue" />

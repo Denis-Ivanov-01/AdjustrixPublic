@@ -1,7 +1,7 @@
 ﻿using System;
-using AdjustrixWPF.Model;
+using AdjustrixWPF.PythonScripting;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Containers
 {
     public class ScriptResultContainer
     {

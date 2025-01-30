@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Adjustment.Project
+namespace AdjustrixBase.Project
 {
     public class DateTimeConverter : JsonConverter<DateTime>
     {

@@ -1,4 +1,4 @@
-﻿namespace Adjustment
+﻿namespace AdjustrixBase.Extensions
 {
     public static class ListExtensions
     {

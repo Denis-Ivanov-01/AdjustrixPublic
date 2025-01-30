@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using AdjustrixWPF.Model;
+using AdjustrixWPF.Enums;
+using AdjustrixWPF.PythonScripting;
+using AdjustrixWPF.ViewModel;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Converters
 {
     public class ScriptParameterConverter : IValueConverter
     {
@@ -33,7 +35,7 @@ namespace AdjustrixWPF.ViewModel
             if (value is string enumStr)
             {
                 return EnumToString(enumStr);
-            } 
+            }
 
             // Handle collection of enum values
             if (value is IEnumerable enumCollection /*&& targetType == typeof(IEnumerable<string>)*/)

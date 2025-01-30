@@ -3,11 +3,16 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Adjustment;
-using Adjustment.Extensions;
-using Adjustment.NetworkAnalysis;
-using Adjustment.Project;
+using AdjustrixBase.Adjustment.Leveling;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.Extensions;
+using AdjustrixBase.NetworkAnalysis;
+using AdjustrixBase.Project;
 using AdjustrixWPF.View.UserControls;
+using AdjustrixBase.Adjustment.Base;
+using AdjustrixWPF.Containers;
+using AdjustrixWPF.Enums;
+using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -66,7 +71,9 @@ namespace AdjustrixWPF.ViewModel
         {
             if (string.IsNullOrWhiteSpace(projectFolder))
             {
-                //todo: error messages (prompts)
+                ProcessingErrorPrompt prompt = new(this, LanguageViewModel.ProjectFolderNotFoundMessage);
+                prompt.ShowDialog();
+                return;
             }
             await Task.Run(() =>
             {
@@ -79,7 +86,7 @@ namespace AdjustrixWPF.ViewModel
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                Adjustment.Language lang = GetAdjustmentLanguage();
+                AdjustrixBase.Adjustment.Base.Language lang = GetAdjustmentLanguage();
                 LevelingProcessing processing = new(project, statusDelegate, lang);
                 processing.Process(projectFolder);
             }
@@ -107,9 +114,11 @@ namespace AdjustrixWPF.ViewModel
             });
         }
 
-        private static Adjustment.Language GetAdjustmentLanguage()
+        private static AdjustrixBase.Adjustment.Base.Language GetAdjustmentLanguage()
         {
-            return LanguageViewModel.SelectedLanguage == Language.Bulgarian ? Adjustment.Language.Bulgarian : Adjustment.Language.English;
+            return LanguageViewModel.SelectedLanguage == Enums.Language.Bulgarian ? 
+                AdjustrixBase.Adjustment.Base.Language.Bulgarian :
+                AdjustrixBase.Adjustment.Base.Language.English;
         }
 
         private bool CanProcess(object param)

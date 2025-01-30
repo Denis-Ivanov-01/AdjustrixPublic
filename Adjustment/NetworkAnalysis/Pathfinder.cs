@@ -1,8 +1,11 @@
-﻿namespace Adjustment
+﻿using Adjustment;
+
+namespace AdjustrixBase.NetworkAnalysis
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using AdjustrixBase.DataModels;
 
     public class Pathfinder<TNode, TEdge>
         where TNode : INode

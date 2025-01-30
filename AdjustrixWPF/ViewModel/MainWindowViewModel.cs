@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using AdjustrixWPF.Containers;
+using AdjustrixWPF.SystemManagement;
+using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {

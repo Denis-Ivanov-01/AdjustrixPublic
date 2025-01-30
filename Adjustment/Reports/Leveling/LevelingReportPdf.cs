@@ -1,10 +1,11 @@
-﻿using System.Collections.Specialized;
-using Adjustment.Project;
+﻿using AdjustrixBase.Adjustment.Base;
+using AdjustrixBase.DataModels;
 using MigraDoc.DocumentObjectModel;
 using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
+using AdjustrixBase.Project;
 
-namespace Adjustment.Reports.Leveling
+namespace AdjustrixBase.Reports.Leveling
 {
 
     public class LevelingReportPdf : IReportGenerator
@@ -75,24 +76,26 @@ namespace Adjustment.Reports.Leveling
             normal.Font.Size = 12;
             normal.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
 
-            Style secondary = document.AddStyle("SecondaryHeading", "Heading1");
+            Style secondary = document.AddStyle("SecondaryHeading", "Normal");
             secondary.Font.Size = 14;
+            secondary.Font.Bold = true;
             secondary.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
 
             Style custom = document.AddStyle("CustomHeading", "Heading1");
             custom.ParagraphFormat.Alignment = ParagraphAlignment.Justify;
 
-            Style tableHeading = document.AddStyle("TableHeading", "Normal");
+            Style tableHeading = document.AddStyle("TableHeading", "Heading1");
+            tableHeading.Font.Size = 14;
             tableHeading.Font.Bold = true;
             tableHeading.ParagraphFormat.Alignment = ParagraphAlignment.Center;
         }
 
         private void GenerateMeasurementsTable(Section section)
         {
-            section.AddParagraph();
-            section.AddParagraph(strings.Measurements, "TableHeading");
+            AddTableTitle(section, strings.Measurements);
 
             Table table = GetTable(section);
+
             double availableWidth = GetAvailableWidth();
 
             Column col1 = table.AddColumn(availableWidth * 0.3);
@@ -126,11 +129,21 @@ namespace Adjustment.Reports.Leveling
             table.Rows.Alignment = RowAlignment.Center;
         }
 
-        private void GeneratePointsTable(Section section)
+        private static void AddTableTitle(Section section, string title)
         {
             section.AddParagraph();
-            section.AddParagraph(strings.AdjustedPointsTitle, "TableHeading");
+            section.AddParagraph();
+            section.AddParagraph(title, "TableHeading");
+            section.AddParagraph();
+        }
+
+        private void GeneratePointsTable(Section section)
+        {
+
+            AddTableTitle(section, strings.AdjustedPointsTitle);
+
             Table table = GetTable(section);
+
             double availableWidth = GetAvailableWidth();
 
             // Define columns to span the available width
@@ -159,30 +172,13 @@ namespace Adjustment.Reports.Leveling
             table.Rows.Alignment = RowAlignment.Center;
         }
 
-        private static Table GetTable(Section section)
-        {
-            Table table = section.AddTable();
-            table.Borders.Width = 0.5;
-            return table;
-        }
-
-        private static double GetAvailableWidth()
-        {
-            double pageWidth = Unit.FromMillimeter(210);
-            double leftMargin = Unit.FromCentimeter(2.5);
-            double rightMargin = Unit.FromCentimeter(2);
-            double availableWidth = pageWidth - leftMargin - rightMargin;
-            return availableWidth;
-        }
-
         private void GenerateResidualsTable(Section section)
         {
-            section.AddParagraph();
-            section.AddParagraph(strings.ResidualsTitle, "TableHeading");
-
-            double availableWidth = GetAvailableWidth();
+            AddTableTitle(section, strings.ResidualsTitle);
 
             Table table = GetTable(section);
+
+            double availableWidth = GetAvailableWidth();
 
             Column col1 = table.AddColumn(availableWidth * 0.65);
             FormatTableColumn(col1);
@@ -202,6 +198,22 @@ namespace Adjustment.Reports.Leveling
             }
 
             table.Rows.Alignment = RowAlignment.Center;
+        }
+
+        private static Table GetTable(Section section)
+        {
+            Table table = section.AddTable();
+            table.Borders.Width = 0.5;
+            return table;
+        }
+
+        private static double GetAvailableWidth()
+        {
+            double pageWidth = Unit.FromMillimeter(210);
+            double leftMargin = Unit.FromCentimeter(2.5);
+            double rightMargin = Unit.FromCentimeter(2);
+            double availableWidth = pageWidth - leftMargin - rightMargin;
+            return availableWidth;
         }
 
         private static void FormatTableColumn(Column col)

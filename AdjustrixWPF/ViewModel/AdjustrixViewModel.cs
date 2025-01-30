@@ -1,4 +1,4 @@
-﻿using AdjustrixWPF.Model;
+﻿using AdjustrixWPF.ExceptionHandling;
 
 namespace AdjustrixWPF.ViewModel
 {

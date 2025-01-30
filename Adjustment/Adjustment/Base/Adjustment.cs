@@ -1,6 +1,10 @@
-﻿using MathNet.Numerics.LinearAlgebra;
+﻿using Adjustment;
+using AdjustrixBase.DataModels;
+using AdjustrixBase.Extensions;
+using AdjustrixBase.NetworkAnalysis;
+using MathNet.Numerics.LinearAlgebra;
 
-namespace Adjustment
+namespace AdjustrixBase.Adjustment.Base
 {
     public abstract class Adjustment<TMeasurement, TAdjustedPoint>
         where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
@@ -54,7 +58,6 @@ namespace Adjustment
             AdjustmentResult<TMeasurement, TAdjustedPoint> result = new
                 (adjustedPoints,
                 adjustedMeasurements,
-                //todo: PASS THE CORRECT VALUE!
                 measurementVariances,
                 corrections,
                 correctionVariances,
@@ -93,7 +96,7 @@ namespace Adjustment
 
         protected Matrix<double> CalculateNormalMatrix(Matrix<double> configMatrix, Matrix<double> weightMatrix)
         {
-            return (configMatrix.Transpose().Multiply(weightMatrix)).Multiply(configMatrix);
+            return configMatrix.Transpose().Multiply(weightMatrix).Multiply(configMatrix);
         }
 
         protected Vector<double> CalculateK(Matrix<double> inversedNormal, Vector<double> residuals)
@@ -133,7 +136,7 @@ namespace Adjustment
 
             Matrix<double> Kk = inversedNormal * perUnitVariance;
 
-            Matrix<double> Kv = (placeholderMatrix.Multiply(Kk)).Multiply(placeholderMatrix.Transpose());
+            Matrix<double> Kv = placeholderMatrix.Multiply(Kk).Multiply(placeholderMatrix.Transpose());
 
             Matrix<double> Qv = Kv * (1 / perUnitVariance);
             return Qv;

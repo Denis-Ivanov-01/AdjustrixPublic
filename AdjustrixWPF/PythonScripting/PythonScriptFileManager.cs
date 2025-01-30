@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using AdjustrixWPF.ViewModel;
 
-namespace AdjustrixWPF.Model
+namespace AdjustrixWPF.PythonScripting
 {
     public class PythonScriptFileManager
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Adjustment.Project;
+using AdjustrixBase.Project;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Containers
 {
     public class ProjectContainer
     {

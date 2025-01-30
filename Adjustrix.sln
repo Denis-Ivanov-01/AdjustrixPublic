@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustrixWPF", "AdjustrixWP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Experimenting", "Experimenting\Experimenting.csproj", "{9439F40F-B34B-476B-88E2-CA1625F52815}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adjustment", "Adjustment\Adjustment.csproj", "{D9B23E90-BC9F-4964-ABEF-72E4665B6469}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustrixBase", "Adjustment\AdjustrixBase.csproj", "{D9B23E90-BC9F-4964-ABEF-72E4665B6469}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

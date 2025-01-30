@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Adjustment
+namespace AdjustrixBase.DataModels
 {
     public class Benchmark : PointBase, IOneDimPoint, INode, IEquatable<Benchmark>
     {

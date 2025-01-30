@@ -1,4 +1,7 @@
-﻿namespace Adjustment
+﻿using Adjustment;
+using AdjustrixBase.DataModels;
+
+namespace AdjustrixBase.NetworkAnalysis
 {
     /// <summary>
     /// A cluster of known points with the following properties:

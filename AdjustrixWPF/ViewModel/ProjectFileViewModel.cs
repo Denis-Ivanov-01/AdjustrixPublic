@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Adjustment.Project;
+using AdjustrixBase.Project;
+using AdjustrixWPF.Containers;
+using AdjustrixWPF.Enums;
 using AdjustrixWPF.View;
 using AdjustrixWPF.View.UserControls;
 using Forms = System.Windows.Forms;
+using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {

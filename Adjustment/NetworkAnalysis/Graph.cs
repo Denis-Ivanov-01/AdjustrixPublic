@@ -1,4 +1,7 @@
-﻿namespace Adjustment.NetworkAnalysis
+﻿using Adjustment;
+using AdjustrixBase.DataModels;
+
+namespace AdjustrixBase.NetworkAnalysis
 {
     public class Graph<TEdge>
         where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()

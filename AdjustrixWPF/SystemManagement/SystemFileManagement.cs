@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.SystemManagement
 {
     public class SystemFileManagement
     {

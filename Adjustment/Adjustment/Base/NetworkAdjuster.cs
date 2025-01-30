@@ -1,6 +1,8 @@
-﻿using Adjustment.Extensions;
+﻿using AdjustrixBase.DataModels;
+using AdjustrixBase.Extensions;
+using AdjustrixBase.NetworkAnalysis;
 
-namespace Adjustment
+namespace AdjustrixBase.Adjustment.Base
 {
     public enum AdjustmentStatus
     {

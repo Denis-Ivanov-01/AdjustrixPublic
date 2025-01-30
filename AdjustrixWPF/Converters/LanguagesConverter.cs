@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Data;
+using AdjustrixWPF.Enums;
 
-namespace AdjustrixWPF.ViewModel
+namespace AdjustrixWPF.Converters
 {
     public class LanguagesConverter : IValueConverter
     {
