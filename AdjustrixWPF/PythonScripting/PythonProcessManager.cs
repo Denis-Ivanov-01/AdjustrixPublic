@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Adjustment.Adjustment;
 using AdjustrixWPF.Containers;
 using AdjustrixWPF.SystemManagement;
+using AdjustrixWPF.Enums;
 
 namespace AdjustrixWPF.PythonScripting
 {

@@ -1,13 +1,9 @@
 ﻿using System.Windows;
 using AdjustrixWPF.ViewModel;
+using AdjustrixWPF.Enums;
 
 namespace AdjustrixWPF.View.UserControls
 {
-    public enum YesNoPromptResult
-    {
-        Yes,
-        No
-    }
 
     /// <summary>
     /// Interaction logic for YesNoPrompt.xaml

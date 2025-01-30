@@ -1,11 +1,7 @@
-﻿namespace AdjustrixWPF.PythonScripting
-{
-    public enum ScriptParameterType
-    {
-        FilePath,
-        Directory
-    }
+﻿using AdjustrixWPF.Enums;
 
+namespace AdjustrixWPF.PythonScripting
+{
     public class CustomImportScript
     {
         public string Name { get; set; }

@@ -16,6 +16,17 @@ namespace AdjustrixWPF.Enums
         Light
     }
 
+    public enum ScriptParameterType
+    {
+        FilePath,
+        Directory
+    }
+
+    public enum YesNoPromptResult
+    {
+        Yes,
+        No
+    }
 
     public static class EnumHelper
     {
