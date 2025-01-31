@@ -23,6 +23,10 @@
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
                 <Setter Property="Content" Value=""/>
             </Style>
+            <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignSecondaryCheckBox}">
+                <Setter Property="Background" Value="{DynamicResource ForegroundBrush}"/>
+                <Setter Property="IsHitTestVisible" Value="False"/>
+            </Style>
         </DataGrid.Resources>
         <DataGrid.Columns>
             <DataGridTextColumn Width="50"/>
@@ -84,8 +88,8 @@
             <DataGridCheckBoxColumn Binding="{Binding IsEnabled}"
                                     Width="100"
                                     MinWidth="60"
-                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}"
-                                    EditingElementStyle="{StaticResource DataGridCheckBoxStyle}">
+                                    EditingElementStyle="{StaticResource DataGridCheckBoxStyle}"
+                                    ElementStyle="{StaticResource DataGridCheckBoxStyle}">
                 <DataGridCheckBoxColumn.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock d:Text="Enabled"
@@ -99,15 +103,43 @@
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="{materialDesign:PackIcon Kind=ToggleSwitchOutline, Size=25}"
-                                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Foreground="{DynamicResource ForegroundBrush}"
+                            <Button Foreground="{DynamicResource ForegroundBrush}"
                                     BorderThickness="0"
                                     ToolTip="{Binding DataContext.LanguageViewModel.Toggle,
-                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                     Command="{Binding DataContext.ToggleMeasurement,
-                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    CommandParameter="{Binding}"/>
+                                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}">
+                                <Button.Style>
+                                    <Style TargetType="Button" 
+                                           BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+                                        <Style.Triggers>
+                                            <!-- When IsEnabled is False, change the icon to a disabled toggle -->
+                                            <DataTrigger Binding="{Binding IsEnabled}" 
+                                                         Value="False">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <materialDesign:PackIcon Kind="ToggleSwitchOffOutline" 
+                                                                                 Height="25" 
+                                                                                 Width="25"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <!-- When IsEnabled is True, use the default icon -->
+                                            <DataTrigger Binding="{Binding IsEnabled}" 
+                                                         Value="True">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <materialDesign:PackIcon Kind="ToggleSwitchOutline" 
+                                                                                 Height="25" 
+                                                                                 Width="25"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
                             <Button Content="{materialDesign:PackIcon Kind=PencilOutline,Size=25}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     Margin="5 0 0 0"

@@ -14,8 +14,7 @@ namespace AdjustrixWPF.PythonScripting
         private readonly ScriptResultContainer resultContainer;
 
         private readonly string pythonExecutable = SystemFileManagement.Singleton.PythonExecutable;
-        public bool ProcessSuccessful { get; private set; } = false;
-
+        
         public PythonProcessManager(ScriptResultContainer container)
         {
             resultContainer = container;
@@ -101,9 +100,7 @@ namespace AdjustrixWPF.PythonScripting
                 {
                     try
                     {
-                        JSONLevelingData data = JSONLevelingData.FromString(output);
-                        result.Data = data;
-                        ProcessSuccessful = true;
+                        result.Data = JSONLevelingData.FromString(output);
                     }
                     catch (Exception ex)
                     {
