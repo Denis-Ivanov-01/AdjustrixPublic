@@ -8,12 +8,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <!-- Custom Style for DataGridCheckBoxColumn -->
         <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignSecondaryCheckBox}">
             <Setter Property="Background" Value="{DynamicResource ForegroundBrush}"/>
         </Style>
     </UserControl.Resources>
-
     <DataGrid  ItemsSource="{Binding LevelingMeasurements}"
                Style="{StaticResource CustomDataGridStyle}"
                AlternationCount="2"
@@ -114,7 +112,6 @@
                                     <Style TargetType="Button" 
                                            BasedOn="{StaticResource MaterialDesignOutlinedButton}">
                                         <Style.Triggers>
-                                            <!-- When IsEnabled is False, change the icon to a disabled toggle -->
                                             <DataTrigger Binding="{Binding IsEnabled}" 
                                                          Value="False">
                                                 <Setter Property="Content">
@@ -125,7 +122,6 @@
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
-                                            <!-- When IsEnabled is True, use the default icon -->
                                             <DataTrigger Binding="{Binding IsEnabled}" 
                                                          Value="True">
                                                 <Setter Property="Content">

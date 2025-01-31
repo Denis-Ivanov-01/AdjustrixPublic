@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <SolidColorBrush x:Key="BackgroundBrush">#efefef</SolidColorBrush>
-    <SolidColorBrush x:Key="HoveredBrush">#cfcbcf</SolidColorBrush>
-    <SolidColorBrush x:Key="SelectedBrush">#948b94</SolidColorBrush>
+    <SolidColorBrush x:Key="HoveredBrush">#efefef</SolidColorBrush>
+    <SolidColorBrush x:Key="SelectedBrush">#efefef</SolidColorBrush>
     <SolidColorBrush x:Key="TabBackgroundBrush">#efefef</SolidColorBrush>
     <SolidColorBrush x:Key="DisabledBrush">Black</SolidColorBrush>
     <SolidColorBrush x:Key="ForegroundBrush">black</SolidColorBrush>
-    <SolidColorBrush x:Key="TabHeaderBackground">white</SolidColorBrush>
+    <SolidColorBrush x:Key="TabHeaderBackground">#efefef</SolidColorBrush>
     <SolidColorBrush x:Key="TabHeaderForeground">Black</SolidColorBrush>
-    <SolidColorBrush x:Key="DataGridBackground">#d5d5d5</SolidColorBrush>
+    <SolidColorBrush x:Key="DataGridBackground">#d9d9d9</SolidColorBrush>
 </ResourceDictionary>
