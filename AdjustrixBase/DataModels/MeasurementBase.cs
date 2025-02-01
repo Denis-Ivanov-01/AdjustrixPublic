@@ -1,9 +1,9 @@
 ﻿namespace AdjustrixBase.DataModels;
 
 
-public interface IEdge<TNode, out TEdge>
+public interface IEdge<TNode>
     where TNode : INode
-    where TEdge : IEdge<TNode, TEdge>
+    
 {
     public TNode FromPoint { get; set; }
 
@@ -11,7 +11,7 @@ public interface IEdge<TNode, out TEdge>
 
     public double Length { get; set; }
 
-    public TEdge Reverse();
+    public IEdge<TNode> Reverse();
 }
 
 public interface IOneDimMeasurement
@@ -29,9 +29,8 @@ public interface IDeactivatable
     public bool IsEnabled { get; set; }
 }
 
-public abstract class MeasurementBase<TNode, TEdge> : IEdge<TNode, TEdge>, IDirectedMeasurement, IDeactivatable
+public abstract class MeasurementBase<TNode> : IEdge<TNode>, IDirectedMeasurement, IDeactivatable
     where TNode : INode
-    where TEdge : IEdge<TNode, TEdge>, new()
 {
     public abstract TNode FromPoint { get; set; }
 
@@ -53,5 +52,5 @@ public abstract class MeasurementBase<TNode, TEdge> : IEdge<TNode, TEdge>, IDire
 
     public MeasurementBase() { }
 
-    public abstract TEdge Reverse();
+    public abstract IEdge<TNode> Reverse();
 }

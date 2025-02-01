@@ -3,7 +3,7 @@ using AdjustrixBase.Extensions;
 
 namespace AdjustrixBase.DataModels
 {
-    public class HeightDelta : MeasurementBase<PointBase, HeightDelta>, IOneDimMeasurement
+    public class HeightDelta : MeasurementBase<PointBase>, IOneDimMeasurement
     {
         public double Value { get; set; }
 

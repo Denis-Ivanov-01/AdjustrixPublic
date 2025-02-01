@@ -2,7 +2,7 @@
 
 namespace AdjustrixBase.DataModels
 {
-    public class Benchmark : PointBase, IOneDimPoint, INode, IEquatable<Benchmark>
+    public class Benchmark : PointBase, IOneDimPoint, IEquatable<Benchmark>
     {
         public Benchmark(string number, double? x, double? y) : base(number, x, y)
         {
@@ -46,7 +46,7 @@ namespace AdjustrixBase.DataModels
         }
     }
 
-    public class KnownBenchmark : KnownPointNoCoordsBase, IOneDimPoint, INode
+    public class KnownBenchmark : KnownPointNoCoordsBase, IOneDimPoint
     {
 
         public KnownBenchmark(string number, double? x, double? y, double value) : base(number, x, y)
@@ -61,7 +61,7 @@ namespace AdjustrixBase.DataModels
         }
     }
 
-    public class NewBenchmark : Benchmark, INode
+    public class NewBenchmark : Benchmark
     {
         public NewBenchmark(string number, double? x, double? y) : base(number, x, y)
         {
@@ -74,7 +74,7 @@ namespace AdjustrixBase.DataModels
         }
     }
 
-    public class AdjustedBenchmark : PointBase, IOneDimPoint, INode
+    public class AdjustedBenchmark : PointBase, IOneDimPoint
     { //TODO: figure out if this must be in the base file
         // maybe branch out one dimensional adjustments (gravimetric, nivelation)
         public double Value { get; set; }

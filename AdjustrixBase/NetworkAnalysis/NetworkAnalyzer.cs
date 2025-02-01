@@ -5,7 +5,7 @@ using AdjustrixBase.Extensions;
 namespace AdjustrixBase.NetworkAnalysis
 {
     public partial class NetworkAnalyzer<TEdge>
-        where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
+        where TEdge : IEdge<PointBase>, IDirectedMeasurement, new()
     {
         private readonly List<PointBase> traversedPoints = new();
         private readonly List<List<PointBase>> linkedTraverseFromBreakdown = new();
@@ -213,7 +213,7 @@ namespace AdjustrixBase.NetworkAnalysis
 
                     // adding the reverse because we were iterating the neighbors and removing the edge
                     // from the neighbor to the node, not from the node to the neighbor
-                    graph.InsertEdge(edge.Reverse());
+                    graph.InsertEdge((TEdge)edge.Reverse());
                 }
             }
             return paths.OrderBy(p => p.Count).ToList();

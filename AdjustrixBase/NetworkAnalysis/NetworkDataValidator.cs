@@ -4,7 +4,7 @@ using AdjustrixBase.DataModels;
 namespace AdjustrixBase.NetworkAnalysis
 {
     public class NetworkDataValidator<TEdge>
-        where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
+        where TEdge : IEdge<PointBase>, IDirectedMeasurement, new()
     {
         private Dictionary<PointBase, List<TEdge>> graphData = new();
 

@@ -8,7 +8,7 @@ namespace AdjustrixBase.NetworkAnalysis
 
     public class Pathfinder<TNode, TEdge>
         where TNode : INode
-        where TEdge : IEdge<TNode, TEdge>, new()
+        where TEdge : IEdge<TNode>, new()
     {
         private readonly Dictionary<TNode, List<TEdge>> _graphData;
         private readonly List<TNode> traversedNodes = new();

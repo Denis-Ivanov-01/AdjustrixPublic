@@ -3,7 +3,7 @@
 namespace AdjustrixBase.NetworkAnalysis
 {
     public class Graph<TEdge>
-        where TEdge : IEdge<PointBase, TEdge>, IDirectedMeasurement, new()
+        where TEdge : IEdge<PointBase>, IDirectedMeasurement, new()
     {
         public int measurementsCount = 0;
         public Dictionary<PointBase, List<TEdge>> graphData = new();
@@ -87,7 +87,7 @@ namespace AdjustrixBase.NetworkAnalysis
                     {
                         graphData[edge.ToPoint] = new List<TEdge>();
                     }
-                    TEdge reverseEdge = edge.Reverse();
+                    TEdge reverseEdge = (TEdge)edge.Reverse();
                     if (!graphData[edge.ToPoint].Any(e => e.FromPoint.Number == reverseEdge.FromPoint.Number
                     && e.ToPoint.Number == reverseEdge.ToPoint.Number))
                     {

@@ -20,7 +20,7 @@ namespace AdjustrixBase.Adjustment.Base
     }
 
     public abstract class NetworkAdjuster<TMeasurement, TAdjustment>
-        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement,
+        where TMeasurement : IEdge<PointBase>, IDirectedMeasurement,
         IDeactivatable, new()
         where TAdjustment : Adjustment<TMeasurement, AdjustedBenchmark>
     {

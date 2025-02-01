@@ -61,7 +61,7 @@ namespace AdjustrixBase.NetworkAnalysis
 
 
     internal class LinkedTraverseFinder<TEdge>
-        where TEdge : IEdge<PointBase, TEdge>, new()
+        where TEdge : IEdge<PointBase>, new()
     {
         private readonly List<List<PointBase>> closedTraverses;
         private readonly List<KnownPointsCluster> knownPointsClusters;

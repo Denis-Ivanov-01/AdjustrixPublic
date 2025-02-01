@@ -6,7 +6,7 @@ using MathNet.Numerics.LinearAlgebra;
 namespace AdjustrixBase.Adjustment.Base
 {
     public abstract class Adjustment<TMeasurement, TAdjustedPoint>
-        where TMeasurement : IEdge<PointBase, TMeasurement>, IDirectedMeasurement, new()
+        where TMeasurement : IEdge<PointBase>, IDirectedMeasurement, new()
         where TAdjustedPoint : AdjustedBenchmark
     {
         public readonly MatrixBuilder<double> matrixBuilder = Matrix<double>.Build;
@@ -299,7 +299,7 @@ namespace AdjustrixBase.Adjustment.Base
     }
 
     public class AdjustmentResult<TMeasurement, TAdjustedPoint>
-        where TMeasurement : IEdge<PointBase, TMeasurement>
+        where TMeasurement : IEdge<PointBase>
         where TAdjustedPoint : AdjustedBenchmark
     {
         public Vector<double> Residuals { get; set; }
