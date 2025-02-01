@@ -237,19 +237,19 @@ namespace AdjustrixBase.Reports.Leveling
             return header;
         }
 
-        private string JoinTraverseNames(List<PointBase> traverse)
+        private static string JoinTraverseNames(List<PointBase> traverse)
         {
             return string.Join(" - ", traverse.Select(p => p.Number));
         }
 
-        private string GetReportPath(string dir)
+        private static string GetReportPath(string dir)
         {
-            string name = GetName(dir);
+            string name = GetAvailableName(dir);
             string fullName = Path.ChangeExtension(name, extension);
             return Path.Combine(dir, fullName);
         }
 
-        private string GetName(string dir)
+        private static string GetAvailableName(string dir)
         {
             string[] files = Directory.GetFiles(dir);
             string[] names = new string[files.Length];

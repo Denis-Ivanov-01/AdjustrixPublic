@@ -3,11 +3,14 @@ using System.IO;
 
 namespace AdjustrixWPF.SystemManagement
 {
+    /// <summary>
+    /// Intended to handle logic related to ProgramFiles and AppData
+    /// There will be a setup.exe that will prepare the ProgramFiles directory in advance.
+    /// </summary>
     public class SystemFileManagement
     {
         //todo: In the future add logic to handle Program files resources:
-        // - Appearance folder for image loading - separate folder for light and dark themes
-        // - FileReaders folder for Python scripts for reading files
+        // - Appearance folder for image loading - the logo of the program, an icon for the project file
         // - Runtime folder for a Python executable
 
         private static readonly string programFiles = Environment.ExpandEnvironmentVariables("%ProgramW6432%");

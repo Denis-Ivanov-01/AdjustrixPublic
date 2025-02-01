@@ -2,6 +2,10 @@
 
 namespace AdjustrixWPF.ViewModel
 {
+    /// <summary>
+    /// Handling the message box at the bottom of the window.
+    /// It displays messages like "Project opened", "Data loaded" and other mundane things
+    /// </summary>
     public class MessageBoxViewModel : ViewModelBase
     {
         private string message = "";

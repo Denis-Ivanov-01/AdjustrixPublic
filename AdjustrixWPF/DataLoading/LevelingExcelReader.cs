@@ -8,6 +8,10 @@ using ExcelDataReader;
 
 namespace AdjustrixWPF.DataLoading
 {
+    /// <summary>
+    /// The default excel reader for leveling data. 
+    /// Custom readers can be defined using a Python script.
+    /// </summary>
     public class LevelingExcelReader
     {
         private const string BenchmarksSheetName = "KnownBenchmarks";

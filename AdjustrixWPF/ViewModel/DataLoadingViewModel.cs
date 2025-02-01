@@ -13,6 +13,10 @@ using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {
+    /// <summary>
+    /// Intended for the default data loading capabilities.
+    /// Custom data loading can be added by using Python scripts.
+    /// </summary>
     public class DataLoadingViewModel : AdjustrixViewModel
     {
         private readonly ProjectContainer projectContainer;

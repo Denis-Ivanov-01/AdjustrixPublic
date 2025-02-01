@@ -17,7 +17,7 @@ namespace AdjustrixBase.Reports.Leveling
 
         public void Generate(string dir)
         {
-            string name = GetName(dir);
+            string name = GetAvailableName(dir);
             string fullName = Path.ChangeExtension(name, extension);
             string path = Path.Combine(dir, fullName);
             string initialLine = "number, elevation, variance_milimeters";
@@ -36,7 +36,7 @@ namespace AdjustrixBase.Reports.Leveling
             File.WriteAllBytes(path, bytes);
         }
 
-        private string GetName(string dir)
+        private static string GetAvailableName(string dir)
         {
             string[] files = Directory.GetFiles(dir);
             string[] names = new string[files.Length];

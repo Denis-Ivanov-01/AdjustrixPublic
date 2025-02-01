@@ -23,6 +23,9 @@ using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {
+    /// <summary>
+    /// Intended to handle the custom Python import scripts.
+    /// </summary>
     public class ImportScriptsViewModel : AdjustrixViewModel, INotifyDataErrorInfo
     {
         private readonly PythonScriptFileManager scriptFileManager;
@@ -412,6 +415,9 @@ namespace AdjustrixWPF.ViewModel
         }
     }
 
+    /// <summary>
+    /// Used to validate the file filter and file extension passed to the OpenFileDialog class.
+    /// </summary>
     public class FileFilterValidator
     {
         /// <summary>
@@ -422,8 +428,6 @@ namespace AdjustrixWPF.ViewModel
         public static bool IsValidFileFilter(string filter)
         {
             if (string.IsNullOrWhiteSpace(filter)) return false;
-
-            // Regex to validate file filter format
             string pattern = @"^[\w\s]+\s\(\.[a-zA-Z0-9]+\)\|\*\.[a-zA-Z0-9]+$";
             return Regex.IsMatch(filter, pattern);
         }
@@ -436,8 +440,6 @@ namespace AdjustrixWPF.ViewModel
         public static bool IsValidFileExtension(string extension)
         {
             if (string.IsNullOrWhiteSpace(extension)) return false;
-
-            // Regex to validate a single file extension like ".py"
             string pattern = @"^\.[a-zA-Z0-9]+$";
             return Regex.IsMatch(extension, pattern);
         }

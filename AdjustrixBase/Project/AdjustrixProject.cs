@@ -27,7 +27,6 @@ namespace AdjustrixBase.Project
         public DateTime LastUpdateDate { get; set; }
 
         public AdjustrixProject(
-            //string ProjectFolder,
             string Name,
             string SiteName,
             string Contractor,
@@ -36,7 +35,6 @@ namespace AdjustrixBase.Project
             DateTime? LastUpdateDate = null
             )
         {
-            //this.ProjectFolder = ProjectFolder;
             this.Name = Name;
             this.SiteName = SiteName;
             this.Contractor = Contractor;

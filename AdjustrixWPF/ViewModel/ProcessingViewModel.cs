@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using AdjustrixBase.Adjustment.Leveling;
-using AdjustrixBase.DataModels;
 using AdjustrixBase.Extensions;
-using AdjustrixBase.NetworkAnalysis;
 using AdjustrixBase.Project;
 using AdjustrixBase.Adjustment.Base;
 using AdjustrixWPF.Containers;
@@ -15,6 +13,9 @@ using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
 {
+    /// <summary>
+    /// Intended to handle the data validation, geometric analysis, calculations and report generation.
+    /// </summary>
     public class ProcessingViewModel : AdjustrixViewModel
     {
         private readonly ProjectContainer projectContainer;
@@ -23,8 +24,6 @@ namespace AdjustrixWPF.ViewModel
 
         private AdjustmentStatus status;
         private readonly AdjustmentStatusDelegate statusDelegate;
-
-        private readonly Graph<HeightDelta> graph;
 
         private readonly MessageDelegate messageDelegate;
 
@@ -85,7 +84,7 @@ namespace AdjustrixWPF.ViewModel
             try
             {
                 LevelingProject project = (LevelingProject)currentProject;
-                AdjustrixBase.Adjustment.Base.Language lang = GetAdjustmentLanguage();
+                Language lang = GetAdjustmentLanguage();
                 LevelingProcessing processing = new(project, statusDelegate, lang);
                 processing.Process(projectFolder);
             }
@@ -113,11 +112,11 @@ namespace AdjustrixWPF.ViewModel
             });
         }
 
-        private static AdjustrixBase.Adjustment.Base.Language GetAdjustmentLanguage()
+        private static Language GetAdjustmentLanguage()
         {
             return LanguageViewModel.SelectedLanguage == Enums.Language.Bulgarian ? 
-                AdjustrixBase.Adjustment.Base.Language.Bulgarian :
-                AdjustrixBase.Adjustment.Base.Language.English;
+                Language.Bulgarian :
+                Language.English;
         }
 
         private bool CanProcess(object param)

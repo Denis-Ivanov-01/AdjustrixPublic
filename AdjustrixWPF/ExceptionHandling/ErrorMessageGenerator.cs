@@ -5,6 +5,9 @@ using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.ExceptionHandling
 {
+    /// <summary>
+    /// Supposed to generate messages for the user based on the exception type.
+    /// </summary>
     public class ErrorMessageGenerator
     {
         private readonly LanguageViewModel languageViewModel;

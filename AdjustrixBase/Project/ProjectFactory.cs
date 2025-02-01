@@ -3,7 +3,7 @@
 namespace AdjustrixBase.Project
 {
     public class ProjectFactory
-    {
+    {//todo: not really a factory, think of a better name
         public static AdjustrixProject CreateProject(ProjectGeneralProperties properties, ProjectType projectType)
         {
             switch (projectType)

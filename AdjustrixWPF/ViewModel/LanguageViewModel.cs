@@ -26,6 +26,10 @@ namespace AdjustrixWPF.ViewModel
         }
     }
 
+    /// <summary>
+    /// A very stupid way to support languages in the app.
+    /// P.S: I know it can be done using some existing technology, but YOLO
+    /// </summary>
     public class LanguageViewModel : ViewModelBase
     {
         private readonly string[] propertyNames;
