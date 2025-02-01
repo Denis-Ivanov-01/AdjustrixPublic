@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
+             xmlns:primitive="clr-namespace:AdjustrixWPF.View.UserControls.Primitive"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -101,41 +102,12 @@
                 <DataGridTemplateColumn.CellTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Button Foreground="{DynamicResource ForegroundBrush}"
-                                    BorderThickness="0"
-                                    ToolTip="{Binding DataContext.LanguageViewModel.Toggle,
-                                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    Command="{Binding DataContext.ToggleMeasurement,
-                                                RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                    CommandParameter="{Binding}">
-                                <Button.Style>
-                                    <Style TargetType="Button" 
-                                           BasedOn="{StaticResource MaterialDesignOutlinedButton}">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsEnabled}" 
-                                                         Value="False">
-                                                <Setter Property="Content">
-                                                    <Setter.Value>
-                                                        <materialDesign:PackIcon Kind="ToggleSwitchOffOutline" 
-                                                                                 Height="25" 
-                                                                                 Width="25"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                            <DataTrigger Binding="{Binding IsEnabled}" 
-                                                         Value="True">
-                                                <Setter Property="Content">
-                                                    <Setter.Value>
-                                                        <materialDesign:PackIcon Kind="ToggleSwitchOutline" 
-                                                                                 Height="25" 
-                                                                                 Width="25"/>
-                                                    </Setter.Value>
-                                                </Setter>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
+                            <primitive:DynamicToggleButton ToolTip="{Binding DataContext.LanguageViewModel.Toggle,
+                                                                       RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                           Command="{Binding DataContext.ToggleMeasurement,
+                                                                       RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                           CommandParameter="{Binding}"
+                                                           IsEnabled="{Binding IsEnabled}"/>
                             <Button Content="{materialDesign:PackIcon Kind=PencilOutline,Size=25}"
                                     Style="{StaticResource MaterialDesignOutlinedButton}"
                                     Margin="5 0 0 0"

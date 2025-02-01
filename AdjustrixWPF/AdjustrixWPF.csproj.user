@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\UserControls\Primitive\DynamicToggleButton.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\Prompts\AddImportScriptPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -79,6 +82,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Styles\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UserControls\Primitive\DynamicToggleButton.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Prompts\AddImportScriptPrompt.xaml">
