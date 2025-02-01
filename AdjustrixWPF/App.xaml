@@ -23,7 +23,6 @@
                 <ResourceDictionary Source="View/Styles/TextBlock.xaml"/>
                 <ResourceDictionary Source="View/Styles/Border.xaml"/>
                 <ResourceDictionary Source="View/Styles/TabButton.xaml"/>
-                <ResourceDictionary Source="View/Styles/TextBox.xaml"/>
                 <ResourceDictionary Source="View/Styles/DataGrid.xaml"/>
                 <ResourceDictionary Source="View/Styles/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>

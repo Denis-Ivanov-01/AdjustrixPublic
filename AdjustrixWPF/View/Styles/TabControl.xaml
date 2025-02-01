@@ -45,36 +45,6 @@
         </Setter>
     </Style>
     
-
-    <Style TargetType="userControls:TabHeader" x:Key="TabHeaderStyle">
-        <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="userControls:TabHeader">
-                    <Border Background="{TemplateBinding Background}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource HoveredBrush}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="{DynamicResource SelectedBrush}"/>
-                <Setter Property="BorderThickness" Value="1"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
     <Style TargetType="TabItem" x:Key="TabItemStyle">
         <Setter Property="Background" Value="{DynamicResource BackgroundBrush}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource ForegroundBrush}"/>

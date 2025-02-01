@@ -67,12 +67,6 @@
     <Compile Update="View\UserControls\Prompts\SuccessfulProcessingPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\Primitive\TabButton.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\UserControls\Primitive\TabHeader.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\UserControls\Prompts\YesNoPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,9 +105,6 @@
     <Page Update="View\Styles\DataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Styles\StackPanel.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\Styles\TabButton.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -121,9 +112,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Styles\TextBlock.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\Styles\TextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Styles\TitleBarButton.xaml">
@@ -175,12 +163,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Prompts\SuccessfulProcessingPrompt.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\UserControls\Primitive\TabButton.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\UserControls\Primitive\TabHeader.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Prompts\YesNoPrompt.xaml">
