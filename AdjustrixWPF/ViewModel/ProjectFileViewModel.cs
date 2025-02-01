@@ -11,7 +11,7 @@ using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {
-    public class ProjectFileViewModel : ViewModelBase
+    public class ProjectFileViewModel : AdjustrixViewModel
     {
         private readonly MessageDelegate messageDelegate;
         private readonly ProjectContainer projectContainer;
@@ -204,9 +204,9 @@ namespace AdjustrixWPF.ViewModel
 
         private bool ConfirmSaveChanges()
         {
-            var dialog = new SaveProjectPrompt(this);
-            dialog.ShowDialog();
-            return dialog.SaveProject;
+            YesNoPrompt prompt = new(this, LanguageViewModel.SaveProjectQuestion);
+            prompt.ShowDialog();
+            return prompt.Result == YesNoPromptResult.Yes;
         }
 
         private void SaveProjectToFile(string folderPath)

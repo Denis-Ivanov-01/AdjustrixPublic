@@ -19,9 +19,6 @@
     <Compile Update="View\UserControls\Prompts\EditProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\Prompts\CloseProjectPrompt.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\UserControls\Composite\AppearanceButtons.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -55,13 +52,7 @@
     <Compile Update="View\UserControls\Primitive\LabeledTabButton.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UserControls\Prompts\OverwriteDataPrompt.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\UserControls\Prompts\ProcessingErrorPrompt.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\UserControls\Prompts\SaveProjectPrompt.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\Prompts\SuccessfulProcessingPrompt.xaml.cs">
@@ -117,9 +108,6 @@
     <Page Update="View\Styles\TitleBarButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\Prompts\CloseProjectPrompt.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\UserControls\Composite\AppearanceButtons.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -153,13 +141,7 @@
     <Page Update="View\UserControls\Primitive\LabeledTabButton.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\UserControls\Prompts\OverwriteDataPrompt.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="View\UserControls\Prompts\ProcessingErrorPrompt.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\UserControls\Prompts\SaveProjectPrompt.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\Prompts\SuccessfulProcessingPrompt.xaml">

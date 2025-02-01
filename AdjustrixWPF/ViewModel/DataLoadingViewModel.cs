@@ -125,9 +125,9 @@ namespace AdjustrixWPF.ViewModel
 
         private bool PromptOverwrite()
         {
-            OverwriteDataPrompt prompt = new(this);
+            YesNoPrompt prompt = new(this, LanguageViewModel.OverwriteDataQuestion);
             prompt.ShowDialog();
-            return prompt.OverwriteData;
+            return prompt.Result == Enums.YesNoPromptResult.Yes;
         }
     }
 }
