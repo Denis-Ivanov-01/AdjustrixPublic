@@ -1,0 +1,7 @@
+﻿<Project Sdk="WixToolset.Sdk/5.0.2" Platform="x64">
+
+  <ItemGroup>
+    <PackageReference Include="FireGiant.HeatWave.BuildTools.wixext" Version="5.0.3" />
+    <PackageReference Include="WixToolset.Heat" Version="5.0.2" />
+  </ItemGroup>
+</Project>

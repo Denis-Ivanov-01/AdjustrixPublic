@@ -19,7 +19,10 @@ namespace AdjustrixWPF.SystemManagement
         private const string adjustrixFolder = "Adjustrix";
 
         private static readonly string adjustrixPFfolder = Path.Combine(programFiles, adjustrixFolder);
-        private static readonly string adjustrixPFview = Path.Combine(adjustrixPFfolder, "view");
+        //private static readonly string adjustrixPFview = Path.Combine(adjustrixPFfolder, "view");
+        private static readonly string adjustrixDesktop = Path.Combine(adjustrixPFfolder, "Desktop");
+        private static readonly string adjustrixAppearance = Path.Combine(adjustrixDesktop, "appearance");
+        private static readonly string adjustrixRuntime = Path.Combine(adjustrixDesktop, "runtime");
 
         private static readonly string pythonExecutable = "C:\\Users\\denis\\Desktop\\Геодезия\\_Дипломна\\pythonTest\\python.exe";
 
@@ -54,7 +57,7 @@ namespace AdjustrixWPF.SystemManagement
         {
             get
             {
-                return Path.Combine(adjustrixPFview, "logo.png");
+                return Path.Combine(adjustrixAppearance, "logo.png");
             }
         }
 
@@ -115,7 +118,7 @@ namespace AdjustrixWPF.SystemManagement
         private void EnsurePFFolderExists()
         {
             if (!Directory.Exists(adjustrixPFfolder) ||
-                !Directory.Exists(adjustrixPFview))
+                !Directory.Exists(adjustrixDesktop))
             {//todo: think of a good message to display to the user in that case!
                 throw new DirectoryNotFoundException($"The system folder {adjustrixPFfolder} was not found!");
             }

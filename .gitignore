@@ -27,3 +27,5 @@ NetworkAdjustment/obj/
 *test*
 */bin/
 */obj/
+*bin*
+*obj*
