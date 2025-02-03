@@ -24,7 +24,7 @@ namespace AdjustrixWPF.SystemManagement
         private static readonly string adjustrixAppearance = Path.Combine(adjustrixDesktop, "appearance");
         private static readonly string adjustrixRuntime = Path.Combine(adjustrixDesktop, "runtime");
 
-        private static readonly string pythonExecutable = "C:\\Users\\denis\\Desktop\\Геодезия\\_Дипломна\\pythonTest\\python.exe";
+        private static readonly string pythonExecutable = Path.Combine(adjustrixRuntime, "pythonw.exe");
 
         private static readonly string adjustrixADfolder = Path.Combine(appData, adjustrixFolder);
         private static readonly string appearanceFolder = Path.Combine(adjustrixADfolder, "Appearance");
@@ -57,7 +57,7 @@ namespace AdjustrixWPF.SystemManagement
         {
             get
             {
-                return Path.Combine(adjustrixAppearance, "logo.png");
+                return Path.Combine(adjustrixAppearance, "Logo3.ico");
             }
         }
 
