@@ -3,6 +3,7 @@ using System.Windows.Input;
 using AdjustrixWPF.Containers;
 using AdjustrixWPF.SystemManagement;
 using AdjustrixWPF.Commands;
+using System.IO.Packaging;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -29,7 +30,6 @@ namespace AdjustrixWPF.ViewModel
             ProjectContainer projectContainer = new();
             MessageDelegate messageDelegate = new MessageDelegate();
 
-            ProjectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
             this.MessageBoxViewModel = new(messageDelegate);
@@ -37,6 +37,12 @@ namespace AdjustrixWPF.ViewModel
             this.ImportScriptsViewModel = new(projectContainer, messageDelegate);
             SystemFileSingleton = SystemFileManagement.Singleton;
             CloseCommand = new RelayCommand(Close);
+
+            //This ViewModel must be initialized last, because it checks if the program was opened
+            //by opening a project file. If it was, it will load the project.
+            //So the other ViewModels must be initialized to be subscribed to the projectContainer
+            //events and perform the according actions.
+            ProjectViewModel = new ProjectFileViewModel(projectContainer, messageDelegate);
         }
 
         private void Close(object param)

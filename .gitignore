@@ -29,3 +29,7 @@ NetworkAdjustment/obj/
 */obj/
 *bin*
 *obj*
+*.msi
+*.htm
+*.wixpdb
+*.cab

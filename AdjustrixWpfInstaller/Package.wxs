@@ -6,6 +6,7 @@
 			 UpgradeCode="5e40079f-d71d-4357-8339-bea315159720"
 			 Version="0.1"
 			 InstallerVersion="500">
+		
 		<StandardDirectory Id="ProgramFiles64Folder">
 			<Directory Id="PFRoot" Name="Adjustrix">
 				<Directory Id="DesktopRoot" Name="Desktop">
@@ -695,22 +696,19 @@
 				<File Id="FileExe_File_DAF0CD4E34AC41128BA2A76DFE6BD303" Name="AdjustrixWPF.dll" Source="C:\Users\denis\source\repos\Adjustrix\AdjustrixWPF\bin\Release\net8.0-windows\AdjustrixWPF.dll" />
 			</Component>
 			<Component Bitness="always64" Id="CmpExe_File_76FF29E851FA43359CCFBFD9F00E336A" Directory="DesktopRoot">
-				<File Id="FileExe_File_76FF29E851FA43359CCFBFD9F00E336A" Name="AdjustrixWPF.exe" Source="C:\Users\denis\source\repos\Adjustrix\AdjustrixWPF\bin\Release\net8.0-windows\AdjustrixWPF.exe" />
-				<!-- File Association for .adjx -->
-		        <RegistryKey Root="HKCR" Key=".adjx">
-		          <RegistryValue Type="string" Value="AdjustrixFileType"/>
-		        </RegistryKey>
-		
-		        <!-- Define ProgID (File Type Details) -->
-		        <RegistryKey Root="HKCR" Key="AdjustrixFileType">
-		          <RegistryValue Type="string" Value="Adjustrix Document"/>
-		          <RegistryKey Key="DefaultIcon">
-		            <RegistryValue Type="string" Value="[AppearanceFolder]Logo3.ico,0"/>
-		          </RegistryKey>
-		          <RegistryKey Key="shell\open\command">
-		            <RegistryValue Type="string" Value="&quot;[DesktopRoot]AdjustrixWPF.exe&quot; &quot;%1&quot;"/>
-		          </RegistryKey>
-		        </RegistryKey>
+				<File Id="FileExe_File_76FF29E851FA43359CCFBFD9F00E336A" Name="AdjustrixWPF.exe" Source="C:\Users\denis\source\repos\Adjustrix\AdjustrixWPF\bin\Release\net8.0-windows\AdjustrixWPF.exe">
+					<Shortcut Id="StartMenuShortcut"
+                              Directory="ProgramMenuFolder"
+                              Name="Adjustrix Desktop"
+                              WorkingDirectory="DesktopRoot"
+                              Icon="MyApp.ico"
+                              Advertise="yes"/>
+				</File>
+				<ProgId Id="AdjxExtension" Description="Adjustrix project file" Icon="IconFileId">
+					<Extension Id="adjx" ContentType="application/adjx">
+					    <Verb Id="open" Command="Open" TargetFile="FileExe_File_76FF29E851FA43359CCFBFD9F00E336A" Argument='"%1"' />
+					</Extension>
+				</ProgId>
 			</Component>
 			<Component Bitness="always64" Id="CmpExe_File_EBDE0A217A634E14BE0E8C25F34A5638" Directory="DesktopRoot">
 				<File Id="FileExe_File_EBDE0A217A634E14BE0E8C25F34A5638" Name="AdjustrixWPF.pdb" Source="C:\Users\denis\source\repos\Adjustrix\AdjustrixWPF\bin\Release\net8.0-windows\AdjustrixWPF.pdb" />
@@ -785,7 +783,7 @@
 		
 		<Feature Id="AppearanceInstall">
 			<Component Bitness="always64" Directory="AppearanceFolder">
-				<File Source="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
+				<File Id="IconFileId" Source="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
 			</Component>
 		</Feature>
 
@@ -16376,5 +16374,10 @@
 				<File Id="File_File_D110F44DC3D8475EADF5CA1DDB2F5813" Name="win_add2path.py" Source="C:\Users\denis\Desktop\Геодезия\_Дипломна\pythonTest - Copy\Tools\scripts\win_add2path.py" />
 			</Component>
 		</Feature>
+		
+		<!-- Define an icon for the application -->
+        <Icon Id="MyApp.ico" SourceFile="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
+        <Property Id="ARPPRODUCTICON" Value="MyApp.ico"/>
+
 	</Package>
 </Wix>

@@ -8,6 +8,7 @@ using AdjustrixWPF.Enums;
 using AdjustrixWPF.View;
 using AdjustrixWPF.View.UserControls;
 using AdjustrixWPF.Commands;
+using System.IO.Packaging;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -73,7 +74,8 @@ namespace AdjustrixWPF.ViewModel
         public ICommand CreateProject { get; }
         public ICommand EditProject { get; }
 
-        public ProjectFileViewModel(ProjectContainer projectStore, MessageDelegate messageDelegate)
+        public ProjectFileViewModel(ProjectContainer projectStore, 
+            MessageDelegate messageDelegate)
         {
             this.projectContainer = projectStore;
             this.messageDelegate = messageDelegate;
@@ -87,6 +89,12 @@ namespace AdjustrixWPF.ViewModel
 
             projectStore.ProjectChanged += OnProjectChanged;
             projectStore.ProjectChangesChanged += OnProjectChangesChanged;
+
+            if (!string.IsNullOrWhiteSpace(App.InitializeFilePath))
+            {
+                LoadProjectFromFile(App.InitializeFilePath);
+                NotifyProjectOpened();
+            }
         }
 
         public bool HandleUnsavedChanges()
