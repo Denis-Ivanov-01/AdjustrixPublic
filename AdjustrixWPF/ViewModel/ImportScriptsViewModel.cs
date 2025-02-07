@@ -9,17 +9,17 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.Win32;
-using AdjustrixBase.Project;
 using AdjustrixBase.DataModels;
 using AdjustrixBase.NetworkAnalysis;
-using AdjustrixWPF.View.UserControls;
-using AdjustrixWPF.View.UserControls.Composite;
+using AdjustrixBase.Project;
+using AdjustrixWPF.Commands;
 using AdjustrixWPF.Containers;
+using AdjustrixWPF.Enums;
 using AdjustrixWPF.PythonScripting;
 using AdjustrixWPF.SystemManagement;
-using AdjustrixWPF.Enums;
-using AdjustrixWPF.Commands;
+using AdjustrixWPF.View.UserControls;
+using AdjustrixWPF.View.UserControls.Composite;
+using Microsoft.Win32;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -130,7 +130,7 @@ namespace AdjustrixWPF.ViewModel
         public CustomImportScript NewImportScript
         {
             get { return newImportScript; }
-            set 
+            set
             {
                 newImportScript = value;
                 ValidateProperty();
@@ -264,7 +264,11 @@ namespace AdjustrixWPF.ViewModel
             prompt.ShowDialog();
             if (prompt.RegisterScript && ValidateNewScript())
             {
-                if (!PromptNullScriptPath()) return;
+                if (!PromptNullScriptPath())
+                {
+                    return;
+                }
+
                 scriptFileManager.RegisterScript(NewImportScript);
                 ImportScripts.Add(NewImportScript);
             }
@@ -427,7 +431,11 @@ namespace AdjustrixWPF.ViewModel
         /// <returns>True if the filter string is valid, otherwise false.</returns>
         public static bool IsValidFileFilter(string filter)
         {
-            if (string.IsNullOrWhiteSpace(filter)) return false;
+            if (string.IsNullOrWhiteSpace(filter))
+            {
+                return false;
+            }
+
             string pattern = @"^[\w\s]+\s\(\.[a-zA-Z0-9]+\)\|\*\.[a-zA-Z0-9]+$";
             return Regex.IsMatch(filter, pattern);
         }
@@ -439,7 +447,11 @@ namespace AdjustrixWPF.ViewModel
         /// <returns>True if the extension string is valid, otherwise false.</returns>
         public static bool IsValidFileExtension(string extension)
         {
-            if (string.IsNullOrWhiteSpace(extension)) return false;
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                return false;
+            }
+
             string pattern = @"^\.[a-zA-Z0-9]+$";
             return Regex.IsMatch(extension, pattern);
         }

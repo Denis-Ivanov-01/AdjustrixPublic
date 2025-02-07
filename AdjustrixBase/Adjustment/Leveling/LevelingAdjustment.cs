@@ -1,7 +1,7 @@
-﻿using MathNet.Numerics.LinearAlgebra;
-using AdjustrixBase.Adjustment.Base;
+﻿using AdjustrixBase.Adjustment.Base;
 using AdjustrixBase.DataModels;
 using AdjustrixBase.NetworkAnalysis;
+using MathNet.Numerics.LinearAlgebra;
 
 
 namespace AdjustrixBase.Adjustment.Leveling
@@ -72,8 +72,8 @@ namespace AdjustrixBase.Adjustment.Leveling
             return corrections;
         }
 
-        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements, 
-            Matrix<double> Qv, 
+        protected override List<AdjustedBenchmark> CalculateUnknownPoints(List<HeightDelta> adjustedMeasurements,
+            Matrix<double> Qv,
             double perUnitVariance)
         {
             List<HeightDelta> meas = adjustedMeasurements.Cast<HeightDelta>().ToList();

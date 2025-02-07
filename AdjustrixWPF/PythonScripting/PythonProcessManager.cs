@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Adjustment.Adjustment;
+using AdjustrixBase.DataLoading;
 using AdjustrixWPF.Containers;
-using AdjustrixWPF.SystemManagement;
 using AdjustrixWPF.Enums;
+using AdjustrixWPF.SystemManagement;
 
 namespace AdjustrixWPF.PythonScripting
 {
@@ -14,7 +14,7 @@ namespace AdjustrixWPF.PythonScripting
         private readonly ScriptResultContainer resultContainer;
 
         private readonly string pythonExecutable = SystemFileManagement.Singleton.PythonExecutable;
-        
+
         public PythonProcessManager(ScriptResultContainer container)
         {
             resultContainer = container;
@@ -72,7 +72,7 @@ namespace AdjustrixWPF.PythonScripting
 
         private void ExecuteScript(string arguments)
         {
-            ProcessStartInfo info = new() 
+            ProcessStartInfo info = new()
             {
                 Arguments = arguments,
                 FileName = pythonExecutable,

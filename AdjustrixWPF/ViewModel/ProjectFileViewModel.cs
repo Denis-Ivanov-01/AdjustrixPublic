@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Forms = System.Windows.Forms;
 using AdjustrixBase.Project;
+using AdjustrixWPF.Commands;
 using AdjustrixWPF.Containers;
 using AdjustrixWPF.Enums;
 using AdjustrixWPF.View;
 using AdjustrixWPF.View.UserControls;
-using AdjustrixWPF.Commands;
-using System.IO.Packaging;
+using Forms = System.Windows.Forms;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -74,7 +73,7 @@ namespace AdjustrixWPF.ViewModel
         public ICommand CreateProject { get; }
         public ICommand EditProject { get; }
 
-        public ProjectFileViewModel(ProjectContainer projectStore, 
+        public ProjectFileViewModel(ProjectContainer projectStore,
             MessageDelegate messageDelegate)
         {
             this.projectContainer = projectStore;

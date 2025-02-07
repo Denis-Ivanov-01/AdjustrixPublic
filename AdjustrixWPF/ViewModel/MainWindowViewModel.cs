@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using AdjustrixWPF.Commands;
 using AdjustrixWPF.Containers;
 using AdjustrixWPF.SystemManagement;
-using AdjustrixWPF.Commands;
-using System.IO.Packaging;
 
 namespace AdjustrixWPF.ViewModel
 {
@@ -29,7 +28,11 @@ namespace AdjustrixWPF.ViewModel
         {
             ProjectContainer projectContainer = new();
             MessageDelegate messageDelegate = new MessageDelegate();
-
+            //todo: dependency injection
+            //todo: event aggregator
+            //todo: unit testing for viewmodels
+            //a good idea - viewmodels and user controls in a separate project
+            //todo: check for click-once deploy
             DataViewModel = new(projectContainer);
             this.ProcessingViewModel = new ProcessingViewModel(projectContainer, messageDelegate);
             this.MessageBoxViewModel = new(messageDelegate);

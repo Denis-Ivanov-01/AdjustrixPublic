@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using AdjustrixWPF.ViewModel;
 using AdjustrixWPF.Enums;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.PythonScripting
 {

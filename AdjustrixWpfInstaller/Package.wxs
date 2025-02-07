@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
-	 xmlns:hbt="http://www.firegiant.com/schemas/v4/wxs/heatwave/buildtools">
-	<Package Manufacturer="Denis Ivanov" 
-			 Name="Adjustrix Desktop" 
+	 xmlns:hbt="http://www.firegiant.com/schemas/v4/wxs/heatwave/buildtools"
+	 xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx">
+
+	<Package Manufacturer="Denis Ivanov"
+			 Name="Adjustrix Desktop"
 			 UpgradeCode="5e40079f-d71d-4357-8339-bea315159720"
 			 Version="0.1"
 			 InstallerVersion="500">
-		
+		<MediaTemplate EmbedCab="yes"/>
 		<StandardDirectory Id="ProgramFiles64Folder">
 			<Directory Id="PFRoot" Name="Adjustrix">
 				<Directory Id="DesktopRoot" Name="Desktop">
@@ -706,7 +708,7 @@
 				</File>
 				<ProgId Id="AdjxExtension" Description="Adjustrix project file" Icon="IconFileId">
 					<Extension Id="adjx" ContentType="application/adjx">
-					    <Verb Id="open" Command="Open" TargetFile="FileExe_File_76FF29E851FA43359CCFBFD9F00E336A" Argument='"%1"' />
+						<Verb Id="open" Command="Open" TargetFile="FileExe_File_76FF29E851FA43359CCFBFD9F00E336A" Argument='"%1"' />
 					</Extension>
 				</ProgId>
 			</Component>
@@ -780,7 +782,7 @@
 				<File Id="FileExe_File_1B2B6C86B0BF4AD1A9C0A2E7E7D0814A" Name="PdfSharp.WPFonts.dll" Source="C:\Users\denis\source\repos\Adjustrix\AdjustrixWPF\bin\Release\net8.0-windows\PdfSharp.WPFonts.dll" />
 			</Component>
 		</Feature>
-		
+
 		<Feature Id="AppearanceInstall">
 			<Component Bitness="always64" Directory="AppearanceFolder">
 				<File Id="IconFileId" Source="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
@@ -16374,10 +16376,27 @@
 				<File Id="File_File_D110F44DC3D8475EADF5CA1DDB2F5813" Name="win_add2path.py" Source="C:\Users\denis\Desktop\Геодезия\_Дипломна\pythonTest - Copy\Tools\scripts\win_add2path.py" />
 			</Component>
 		</Feature>
-		
+
 		<!-- Define an icon for the application -->
-        <Icon Id="MyApp.ico" SourceFile="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
-        <Property Id="ARPPRODUCTICON" Value="MyApp.ico"/>
+		<Icon Id="MyApp.ico" SourceFile="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="MyApp.ico"/>
 
 	</Package>
+
+	<Fragment>
+		<Property Id="Checkdotnet"/>
+		<netfx:DotNetCompatibilityCheck Id="Runtime"
+										RuntimeType="desktop"
+										Platform="x64"
+										Version="8.0.0"
+										Property="Checkdotnet"/>
+		<PackageGroup Id="MyPackage">
+			<ExePackage
+				DetectCondition="Checkdotnet"
+				UninstallArguments="Checkdotnet"
+				SourceFile="[sources]\packages\shared\windowsdesktop-runtime-3.1.10-win-x86.exe"
+				DownloadUrl="https://download.visualstudio.microsoft.com/download/pr/f1e7ffc8-c278-4339-b460-517420724524/f36bb75b2e86a52338c4d3a90f8dac9b/windowsdesktop-runtime-8.0.12-win-x64.exe"
+				InstallCondition="x64 = 1 AND OSVersion >= v5.0.5121.0 AND DotNetCompatibilityCheckResult = 0" />
+		</PackageGroup>
+	</Fragment>
 </Wix>

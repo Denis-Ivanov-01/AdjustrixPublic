@@ -3,7 +3,7 @@
 
 public interface IEdge<TNode>
     where TNode : INode
-    
+
 {
     public TNode FromPoint { get; set; }
 

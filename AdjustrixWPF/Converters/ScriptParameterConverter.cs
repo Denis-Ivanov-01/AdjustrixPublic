@@ -110,14 +110,28 @@ namespace AdjustrixWPF.Converters
         {
             if (LanguageViewModel.SelectedLanguage == Language.English)
             {
-                if (type == fileEN) return ScriptParameterType.FilePath;
-                else if (type == dirEN) return ScriptParameterType.Directory;
+                if (type == fileEN)
+                {
+                    return ScriptParameterType.FilePath;
+                }
+                else if (type == dirEN)
+                {
+                    return ScriptParameterType.Directory;
+                }
+
                 throw new NotImplementedException();
             }
             else
             {
-                if (type == fileBG) return ScriptParameterType.FilePath;
-                else if (type == dirBG) return ScriptParameterType.Directory;
+                if (type == fileBG)
+                {
+                    return ScriptParameterType.FilePath;
+                }
+                else if (type == dirBG)
+                {
+                    return ScriptParameterType.Directory;
+                }
+
                 throw new NotImplementedException();
             }
         }

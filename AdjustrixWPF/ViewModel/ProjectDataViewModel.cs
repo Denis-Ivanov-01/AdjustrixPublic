@@ -4,9 +4,9 @@ using System.Linq;
 using System.Windows.Input;
 using AdjustrixBase.DataModels;
 using AdjustrixBase.Project;
+using AdjustrixWPF.Commands;
 using AdjustrixWPF.Containers;
 using AdjustrixWPF.View.UserControls;
-using AdjustrixWPF.Commands;
 
 namespace AdjustrixWPF.ViewModel
 {

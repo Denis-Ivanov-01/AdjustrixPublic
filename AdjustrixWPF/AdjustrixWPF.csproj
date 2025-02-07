@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>True</UseWindowsForms>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Logo3.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <COMReference Include="{215d64d2-031c-33c7-96e3-61794cd1ee61}">
@@ -18,7 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExcelDataReader.DataSet" Version="3.7.0" />
+    <Content Include="Logo3.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
   </ItemGroup>
 

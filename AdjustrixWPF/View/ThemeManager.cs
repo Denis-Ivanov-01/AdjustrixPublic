@@ -7,10 +7,10 @@ namespace AdjustrixWPF.View
 {
     public class ThemeManager : DependencyObject
     {
-public static readonly DependencyProperty CurrentThemeDictionaryProperty =
-         DependencyProperty.RegisterAttached("CurrentThemeDictionary", typeof(Uri),
-         typeof(ThemeManager),
-         new UIPropertyMetadata(null, CurrentThemeDictionaryChanged));
+        public static readonly DependencyProperty CurrentThemeDictionaryProperty =
+                 DependencyProperty.RegisterAttached("CurrentThemeDictionary", typeof(Uri),
+                 typeof(ThemeManager),
+                 new UIPropertyMetadata(null, CurrentThemeDictionaryChanged));
 
         public static Uri GetCurrentThemeDictionary(DependencyObject obj)
         {

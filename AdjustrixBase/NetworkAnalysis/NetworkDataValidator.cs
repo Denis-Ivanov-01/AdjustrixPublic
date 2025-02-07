@@ -1,5 +1,5 @@
-﻿using AdjustrixBase.Extensions;
-using AdjustrixBase.DataModels;
+﻿using AdjustrixBase.DataModels;
+using AdjustrixBase.Extensions;
 
 namespace AdjustrixBase.NetworkAnalysis
 {
@@ -60,7 +60,10 @@ namespace AdjustrixBase.NetworkAnalysis
                 }
             }
 
-            if (!knownBenchmarkFound) throw new NoKnownPointsException("No known points found in the measurements!");
+            if (!knownBenchmarkFound)
+            {
+                throw new NoKnownPointsException("No known points found in the measurements!");
+            }
         }
 
         // There must be a path from each point to every other point

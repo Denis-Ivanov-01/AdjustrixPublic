@@ -8,7 +8,8 @@
         xmlns:userControls="clr-namespace:AdjustrixWPF.View.UserControls"
         xmlns:compositeControls="clr-namespace:AdjustrixWPF.View.UserControls.Composite"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized" Height="650" Width="850" WindowStyle="None"
+        Title="Adjustrix Desktop" Icon="{Binding SystemFileSingleton.LogoPath}"
+        WindowState="Maximized" Height="650" Width="850" WindowStyle="None"
         MouseLeftButtonDown="OnAppWindowWindowOnMouseLeftButtonDown"
         Background="{DynamicResource BackgroundBrush}">
     <Grid Name="MainGrid"

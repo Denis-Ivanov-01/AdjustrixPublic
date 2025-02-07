@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using AdjustrixWPF.ViewModel;
 using AdjustrixWPF.Enums;
+using AdjustrixWPF.ViewModel;
 
 namespace AdjustrixWPF.View.UserControls
 {

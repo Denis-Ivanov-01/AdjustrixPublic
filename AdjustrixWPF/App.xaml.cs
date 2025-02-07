@@ -14,7 +14,7 @@ namespace AdjustrixWPF
     {
         private static Language language;
         private static Theme theme;
-        public static string InitializeFilePath { get; private set; } = "";
+        public static string InitializeFilePath { get; private set; } = string.Empty;
 
         public App()
         {
@@ -29,7 +29,6 @@ namespace AdjustrixWPF
                 string filePath = e.Args[0];
                 InitializeFilePath = filePath;
             }
-            InitializeFilePath = @"C:\Users\denis\Desktop\Геодезия\_Дипломна\projectFiles\project.adjx";
             base.OnStartup(e);
         }
 

@@ -2,14 +2,14 @@
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
-using Win = System.Windows;
-using AdjustrixBase.Project;
+using AdjustrixBase.DataLoading;
 using AdjustrixBase.DataModels;
 using AdjustrixBase.NetworkAnalysis;
-using AdjustrixWPF.View.UserControls;
-using AdjustrixWPF.Containers;
-using AdjustrixWPF.DataLoading;
+using AdjustrixBase.Project;
 using AdjustrixWPF.Commands;
+using AdjustrixWPF.Containers;
+using AdjustrixWPF.View.UserControls;
+using Win = System.Windows;
 
 namespace AdjustrixWPF.ViewModel
 {

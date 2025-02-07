@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using AdjustrixBase.Adjustment.Base;
 using AdjustrixBase.Adjustment.Leveling;
 using AdjustrixBase.Extensions;
 using AdjustrixBase.Project;
-using AdjustrixBase.Adjustment.Base;
-using AdjustrixWPF.Containers;
 using AdjustrixWPF.Commands;
+using AdjustrixWPF.Containers;
 using AdjustrixWPF.View.UserControls;
 
 namespace AdjustrixWPF.ViewModel
@@ -114,7 +114,7 @@ namespace AdjustrixWPF.ViewModel
 
         private static Language GetAdjustmentLanguage()
         {
-            return LanguageViewModel.SelectedLanguage == Enums.Language.Bulgarian ? 
+            return LanguageViewModel.SelectedLanguage == Enums.Language.Bulgarian ?
                 Language.Bulgarian :
                 Language.English;
         }

@@ -1,8 +1,8 @@
 ﻿using AdjustrixBase.Adjustment.Base;
 using AdjustrixBase.DataModels;
-using AdjustrixBase.Reports.Leveling;
 using AdjustrixBase.Extensions;
 using AdjustrixBase.Project;
+using AdjustrixBase.Reports.Leveling;
 
 namespace AdjustrixBase.Adjustment.Leveling
 {
