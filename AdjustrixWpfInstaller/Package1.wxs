@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+	 xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx">
+
+	<Package Manufacturer="Denis Ivanov"
+			 Name="Adjustrix Desktop"
+			 UpgradeCode="5e40079f-d71d-4357-8339-bea315159720"
+			 Version="0.1"
+			 InstallerVersion="500">
+		<MediaTemplate EmbedCab="yes"/>
+		<StandardDirectory Id="ProgramFiles64Folder">
+			<Directory Id="PFRoot" Name="Adjustrix">
+				<Directory Id="DesktopRoot" Name="Desktop">
+					<Directory Id="AppearanceFolder" Name="appearance"/>
+					<Directory Id="RuntimeFolder" Name="runtime">
+						<Directory Id="Dir_A66BD8F9CC67467FA4BAA39A851F5625" Name="DLLs">
+						</Directory>
+						<Directory Id="Dir_F9E7287B30054C7480B41B5F24CFC7CE" Name="Doc">
+							<Directory Id="Dir_2967FE87A76745888D4A76657ECFB410" Name="html">
+								<Directory Id="Dir_E1CE7E8EEA23459DBD74C62A12F639F1" Name="c-api">
+								</Directory>
+								<Directory Id="Dir_AC40FDDD7D234EE1891C1C58496143BA" Name="distributing">
+								</Directory>
+								<Directory Id="Dir_20ECC3CE29464A7387DB5F0637F4FA1C" Name="distutils">
+								</Directory>
+								<Directory Id="Dir_CC2C49E21B934E198F58A752C3C8AA51" Name="extending">
+								</Directory>
+								<Directory Id="Dir_F90DFA29E58544FAB36B69FFD7F0DABB" Name="faq">
+								</Directory>
+								<Directory Id="Dir_E7D74279F9BF4A89955A2ECDC4FD401F" Name="howto">
+								</Directory>
+								<Directory Id="Dir_8C543EB230774777AFCDE36DCB66831A" Name="install">
+								</Directory>
+								<Directory Id="Dir_763CE9A2F9E14BD19E65044A62CA6491" Name="installing">
+								</Directory>
+								<Directory Id="Dir_574636B0AF444865AFD792AFC08AE5D1" Name="library">
+								</Directory>
+								<Directory Id="Dir_C2791BF8B986487685BC1B17AE165260" Name="reference">
+								</Directory>
+								<Directory Id="Dir_AB9AFAC8ED414D78A51D98483BF74562" Name="tutorial">
+								</Directory>
+								<Directory Id="Dir_E94C73C9D9C645A892591A700A1F6825" Name="using">
+								</Directory>
+								<Directory Id="Dir_EEB4DC40914440F6813558915FCAE108" Name="whatsnew">
+								</Directory>
+								<Directory Id="Dir_22B3A6CD23D0493CA7DC67D6F07152EA" Name="_downloads">
+									<Directory Id="Dir_3C4BE96088E84776AA4BF23720F964A1" Name="6dc1f3f4f0e6ca13cb42ddf4d6cbc8af">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_6566DF08D0624DCFAA35477FB895AB65" Name="_images">
+								</Directory>
+								<Directory Id="Dir_2D16C838C3944936A6EE2C7D3F4435E2" Name="_static">
+								</Directory>
+							</Directory>
+						</Directory>
+						<Directory Id="Dir_7A127EFB824F4BD9A2BE2A3F555922E3" Name="include">
+							<Directory Id="Dir_7F10A33A5A3A4AE29CF4C3884F59FD83" Name="cpython">
+							</Directory>
+							<Directory Id="Dir_5B7C0157AFCF44D2888A2213C73F6CF2" Name="internal">
+							</Directory>
+						</Directory>
+						<Directory Id="Dir_6CBAA8C1279547D99E17AC1BD849FA3F" Name="Lib">
+							<Directory Id="Dir_5B086BF9F36C4DCCAF83CA0F51D3083A" Name="asyncio">
+							</Directory>
+							<Directory Id="Dir_60EEA24CC8E646618A23A9EC8A323F3E" Name="collections">
+							</Directory>
+							<Directory Id="Dir_8D81A0727F174877AACDC02DA85D182D" Name="concurrent">
+								<Directory Id="Dir_90F3E3580CA443C9AB97CF411F595B49" Name="futures">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_70251CD0A7C642E6A742F0D9702DF9A8" Name="ctypes">
+								<Directory Id="Dir_22D3560337EB4BDABA758D7EEA9FC833" Name="macholib">
+								</Directory>
+								<Directory Id="Dir_E1904310B610412382779A26C268036C" Name="test">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_D66951EF2A064FA58FE7FA918589368E" Name="curses">
+							</Directory>
+							<Directory Id="Dir_D1D512F8CDC54BCB9B2CF5F1312D552C" Name="dbm">
+							</Directory>
+							<Directory Id="Dir_DB663598861541D8B156337DC0FE80BB" Name="distutils">
+								<Directory Id="Dir_2E486C7AE8D04856984BE77243E18AD4" Name="command">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_22B21495B0A7454DA54C7EDE5A38FE05" Name="email">
+								<Directory Id="Dir_F52193E2E5ED473D852DA93D6FB45BC1" Name="mime">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_F14E9CFB0C6B4D2E992923E2E03A1744" Name="encodings">
+							</Directory>
+							<Directory Id="Dir_78E27BF4880E40A98665F21E26372F7C" Name="ensurepip">
+								<Directory Id="Dir_5E673EBD771849B0B8C58376C22865E7" Name="_bundled">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_3A82696D046D406B8F7BFF12B6A0EFEF" Name="html">
+							</Directory>
+							<Directory Id="Dir_A827041B3B8643EE993C44A797E3D8F5" Name="http">
+							</Directory>
+							<Directory Id="Dir_A71A6DF52D3D4217BAFC984E7DBCD769" Name="idlelib">
+								<Directory Id="Dir_2414F4B9DEA04771A908731BC080802E" Name="Icons">
+								</Directory>
+								<Directory Id="Dir_9559E97E5A404B8C8F39AA5EEF74E938" Name="idle_test">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_E1EE6D628D2E41BFB30F8BF99A972CE3" Name="importlib">
+								<Directory Id="Dir_A7F6461B2ED3424D894F67FDFB475A0A" Name="metadata">
+								</Directory>
+								<Directory Id="Dir_F997D6D9E63A4F7BA6CFF221E31DB9E0" Name="resources">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_3F5981B64BE64781A0064360AAF2A82B" Name="json">
+							</Directory>
+							<Directory Id="Dir_C1767B0BD9B24D15A2E577E83E874037" Name="lib2to3">
+								<Directory Id="Dir_24154D21901F45F9A0BCA68BB17489D2" Name="fixes">
+								</Directory>
+								<Directory Id="Dir_031FDEE5320D44559788181B795307D7" Name="pgen2">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_D343721A9E1244F4A4770A2B6F414D10" Name="logging">
+							</Directory>
+							<Directory Id="Dir_D45CAA0384FD4942A027A632FBDD3112" Name="msilib">
+							</Directory>
+							<Directory Id="Dir_A0C25BB160394C6B8ECE489A9C1EAB02" Name="multiprocessing">
+								<Directory Id="Dir_AEADD5F0FCB240B8AD113717817F101C" Name="dummy">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_CBF72F9E841047CBBD788DBE24EF381D" Name="pydoc_data">
+							</Directory>
+							<Directory Id="Dir_C7A87828BB944378AE047D94BC31E577" Name="re">
+							</Directory>
+							<Directory Id="Dir_EA1C828F3BD340B5946961A37ED8EB9F" Name="site-packages">
+								<Directory Id="Dir_352A2F9E34444A0DAE818CAF78AED859" Name="pip">
+									<Directory Id="Dir_B4F179FBD28D48DAB6DAEB003198DDAB" Name="_internal">
+										<Directory Id="Dir_6099177CED2D4E27AD551349EB43BAAA" Name="cli">
+										</Directory>
+										<Directory Id="Dir_D6C1F21079274DCBABF23B008613CCD6" Name="commands">
+										</Directory>
+										<Directory Id="Dir_3D9B2DBCF9C241D194BF4A9C680374EF" Name="distributions">
+										</Directory>
+										<Directory Id="Dir_2DCA54BA73ED43FDBBA7A2D27A6459A4" Name="index">
+										</Directory>
+										<Directory Id="Dir_A3EF2B2F905F4682BB19BF18EB9A814F" Name="locations">
+										</Directory>
+										<Directory Id="Dir_886EE81940E2420992D3E06775EBC346" Name="metadata">
+											<Directory Id="Dir_CA32B718347A4E66AF921EA55A4210FC" Name="importlib">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_B860DEC318504392AD76B2B51175C07B" Name="models">
+										</Directory>
+										<Directory Id="Dir_A919973E05094396827B42D41C0491CE" Name="network">
+										</Directory>
+										<Directory Id="Dir_60EF038FC315415BB92A3C64DAF870D5" Name="operations">
+											<Directory Id="Dir_3D1134AD405C4CF49DDA639A07940B8E" Name="build">
+											</Directory>
+											<Directory Id="Dir_327A54088895413B8549A5ECC2B6B4E3" Name="install">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_C5F1C78F3A9A4BB8A8DD31A25D20CA45" Name="req">
+										</Directory>
+										<Directory Id="Dir_07F879765C4D4DB2BC2BB2FBD7A52CC6" Name="resolution">
+											<Directory Id="Dir_E495262AE1CC4D6885DF25396F4F247F" Name="legacy">
+											</Directory>
+											<Directory Id="Dir_0226AF2ACED542F492BFF3CA6DAD3BAD" Name="resolvelib">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_12FB122EC11E444694905E110BD7E8FF" Name="utils">
+										</Directory>
+										<Directory Id="Dir_E16420F61F2D458D9D8D3A1498B09950" Name="vcs">
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_ED403EA5097F477F951951B5AAA45EEF" Name="_vendor">
+										<Directory Id="Dir_B4BB4061EDF84AB792691CADF1245CDC" Name="cachecontrol">
+											<Directory Id="Dir_03DA82D2B5BD4F688D6D9A0BABF3D416" Name="caches">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_D74AA90CE7DA4171ACFD0F54636E4AD2" Name="certifi">
+										</Directory>
+										<Directory Id="Dir_6E6873D06A654D35ADDF8B968A1E71DC" Name="chardet">
+											<Directory Id="Dir_669F207E6B5A4D7B938FB7E2FDC4A57B" Name="cli">
+											</Directory>
+											<Directory Id="Dir_A2386B6A542C4E0C83528A223BCC9D14" Name="metadata">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_D124F554115E4EC592A7AA1106B899A9" Name="colorama">
+										</Directory>
+										<Directory Id="Dir_0D83954BB0394A40B24821FEDB7ECF45" Name="distlib">
+										</Directory>
+										<Directory Id="Dir_D4A8A89E1831474DB74C8402585FA58C" Name="distro">
+										</Directory>
+										<Directory Id="Dir_D23EA1919EF54BEA987693A8ACCC9535" Name="idna">
+										</Directory>
+										<Directory Id="Dir_2CD6A3DD3ADA4EC38D8E70EC5C4217A2" Name="msgpack">
+										</Directory>
+										<Directory Id="Dir_F68DDFB98A3743D0982E9BC504A045DF" Name="packaging">
+										</Directory>
+										<Directory Id="Dir_B308B9D92DFF441090A3111F612DB15B" Name="pkg_resources">
+										</Directory>
+										<Directory Id="Dir_0BD7A9DE41314256B2947687AD9544AE" Name="platformdirs">
+										</Directory>
+										<Directory Id="Dir_141A7765D1024B53953FAD37A38D4BA0" Name="pygments">
+											<Directory Id="Dir_09FC15A56E2440FFB78CBED66222483A" Name="filters">
+											</Directory>
+											<Directory Id="Dir_966E18D0E75542EB8D438DF199A9414C" Name="formatters">
+											</Directory>
+											<Directory Id="Dir_442452618CC54287B1E9EF1DDA9E21B5" Name="lexers">
+											</Directory>
+											<Directory Id="Dir_706D09C0E8584C1A8A0E1BB18DC90C40" Name="styles">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_3A522D03C1844A5DB94B9A7A111BFF1E" Name="pyparsing">
+											<Directory Id="Dir_3A8DDF44A156423EBE25543770E0AA8B" Name="diagram">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_D532422F7F044C90BCAB6298EE491BEB" Name="pyproject_hooks">
+											<Directory Id="Dir_821500BB01A44A79B9723A4818C6F758" Name="_in_process">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_817E03451B6442E9B205F0D972A2EA12" Name="requests">
+										</Directory>
+										<Directory Id="Dir_62EAA3A11A344742822D5D4270C9EBD9" Name="resolvelib">
+											<Directory Id="Dir_AEA424A338724FF393DD14C81A7D1167" Name="compat">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_90E91B572271408B9A01DA919033E3E3" Name="rich">
+										</Directory>
+										<Directory Id="Dir_6F7F4CB2739E400A948A51552ACDC886" Name="tenacity">
+										</Directory>
+										<Directory Id="Dir_A96C96858B3349D8BC9E37E968F51B00" Name="tomli">
+										</Directory>
+										<Directory Id="Dir_149727FAE34C42559C8568B6287D996C" Name="urllib3">
+											<Directory Id="Dir_F34D02F67FDF43D5A715CDCBCBFA22E2" Name="contrib">
+												<Directory Id="Dir_EF900411D291440DB26458757C6D9B1E" Name="_securetransport">
+												</Directory>
+											</Directory>
+											<Directory Id="Dir_350CB35676CD45DFA9D0CF46FFB2A6A5" Name="packages">
+												<Directory Id="Dir_AC472445644144E0BEBA460A10B8CC30" Name="backports">
+												</Directory>
+											</Directory>
+											<Directory Id="Dir_33109A509A9746D580E34464DA4E7F12" Name="util">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_65535812D7F54B59A3FDEE8BF7C86CD3" Name="webencodings">
+										</Directory>
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_8011E48E98CD4ED5AB0C5E814E353C94" Name="pip-23.2.1.dist-info">
+								</Directory>
+								<Directory Id="Dir_07C208D87C7E4E04AE86ACEE0D5E6B73" Name="pkg_resources">
+									<Directory Id="Dir_871007F11F5B4036A365CEC8B34FA28E" Name="extern">
+									</Directory>
+									<Directory Id="Dir_D27E90C886564A1BB0060E072DCE09E2" Name="_vendor">
+										<Directory Id="Dir_F0CFCB1095B64390A4784048ADA84A5A" Name="importlib_resources">
+										</Directory>
+										<Directory Id="Dir_A8E8BB5B55494FDB9FD2824194EC19A8" Name="jaraco">
+											<Directory Id="Dir_FE2133952D1843E8BA79FE1A68A36334" Name="text">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_3254322454C04E45A5BAD2673CB40DA0" Name="more_itertools">
+										</Directory>
+										<Directory Id="Dir_72178089CC354AC7B0272CE6EA7A8F69" Name="packaging">
+										</Directory>
+										<Directory Id="Dir_88174D41ACE6497583D30A13CBF3988F" Name="pyparsing">
+											<Directory Id="Dir_4130A5AA45884DD092B4A675EAB78833" Name="diagram">
+											</Directory>
+										</Directory>
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_C27808B9FA4D46B19F9B7AB286972AF1" Name="setuptools">
+									<Directory Id="Dir_2D297ED3E4BB4928B4F5984C32FB38D0" Name="command">
+									</Directory>
+									<Directory Id="Dir_A3B344CF912543D08837843127F3CDB0" Name="config">
+										<Directory Id="Dir_AA5ADFF378D440AF849ADF32B225642B" Name="_validate_pyproject">
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_FABBB5DC14174014BC8E3E8ECC836197" Name="extern">
+									</Directory>
+									<Directory Id="Dir_549C716A120C4C04B1FBA27571C6F59C" Name="_distutils">
+										<Directory Id="Dir_D854FB5BA5B04D6D8BD432987763CDCB" Name="command">
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_F2BED566E0E548F38D0189B96BC29E49" Name="_vendor">
+										<Directory Id="Dir_F08D50B24F4842DFB3C33BD300049045" Name="importlib_metadata">
+										</Directory>
+										<Directory Id="Dir_319278FC9CF34ADD95596BD5A01082A3" Name="importlib_resources">
+										</Directory>
+										<Directory Id="Dir_BFE4A74A72D747B39E9F435497683067" Name="jaraco">
+											<Directory Id="Dir_EEC024685E2140C79A6DADFCE02E36EF" Name="text">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_62B6E32BBEE542819ED26E2CA00F0BF4" Name="more_itertools">
+										</Directory>
+										<Directory Id="Dir_A3B5CB6DFD054AB6991008A07B56AA28" Name="packaging">
+										</Directory>
+										<Directory Id="Dir_A37640BD24EB4FB3807DD2796FD587C1" Name="pyparsing">
+											<Directory Id="Dir_C4B9A5CAAF6F4DE1AD2341262C1D1923" Name="diagram">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_69CDEAD661A1478CA18293CDDDAE1F16" Name="tomli">
+										</Directory>
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_69B8108710464090903F4085AC2E0366" Name="setuptools-65.5.0.dist-info">
+								</Directory>
+								<Directory Id="Dir_A8D1E4833BF3437AAD406D3F1BC9177A" Name="_distutils_hack">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_692B03C5D9EF4D40A4ADEC667C862025" Name="sqlite3">
+							</Directory>
+							<Directory Id="Dir_7B7B25EAFBC9420884FF6965AE30D7A2" Name="test">
+								<Directory Id="Dir_6FA963BC5AAC4437B09C632AD9E547E4" Name="audiodata">
+								</Directory>
+								<Directory Id="Dir_9680E3B5CD1D4D5B97765D927CCBF859" Name="capath">
+								</Directory>
+								<Directory Id="Dir_61D81D36D43C442BA839B7C2EDD3D03F" Name="cjkencodings">
+								</Directory>
+								<Directory Id="Dir_6764DFC48EB544D6BE0D785BD16C0CFB" Name="crashers">
+								</Directory>
+								<Directory Id="Dir_A8BC13DDC23547FC84105030BE4473B2" Name="data">
+								</Directory>
+								<Directory Id="Dir_1A50DEEC7CC74FD38505EE2183D6B5E8" Name="decimaltestdata">
+								</Directory>
+								<Directory Id="Dir_03B0B62AD0E3456494777968FD689FD9" Name="dtracedata">
+								</Directory>
+								<Directory Id="Dir_CB29496EA7084BBE93819B8AA66033D3" Name="encoded_modules">
+								</Directory>
+								<Directory Id="Dir_81E825600FE3474FB46867048E33A2BD" Name="imghdrdata">
+								</Directory>
+								<Directory Id="Dir_E2FB01A4A50B44939A588B5415C5B4A5" Name="leakers">
+								</Directory>
+								<Directory Id="Dir_EE56C214215E4474A5341A05C1AB622A" Name="libregrtest">
+								</Directory>
+								<Directory Id="Dir_60C575B8D26742B7B0D4B84F6DCCD566" Name="sndhdrdata">
+								</Directory>
+								<Directory Id="Dir_08EC75D6607C49D2B86BA3A394B7D99C" Name="subprocessdata">
+								</Directory>
+								<Directory Id="Dir_0799D62A45D64F578937D4F84C012BF7" Name="support">
+								</Directory>
+								<Directory Id="Dir_FD62D676344B4C35A7BE7216740E7751" Name="test_asyncio">
+								</Directory>
+								<Directory Id="Dir_1E0BAF6E75EE4DA6B1240924F7B4D305" Name="test_capi">
+								</Directory>
+								<Directory Id="Dir_2F3DDC1D6F7B4D8F9B37D14C4990EC6B" Name="test_cppext">
+								</Directory>
+								<Directory Id="Dir_39C378A520DB48AC8CC7366BF58F700B" Name="test_email">
+									<Directory Id="Dir_FD8777CE97964105B445FAB4A8C521F4" Name="data">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_D2A9E36E0AA14F728B861C23EFE2B4D7" Name="test_import">
+									<Directory Id="Dir_DB70504538644497B6101407DE9EF29B" Name="data">
+										<Directory Id="Dir_08BB3C03409B41B99A2EA74C86D5F5D7" Name="circular_imports">
+											<Directory Id="Dir_7B61396CAD8749CFB72E57AB2E34BD7C" Name="subpkg">
+											</Directory>
+											<Directory Id="Dir_300D2D6D9A9B4D58AD95AA5647C93D29" Name="subpkg2">
+												<Directory Id="Dir_16F04503E2CD432BB91041E673FFCA2B" Name="parent">
+												</Directory>
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_9F7F9060D7D64C61A5FCC4665367E582" Name="package">
+										</Directory>
+										<Directory Id="Dir_48903AA4BDDA4550A099353AC8E80D24" Name="package2">
+										</Directory>
+										<Directory Id="Dir_BEA8F9F115D349D092FAFC0DFDA489EA" Name="unwritable">
+										</Directory>
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_A2EE68D8182C4DAEB2C83B4C6BCAF9A6" Name="test_importlib">
+									<Directory Id="Dir_47CD6A27C81140358E0C120287B292B8" Name="builtin">
+									</Directory>
+									<Directory Id="Dir_124CD11C0B03478BBD70E8EB9E0DA8C6" Name="data">
+									</Directory>
+									<Directory Id="Dir_6706368F37C44790BF43043C79F57425" Name="data01">
+										<Directory Id="Dir_641CD425872F42F9ABBF22B323DA0FAE" Name="subdirectory">
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_B84F59CF8F4346C4B9B769D397B2A73A" Name="data02">
+										<Directory Id="Dir_539C56042D88497C8920D6D44241B657" Name="one">
+										</Directory>
+										<Directory Id="Dir_677C7E8B6DF14F5E8CAED1162525F1B4" Name="two">
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_B51C931BA0D84F42B660FAB48A068CBC" Name="data03">
+										<Directory Id="Dir_7710251FDB9E43A9A950EA9C2D4A782C" Name="namespace">
+											<Directory Id="Dir_DF0B653DBBAA40EABF51D98BE0296085" Name="portion1">
+											</Directory>
+											<Directory Id="Dir_B9F453BB4F064723A131811766A7B8B9" Name="portion2">
+											</Directory>
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_724CA31955564E23AF0709B0BE00A6EC" Name="extension">
+									</Directory>
+									<Directory Id="Dir_B1079686A7F84C1ABA0AA5DED30D9F14" Name="frozen">
+									</Directory>
+									<Directory Id="Dir_D2344C1D8E4240ABB239E0A561E9C8C5" Name="import_">
+									</Directory>
+									<Directory Id="Dir_CB5EFEB0D54E4355A6F641B42AF004A1" Name="namespacedata01">
+									</Directory>
+									<Directory Id="Dir_0BA76012DB47463EA21548731B64860C" Name="namespace_pkgs">
+										<Directory Id="Dir_F75C9961C3F944CDB2B9D1D40CED368A" Name="both_portions">
+											<Directory Id="Dir_1131645BF6E642DA8758517B80A74D00" Name="foo">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_B6349BBD0C7E4DBC9ABF3A3856D59E25" Name="module_and_namespace_package">
+											<Directory Id="Dir_B9C9D1504F414C7C93332908D767A88E" Name="a_test">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_9E150379D050498B8E7225BC51DAFC21" Name="not_a_namespace_pkg">
+											<Directory Id="Dir_77629018329A400FB63F0723D6DAFD2D" Name="foo">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_E35816952114407BAF9182251F6A78DB" Name="portion1">
+											<Directory Id="Dir_BD58A009E24C428095A289654B9DC558" Name="foo">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_915C6EC7F8A842AAB45699B8AEAE20A2" Name="portion2">
+											<Directory Id="Dir_85494206B94D4DD4AE966629F931CD57" Name="foo">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_FEEAADE248EB4BA39FCFE293202FACFC" Name="project1">
+											<Directory Id="Dir_F2AB654413A94513A6A5EDB19B94644C" Name="parent">
+												<Directory Id="Dir_284ED06522D043EBAA06BD4580E80685" Name="child">
+												</Directory>
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_E1DD983D8E214C1D87EA47A84A052157" Name="project2">
+											<Directory Id="Dir_D4E5C43965D7450D808C137CAD7B7AE9" Name="parent">
+												<Directory Id="Dir_45189356B37144D88740FC8B82802CE4" Name="child">
+												</Directory>
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_03276F8F746C4A02A7098CF3A25CA9FA" Name="project3">
+											<Directory Id="Dir_CA9EDDBDC20C4B79813450A0074D8EBD" Name="parent">
+												<Directory Id="Dir_47BEA9CF080643F3B655B65B2BF76A0F" Name="child">
+												</Directory>
+											</Directory>
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_9C90371ECE0B4D56A738CB388249D5DC" Name="partial">
+									</Directory>
+									<Directory Id="Dir_5489B0F899954DD8AC0ACFDE4E70E7F2" Name="resources">
+									</Directory>
+									<Directory Id="Dir_398FA3B507134A94826A3D2F5A48D156" Name="source">
+									</Directory>
+									<Directory Id="Dir_82007002CC944249A513D1A493ACC5A7" Name="zipdata01">
+									</Directory>
+									<Directory Id="Dir_04574FB3D2524DC48F0F7D9735AF2675" Name="zipdata02">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_C238B2B1C00647E6A5FFC04D9539F3F2" Name="test_json">
+								</Directory>
+								<Directory Id="Dir_1E32C5682CC64D6C88460E22301B976B" Name="test_module">
+								</Directory>
+								<Directory Id="Dir_AF97A25F0EE74A4895B805A76395E337" Name="test_peg_generator">
+								</Directory>
+								<Directory Id="Dir_331883349FCF40E894FDD91769BDFD78" Name="test_sqlite3">
+								</Directory>
+								<Directory Id="Dir_C7943BA60F024BF1BA912C747BDCA640" Name="test_tomllib">
+									<Directory Id="Dir_0390E53600CB4FE4B9FAA62B7D6AB4A2" Name="data">
+										<Directory Id="Dir_6CACCFDE964A4D9DB373F8CC8075405B" Name="invalid">
+											<Directory Id="Dir_DADD28C26ACC428DB0BC7DFA0A9F5BDC" Name="array">
+											</Directory>
+											<Directory Id="Dir_1A1D9AA0B02F4230B1133109EFF9C78F" Name="array-of-tables">
+											</Directory>
+											<Directory Id="Dir_9B8312FFA9584B96B7C295AE69CCA223" Name="boolean">
+											</Directory>
+											<Directory Id="Dir_BDA9E16B594B4F4D84A6CCAD606F3DC6" Name="dates-and-times">
+											</Directory>
+											<Directory Id="Dir_8E2B5D54EEE0463EA364F2AECA550B65" Name="dotted-keys">
+											</Directory>
+											<Directory Id="Dir_196493A6C8794F1DB2209715EBCDE1B3" Name="inline-table">
+											</Directory>
+											<Directory Id="Dir_82CEE4165E9243F3836DE188D750685C" Name="keys-and-vals">
+											</Directory>
+											<Directory Id="Dir_21A14E29D8214B5EA25AF271F1355F2D" Name="literal-str">
+											</Directory>
+											<Directory Id="Dir_222ABA5974AA42588589676BBC5C615C" Name="multiline-basic-str">
+											</Directory>
+											<Directory Id="Dir_AF86D7775C474F9E80282FD36A5BCA6C" Name="multiline-literal-str">
+											</Directory>
+											<Directory Id="Dir_5684C5DF0C264CF6A399CB1058D9722C" Name="table">
+											</Directory>
+										</Directory>
+										<Directory Id="Dir_EE81175E0B2142E8ACD501DCA32F136F" Name="valid">
+											<Directory Id="Dir_4B8DE6DF3CF04A82A1D0F86C0D9A1AC3" Name="array">
+											</Directory>
+											<Directory Id="Dir_0801243AFC2346F4970FCF3D96964297" Name="dates-and-times">
+											</Directory>
+											<Directory Id="Dir_DF95C6481CAA4BC9B502E3E96D7CD020" Name="multiline-basic-str">
+											</Directory>
+										</Directory>
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_CD25C5BE96F84F3D9E558533ABE51692" Name="test_tools">
+								</Directory>
+								<Directory Id="Dir_B08D5F9A6019434586697509F416EE26" Name="test_warnings">
+									<Directory Id="Dir_90E334886D1D444F815B30C10867B1D6" Name="data">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_D4115523F2304DF29221B1450487B759" Name="test_zoneinfo">
+									<Directory Id="Dir_12FF86F31830402BBACE734CE75DC839" Name="data">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_62560CC6D8544207A2E8DD00CCF22A54" Name="tracedmodules">
+								</Directory>
+								<Directory Id="Dir_D9C0EB4D8C2242B3A1B2B95631A26F46" Name="typinganndata">
+								</Directory>
+								<Directory Id="Dir_EA6425D292CA40B8AA15F1D6700CAD97" Name="xmltestdata">
+									<Directory Id="Dir_4D13E822BC1045799159CA5D4DCA3FE3" Name="c14n-20">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_B101AFBAC3F54D478CB95DFE995E6CE6" Name="ziptestdata">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_A1AD143ED14245E1852C8F12DA54E019" Name="tkinter">
+								<Directory Id="Dir_787B5BBC6C96405480037A7D245704E1" Name="test">
+									<Directory Id="Dir_772C6CCFF7BB427EBF704791B835F983" Name="test_tkinter">
+									</Directory>
+									<Directory Id="Dir_B41CFC3434E24FD38DB53D86F1625978" Name="test_ttk">
+									</Directory>
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_E0BA04C663964A3BA0E39AFE481E5DA3" Name="tomllib">
+							</Directory>
+							<Directory Id="Dir_B8AF92C9072344FFB09C4B190E905C4D" Name="turtledemo">
+							</Directory>
+							<Directory Id="Dir_107283351EC34885941C817D1205CAB6" Name="unittest">
+								<Directory Id="Dir_1356FDDAB9864203A3DA1D1FB16C1B3B" Name="test">
+									<Directory Id="Dir_35F87778EAE84C44B9B6A9B7F47AEE54" Name="testmock">
+									</Directory>
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_FFD1963551C74C81AA5FBC9860EF1409" Name="urllib">
+							</Directory>
+							<Directory Id="Dir_7430ECBAAD2C41E0B95249C171528A6E" Name="venv">
+								<Directory Id="Dir_4A4B54FE3DC949898CD2B24C8448567B" Name="scripts">
+									<Directory Id="Dir_5EB227A4E7944783B7655CC151D1E4E8" Name="common">
+									</Directory>
+									<Directory Id="Dir_E28372FF49D54351ABEBD26E771DB139" Name="nt">
+									</Directory>
+									<Directory Id="Dir_E52C1BFFB7D74246A0027C58DA695363" Name="posix">
+									</Directory>
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_B57000BE93D047DB909CC7D6C9A074EC" Name="wsgiref">
+							</Directory>
+							<Directory Id="Dir_76DC3C99BC1D4A7ABDE46ABB0D63B4EF" Name="xml">
+								<Directory Id="Dir_D0D205849F0A4B9E8624D709A8CD2A85" Name="dom">
+								</Directory>
+								<Directory Id="Dir_742EA41DEAD54E98A83065E765ABC583" Name="etree">
+								</Directory>
+								<Directory Id="Dir_4B15EE646AF9405BACE3A9A952791F7A" Name="parsers">
+								</Directory>
+								<Directory Id="Dir_2679CBAFAA6B41B882A3066A0C583C6E" Name="sax">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_F580469B76324118A87C93830745DFF7" Name="xmlrpc">
+							</Directory>
+							<Directory Id="Dir_3CFE493EFE104B0D852614622C5196B3" Name="zoneinfo">
+							</Directory>
+							<Directory Id="Dir_ED31E34F026445A18C16437068966976" Name="__phello__">
+								<Directory Id="Dir_06285839B2FB45DABAA3E470ACF4479A" Name="ham">
+								</Directory>
+							</Directory>
+						</Directory>
+						<Directory Id="Dir_1842DE1A9F8D4AF8BB62053D63E5FD0D" Name="libs">
+						</Directory>
+						<Directory Id="Dir_CCF899263ABA4F21AB45494C8861C58B" Name="Scripts">
+						</Directory>
+						<Directory Id="Dir_D76F94E75E1B45DA9D9A046DB280A2EA" Name="tcl">
+							<Directory Id="Dir_66754BAB6B114E7EADF30187B133AB17" Name="dde1.4">
+							</Directory>
+							<Directory Id="Dir_4F8FA2AB9A75494480D26121F09D6852" Name="nmake">
+							</Directory>
+							<Directory Id="Dir_3894ABD862F243DCB1EB338D56C71214" Name="reg1.3">
+							</Directory>
+							<Directory Id="Dir_C8573D9CDDC745AAB834650BE9C7D640" Name="tcl8">
+								<Directory Id="Dir_89C59D3C231B4535AAB2B5E2503658B1" Name="8.4">
+									<Directory Id="Dir_AD3525BF1E19475DBF0EE5EBE4BD0CC2" Name="platform">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_D295C5B04E93410094F3B866C5D063C2" Name="8.5">
+								</Directory>
+								<Directory Id="Dir_9873153B165149CF8106FA0FE28C86B7" Name="8.6">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_298547077A8A4E83B18D359795A4CED2" Name="tcl8.6">
+								<Directory Id="Dir_CF900CD2EDD24A389F00CC46639611C3" Name="encoding">
+								</Directory>
+								<Directory Id="Dir_0CAAAFCA98D84AD0958D2061DE57FBA0" Name="http1.0">
+								</Directory>
+								<Directory Id="Dir_E5DDF73CE5C647D8B8393517179F071C" Name="msgs">
+								</Directory>
+								<Directory Id="Dir_A6F1091D81C74B748BDEEBEB68097FFE" Name="opt0.4">
+								</Directory>
+								<Directory Id="Dir_724CFE2565C245EB9734D5ED96F52051" Name="tzdata">
+									<Directory Id="Dir_32E87B1EDD3B413F8E9C180DF21DFCDE" Name="Africa">
+									</Directory>
+									<Directory Id="Dir_5E0B647076AC4121BC94C4A2ADE13067" Name="America">
+										<Directory Id="Dir_932D93DEE0A144D8AF5046A9C02E749B" Name="Argentina">
+										</Directory>
+										<Directory Id="Dir_B1EED24C774F40298CC080F706822D5B" Name="Indiana">
+										</Directory>
+										<Directory Id="Dir_C77905429B374B30B5A84B941304A2DD" Name="Kentucky">
+										</Directory>
+										<Directory Id="Dir_03A41C4F00A1406B81F10D04DE7401C4" Name="North_Dakota">
+										</Directory>
+									</Directory>
+									<Directory Id="Dir_CB41EFBF60FE4692B7C260F5C2B7EF71" Name="Antarctica">
+									</Directory>
+									<Directory Id="Dir_74D244E5CBBF47BD8274C0612755C741" Name="Arctic">
+									</Directory>
+									<Directory Id="Dir_88191F41FD584E55BF8161F170DD9F1A" Name="Asia">
+									</Directory>
+									<Directory Id="Dir_3AE283159C13470BA0081A99A9B6D24A" Name="Atlantic">
+									</Directory>
+									<Directory Id="Dir_5BE1727F7F894F249A987520788F593B" Name="Australia">
+									</Directory>
+									<Directory Id="Dir_91396F867A954E3596E3798115E7D12C" Name="Brazil">
+									</Directory>
+									<Directory Id="Dir_ACE0A6DEFD854B5784853459FEB693CE" Name="Canada">
+									</Directory>
+									<Directory Id="Dir_EF60B94CB2544D58A71F82F7DD80FE8E" Name="Chile">
+									</Directory>
+									<Directory Id="Dir_4F464964B9324E799CF04505EA75EE22" Name="Etc">
+									</Directory>
+									<Directory Id="Dir_63A62B0960B843B98146D3E8ABAC8F19" Name="Europe">
+									</Directory>
+									<Directory Id="Dir_82848B322AB04882BFBFA6344950B02B" Name="Indian">
+									</Directory>
+									<Directory Id="Dir_6CF17AA0AEFA4470A0BE09FFA47A55F6" Name="Mexico">
+									</Directory>
+									<Directory Id="Dir_1AAEACFE5264463A93AF23D14C3DA6A5" Name="Pacific">
+									</Directory>
+									<Directory Id="Dir_FF7DABC6A70842FE89CAC36CC2B5EC57" Name="SystemV">
+									</Directory>
+									<Directory Id="Dir_DC91CC58DE5F47EF8B9B01CAE68CED92" Name="US">
+									</Directory>
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_F138E897522749889618CBA990C67F98" Name="tix8.4.3">
+								<Directory Id="Dir_A594383647144CD4AAB2E23B9747786F" Name="bitmaps">
+								</Directory>
+								<Directory Id="Dir_DE3E5A384D8746A5B530F5316BFFFAD0" Name="demos">
+									<Directory Id="Dir_0678E00C34E94CDC80F84FAB37816FBF" Name="bitmaps">
+									</Directory>
+									<Directory Id="Dir_AFA2C8E1074B4D719F5A3197ECBCF834" Name="samples">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_15477E4FDA8B4D508F796B8F1BE40495" Name="pref">
+								</Directory>
+							</Directory>
+							<Directory Id="Dir_4372D38BA10E46439F3B7104AFDDF8AF" Name="tk8.6">
+								<Directory Id="Dir_3EF56B1309764D319AFAEEDF10681841" Name="demos">
+									<Directory Id="Dir_1FA4AE1E77B348C8AC9EB67EAF600E3D" Name="images">
+									</Directory>
+								</Directory>
+								<Directory Id="Dir_D14C7272429444168DF0F73BA0420DD6" Name="images">
+								</Directory>
+								<Directory Id="Dir_E51ABAFEE1E446BFA7BA1360D41279D7" Name="msgs">
+								</Directory>
+								<Directory Id="Dir_089CF5AE22D34EEBB88F0931EEE56C9B" Name="ttk">
+								</Directory>
+							</Directory>
+						</Directory>
+						<Directory Id="Dir_294310352CB14EC4B786A1E9906C84C2" Name="Tools">
+							<Directory Id="Dir_396ED844378A4D5BA7AB92429FE7AECC" Name="demo">
+							</Directory>
+							<Directory Id="Dir_0A600B8817204A74B670E1A690E0F934" Name="i18n">
+							</Directory>
+							<Directory Id="Dir_C48C8DD2BF3E4F4AAB9CA9FA14A1989B" Name="scripts">
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</StandardDirectory>
+		<!-- Define an icon for the application -->
+		<Icon Id="MyApp.ico" SourceFile="C:\Users\denis\source\repos\Adjustrix\Logo3.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="MyApp.ico"/>
+
+	</Package>
+
+	<Fragment>
+		<CustomAction />
+	</Fragment>
+</Wix>

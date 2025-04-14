@@ -1,5 +1,7 @@
 ﻿using AdjustrixBase.Adjustment.Base;
 using AdjustrixBase.DataModels;
+//using AdjustrixBase.Mathematics.LinearAlgebra;
+using AdjustrixBase.Mathematics.Operations;
 using AdjustrixBase.NetworkAnalysis;
 using MathNet.Numerics.LinearAlgebra;
 
@@ -8,9 +10,9 @@ namespace AdjustrixBase.Adjustment.Leveling
 {
     public class LevelingAdjustment : Adjustment<HeightDelta, AdjustedBenchmark>
     {
-        private const int decimalPrecision = 12;
+        private const int doublePrecision = 12;
 
-        protected override int RequiredDecimalPrecision { get { return decimalPrecision; } }
+        protected override int RequireddoublePrecision { get { return doublePrecision; } }
 
         public LevelingAdjustment(List<List<PointBase>> distinctTraverses, List<HeightDelta> measurements)
             : base(distinctTraverses, measurements)
@@ -125,8 +127,7 @@ namespace AdjustrixBase.Adjustment.Leveling
                 }
             }
 
-            Matrix<double> KH = (fi.Multiply(Qv).Multiply(fi.Transpose())) *
-                (perUnitVariance * perUnitVariance);
+            Matrix<double> KH = fi.Multiply(Qv).Multiply(fi.Transpose()) * (perUnitVariance * perUnitVariance);
 
             int counter = 0;
             foreach (AdjustedBenchmark adjustedBenchmark in adjustedPoints)
@@ -152,8 +153,8 @@ namespace AdjustrixBase.Adjustment.Leveling
             foreach (HeightDelta meas in Measurements)
             {
                 int correspondingIndex = GetMeasurementIndex(meas);
-                double adjustedValue = meas.Value + corrections[correspondingIndex];
-                adjustedMeasurements.Add(new HeightDelta(meas.FromPoint, meas.ToPoint, adjustedValue, meas.Length));
+                double adjustedValue = (double)meas.Value + corrections[correspondingIndex];
+                adjustedMeasurements.Add(new HeightDelta(meas.FromPoint, meas.ToPoint, (double)adjustedValue, meas.Length));
             }
             return adjustedMeasurements;
         }
@@ -169,12 +170,7 @@ namespace AdjustrixBase.Adjustment.Leveling
 
         private static double CalculateClosedTraverseResidual(List<HeightDelta> trav)
         {
-            double currResidual = 0;
-            foreach (HeightDelta measurement in trav)
-            {
-                currResidual += measurement.Value;
-            }
-            return currResidual;
+            return (double)trav.Sum(x => x.Value);
         }
 
         private static int GetMeasurementConfigurationIndex(HeightDelta meas)
@@ -191,8 +187,8 @@ namespace AdjustrixBase.Adjustment.Leveling
             (PointBase startP, PointBase toP) = GetTravStartEndPoint(trav);
             KnownBenchmark startPoint = (KnownBenchmark)startP;
             KnownBenchmark toPoint = (KnownBenchmark)toP;
-            double currResidual = trav.Sum(meas => meas.Value);
-            double betweenPointsValue = toPoint.Value - startPoint.Value;
+            double currResidual = (double)trav.Sum(meas => meas.Value);
+            double betweenPointsValue = (double)(toPoint.Value - startPoint.Value);
             double result = currResidual - betweenPointsValue;
             return result;
         }

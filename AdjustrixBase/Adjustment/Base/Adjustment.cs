@@ -1,5 +1,7 @@
 ﻿using AdjustrixBase.DataModels;
 using AdjustrixBase.Extensions;
+//using AdjustrixBase.Mathematics.LinearAlgebra;
+using AdjustrixBase.Mathematics.Operations;
 using AdjustrixBase.NetworkAnalysis;
 using MathNet.Numerics.LinearAlgebra;
 
@@ -17,7 +19,7 @@ namespace AdjustrixBase.Adjustment.Base
         public readonly List<List<TMeasurement>> AssignedApproxMeasurements = new();
         private readonly Dictionary<int, TMeasurement> MeasurementIndices = new();
         private readonly int Redundancy;
-        protected abstract int RequiredDecimalPrecision { get; }
+        protected abstract int RequireddoublePrecision { get; }
 
         public Adjustment(List<List<PointBase>> distinctTraverses, List<TMeasurement> measurements)
         {
@@ -35,8 +37,11 @@ namespace AdjustrixBase.Adjustment.Base
             Matrix<double> configurationMatrix = CreateConfigurationMatrix();
             Matrix<double> reversedWeights = CreateReversedWeightMatrix();
             Matrix<double> normalMatrix = CalculateNormalMatrix(configurationMatrix, reversedWeights);
+            //normalMatrix.SaveToFile(@"C:\Users\denis\Desktop\matrix_normal.txt");
 
             Matrix<double> inversedNormal = InverseMatrix(normalMatrix);
+            //inversedNormal.PrintMatrix();
+            //inversedNormal.SaveToFile(@"C:\Users\denis\Desktop\matrix.txt");
 
             Vector<double> initialResiduals = CalculateResidualsVector(AssignedApproxMeasurements);
             Vector<double> kVector = CalculateK(inversedNormal, initialResiduals);
@@ -290,7 +295,7 @@ namespace AdjustrixBase.Adjustment.Base
         {
             foreach (double currValue in adjustedResiduals)
             {
-                if (Math.Round(currValue, RequiredDecimalPrecision) > 0)
+                if (Math.Round(currValue, RequireddoublePrecision) > 0)
                 {
                     throw new IncorrectAdjustmentResultException("An adjusted correction exceeds the allowed threshold!");
                 }

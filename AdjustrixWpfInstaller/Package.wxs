@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
-	 xmlns:hbt="http://www.firegiant.com/schemas/v4/wxs/heatwave/buildtools"
 	 xmlns:netfx="http://wixtoolset.org/schemas/v4/wxs/netfx">
 
 	<Package Manufacturer="Denis Ivanov"
@@ -16382,21 +16381,4 @@
 		<Property Id="ARPPRODUCTICON" Value="MyApp.ico"/>
 
 	</Package>
-
-	<Fragment>
-		<Property Id="Checkdotnet"/>
-		<netfx:DotNetCompatibilityCheck Id="Runtime"
-										RuntimeType="desktop"
-										Platform="x64"
-										Version="8.0.0"
-										Property="Checkdotnet"/>
-		<PackageGroup Id="MyPackage">
-			<ExePackage
-				DetectCondition="Checkdotnet"
-				UninstallArguments="Checkdotnet"
-				SourceFile="[sources]\packages\shared\windowsdesktop-runtime-3.1.10-win-x86.exe"
-				DownloadUrl="https://download.visualstudio.microsoft.com/download/pr/f1e7ffc8-c278-4339-b460-517420724524/f36bb75b2e86a52338c4d3a90f8dac9b/windowsdesktop-runtime-8.0.12-win-x64.exe"
-				InstallCondition="x64 = 1 AND OSVersion >= v5.0.5121.0 AND DotNetCompatibilityCheckResult = 0" />
-		</PackageGroup>
-	</Fragment>
 </Wix>

@@ -3,4 +3,7 @@
     <PackageReference Include="WixToolset.Heat" Version="5.0.2" />
     <PackageReference Include="WixToolset.Netfx.wixext" Version="5.0.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Experimenting\Experimenting.csproj" />
+  </ItemGroup>
 </Project>
