@@ -1,6 +1,9 @@
 # Adjustrix
 An application for conditional least squares adjustment of geodetic networks
 
+This is how the UI looks when a project with loaded data is opened:
+![alt text](https://github.com/Denis-Ivanov-01/AdjustrixPublic/blob/main/UI_image_1.png?raw=true)
+
 Acknoledgements
 
 
